@@ -19,33 +19,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/ic_logo" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSelectTodd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/ic_select_toddler" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSelectBB"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/ic_select_basketball" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgSelectVB"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/ic_select_volleyball" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgSelectQB"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:background="@drawable/ic_select_qb" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgSelectVB"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_select_volleyball" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </RelativeLayout>

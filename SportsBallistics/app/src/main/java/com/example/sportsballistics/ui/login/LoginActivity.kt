@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui
+package com.example.sportsballistics.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

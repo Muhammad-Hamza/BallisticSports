@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ic_toddler_login_bg">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/ic_toddler_inner_logo" />
+
+        <TextView
+            android:id="@+id/txtLogin"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:text="YOUR ACCOUNT FOR EVERYTHING"
+            android:textSize="@dimen/_12sdp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="#000000"
+            android:gravity="center"
+             />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etEmail"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textEmailAddress"
+            android:nextFocusDown="@id/etPassword"
+            android:paddingStart="1dp"
+            android:text="hamza1@gmail.com"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/_10sdp" />
+
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etPassword"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:inputType="textPassword"
+            android:paddingStart="1dp"
+            android:text="qwerty"
+            android:textSize="@dimen/_10sdp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtForgotPass"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Forgot your password"
+            android:textSize="@dimen/_7sdp"
+            android:layout_gravity="end"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="By loggin in, you agree to sports Ballistics privacy policy and terms of use"
+            android:textSize="@dimen/_7sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Login"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_10sdp" />
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
