@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">SportsBallistics</string>
+    <string name="txtWelcomeSuperAdmin">Welcome Super Admin</string>
+    <string name="txtSADashboard">Dashboard Super Admin</string>
+    <string name="txtQuickAccess">Quick Access</string>
+    <string name="txt_network_error">Make sure your device is connected to the internet</string>
+    <string name="txt_network">No Internet Connection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="err_first_name">Please enter your Name</string>
+    <string name="err_insert_pass">Please enter your password</string>
+    <string name="err_pass_length">Please enter minimum 6 character Password</string>
+    <string name="err_insert_number">Please insert number</string>
+    <string name="errInsertDate">Please select order delivery date</string>
+    <string name="errInsertTime">Please select order deliver time</string>
+    <string name="errInsertAddress">Please insert address</string>
+    <string name="err_email">Please enter your email</string>
+    <string name="err_email_incorrect">Please enter valid email address</string>
 </resources>

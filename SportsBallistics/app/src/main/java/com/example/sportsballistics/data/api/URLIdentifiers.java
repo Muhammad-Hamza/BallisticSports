@@ -5,7 +5,7 @@ public class URLIdentifiers {
     public static final String GET_ALL_ITEMS = "getallitems";
     public static final String GET_ALL_SAVED_ITEMS = "getallsavedorders";
 
-    public static final String LOGIN = "authenticate";
+    public static final String LOGIN = "MobileLogin";
     public static final String CITY = "cities";
     public static final String USER_SIGNUP = "usersignup";
     public static final String GET_CATEGORIES = "categories";

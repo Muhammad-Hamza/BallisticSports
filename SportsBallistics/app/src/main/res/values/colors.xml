@@ -8,8 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="rippelColor">#FFFFFF</color>
-    <color name="actionBarColor">#E5F5F2</color>
-    <color name="actionBarTextColor">#129793</color>
+    <color name="actionBarColor">#521A71</color>
+    <color name="actionBarTextColor">#521A71</color>
+    <color name="txtGrey">#E2E2E2</color>
 
     <color name="textColorPrimary">#212121</color>
     <color name="textColorSecondary">#757575</color>

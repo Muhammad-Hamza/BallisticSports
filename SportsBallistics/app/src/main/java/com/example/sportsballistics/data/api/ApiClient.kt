@@ -8,7 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    const val BASE_URL = "http://techwireme.com/zabeha/backend/api/"
+
+    const val BASE_URL = "https://appservice.basketballballistics.com/"
+
     private lateinit var retrofit: Retrofit
     lateinit var okHttpClient: OkHttpClient
     fun client(contxt: Context): Retrofit {
