@@ -98,6 +98,11 @@ public class URLIdentifiers {
     public static final String ENGLISH_LOCALE = "en";
     public static final int ARABIC = 0;
     public static final String ARABIC_LOCALE = "ar";
+    public static final String SUPER_ADMIN = "3";
+    public static final String TRAINER = "1";
+    public static final String ATHLETE = "2";
+    public static final String CLUB_ADMIN = "4";
+    public static final String USER_ROLE = "USER_ROLE";
 
     public static final String REMOVE_CART_ITEM = "removecartitem";
 

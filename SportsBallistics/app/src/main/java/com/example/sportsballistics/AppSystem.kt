@@ -1,9 +1,18 @@
 package com.example.sportsballistics
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import com.example.sportsballistics.data.remote.login.UserResponse
+import com.google.gson.Gson
 
-class AppSystem
+class AppSystem : Application()
 {
     val TAG = AppSystem::class.java.name
+    private var prefs: SharedPreferences? = null
+    private val USER = "user"
+    private val PREFERENCES_KEY = "com.example.sportsballistics"
+    private val IS_VERIFIED = "is_verified"
 
     companion object{
         /*
@@ -29,5 +38,33 @@ class AppSystem
 
             return sSoleInstance!!
         }
+    }
+
+    fun getUser(): UserResponse?
+    {
+        return Gson().fromJson(getPrefs()?.getString(USER, ""), UserResponse::class.java)
+    }
+
+    fun saveUser(user: UserResponse?)
+    {
+        getPrefs().edit().putString(USER, Gson().toJson(user)).apply()
+    }
+
+    private fun getPrefs(): SharedPreferences
+    {
+        if (prefs == null)
+        {
+            prefs = applicationContext.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
+        }
+        return prefs!!
+    }
+    fun saveVerificationStatus(isVerified: Boolean)
+    {
+        getPrefs().edit().putBoolean(IS_VERIFIED, isVerified).apply()
+    }
+
+    fun isVerified(): Boolean
+    {
+        return getPrefs().getBoolean(IS_VERIFIED, false)
     }
 }

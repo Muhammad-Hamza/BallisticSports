@@ -17,9 +17,9 @@
             android:layout_height="@dimen/_15sdp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/ic_nav_dashboard_super_admin_clubs1" />
+            android:background="@drawable/tab_athletes_selector" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtTabText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,6 +32,6 @@
             android:paddingTop="@dimen/_2sdp"
             android:text="Athletes"
             android:textColor="@drawable/nav_text_selector"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_8sdp" />
     </LinearLayout>
 </RelativeLayout>

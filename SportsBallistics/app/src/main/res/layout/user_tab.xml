@@ -17,7 +17,7 @@
             android:layout_height="@dimen/_15sdp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/ic_nav_dashboard_super_admin_clubs1" />
+            android:background="@drawable/tab_user_selector" />
 
         <TextView
             android:id="@+id/txtTabText"
@@ -32,7 +32,7 @@
             android:paddingTop="@dimen/_2sdp"
             android:text="Users"
             android:textColor="@drawable/nav_text_selector"
-            android:textSize="@dimen/_10sdp" />
+            android:textSize="@dimen/_8sdp" />
     </LinearLayout>
 
 

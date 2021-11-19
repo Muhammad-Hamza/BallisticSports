@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.LoginBinding
@@ -31,7 +33,7 @@ class LoginActivity : AppCompatActivity()
         }
     }
 
-    fun performLogin(){
+    private fun performLogin(){
         if (viewModel.validate(binding.etEmail.text.toString(), binding.etPassword.text.toString(),binding)) {
             viewModel.login(
                 applicationContext,
@@ -40,8 +42,8 @@ class LoginActivity : AppCompatActivity()
                 object : LoginViewModel.onSignInCompleteListener {
                     override fun onSignInComplete(userResponse: UserResponse) {
                         if (userResponse!= null) {
-//                                AppSystem.getInstance(applicationContext).saveVerificationStatus(true)
-//                                AppSystem.getInstance().saveUser(userResponse)
+                                AppSystem.getInstance().saveVerificationStatus(true)
+                                AppSystem.getInstance().saveUser(userResponse)
 //                                AppSystem.getInstance().cityList.addAll(userResponse.data.cities!!)
 //                                AppSystem.getInstance().bannerList.addAll(userResponse.data.banners!!)
 //                                AppSystem.getInstance().saveUserId(userResponse.data.id!!)
@@ -54,7 +56,9 @@ class LoginActivity : AppCompatActivity()
 //                                    finish()
 //                                    return
 //                                }
-                            launchActivity<DashboardActivity> { }
+                            launchActivity<DashboardActivity> {
+                                this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
+                            }
                             finish()
 
                         } else {
