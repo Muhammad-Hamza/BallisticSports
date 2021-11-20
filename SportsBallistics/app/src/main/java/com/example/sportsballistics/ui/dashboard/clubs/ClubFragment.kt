@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsballistics.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -57,4 +58,19 @@ class ClubFragment : Fragment()
             }
         }
     }
+
+    private fun initRecyclerView()
+    {
+        val mLayoutManager = LinearLayoutManager(context)
+        var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
+        {
+            override fun onClick(item: String)
+            {
+
+            }
+        })
+//        mRecyclerView!!.layoutManager = mLayoutManager
+//        mRecyclerView!!.adapter = mAdapter
+    }
+
 }
