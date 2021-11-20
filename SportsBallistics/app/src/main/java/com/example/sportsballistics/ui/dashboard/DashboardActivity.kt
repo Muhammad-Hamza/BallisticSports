@@ -46,16 +46,6 @@ class DashboardActivity : AppCompatActivity()
 
             override fun onTabUnselected(tab: TabLayout.Tab)
             {
-//                val txtTab = tab.customView!!.findViewById<TextView>(R.id.txtTabText)
-//                txtTab.setTextAppearance(applicationContext, R.style.txt11spMuseo500)
-//                if (tabPosition == RIDE_SHARING)
-//                {
-//                    TextUtility.setMetroXpressText(txtTab, applicationContext)
-//                }
-//                if (tab.position == SETTINGS)
-//                {
-//                    txtTab.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_settings, 0, 0)
-//                }
             }
 
             override fun onTabReselected(tab: TabLayout.Tab)
@@ -63,4 +53,5 @@ class DashboardActivity : AppCompatActivity()
             }
         })
     }
+
 }

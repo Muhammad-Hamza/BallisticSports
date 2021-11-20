@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity()
                 object : LoginViewModel.onSignInCompleteListener {
                     override fun onSignInComplete(userResponse: UserResponse) {
                         if (userResponse!= null) {
-                                AppSystem.getInstance().saveVerificationStatus(true)
-                                AppSystem.getInstance().saveUser(userResponse)
+//                                AppSystem.getInstance().saveVerificationStatus(true)
+//                                AppSystem.getInstance().saveUser(userResponse)
 //                                AppSystem.getInstance().cityList.addAll(userResponse.data.cities!!)
 //                                AppSystem.getInstance().bannerList.addAll(userResponse.data.banners!!)
 //                                AppSystem.getInstance().saveUserId(userResponse.data.id!!)

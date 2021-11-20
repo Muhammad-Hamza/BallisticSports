@@ -8,12 +8,18 @@ import com.google.gson.Gson
 
 class AppSystem : Application()
 {
+    private lateinit var context: Context
     val TAG = AppSystem::class.java.name
     private var prefs: SharedPreferences? = null
     private val USER = "user"
     private val PREFERENCES_KEY = "com.example.sportsballistics"
     private val IS_VERIFIED = "is_verified"
 
+    override fun onCreate()
+    {
+        super.onCreate()
+        context = applicationContext
+    }
     companion object{
         /*
         Volatile instance to make singleton
@@ -54,7 +60,7 @@ class AppSystem : Application()
     {
         if (prefs == null)
         {
-            prefs = applicationContext.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
+            prefs = context?.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
         }
         return prefs!!
     }
