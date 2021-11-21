@@ -1,6 +1,7 @@
 package com.example.sportsballistics.data.api;
 
 
+import com.example.sportsballistics.data.remote.club.ClubResponse;
 import com.example.sportsballistics.data.remote.login.UserResponse;
 
 import retrofit2.Call;
@@ -15,6 +16,18 @@ public interface ApiInterface {
     Call<UserResponse> login(
             @Field("email") String apiKey,
             @Field("password") String userID);
+
+
+
+    @POST(URLIdentifiers.GET_ALL_CLUBS)
+    @FormUrlEncoded
+    Call<ClubResponse> getClubList(
+            @Field("action") String action,
+            @Field("search_text") String searchText,
+            @Field("select_limit") int limit);
+
+
+
 
 
 }

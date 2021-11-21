@@ -6,9 +6,11 @@ public class URLIdentifiers {
     public static final String GET_ALL_SAVED_ITEMS = "getallsavedorders";
 
     public static final String LOGIN = "MobileLogin";
-    public static final String CITY = "cities";
-    public static final String USER_SIGNUP = "usersignup";
-    public static final String GET_CATEGORIES = "categories";
+    public static final String GET_ALL_CLUBS = "MobileAjax/content";
+    public static final String USER_CONTENT = "user_content";
+    public static final String CLUB_CONTENT = "club_content";
+    public static final String USER_SIGNUP = "club_content";
+    public static final String GET_ATEGORIES = "categories";
     public static final String ADD_FAV = "addfavorite";
     public static final String ADD_RATING = "Addrating";
     public static final String GET_ALL_FAV = "getallfavitems";
