@@ -15,7 +15,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="204dp"
             android:orientation="vertical"
@@ -28,10 +28,10 @@
                 android:id="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="start"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:background="@drawable/ic_toddler_inner_logo"
-                android:gravity="center" />
+                android:gravity="start" />
             <TextView
                 android:id="@+id/txtTotalTrainersText"
                 android:layout_width="wrap_content"
@@ -41,9 +41,11 @@
                 android:textSize="@dimen/_18sdp"
                 android:textColor="@color/actionBarColor" />
 
+            <include layout="@layout/club_list_item_header"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:id="@+id/recyclerView"
                 />

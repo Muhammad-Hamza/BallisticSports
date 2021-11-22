@@ -9,6 +9,7 @@ public class URLIdentifiers {
     public static final String GET_ALL_CLUBS = "MobileAjax/content";
     public static final String USER_CONTENT = "user_content";
     public static final String CLUB_CONTENT = "club_content";
+    public static final String ATHLETE_CONTENT = "athlete_content";
     public static final String USER_SIGNUP = "club_content";
     public static final String GET_ATEGORIES = "categories";
     public static final String ADD_FAV = "addfavorite";

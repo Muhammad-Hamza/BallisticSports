@@ -2,52 +2,74 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:paddingTop="@dimen/_10sdp"
-    >
-    <TextView
-        android:id="@+id/txtSerialNo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:text="S#."
-        android:layout_marginStart="@dimen/_20sdp"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/actionBarColor" />
-    <TextView
-        android:id="@+id/txtClubName"
-        android:layout_width="@dimen/_190sdp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:text="Club Name"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/_30sdp"
-        app:layout_constraintStart_toEndOf="@+id/txtSerialNo"
-        android:textColor="@color/actionBarColor" />
-
-    <TextView
-        android:id="@+id/txtAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_regular"
-        android:text="Action"
-        android:textColor="@color/actionBarColor"
-        android:textSize="@dimen/_12sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtClubName" />
-
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintTop_toBottomOf="@id/txtAction"
-        android:background="@color/txtGrey"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/txtSerialNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="1"
+            android:textColor="@color/actionBarColor"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txtClubName"
+            android:layout_width="@dimen/_190sdp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="Xavior Club"
+            android:textColor="@color/actionBarColor"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toEndOf="@+id/txtSerialNo"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgViewClub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_view_icon" />
+
+            <ImageView
+                android:id="@+id/imgEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_edit_icon" />
+
+            <ImageView
+                android:id="@+id/txtAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_delete_icon" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/txtGrey"
+            app:layout_constraintTop_toBottomOf="@id/llAction" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

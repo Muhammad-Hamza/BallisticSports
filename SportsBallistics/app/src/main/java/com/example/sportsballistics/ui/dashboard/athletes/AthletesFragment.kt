@@ -5,7 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.api.URLIdentifiers
+import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.remote.club.ClubResponse
+import com.example.sportsballistics.data.remote.club.UsersItem
+import com.example.sportsballistics.databinding.FragmentAthletesBinding
+import com.example.sportsballistics.databinding.FragmentClubBinding
+import com.example.sportsballistics.ui.dashboard.clubs.ClubListAdapter
+import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,42 +30,61 @@ private const val ARG_PARAM2 = "param2"
  */
 class AthletesFragment : Fragment()
 {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentAthletesBinding
+    private lateinit var viewModel: ClubListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_athletes, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_athletes, container, false);
+        binding.clubListLayout.txtTotalTrainersText.text = "Athlete"
+        initViewModel()
+        return binding.root
     }
 
-    companion object
+    private fun initRecyclerView()
     {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AthletesFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) = AthletesFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_PARAM1, param1)
-                putString(ARG_PARAM2, param2)
+        val mLayoutManager = LinearLayoutManager(context)
+        var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
+        {
+            override fun onClick(user: UsersItem)
+            {
+
             }
-        }
+        })
+        binding.clubListLayout.recyclerView.layoutManager = mLayoutManager
+        binding.clubListLayout.recyclerView.adapter = mAdapter
+    }
+
+    fun initViewModel()
+    {
+        viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
+        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener
+        {
+            override fun dismissDialog()
+            {
+            }
+
+            override fun addDialog()
+            {
+            }
+
+            override fun addErrorDialog()
+            {
+            }
+
+            override fun addErrorDialog(msg: String?)
+            {
+            }
+        })
+
+        viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
+                ClubListViewModel.ContentFetchListener
+        {
+            override fun onFetched(content: ClubResponse)
+            {
+//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                initRecyclerView()
+            }
+        })
     }
 }

@@ -34,17 +34,17 @@ class ClubListAdapter(val context: Context?, var users: List<UsersItem?>?, val m
 
     override fun getItemCount(): Int
     {
-        return users!!.size
+        return 10
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
     {
-        val viewHolder = holder as ClubListViewHolder
-        val user = users?.get(position)
-        if (user != null)
-        {
-            viewHolder.bindData(binding,user)
-        }
+//        val viewHolder = holder as ClubListViewHolder
+//        val user = users?.get(position)
+//        if (user != null)
+//        {
+//            viewHolder.bindData(binding,user)
+//        }
     }
 
     class ClubListViewHolder(binding: ClubListItemBinding) : RecyclerView.ViewHolder(binding.root)

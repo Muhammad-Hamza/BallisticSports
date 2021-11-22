@@ -46,7 +46,7 @@
                 android:layout_width="@dimen/_170sdp"
                 android:nextFocusDown="@id/etPassword"
                 android:paddingStart="1dp"
-                android:text="hamza1@gmail.com"
+                android:text="admin@admin.com"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/_10sdp" />
 
@@ -58,7 +58,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="@dimen/_170sdp"
                 android:paddingStart="1dp"
-                android:text="qwerty"
+                android:text="123456"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView

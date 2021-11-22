@@ -7,6 +7,7 @@ import com.example.sportsballistics.data.remote.login.UserResponse;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface ApiInterface {
@@ -17,14 +18,13 @@ public interface ApiInterface {
             @Field("email") String apiKey,
             @Field("password") String userID);
 
-
-
+    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST(URLIdentifiers.GET_ALL_CLUBS)
     @FormUrlEncoded
     Call<ClubResponse> getClubList(
-            @Field("action") String action,
-            @Field("search_text") String searchText,
-            @Field("select_limit") int limit);
+            @Field("select_limit") int limit,
+            @Field("action") String action);
+
 
 
 

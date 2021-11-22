@@ -30,10 +30,10 @@ class ClubFragment : Fragment()
 
 
 
-    private fun initRecyclerView(users:MutableList<UsersItem>)
+    private fun initRecyclerView()
     {
         val mLayoutManager = LinearLayoutManager(context)
-        var mAdapter = ClubListAdapter(context, users, object : ClubListAdapter.OnItemClickListener
+        var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
         {
             override fun onClick(user: UsersItem)
             {
@@ -62,7 +62,8 @@ class ClubFragment : Fragment()
 
         viewModel.getContent(requireContext(),URLIdentifiers.CLUB_CONTENT,"" ,object : ClubListViewModel.ContentFetchListener {
             override fun onFetched(content: ClubResponse) {
-                initRecyclerView(content.content?.users as MutableList<UsersItem>)
+//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                initRecyclerView()
             }
         })
     }

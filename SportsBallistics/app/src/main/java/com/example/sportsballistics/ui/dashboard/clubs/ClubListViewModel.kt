@@ -35,7 +35,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getClubList(content,searchKey,10)
+        val call = apiService.getClubList(10,content)
         call.enqueue(object : Callback<ClubResponse>
         {
             override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>)
@@ -62,7 +62,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
 
             override fun onFailure(call: Call<ClubResponse>, t: Throwable)
             {
-                mErrorListener?.dismissDialog()
+                mErrorListener.dismissDialog()
                 if (t is NoConnectivityException)
                 {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
@@ -74,7 +74,6 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
             }
         })
     }
-
 
 
     interface ContentFetchListener
