@@ -15,6 +15,7 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_clubs1_selected.xml" value="0.22179487179487178" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_dashboard1.xml" value="0.22179487179487178" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_dashboard_selected.xml" value="0.22179487179487178" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_search.xml" value="0.202734375" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_total_trainers.xml" value="0.202734375" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_view_icon.xml" value="0.202734375" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/nav_text_selector.xml" value="0.22179487179487178" />
@@ -29,7 +30,7 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/athletes_tab.xml" value="0.28961424332344216" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/club_list_item.xml" value="0.190625" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/club_list_item_header.xml" value="0.264" />
-        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/club_list_layout.xml" value="0.20854700854700856" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/club_list_layout.xml" value="0.2" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/club_tab.xml" value="0.264" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/dashboard.xml" value="0.2" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_athletes.xml" value="0.190625" />

@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="204dp"
+            android:layout_marginTop="180dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.064"
@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:background="@drawable/ic_toddler_inner_logo"
                 android:gravity="start" />
             <TextView
@@ -38,13 +39,28 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Club List"
-                android:textSize="@dimen/_18sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:textSize="@dimen/_15sdp"
                 android:textColor="@color/actionBarColor" />
-
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_20sdp"
+                android:id="@+id/et_reason"
+                android:layout_below="@+id/txt_main"
+                android:gravity="top|start"
+                android:padding="@dimen/_4sdp"
+                android:hint="Search for Athlete"
+                android:paddingStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:textSize="@dimen/_8sdp"
+                android:drawableEnd="@drawable/ic_search"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:background="@drawable/edit_text_bg"/>
             <include layout="@layout/club_list_item_header"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_40sdp"
                 android:background="@color/white"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:id="@+id/recyclerView"
