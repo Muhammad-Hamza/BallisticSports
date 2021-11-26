@@ -29,6 +29,7 @@ class LoginActivity : AppCompatActivity()
         initViewModel()
 
         binding.btnLogin.setOnClickListener {
+            binding.btnLogin.startAnimation();
             performLogin()
         }
     }
@@ -56,6 +57,8 @@ class LoginActivity : AppCompatActivity()
 //                                    finish()
 //                                    return
 //                                }
+                            binding.btnLogin.revertAnimation();
+
                             launchActivity<DashboardActivity> {
                                 this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
                             }

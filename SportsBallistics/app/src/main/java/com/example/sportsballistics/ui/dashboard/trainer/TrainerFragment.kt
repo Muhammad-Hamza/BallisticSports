@@ -40,9 +40,19 @@ class TrainerFragment : Fragment()
         val mLayoutManager = LinearLayoutManager(context)
         var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
         {
-            override fun onClick(user: UsersItem)
+            override fun onEditClick(adapterType: Int, user: UsersItem)
             {
+                TODO("Not yet implemented")
+            }
 
+            override fun onViewClick(adapterType: Int, user: UsersItem)
+            {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDeleteClick(adapterType: Int, user: UsersItem)
+            {
+                TODO("Not yet implemented")
             }
         })
         binding.recyclerView.layoutManager = mLayoutManager

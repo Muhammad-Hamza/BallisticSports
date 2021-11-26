@@ -14,6 +14,8 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentClubBinding
+import com.example.sportsballistics.ui.dashboard.DashboardActivity
+import com.example.sportsballistics.utils.add
 
 class ClubFragment : Fragment()
 {
@@ -42,11 +44,19 @@ class ClubFragment : Fragment()
     private fun initRecyclerView()
     {
         val mLayoutManager = LinearLayoutManager(context)
-        var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
+        val mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener
         {
-            override fun onClick(user: UsersItem)
+            override fun onEditClick(adapterType: Int, user: UsersItem)
             {
+            }
 
+            override fun onViewClick(adapterType: Int, user: UsersItem)
+            {
+                (activity as DashboardActivity).add(CreateClubFragment(),R.id.flFragment)
+            }
+
+            override fun onDeleteClick(adapterType: Int, user: UsersItem)
+            {
             }
         })
         binding.clubListLayout.recyclerView.layoutManager = mLayoutManager
