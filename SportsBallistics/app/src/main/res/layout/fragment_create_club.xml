@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ic_toddler_bg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/clubListLayoutParent"
+            android:background="@drawable/ic_toddler_bg">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/backClubList"
+                app:srcCompat="@drawable/ic_back"
+                android:padding="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.064"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgLogo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:background="@drawable/ic_toddler_inner_logo"
+                        android:gravity="start" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:background="@drawable/edit_text_bg"
+                        android:text="Edit"
+                        android:textSize="@dimen/_9sdp"
+                        android:gravity="start" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txtTotalTrainersText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="View Club Profile"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:textColor="@color/actionBarColor" />
+                <TextView
+                    android:id="@+id/txtClubName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Club Name"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:textSize="@dimen/_9sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:textColor="@color/txtGrey" />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_22sdp"
+                    android:id="@+id/etClubName"
+                    android:layout_below="@+id/txt_main"
+                    android:gravity="top|start"
+                    android:padding="@dimen/_5sdp"
+                    android:hint="Enter Club Name"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:textSize="@dimen/_8sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:background="@drawable/edit_text_bg"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:weightSum="2">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.3"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Enter Email"
+                            android:fontFamily="@font/roboto_regular"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_22sdp"
+                            android:id="@+id/etEmail"
+                            android:layout_below="@+id/txt_main"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_4sdp"
+                            android:hint="Enter Club Name"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:textSize="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:background="@drawable/edit_text_bg"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.7"
+                        android:orientation="vertical">
+                        <TextView
+                        android:id="@+id/txtPass"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Password"
+                        android:fontFamily="@font/roboto_regular"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/txtGrey" />
+
+                        <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_22sdp"
+                        android:id="@+id/etPassword"
+                        android:layout_below="@+id/txt_main"
+                        android:gravity="top|start"
+                        android:padding="@dimen/_4sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:hint="Enter Club Name"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:textSize="@dimen/_8sdp"
+                        android:background="@drawable/edit_text_bg"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/txtAddress1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address 1"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/txtGrey" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_22sdp"
+                        android:id="@+id/etAddress1"
+                        android:layout_below="@+id/txt_main"
+                        android:gravity="top|start"
+                        android:padding="@dimen/_4sdp"
+                        android:hint="Enter First Address"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:textSize="@dimen/_8sdp"
+                        android:background="@drawable/edit_text_bg"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/txtAddress2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address 2"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textSize="@dimen/_9sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/txtGrey" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_22sdp"
+                        android:id="@+id/etAddress2"
+                        android:layout_below="@+id/txt_main"
+                        android:gravity="top|start"
+                        android:padding="@dimen/_5sdp"
+                        android:hint="Enter Second Address"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:textSize="@dimen/_8sdp"
+                        android:background="@drawable/edit_text_bg"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:weightSum="3">
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City"
+                            android:fontFamily="@font/roboto_regular"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey" />
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_22sdp"
+                            android:id="@+id/etCity"
+                            android:layout_below="@+id/txt_main"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_5sdp"
+                            android:hint="Enter City"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:textSize="@dimen/_8sdp"
+                            android:layout_marginStart="@dimen/_20sdp"
+                            android:background="@drawable/edit_text_bg"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtState"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="State"
+                            android:fontFamily="@font/roboto_regular"
+                            android:layout_marginStart="@dimen/_6sdp"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_22sdp"
+                            android:id="@+id/etState"
+                            android:layout_below="@+id/txt_main"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_5sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:hint="Enter State"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:textSize="@dimen/_8sdp"
+                            android:background="@drawable/edit_text_bg"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/txtZipCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Zipcode"
+                            android:fontFamily="@font/roboto_regular"
+                            android:textSize="@dimen/_9sdp"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey" />
+
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_22sdp"
+                            android:id="@+id/txt"
+                            android:layout_below="@+id/txt_main"
+                            android:gravity="top|start"
+                            android:padding="@dimen/_5sdp"
+                            android:hint="Enter State"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:textSize="@dimen/_8sdp"
+                            android:background="@drawable/edit_text_bg"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    </RelativeLayout>
+
+</layout>

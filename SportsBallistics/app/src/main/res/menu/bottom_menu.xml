@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/club"
+        android:title="Club"
+        android:icon="@drawable/tab_club_selector"/>
+    <item
+        android:id="@+id/trainer"
+        android:title="Trainers"
+        android:icon="@drawable/tab_bg_selector"/>
+    <item
+        android:id="@+id/athlete"
+        android:title="Athletes"
+        android:icon="@drawable/tab_athletes_selector"/>
+    <item
+        android:id="@+id/users"
+        android:title="Users"
+        android:icon="@drawable/tab_user_selector"/>
+    <item
+        android:id="@+id/account"
+        android:title="My Account"
+        android:icon="@drawable/tab_account_selector"/>
+</menu>

@@ -25,6 +25,15 @@ class ClubFragment : Fragment()
        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_club, container, false);
         initViewModel()
+
+        binding.rlClub.setOnClickListener{
+            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
+            binding.llDashboard.visibility = View.GONE
+        }
+        binding.clubListLayout.backClubList.setOnClickListener{
+            binding.clubListLayout.clubListLayoutParent.visibility = View.GONE
+            binding.llDashboard.visibility = View.VISIBLE
+        }
         return binding.root
     }
 

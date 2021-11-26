@@ -18,7 +18,7 @@
         <item name="android:windowBackground">@drawable/splash_bg</item>
     </style>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
 
         <item name="colorPrimary">@color/actionBarTextColor</item> <!-- Primary color -->
         <item name="colorPrimaryDark">@color/actionBarColor</item> <!-- status bar -->
