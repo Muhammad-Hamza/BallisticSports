@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,6 +16,7 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
@@ -28,6 +30,7 @@ class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
     private lateinit var viewModel: ClubListViewModel
     private lateinit var adapter: AthletesAdapter
+    private var currentModel: AthletesModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +74,24 @@ class AthletesFragment : Fragment() {
         )
         val strContent = getString(R.string.txt_atheleteNameStr).replace("{{name}}", "John Smith")
         binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(strContent))
+        loadMainUI()
         initRecyclerView()
+        binding.clubListLayout.tvDashboard.setOnClickListener {
+            if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
+                currentModel = null
+                loadMainUI()
+            }
+        }
+        binding.clubListLayout.tvNext.setOnClickListener {
+            if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
+                Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun loadMainUI() {
+        binding.clubListLayout.recyclerView.visibility = View.VISIBLE
+        binding.clubListLayout.rlCoach.visibility = View.GONE
     }
 
     private fun initRecyclerView() {
@@ -85,6 +105,11 @@ class AthletesFragment : Fragment() {
                 }
 
                 override fun onViewClick(adapterType: Int, anyData: Any) {
+                    if (anyData is AthletesModel) {
+                        if (anyData.id == 0) {
+                            loadCoachData(anyData)
+                        }
+                    }
                 }
 
                 override fun onDeleteClick(adapterType: Int, anyData: Any) {
@@ -92,6 +117,13 @@ class AthletesFragment : Fragment() {
 
             })
         binding.clubListLayout.recyclerView.adapter = adapter
+    }
+
+    private fun loadCoachData(model: AthletesModel) {
+        this.currentModel = model
+        binding.clubListLayout.recyclerView.visibility = View.GONE
+        binding.clubListLayout.txtDetailHeading.setText(model.heading)
+        binding.clubListLayout.rlCoach.visibility = View.VISIBLE
     }
 
     fun initViewModel() {
