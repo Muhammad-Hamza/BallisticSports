@@ -17,4 +17,10 @@
     <string name="errInsertAddress">Please insert address</string>
     <string name="err_email">Please enter your email</string>
     <string name="err_email_incorrect">Please enter valid email address</string>
+
+    <string name="txt_athletes_club_name"><![CDATA[ <b>Club Name: </b> {{clubName}}]]></string>
+    <string name="txt_athletes_trainer"><![CDATA[ <b>Trainer: </b> {{trainer}}]]></string>
+    <string name="txt_athletes_age"><![CDATA[ <b>Age: </b> {{age}}]]></string>
+    <string name="txt_athletes_grade"><![CDATA[ <b>Grade: </b> {{grade}}]]></string>
+    <string name="txt_atheleteNameStr"><![CDATA[<font color=\'#000000\'>{{name}}</font> <font color=\'#541E6C\'>Status Overview</font> ]]></string>
 </resources>

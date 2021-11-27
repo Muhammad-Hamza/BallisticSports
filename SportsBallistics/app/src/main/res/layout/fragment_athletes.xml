@@ -9,7 +9,7 @@
 
         <include
             android:id="@+id/clubListLayout"
-            layout="@layout/club_list_layout" />
+            layout="@layout/athletes_layout" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
