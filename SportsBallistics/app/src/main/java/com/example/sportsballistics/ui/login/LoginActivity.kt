@@ -15,13 +15,11 @@ import com.example.sportsballistics.databinding.LoginBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.utils.launchActivity
 
-class LoginActivity : AppCompatActivity()
-{
-    private lateinit var binding:LoginBinding
+class LoginActivity : AppCompatActivity() {
+    private lateinit var binding: LoginBinding
     lateinit var viewModel: LoginViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.login);
@@ -34,15 +32,21 @@ class LoginActivity : AppCompatActivity()
         }
     }
 
-    private fun performLogin(){
-        if (viewModel.validate(binding.etEmail.text.toString(), binding.etPassword.text.toString(),binding)) {
+    private fun performLogin() {
+        if (viewModel.validate(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString(),
+                binding
+            )
+        ) {
             viewModel.login(
                 applicationContext,
                 binding.etEmail.text.toString(),
                 binding.etPassword.text.toString(),
                 object : LoginViewModel.onSignInCompleteListener {
                     override fun onSignInComplete(userResponse: UserResponse) {
-                        if (userResponse!= null) {
+                        if (userResponse != null) {
+                            AppSystem.getInstance().setCurrentUser(userResponse)
 //                                AppSystem.getInstance().saveVerificationStatus(true)
 //                                AppSystem.getInstance().saveUser(userResponse)
 //                                AppSystem.getInstance().cityList.addAll(userResponse.data.cities!!)
@@ -60,7 +64,10 @@ class LoginActivity : AppCompatActivity()
                             binding.btnLogin.revertAnimation();
 
                             launchActivity<DashboardActivity> {
-                                this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
+                                this.putExtra(
+                                    URLIdentifiers.USER_ROLE,
+                                    userResponse.loggedIn?.roleId
+                                )
                             }
                             finish()
 
@@ -69,7 +76,7 @@ class LoginActivity : AppCompatActivity()
                                 applicationContext!!,
                                 userResponse.message,
                                 Toast.LENGTH_SHORT
-                                          ).show()
+                            ).show()
                         }
                     }
                 })

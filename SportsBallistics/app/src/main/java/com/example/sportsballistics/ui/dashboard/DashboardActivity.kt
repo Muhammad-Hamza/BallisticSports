@@ -2,49 +2,62 @@ package com.example.sportsballistics.ui.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.databinding.ActivityDashboardBinding
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.dashboard.clubs.ClubFragment
-import com.example.sportsballistics.ui.dashboard.clubs.ViewPagerAdapter
 import com.example.sportsballistics.ui.dashboard.my_account.AccountFragment
 import com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment
 import com.example.sportsballistics.ui.dashboard.users.UserFragment
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
+import com.example.sportsballistics.utils.AppConstant
 
-class DashboardActivity : AppCompatActivity()
-{
-    lateinit var binding : ActivityDashboardBinding
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+class DashboardActivity : AppCompatActivity() {
+    lateinit var binding: ActivityDashboardBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
 
         setCurrentFragment(ClubFragment())
 
+
+        if (AppSystem.getInstance().getCurrentUser() != null) {
+            when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+                AppConstant.ROLE_SUPER_PORTAL -> {
+                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
+                }
+                AppConstant.ROLE_ATHLETES_PORTAL -> {
+                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
+                }
+                AppConstant.ROLE_CLUB_PORTAL -> {
+                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
+                }
+                AppConstant.ROLE_TRAINER_PORTAL -> {
+                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
+                }
+            }
+        }
+
+
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when(it.itemId){
-                R.id.club->setCurrentFragment(ClubFragment())
-                R.id.trainer->setCurrentFragment(TrainerFragment())
-                R.id.athlete->setCurrentFragment(AthletesFragment())
-                R.id.users->setCurrentFragment(UserFragment())
-                R.id.account->setCurrentFragment(AccountFragment())
+            when (it.itemId) {
+                R.id.club -> setCurrentFragment(ClubFragment())
+                R.id.trainer -> setCurrentFragment(TrainerFragment())
+                R.id.athlete -> setCurrentFragment(AthletesFragment())
+                R.id.users -> setCurrentFragment(UserFragment())
+                R.id.account -> setCurrentFragment(AccountFragment())
 
             }
             true
         }
     }
-    private fun setCurrentFragment(fragment: Fragment)=
+
+    private fun setCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment)
+            replace(R.id.flFragment, fragment)
             commit()
         }
 }

@@ -6,8 +6,7 @@ import android.content.SharedPreferences
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.google.gson.Gson
 
-class AppSystem : Application()
-{
+class AppSystem : Application() {
     private lateinit var context: Context
     val TAG = AppSystem::class.java.name
     private var prefs: SharedPreferences? = null
@@ -15,12 +14,21 @@ class AppSystem : Application()
     private val PREFERENCES_KEY = "com.example.sportsballistics"
     private val IS_VERIFIED = "is_verified"
 
-    override fun onCreate()
-    {
+    private lateinit var currentUser: UserResponse
+    fun setCurrentUser(user: UserResponse) {
+        currentUser = user
+    }
+
+    fun getCurrentUser(): UserResponse {
+        return currentUser
+    }
+
+    override fun onCreate() {
         super.onCreate()
         context = applicationContext
     }
-    companion object{
+
+    companion object {
         /*
         Volatile instance to make singleton
         thread safe
@@ -46,31 +54,26 @@ class AppSystem : Application()
         }
     }
 
-    fun getUser(): UserResponse?
-    {
+    fun getUser(): UserResponse? {
         return Gson().fromJson(getPrefs()?.getString(USER, ""), UserResponse::class.java)
     }
 
-    fun saveUser(user: UserResponse?)
-    {
+    fun saveUser(user: UserResponse?) {
         getPrefs().edit().putString(USER, Gson().toJson(user)).apply()
     }
 
-    private fun getPrefs(): SharedPreferences
-    {
-        if (prefs == null)
-        {
+    private fun getPrefs(): SharedPreferences {
+        if (prefs == null) {
             prefs = context?.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
         }
         return prefs!!
     }
-    fun saveVerificationStatus(isVerified: Boolean)
-    {
+
+    fun saveVerificationStatus(isVerified: Boolean) {
         getPrefs().edit().putBoolean(IS_VERIFIED, isVerified).apply()
     }
 
-    fun isVerified(): Boolean
-    {
+    fun isVerified(): Boolean {
         return getPrefs().getBoolean(IS_VERIFIED, false)
     }
 }

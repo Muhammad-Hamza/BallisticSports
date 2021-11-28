@@ -11,10 +11,9 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <androidx.constraintlayout.widget.ConstraintLayout
-                xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".ui.dashboard.DashboardActivity">
@@ -33,13 +32,13 @@
                     android:id="@+id/bottomNavigationView"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
+                    android:textSize="@dimen/_8sdp"
                     app:labelVisibilityMode="labeled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    android:textSize="@dimen/_8sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:menu="@menu/bottom_menu"/>
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
