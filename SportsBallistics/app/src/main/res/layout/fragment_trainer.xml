@@ -75,6 +75,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:id="@+id/recyclerView"
                     />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
