@@ -10,15 +10,15 @@
         <include
             android:id="@+id/clubListLayout"
             layout="@layout/club_list_layout"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/llDashboard"
+            android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/_100sdp"
             android:orientation="vertical"
-            android:layout_centerInParent="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,8 +26,8 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_60sdp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_toddler_inner_logo"
@@ -50,7 +50,6 @@
                 android:layout_width="@dimen/_184sdp"
                 android:layout_height="2dp"
                 android:layout_gravity="center"
-
                 android:background="@color/txtGrey" />
 
             <TextView
@@ -78,6 +77,7 @@
                 android:textSize="@dimen/_12sdp" />
 
             <FrameLayout
+                android:id="@+id/flClub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_40sdp"
@@ -86,9 +86,9 @@
                 android:background="@color/txtGrey">
 
                 <RelativeLayout
+                    android:id="@+id/rlClub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rlClub"
                     android:layout_margin="@dimen/_1sdp"
                     android:background="@color/white"
                     android:orientation="horizontal">
@@ -97,6 +97,7 @@
                         android:id="@+id/imgTotalClubs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -148,13 +149,15 @@
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_3sdp"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:background="@color/actionBarColor" />
+                            android:background="@color/txt_color_orange" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
+
                 </RelativeLayout>
 
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/flTrainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_40sdp"
@@ -173,6 +176,7 @@
                         android:id="@+id/imgTotalTrainers"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
@@ -204,9 +208,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_medium"
-                            android:textSize="@dimen/_10sdp"
                             android:text="32"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                         <TextView
                             android:id="@+id/txtTotalTrainersText"
@@ -214,21 +218,22 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Total Trainers"
-                            android:textSize="@dimen/_9sdp"
-                            android:textColor="@color/actionBarColor" />
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
 
                         <View
                             android:id="@+id/txtTrainersView"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_3sdp"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:background="@color/actionBarColor" />
+                            android:background="@color/txt_color_green" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </RelativeLayout>
 
             </FrameLayout>
 
             <FrameLayout
+                android:id="@+id/flAtheles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_40sdp"
@@ -247,6 +252,7 @@
                         android:id="@+id/imgTotalAthletes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -281,28 +287,220 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_medium"
                             android:text="250"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
 
                         <TextView
                             android:id="@+id/txtTotalAthletesText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
-                            android:text="Total Clubs"
-                            android:textSize="@dimen/_9sdp"
-                            android:textColor="@color/actionBarColor" />
+                            android:text="Total Atheles"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
 
                         <View
                             android:id="@+id/txtAthletesView"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_3sdp"
                             android:layout_marginTop="@dimen/_3sdp"
-                            android:background="@color/actionBarColor" />
+                            android:background="@color/txt_color_red" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </RelativeLayout>
 
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/flNewAtheles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_40sdp"
+                android:background="@color/txtGrey">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_1sdp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/_3sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgNewTotalAthletes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:background="@drawable/ic_nav_dashboard_super_admin_atheles_selected"
+                        android:gravity="center_vertical" />
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="1dp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_toEndOf="@+id/imgNewTotalAthletes"
+                        android:background="@color/txtGrey" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@+id/view3"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtNewTotalAthletes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="250"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <TextView
+                            android:id="@+id/txtNewTotalAthletesText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_medium"
+                            android:text="Newly Created Athletes"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <View
+                            android:id="@+id/txtNewAthletesView"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="@dimen/_3sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:background="@color/txt_color_green" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/llProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:paddingRight="@dimen/_15sdp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_80sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:background="@drawable/ic_dash_profile"
+                        android:padding="@dimen/_3sdp">
+
+                        <com.makeramen.roundedimageview.RoundedImageView
+                            android:id="@+id/ivUserImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/ic_temp_avatar"
+                            app:riv_corner_radius="@dimen/_5sdp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_bold"
+                            android:maxLines="1"
+                            android:text="John Smith"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <TextView
+                            android:id="@+id/tvClub"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="Club Name: Club Name 1"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/tvTrainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="Trainer: Mike Thomas"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/tvAge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="Age: 25"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <TextView
+                            android:id="@+id/tvGrade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/roboto_regular"
+                            android:maxLines="1"
+                            android:text="Grade: 10"
+                            android:textColor="@color/actionBarColor"
+                            android:textSize="@dimen/_9sdp" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:background="@color/colorSeperator" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>

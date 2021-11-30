@@ -5,11 +5,11 @@
         android:icon="@drawable/tab_club_selector"
         android:title="Dashboard" />
     <item
-        android:id="@+id/trainer"
-        android:icon="@drawable/tab_bg_selector"
-        android:title="Trainers" />
-    <item
         android:id="@+id/athlete"
         android:icon="@drawable/tab_athletes_selector"
         android:title="Athletes" />
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/tab_account_selector"
+        android:title="My Account" />
 </menu>

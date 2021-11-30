@@ -43,15 +43,50 @@ class DashboardActivity : AppCompatActivity() {
 
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.club -> setCurrentFragment(ClubFragment())
-                R.id.trainer -> setCurrentFragment(TrainerFragment())
-                R.id.athlete -> setCurrentFragment(AthletesFragment())
-                R.id.users -> setCurrentFragment(UserFragment())
-                R.id.account -> setCurrentFragment(AccountFragment())
+            if (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId != null) {
+                when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+                    AppConstant.ROLE_SUPER_PORTAL -> {
+                        when (it.itemId) {//Working Fine
+                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.trainer -> setCurrentFragment(TrainerFragment())
+                            R.id.athlete -> setCurrentFragment(AthletesFragment())
+                            R.id.users -> setCurrentFragment(UserFragment())
+                            R.id.account -> setCurrentFragment(AccountFragment())
+                        }
+                        true
+                    }
+                    AppConstant.ROLE_ATHLETES_PORTAL -> { //Working Fine.
+                        when (it.itemId) {
+                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.trainer -> setCurrentFragment(TrainerFragment())
+                            R.id.athlete -> setCurrentFragment(AthletesFragment())
+                            R.id.users -> setCurrentFragment(UserFragment())
+                            R.id.account -> setCurrentFragment(AccountFragment())
+                        }
+                        true
+                    }
+                    AppConstant.ROLE_CLUB_PORTAL -> {//Working Fine
+                        when (it.itemId) {
+                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.trainer -> setCurrentFragment(TrainerFragment())
+                            R.id.athlete -> setCurrentFragment(AthletesFragment())
+                            R.id.users -> setCurrentFragment(UserFragment())
+                            R.id.account -> setCurrentFragment(AccountFragment())
+                        }
+                        true
+                    }
+                    AppConstant.ROLE_TRAINER_PORTAL -> {
+                        when (it.itemId) {
+                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.account -> setCurrentFragment(AccountFragment())
+                        }
+                        true
+                    }
 
+                }
             }
             true
+
         }
     }
 

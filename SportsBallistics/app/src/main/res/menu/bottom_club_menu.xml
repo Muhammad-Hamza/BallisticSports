@@ -16,4 +16,8 @@
         android:id="@+id/users"
         android:icon="@drawable/tab_user_selector"
         android:title="Users" />
+    <item
+        android:id="@+id/account"
+        android:icon="@drawable/tab_account_selector"
+        android:title="My Account" />
 </menu>
