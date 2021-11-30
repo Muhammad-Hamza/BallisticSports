@@ -88,11 +88,9 @@ class LoginActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
-                binding.pgBar.visibility = View.GONE
             }
 
             override fun addDialog() {
-                binding.pgBar.visibility = View.VISIBLE
             }
 
             override fun addErrorDialog() {
