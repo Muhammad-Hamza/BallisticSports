@@ -8,6 +8,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -27,7 +28,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_back" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAtheletes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/backClubList" />
+
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llMainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
