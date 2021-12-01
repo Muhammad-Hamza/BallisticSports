@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
+import com.example.sportsballistics.data.api.URLIdentifiers
+import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.local.LookupModel
+import com.example.sportsballistics.data.remote.club.ClubResponse
+import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
 import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
 import com.example.sportsballistics.utils.AppFunctions
@@ -48,6 +52,8 @@ class AthletesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.clubListLayout.rvAtheletes.visibility = View.VISIBLE
+        binding.clubListLayout.llMainLayout.visibility = View.GONE
         binding.clubListLayout.tvClub.setText(
             AppFunctions.getSpannableText(
                 getString(R.string.txt_athletes_club_name),
@@ -150,27 +156,40 @@ class AthletesFragment : Fragment() {
 
     fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
-//        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
-//            override fun dismissDialog() {
-//            }
+        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
+            override fun dismissDialog() {
+            }
+
+            override fun addDialog() {
+            }
+
+            override fun addErrorDialog() {
+            }
+
+            override fun addErrorDialog(msg: String?) {
+            }
+        })
 //
-//            override fun addDialog() {
-//            }
-//
-//            override fun addErrorDialog() {
-//            }
-//
-//            override fun addErrorDialog(msg: String?) {
-//            }
-//        })
-//
-//        viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
-//            ClubListViewModel.ContentFetchListener {
-//            override fun onFetched(content: ClubResponse) {
-////                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-//                initRecyclerView()
-//            }
-//        })
+        viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
+            ClubListViewModel.ContentFetchListener {
+            override fun onFetched(content: ClubResponse) {
+                initAtheletesRecyclerView(content.content?.users as MutableList<UsersItem>)
+            }
+        })
+    }
+
+    private fun initAtheletesRecyclerView(mutableList: MutableList<UsersItem>) {
+        //TODO:: HAmza bhai load listItem here.
+//        binding.clubListLayout.rvAtheletes
+//        this recyclerView is using for athelets lists
+//        -------------------------------------
+        //Disable other items.
+        binding.clubListLayout.llMainLayout.visibility = View.GONE
+//        -------------------------------------
+        //After click an item on a recyclerView their functionality.{
+        binding.clubListLayout.rvAtheletes.visibility = View.GONE
+        binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
+        //}
     }
 
     private fun loadCoachabilityChart() {
