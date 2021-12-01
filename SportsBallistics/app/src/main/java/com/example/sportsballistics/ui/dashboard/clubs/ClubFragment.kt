@@ -17,6 +17,7 @@ import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentClubBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
+import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.*
 
@@ -37,6 +38,13 @@ class ClubFragment : Fragment() {
         binding.rlClub.setOnClickListener {
             binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
             binding.llDashboard.visibility = View.GONE
+        }
+
+        binding.rlTotalAthletes.setOnClickListener{
+            (activity as DashboardActivity).add(AthletesFragment(),R.id.rlParent)
+        }
+        binding.llAthleteView.setOnClickListener{
+            (activity as DashboardActivity).add(AthletesFragment(),R.id.rlParent)
         }
         binding.clubListLayout.backClubList.setOnClickListener {
             binding.clubListLayout.clubListLayoutParent.visibility = View.GONE

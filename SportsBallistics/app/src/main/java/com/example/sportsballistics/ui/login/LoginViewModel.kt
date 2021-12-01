@@ -39,6 +39,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        Log.d(TAG,"===============LOGGING===============")
         var call = apiService.login(email, password)
 
         call?.enqueue(object : Callback<UserResponse>

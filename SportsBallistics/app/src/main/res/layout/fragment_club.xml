@@ -5,6 +5,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/rlParent"
         android:background="@drawable/ic_toddler_bg">
 
         <include
@@ -242,6 +243,7 @@
                 android:background="@color/txtGrey">
 
                 <RelativeLayout
+                    android:id="@+id/rlTotalAthletes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_1sdp"
@@ -404,6 +406,7 @@
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_5sdp"
+                    android:id="@+id/llAthleteView"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/_15sdp"
