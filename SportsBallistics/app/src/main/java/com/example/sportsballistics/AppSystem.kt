@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.google.gson.Gson
+import okhttp3.Cookie
 
 class AppSystem : Application() {
     private lateinit var context: Context
@@ -13,6 +14,7 @@ class AppSystem : Application() {
     private val USER = "user"
     private val PREFERENCES_KEY = "com.example.sportsballistics"
     private val IS_VERIFIED = "is_verified"
+     var cookies: List<Cookie> = arrayListOf()
 
     private lateinit var currentUser: UserResponse
     fun setCurrentUser(user: UserResponse) {

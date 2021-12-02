@@ -6,12 +6,10 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.api.ApiInterface
-import com.example.sportsballistics.data.api.URLIdentifiers.CLUB_CONTENT
-import com.example.sportsballistics.data.api.URLIdentifiers.USER_CONTENT
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
-import com.techwireme.baladizabeha.data.api.ApiClient
+import com.example.sportsballistics.data.api.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

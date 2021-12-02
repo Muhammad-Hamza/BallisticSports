@@ -35,9 +35,22 @@ class ClubFragment : Fragment() {
         );
         initViewModel()
         initViews()
+        binding.flTrainer.setOnClickListener{
+            viewModel.getContent(
+                requireContext(),
+                URLIdentifiers.CLUB_CONTENT,
+                "",
+                object : ClubListViewModel.ContentFetchListener {
+                    override fun onFetched(content: ClubResponse) {
+//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                        initRecyclerView()
+                    }
+                })
+        }
         binding.rlClub.setOnClickListener {
-            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
-            binding.llDashboard.visibility = View.GONE
+//            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
+//            binding.llDashboard.visibility = View.GONE
+
         }
 
         binding.rlTotalAthletes.setOnClickListener{
@@ -189,16 +202,5 @@ class ClubFragment : Fragment() {
             override fun addErrorDialog(msg: String?) {
             }
         })
-
-        viewModel.getContent(
-            requireContext(),
-            URLIdentifiers.CLUB_CONTENT,
-            "",
-            object : ClubListViewModel.ContentFetchListener {
-                override fun onFetched(content: ClubResponse) {
-//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-                    initRecyclerView()
-                }
-            })
     }
 }
