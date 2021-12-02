@@ -1,6 +1,7 @@
 package com.example.sportsballistics.ui.dashboard.clubs
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,11 +16,13 @@ import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.databinding.FragmentClubBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.*
+import com.google.gson.Gson
 
 class ClubFragment : Fragment() {
     lateinit var binding: FragmentClubBinding
@@ -36,21 +39,21 @@ class ClubFragment : Fragment() {
         initViewModel()
         initViews()
         binding.flTrainer.setOnClickListener{
+
+        }
+        binding.rlClub.setOnClickListener {
+            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
+            binding.llDashboard.visibility = View.GONE
+
             viewModel.getContent(
                 requireContext(),
                 URLIdentifiers.CLUB_CONTENT,
                 "",
                 object : ClubListViewModel.ContentFetchListener {
                     override fun onFetched(content: ClubResponse) {
-//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-                        initRecyclerView()
+                initRecyclerView(content.content?.users as MutableList<UsersItem>)
                     }
                 })
-        }
-        binding.rlClub.setOnClickListener {
-//            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
-//            binding.llDashboard.visibility = View.GONE
-
         }
 
         binding.rlTotalAthletes.setOnClickListener{
@@ -170,9 +173,10 @@ class ClubFragment : Fragment() {
     }
 
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView(list: MutableList<UsersItem>)
+    {
         val mLayoutManager = LinearLayoutManager(context)
-        val mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener {
+        val mAdapter = ClubListAdapter(context, list, object : ClubListAdapter.OnItemClickListener {
             override fun onEditClick(adapterType: Int, user: UsersItem) {
             }
 
@@ -187,7 +191,7 @@ class ClubFragment : Fragment() {
         binding.clubListLayout.recyclerView.adapter = mAdapter
     }
 
-    fun initViewModel() {
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
@@ -200,6 +204,14 @@ class ClubFragment : Fragment() {
             }
 
             override fun addErrorDialog(msg: String?) {
+            }
+        })
+
+        viewModel.getDashboard(requireContext(),object:ClubListViewModel.DashboardFetchListener{
+            override fun onFetched(content: DashboardResponse)
+            {
+                Log.d(ClubFragment::javaClass.name,Gson().toJson(content))
+                //TODO Asher bind this data to UI
             }
         })
     }

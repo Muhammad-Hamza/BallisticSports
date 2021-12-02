@@ -10,6 +10,7 @@ import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityE
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.api.ApiClient
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +20,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
 {
     private lateinit var mErrorListener: Listeners.DialogInteractionListener
     lateinit var categoryResponse: ClubResponse
+    lateinit var dashboardResponse: DashboardResponse
     fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener)
     {
         this.mErrorListener = mErrorListener
@@ -73,10 +75,58 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
+    fun getDashboard(context: Context,mListener: DashboardFetchListener)
+    {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.dashboard
+        call.enqueue(object : Callback<DashboardResponse>
+        {
+            override fun onResponse(call: Call<DashboardResponse>, response: Response<DashboardResponse>)
+            {
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try
+                {
+                    val responseBody = response.body()
+                    if (responseBody != null)
+                    {
+                        dashboardResponse = responseBody
+                        mListener.onFetched(responseBody)
+                    }
+                    else
+                    {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException)
+                {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardResponse>, t: Throwable)
+            {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException)
+                {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                }
+                else
+                {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+
 
     interface ContentFetchListener
     {
         fun onFetched(content: ClubResponse)
+    }
+    interface DashboardFetchListener
+    {
+        fun onFetched(content: DashboardResponse)
     }
 
 }

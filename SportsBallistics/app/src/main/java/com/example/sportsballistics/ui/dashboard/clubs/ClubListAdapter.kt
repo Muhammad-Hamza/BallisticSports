@@ -41,13 +41,13 @@ class ClubListAdapter(val context: Context?, var users: List<UsersItem?>?, val m
 
     override fun getItemCount(): Int
     {
-        return 10
+        return if(users != null) return users!!.size else 0
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
     {
         with(holder as ClubListViewHolder){
-//            users?.get(position)?.let { this.bindData(it) }
+            users?.get(position)?.let { this.bindData(it) }
             this.bindData(null)
         }
     }
@@ -55,8 +55,8 @@ class ClubListAdapter(val context: Context?, var users: List<UsersItem?>?, val m
     inner class ClubListViewHolder(binding: ClubListItemBinding) : RecyclerView.ViewHolder(binding.root)
     {
         fun bindData(user: UsersItem?){
-//            binding.txtClubName.text = user.name
-//            binding.txtSerialNo.text = user.id
+            binding.txtClubName.text = user?.name
+            binding.txtSerialNo.text = user?.id
 
             binding.imgViewClub.setOnClickListener{
                 mListener.onViewClick(adapterType,UsersItem("",""))
