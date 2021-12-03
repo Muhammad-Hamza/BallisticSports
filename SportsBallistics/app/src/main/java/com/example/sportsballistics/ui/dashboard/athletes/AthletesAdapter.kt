@@ -7,29 +7,32 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.appInterface.OnItemClickListener
 import com.example.sportsballistics.data.local.AthletesModel
+import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.ListitemAthletesInfoBinding
 
-class AthletesAdapter(var list: ArrayList<AthletesModel>, val mListener: OnItemClickListener) :
-    ListAdapter<AthletesModel, AthletesAdapter.ViewHolder>(DiffCallback()) {
+class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListener) :
+    ListAdapter<Service, AthletesAdapter.ViewHolder>(DiffCallback()) {
 
-    private class DiffCallback : DiffUtil.ItemCallback<AthletesModel>() {
+    private class DiffCallback : DiffUtil.ItemCallback<Service>() {
         override fun areItemsTheSame(
-            oldItem: AthletesModel,
-            newItem: AthletesModel
+            oldItem: Service,
+            newItem: Service
         ): Boolean {
-            return oldItem.id === newItem.id
+            return oldItem.average == newItem.average &&
+                    oldItem.percent == newItem.percent &&
+                    oldItem.sum == newItem.sum &&
+                    oldItem.name.equals(newItem.name)
         }
 
         override fun areContentsTheSame(
-            oldItem: AthletesModel,
-            newItem: AthletesModel
+            oldItem: Service,
+            newItem: Service
         ): Boolean {
-            return oldItem.id == newItem.id &&
-                    oldItem.average.equals(newItem.average) &&
-                    oldItem.heading.equals(newItem.heading) &&
-                    oldItem.percentage.equals(newItem.percentage) &&
-                    oldItem.sum.equals(newItem.sum)
+            return oldItem.average == newItem.average &&
+                    oldItem.percent == newItem.percent &&
+                    oldItem.sum == newItem.sum &&
+                    oldItem.name.equals(newItem.name)
         }
     }
 
@@ -54,8 +57,8 @@ class AthletesAdapter(var list: ArrayList<AthletesModel>, val mListener: OnItemC
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.tvHeading.setText(list.get(position).heading)
-        holder.binding.tvPercentage.setText(list.get(position).percentage + " %")
+        holder.binding.tvHeading.setText(list.get(position).name)
+        holder.binding.tvPercentage.setText(list.get(position).percent.toString() + " %")
         holder.binding.tvView.setOnClickListener {
             mListener.onViewClick(position, list.get(position))
         }

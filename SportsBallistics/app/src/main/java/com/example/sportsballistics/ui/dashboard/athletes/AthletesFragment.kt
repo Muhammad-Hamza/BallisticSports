@@ -13,17 +13,19 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.local.AthletesModel
-import com.example.sportsballistics.data.local.LookupModel
+import com.example.sportsballistics.data.remote.DashboardModel
+import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
+import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
 import com.example.sportsballistics.utils.AppFunctions
-import com.example.sportsballistics.utils.DummyContent
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -54,38 +56,7 @@ class AthletesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
-        binding.clubListLayout.tvClub.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_club_name),
-                "{{clubName}}",
-                "Club Name 1"
-            )
-        )
-        binding.clubListLayout.tvTrainer.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_trainer),
-                "{{trainer}}",
-                "Mike Thomas"
-            )
-        )
-        binding.clubListLayout.tvAge.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_age),
-                "{{age}}",
-                "25"
-            )
-        )
-        binding.clubListLayout.tvGrade.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_grade),
-                "{{grade}}",
-                "10"
-            )
-        )
-        val strContent = getString(R.string.txt_atheleteNameStr).replace("{{name}}", "John Smith")
-        binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(strContent))
         loadMainUI()
-        initRecyclerView()
         binding.clubListLayout.tvDashboard.setOnClickListener {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
                 currentModel = null
@@ -97,21 +68,19 @@ class AthletesFragment : Fragment() {
                 Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
             }
         }
-        loadCoachabilityChart()
-        initCoachListData()
     }
 
-    private fun initCoachListData() {
+    private fun initCoachListData(services: List<Service>) {
         binding.clubListLayout.rvCoachList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
-        val list = ArrayList<LookupModel>()
-        list.add(LookupModel(0, "Listening Skills", "22"))
-        list.add(LookupModel(1, "Following Direction", "28"))
-        list.add(LookupModel(2, "Attitude", "8"))
-        list.add(LookupModel(3, "Focus", "18"))
-        list.add(LookupModel(4, "Work Ethics", "24"))
-        coachListAdapter = CoachDataAdapter(list)
+//        val list = ArrayList<LookupModel>()
+//        list.add(LookupModel(0, "Listening Skills", "22"))
+//        list.add(LookupModel(1, "Following Direction", "28"))
+//        list.add(LookupModel(2, "Attitude", "8"))
+//        list.add(LookupModel(3, "Focus", "18"))
+//        list.add(LookupModel(4, "Work Ethics", "24"))
+        coachListAdapter = CoachDataAdapter(services)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
         binding.clubListLayout.tvSummary.setText("AVG: 8 | SUM: 48")
 
@@ -122,11 +91,11 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.rlCoach.visibility = View.GONE
     }
 
-    private fun initRecyclerView() {
+    private fun initRecyclerView(services: List<Service>) {
         binding.clubListLayout.recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
         binding.clubListLayout.recyclerView.setHasFixedSize(true)
-        adapter = AthletesAdapter(DummyContent.loadDummyContentForAthletes(),
+        adapter = AthletesAdapter(services,
             object : OnItemClickListener {
                 override fun onEditClick(adapterType: Int, anyData: Any) {
 
@@ -176,12 +145,14 @@ class AthletesFragment : Fragment() {
 //
         viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
             AthletesViewModel.ContentFetchListener {
-            override fun onFetched(content: GenericResponse) {
+            override fun onFetched(content: Any) {
                 binding.progressBar.visibility = View.GONE
-                if (content.content!!.users != null && content.content!!.users.size > 0) {
-                    initAtheletesRecyclerView(content.content!!.users)
-                } else {
-                    showMessage("No Atheletes found")
+                if (content is GenericResponse) {
+                    if (content.content!!.users != null && content.content!!.users.size > 0) {
+                        initAtheletesRecyclerView(content.content!!.users)
+                    } else {
+                        showMessage("No Athletes found")
+                    }
                 }
             }
         })
@@ -198,7 +169,18 @@ class AthletesFragment : Fragment() {
             }
 
             override fun onViewClick(adapterType: Int, anyData: Any) {
-                bindDataInUserProfile(anyData as UserModel)
+                viewModel.getAthleteInfo(
+                    requireContext(),
+                    anyData as UserModel,
+                    object : AthletesViewModel.ContentFetchListener {
+                        override fun onFetched(anyObject: Any) {
+                            if (anyObject is DashboardModel) {
+                                bindDataInUserProfile(anyObject.data as AthleteDataModel)
+                            }
+                        }
+
+                    });
+//                bindDataInUserProfile(anyData as UserModel)
             }
 
             override fun onDeleteClick(adapterType: Int, anyData: Any) {
@@ -217,20 +199,62 @@ class AthletesFragment : Fragment() {
 
     }
 
-    private fun bindDataInUserProfile(userModel: UserModel) {
+    private fun bindDataInUserProfile(athleteDataModel: AthleteDataModel) {
+        binding.clubListLayout.tvClub.setText(
+            AppFunctions.getSpannableText(
+                getString(R.string.txt_athletes_club_name),
+                "{{clubName}}",
+                athleteDataModel.clubname
+            )
+        )
+//        binding.clubListLayout.tvTrainer.setText(
+//            AppFunctions.getSpannableText(
+//                getString(R.string.txt_athletes_trainer),
+//                "{{trainer}}",
+//                athleteDataModel.
+//            )
+//        )
+        binding.clubListLayout.tvAge.setText(
+            AppFunctions.getSpannableText(
+                getString(R.string.txt_athletes_age),
+                "{{age}}",
+                athleteDataModel.athletic_name.age
+            )
+        )
+        binding.clubListLayout.tvGrade.setText(
+            AppFunctions.getSpannableText(
+                getString(R.string.txt_athletes_grade),
+                "{{grade}}",
+                athleteDataModel.athletic_name.grade
+            )
+        )
+        val strContent = getString(R.string.txt_atheleteNameStr).replace(
+            "{{name}}",
+            athleteDataModel.athletic_name.fullname
+        )
+        Glide.with(requireContext()).load(athleteDataModel.profile_image)
+            .into(binding.clubListLayout.ivImageView)
+        binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(strContent))
+
+        loadCoachabilityChart(athleteDataModel.services)
+        initCoachListData(athleteDataModel.services)
+        initRecyclerView(athleteDataModel.services)
         binding.clubListLayout.llList.visibility = View.GONE
         binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
     }
 
-    private fun loadCoachabilityChart() {
+    private fun loadCoachabilityChart(services: List<Service>) {
         binding.clubListLayout.pieChart.setUsePercentValues(true);
 
         val yvalues: ArrayList<PieEntry> = ArrayList<PieEntry>();
-        yvalues.add(PieEntry(22f, "Listening Skills", 0))
-        yvalues.add(PieEntry(28f, "Following Direction", 1))
-        yvalues.add(PieEntry(8f, "Attitude", 2))
-        yvalues.add(PieEntry(18f, "Focus", 3))
-        yvalues.add(PieEntry(24f, "Work Ethics", 4))
+        for (i in 0..(services.size-1)) {
+            yvalues.add(PieEntry(services.get(i).average.toFloat(), services.get(i).name, (i + 1)))
+        }
+//        yvalues.add(PieEntry(22f, "Listening Skills", 0))
+//        yvalues.add(PieEntry(28f, "Following Direction", 1))
+//        yvalues.add(PieEntry(8f, "Attitude", 2))
+//        yvalues.add(PieEntry(18f, "Focus", 3))
+//        yvalues.add(PieEntry(24f, "Work Ethics", 4))
 //        yvalues.add(PieEntry(22f, "Listening Skills", "22 %"))
 //        yvalues.add(PieEntry(28f, "Following Direction", "28 %"))
 //        yvalues.add(PieEntry(8f, "Attitude", "8 %"))

@@ -8,6 +8,7 @@ public class URLIdentifiers {
     public static final String LOGIN = "MobileLogin";
     public static final String GET_ALL_CLUBS = "MobileAjax/content";
     public static final String GET_DASHBOARD = "MobileLogin/dashCount";
+    public static final String GET_GENERIC_DASHBOARD = "DashboardMobile/index/{id}";
     public static final String GET_EX = "/ContentPages/index/about_us";
     public static final String USER_CONTENT = "user_content";
     public static final String CLUB_CONTENT = "club_content";

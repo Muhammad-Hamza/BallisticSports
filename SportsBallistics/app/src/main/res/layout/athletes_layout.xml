@@ -117,6 +117,7 @@
                                 android:padding="@dimen/_3sdp">
 
                                 <com.makeramen.roundedimageview.RoundedImageView
+                                    android:id="@+id/ivImageView"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:scaleType="centerCrop"
@@ -162,7 +163,8 @@
                                     android:maxLines="1"
                                     android:text="Trainer: Mike Thomas"
                                     android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_8sdp" />
+                                    android:textSize="@dimen/_8sdp"
+                                    android:visibility="gone" />
 
                                 <TextView
                                     android:id="@+id/tvAge"

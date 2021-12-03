@@ -8,27 +8,32 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.local.LookupModel
+import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.databinding.ListitemAthletesInfoBinding
 import com.example.sportsballistics.databinding.ListitemLookupBinding
 
-class CoachDataAdapter(val list: ArrayList<LookupModel>) :
-    ListAdapter<LookupModel, CoachDataAdapter.ViewHolder>(DiffCallback()) {
+class CoachDataAdapter(val list: List<Service>) :
+    ListAdapter<Service, CoachDataAdapter.ViewHolder>(DiffCallback()) {
 
-    private class DiffCallback : DiffUtil.ItemCallback<LookupModel>() {
+    private class DiffCallback : DiffUtil.ItemCallback<Service>() {
         override fun areItemsTheSame(
-            oldItem: LookupModel,
-            newItem: LookupModel
+            oldItem: Service,
+            newItem: Service
         ): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.average == newItem.average &&
+                    oldItem.percent == newItem.percent &&
+                    oldItem.sum == newItem.sum &&
+                    oldItem.name.equals(newItem.name)
         }
 
         override fun areContentsTheSame(
-            oldItem: LookupModel,
-            newItem: LookupModel
+            oldItem: Service,
+            newItem: Service
         ): Boolean {
-            return oldItem.id == newItem.id &&
-                    oldItem.name.equals(newItem.name) &&
-                    oldItem.value.equals(newItem.value)
+            return oldItem.average == newItem.average &&
+                    oldItem.percent == newItem.percent &&
+                    oldItem.sum == newItem.sum &&
+                    oldItem.name.equals(newItem.name)
         }
     }
 
@@ -59,6 +64,6 @@ class CoachDataAdapter(val list: ArrayList<LookupModel>) :
             holder.binding.tvSeperator.visibility = View.VISIBLE
         }
         holder.binding.tvName.setText(list.get(position).name)
-        holder.binding.tvValue.setText(list.get(position).value)
+        holder.binding.tvValue.setText(list.get(position).average)
     }
 }

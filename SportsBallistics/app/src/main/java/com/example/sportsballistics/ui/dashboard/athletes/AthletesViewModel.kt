@@ -9,9 +9,13 @@ import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.club.ClubResponse
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.generic.GenericResponse
+import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
+import com.github.mikephil.charting.formatter.IFillFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -68,9 +72,32 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
+    fun getAthleteInfo(context: Context, userModel: UserModel, mListener: ContentFetchListener) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        apiService.getGenericDashboard(userModel.id).enqueue(object : Callback<DashboardModel> {
+            override fun onResponse(
+                call: Call<DashboardModel>,
+                response: Response<DashboardModel>
+            ) {
+                if (response.body() != null) {
+                    mListener.onFetched(response.body()!!)
+                    mErrorListener.dismissDialog()
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
+                mErrorListener.addErrorDialog()
+            }
+
+        })
+    }
+
 
     interface ContentFetchListener {
-        fun onFetched(genericResponse: GenericResponse)
+        fun onFetched(anyObject: Any)
     }
 
 }

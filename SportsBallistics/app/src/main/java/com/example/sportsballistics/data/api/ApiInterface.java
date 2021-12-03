@@ -1,6 +1,7 @@
 package com.example.sportsballistics.data.api;
 
 
+import com.example.sportsballistics.data.remote.DashboardModel;
 import com.example.sportsballistics.data.remote.club.ClubResponse;
 import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
@@ -12,6 +13,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -36,6 +38,9 @@ public interface ApiInterface {
 
     @POST(URLIdentifiers.GET_DASHBOARD)
     Call<DashboardResponse> getDashboard();
+
+    @POST(URLIdentifiers.GET_GENERIC_DASHBOARD)
+    Call<DashboardModel> getGenericDashboard(@Path("id") String id);
 }
 
 
