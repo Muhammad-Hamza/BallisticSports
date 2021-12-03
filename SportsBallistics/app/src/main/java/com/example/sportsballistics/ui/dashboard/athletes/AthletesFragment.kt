@@ -28,9 +28,10 @@ import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 
 
 class AthletesFragment : Fragment() {
@@ -64,7 +65,14 @@ class AthletesFragment : Fragment() {
         }
         binding.clubListLayout.tvNext.setOnClickListener {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
-                Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
+                if (binding.clubListLayout.pieChart.visibility == View.VISIBLE) {
+                    binding.clubListLayout.pieChart.visibility = View.GONE
+                    binding.clubListLayout.barChart.visibility = View.VISIBLE
+                } else {
+                    binding.clubListLayout.pieChart.visibility = View.VISIBLE
+                    binding.clubListLayout.barChart.visibility = View.GONE
+                }
             }
         }
     }
@@ -75,7 +83,13 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
         coachListAdapter = CoachDataAdapter(services)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
-        binding.clubListLayout.tvSummary.setText("AVG: 8 | SUM: 48")
+        var sum = 0
+        var avg = 0
+        for (i in 0..(services.size - 1)) {
+            sum = sum + services.get(i).sum
+            avg = avg + services.get(i).average
+        }
+        binding.clubListLayout.tvSummary.setText("AVG: ${avg} | SUM: ${sum}")
 
     }
 
@@ -239,26 +253,23 @@ class AthletesFragment : Fragment() {
     private fun loadCoachabilityChart(services: List<Service>) {
         binding.clubListLayout.pieChart.setUsePercentValues(true);
 
+        val values = ArrayList<BarEntry>()
         val yvalues: ArrayList<PieEntry> = ArrayList<PieEntry>();
         for (i in 0..(services.size - 1)) {
             yvalues.add(PieEntry(services.get(i).average.toFloat(), services.get(i).name, (i + 1)))
+            values.add(
+                BarEntry(
+                    (i + 1).toFloat(),
+                    services.get(i).average.toFloat(),
+                    services.get(i).name
+                )
+            )
         }
-//        yvalues.add(PieEntry(22f, "Listening Skills", 0))
-//        yvalues.add(PieEntry(28f, "Following Direction", 1))
-//        yvalues.add(PieEntry(8f, "Attitude", 2))
-//        yvalues.add(PieEntry(18f, "Focus", 3))
-//        yvalues.add(PieEntry(24f, "Work Ethics", 4))
-//        yvalues.add(PieEntry(22f, "Listening Skills", "22 %"))
-//        yvalues.add(PieEntry(28f, "Following Direction", "28 %"))
-//        yvalues.add(PieEntry(8f, "Attitude", "8 %"))
-//        yvalues.add(PieEntry(18f, "Focus", "18 %"))
-//        yvalues.add(PieEntry(24f, "Work Ethics", "24 %"))
-
         val dataSet = PieDataSet(yvalues, "");
         dataSet.setDrawValues(true)
-        val colorList = ArrayList<Int>()
-        colorList.add(Color.WHITE)
-        dataSet.setValueTextColors(colorList)
+//        val colorList = ArrayList<Int>()
+//        colorList.add(Color.WHITE)
+//        dataSet.setValueTextColors(colorList)
         val data = PieData(dataSet)
         data.setValueTextSize(10f)
         data.setValueFormatter(ChartPerentageFormatter());
@@ -302,6 +313,51 @@ class AthletesFragment : Fragment() {
         l.setDrawInside(false)
         l.textSize = 9f
         l.yOffset = 5f
+
+        //This is for a barChart
+        binding.clubListLayout.barChart.getDescription().setEnabled(true)
+        binding.clubListLayout.barChart.setPinchZoom(false)
+//
+        binding.clubListLayout.barChart.setDrawBarShadow(false)
+        binding.clubListLayout.barChart.setDrawGridBackground(false)
+
+        binding.clubListLayout.barChart.setDrawValueAboveBar(true)
+        val xAxis: XAxis = binding.clubListLayout.barChart.getXAxis()
+        xAxis.position = XAxisPosition.BOTTOM
+        xAxis.setDrawGridLines(false)
+        xAxis.setGranularityEnabled(true);
+        xAxis.setGranularity(1f);
+        xAxis.setDrawLabels(true);
+        binding.clubListLayout.barChart.getAxisLeft().setDrawGridLines(false)
+
+        // add a nice and smooth animation
+        binding.clubListLayout.barChart.animateY(1500)
+
+        binding.clubListLayout.barChart.getLegend().setEnabled(true)
+        binding.clubListLayout.barChart.legend.direction = Legend.LegendDirection.LEFT_TO_RIGHT
+
+        val set1: BarDataSet
+
+        set1 = BarDataSet(values, "Data Set")
+        set1.setColors(listOfColors)
+        set1.setDrawValues(false)
+        val dataSets = java.util.ArrayList<IBarDataSet>()
+        dataSets.add(set1)
+        val newBarData = BarData(dataSets)
+
+        binding.clubListLayout.barChart.description.isEnabled = true // hide the description
+        binding.clubListLayout.barChart.legend.isEnabled = true // hide the legend
+
+        binding.clubListLayout.barChart.xAxis.setDrawLabels(true) // hide bottom label
+        binding.clubListLayout.barChart.axisLeft.setDrawLabels(true) // hide left label
+        binding.clubListLayout.barChart.axisRight.setDrawLabels(false) // hide right label
+
+        binding.clubListLayout.barChart.setData(newBarData)
+        binding.clubListLayout.barChart.setFitBars(true)
+
+        binding.clubListLayout.barChart.invalidate()
+
+
     }
 
     private fun showMessage(content: String) {
