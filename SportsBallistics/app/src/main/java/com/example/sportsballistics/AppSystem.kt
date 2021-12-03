@@ -27,7 +27,6 @@ class AppSystem : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
     }
 
     companion object {

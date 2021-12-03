@@ -1,6 +1,7 @@
 package com.example.sportsballistics.ui.dashboard.users
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,7 @@ import com.example.sportsballistics.databinding.FragmentTrainerBinding
 import com.example.sportsballistics.databinding.FragmentUserBinding
 import com.example.sportsballistics.ui.dashboard.clubs.ClubListAdapter
 import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
-
+import com.google.gson.Gson
 
 class UserFragment : Fragment()
 {
@@ -27,15 +28,12 @@ class UserFragment : Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_user, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false);
         initViewModel()
 
         binding.clubListHeader.txtClubName.text = "User Name"
         return binding.root
     }
-
-
 
     private fun initRecyclerView()
     {
@@ -61,24 +59,39 @@ class UserFragment : Fragment()
         binding.recyclerView.adapter = mAdapter
     }
 
-    fun initViewModel() {
+    private fun initViewModel()
+    {
         viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
-        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
-            override fun dismissDialog() {
+        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener
+        {
+            override fun dismissDialog()
+            {
             }
 
-            override fun addDialog() {
+            override fun addDialog()
+            {
             }
 
-            override fun addErrorDialog() {
+            override fun addErrorDialog()
+            {
             }
 
-            override fun addErrorDialog(msg: String?) {
+            override fun addErrorDialog(msg: String?)
+            {
             }
         })
 
-        viewModel.getContent(requireContext(), URLIdentifiers.CLUB_CONTENT,"" ,object : ClubListViewModel.ContentFetchListener {
-            override fun onFetched(content: ClubResponse) {
+       getContent("")
+    }
+
+    private fun getContent(searchKey:String){
+        viewModel.getContent(requireContext(), URLIdentifiers.USER_CONTENT, searchKey, object :
+                ClubListViewModel.ContentFetchListener
+        {
+            override fun onFetched(content: ClubResponse)
+            {
+                //TODO Asher bind data with ui
+                Log.d(UserFragment::class.simpleName,Gson().toJson(content))
 //                initRecyclerView(content.content?.users as MutableList<UsersItem>)
                 initRecyclerView()
             }

@@ -3,6 +3,7 @@ package com.example.sportsballistics.data.api;
 
 import com.example.sportsballistics.data.remote.club.ClubResponse;
 import com.example.sportsballistics.data.remote.generic.GenericResponse;
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
 import com.example.sportsballistics.data.remote.login.UserResponse;
 
 import retrofit2.Call;
@@ -20,7 +21,6 @@ public interface ApiInterface {
             @Field("email") String apiKey,
             @Field("password") String userID);
 
-    @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST(URLIdentifiers.GET_ALL_CLUBS)
     @FormUrlEncoded
     Call<ClubResponse> getContent(
@@ -34,7 +34,8 @@ public interface ApiInterface {
             @Field("select_limit") int limit,
             @Field("action") String action);
 
-
+    @POST(URLIdentifiers.GET_DASHBOARD)
+    Call<DashboardResponse> getDashboard();
 }
 
 
