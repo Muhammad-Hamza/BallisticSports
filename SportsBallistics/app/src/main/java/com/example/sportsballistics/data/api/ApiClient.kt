@@ -1,6 +1,7 @@
 package com.example.sportsballistics.data.api
 
 import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.api.network_interceptor.NetworkInterceptor
 import okhttp3.OkHttpClient
@@ -33,13 +34,14 @@ object ApiClient {
 
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         clientBuilder.cookieJar(SessionCookieJar())
+//        clientBuilder.addInterceptor(ChuckerInterceptor(AppSystem.getInstance()))
         clientBuilder.addInterceptor(loggingInterceptor)
         clientBuilder.addInterceptor(NetworkInterceptor(contxt))
         retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(clientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl(BASE_URL)
+            .client(clientBuilder.build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         return retrofit
     }
 
@@ -49,30 +51,26 @@ object ApiClient {
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         clientBuilder.addInterceptor(loggingInterceptor)
         retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(clientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            .baseUrl(BASE_URL)
+            .client(clientBuilder.build())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         return retrofit
     }
 
-    private class SessionCookieJar : CookieJar
-    {
-        override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>)
-        {
-            if (url.encodedPath().endsWith("MobileLogin"))
-            {
+    private class SessionCookieJar : CookieJar {
+        override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+            if (url.encodedPath().endsWith("MobileLogin")) {
                 AppSystem.getInstance().cookies = ArrayList(cookies)
             }
         }
 
-        override fun loadForRequest(url: HttpUrl): List<Cookie>
-        {
-            return if (!url.encodedPath().endsWith("MobileLogin") && AppSystem.getInstance().cookies != null)
-            {
+        override fun loadForRequest(url: HttpUrl): List<Cookie> {
+            return if (!url.encodedPath()
+                    .endsWith("MobileLogin") && AppSystem.getInstance().cookies != null
+            ) {
                 AppSystem.getInstance().cookies
-            }
-            else Collections.emptyList()
+            } else Collections.emptyList()
         }
     }
 

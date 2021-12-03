@@ -19,10 +19,9 @@ import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.local.LookupModel
-import com.example.sportsballistics.data.remote.club.ClubResponse
-import com.example.sportsballistics.data.remote.club.UsersItem
+import com.example.sportsballistics.data.remote.generic.GenericResponse
+import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.DummyContent
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
@@ -35,10 +34,11 @@ import com.github.mikephil.charting.data.PieEntry
 
 class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
-    private lateinit var viewModel: ClubListViewModel
+    private lateinit var viewModel: AthletesViewModel
     private lateinit var adapter: AthletesAdapter
     private var currentModel: AthletesModel? = null
     private var coachListAdapter: CoachDataAdapter? = null
+    private var athletesAdapter: AthletesUserAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +52,7 @@ class AthletesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.clubListLayout.rvAtheletes.visibility = View.VISIBLE
+        binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
         binding.clubListLayout.tvClub.setText(
             AppFunctions.getSpannableText(
@@ -155,41 +155,71 @@ class AthletesFragment : Fragment() {
     }
 
     fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(AthletesViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addDialog() {
+                binding.progressBar.visibility = View.VISIBLE
             }
 
             override fun addErrorDialog() {
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addErrorDialog(msg: String?) {
+                binding.progressBar.visibility = View.GONE
             }
         })
 //
         viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
-            ClubListViewModel.ContentFetchListener {
-            override fun onFetched(content: ClubResponse) {
-                initAtheletesRecyclerView(content.content?.users as MutableList<UsersItem>)
+            AthletesViewModel.ContentFetchListener {
+            override fun onFetched(content: GenericResponse) {
+                binding.progressBar.visibility = View.GONE
+                if (content.content!!.users != null && content.content!!.users.size > 0) {
+                    initAtheletesRecyclerView(content.content!!.users)
+                } else {
+                    showMessage("No Atheletes found")
+                }
             }
         })
     }
 
-    private fun initAtheletesRecyclerView(mutableList: MutableList<UsersItem>) {
+    private fun initAtheletesRecyclerView(mutableList: ArrayList<UserModel>) {
         //TODO:: HAmza bhai load listItem here.
 //        binding.clubListLayout.rvAtheletes
 //        this recyclerView is using for athelets lists
 //        -------------------------------------
-        //Disable other items.
-        binding.clubListLayout.llMainLayout.visibility = View.GONE
+        athletesAdapter = AthletesUserAdapter(object : OnItemClickListener {
+            override fun onEditClick(adapterType: Int, anyData: Any) {
+
+            }
+
+            override fun onViewClick(adapterType: Int, anyData: Any) {
+                bindDataInUserProfile(anyData as UserModel)
+            }
+
+            override fun onDeleteClick(adapterType: Int, anyData: Any) {
+
+            }
+
+        })
 //        -------------------------------------
-        //After click an item on a recyclerView their functionality.{
-        binding.clubListLayout.rvAtheletes.visibility = View.GONE
+        binding.clubListLayout.llList.visibility = View.VISIBLE
+        binding.clubListLayout.llMainLayout.visibility = View.GONE
+        binding.clubListLayout.rvAtheletes.setHasFixedSize(true)
+        binding.clubListLayout.rvAtheletes.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.clubListLayout.rvAtheletes.adapter = athletesAdapter
+        athletesAdapter!!.loadData(mutableList)
+
+    }
+
+    private fun bindDataInUserProfile(userModel: UserModel) {
+        binding.clubListLayout.llList.visibility = View.GONE
         binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
-        //}
     }
 
     private fun loadCoachabilityChart() {
@@ -255,6 +285,9 @@ class AthletesFragment : Fragment() {
         l.setDrawInside(false)
         l.textSize = 9f
         l.yOffset = 5f
+    }
 
+    private fun showMessage(content: String) {
+        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
     }
 }

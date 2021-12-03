@@ -1,23 +1,25 @@
-package com.example.sportsballistics.ui.dashboard.clubs
+package com.example.sportsballistics.ui.dashboard.athletes
 
 import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
-import com.example.sportsballistics.data.api.ApiClient
+import com.example.sportsballistics.data.remote.generic.GenericResponse
+import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class ClubListViewModel(application: Application) : AndroidViewModel(application) {
+class AthletesViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var mErrorListener: Listeners.DialogInteractionListener
-    lateinit var categoryResponse: ClubResponse
+    lateinit var categoryResponse: GenericResponse
     fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener) {
         this.mErrorListener = mErrorListener
     }
@@ -34,9 +36,12 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
     ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getContent(10, content)
-        call.enqueue(object : Callback<ClubResponse> {
-            override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
+        val call = apiService.getMainContent(10, content)
+        call.enqueue(object : Callback<GenericResponse> {
+            override fun onResponse(
+                call: Call<GenericResponse>,
+                response: Response<GenericResponse>
+            ) {
                 Log.d(TAG, response.raw().toString())
                 mErrorListener.dismissDialog()
                 try {
@@ -52,7 +57,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-            override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
+            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
                 mErrorListener.dismissDialog()
                 if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
@@ -65,7 +70,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
 
 
     interface ContentFetchListener {
-        fun onFetched(content: ClubResponse)
+        fun onFetched(genericResponse: GenericResponse)
     }
 
 }
