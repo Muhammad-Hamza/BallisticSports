@@ -64,6 +64,6 @@ class CoachDataAdapter(val list: List<Service>) :
             holder.binding.tvSeperator.visibility = View.VISIBLE
         }
         holder.binding.tvName.setText(list.get(position).name)
-        holder.binding.tvValue.setText(list.get(position).average)
+        holder.binding.tvValue.setText(list.get(position).average.toString())
     }
 }

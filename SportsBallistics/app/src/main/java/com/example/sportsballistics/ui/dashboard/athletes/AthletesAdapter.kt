@@ -60,7 +60,7 @@ class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListene
         holder.binding.tvHeading.setText(list.get(position).name)
         holder.binding.tvPercentage.setText(list.get(position).percent.toString() + " %")
         holder.binding.tvView.setOnClickListener {
-            mListener.onViewClick(position, list.get(position))
+            mListener.onViewClick(position, list)
         }
         val content = "AVERAGE: " + list.get(position).average + " SUM: " + list.get(position).sum
         holder.binding.tvDescription.setText(content)

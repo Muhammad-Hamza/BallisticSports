@@ -18,7 +18,6 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
-import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
@@ -38,7 +37,7 @@ class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
     private lateinit var viewModel: AthletesViewModel
     private lateinit var adapter: AthletesAdapter
-    private var currentModel: AthletesModel? = null
+    private var currentModel: List<Service>? = null
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
 
@@ -74,12 +73,6 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.rvCoachList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
-//        val list = ArrayList<LookupModel>()
-//        list.add(LookupModel(0, "Listening Skills", "22"))
-//        list.add(LookupModel(1, "Following Direction", "28"))
-//        list.add(LookupModel(2, "Attitude", "8"))
-//        list.add(LookupModel(3, "Focus", "18"))
-//        list.add(LookupModel(4, "Work Ethics", "24"))
         coachListAdapter = CoachDataAdapter(services)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
         binding.clubListLayout.tvSummary.setText("AVG: 8 | SUM: 48")
@@ -102,10 +95,10 @@ class AthletesFragment : Fragment() {
                 }
 
                 override fun onViewClick(adapterType: Int, anyData: Any) {
-                    if (anyData is AthletesModel) {
-                        if (anyData.id == 0) {
-                            loadCoachData(anyData)
-                        }
+                    if (anyData is List<*>) {
+//                        if (anyData.id == 0) {
+                        loadCoachData(anyData as List<Service>, adapterType)
+//                        }
                     }
                 }
 
@@ -116,10 +109,10 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.recyclerView.adapter = adapter
     }
 
-    private fun loadCoachData(model: AthletesModel) {
+    private fun loadCoachData(model: List<Service>, adapterType: Int) {
         this.currentModel = model
         binding.clubListLayout.recyclerView.visibility = View.GONE
-        binding.clubListLayout.txtDetailHeading.setText(model.heading)
+        binding.clubListLayout.txtDetailHeading.setText(model.get(adapterType).name)
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
     }
 
@@ -247,7 +240,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.pieChart.setUsePercentValues(true);
 
         val yvalues: ArrayList<PieEntry> = ArrayList<PieEntry>();
-        for (i in 0..(services.size-1)) {
+        for (i in 0..(services.size - 1)) {
             yvalues.add(PieEntry(services.get(i).average.toFloat(), services.get(i).name, (i + 1)))
         }
 //        yvalues.add(PieEntry(22f, "Listening Skills", 0))

@@ -285,40 +285,36 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_below="@+id/pieChart"
-                                        android:layout_marginLeft="@dimen/_50sdp"
+                                        android:layout_marginLeft="@dimen/_35sdp"
                                         android:layout_marginTop="@dimen/_5sdp"
-                                        android:layout_marginRight="@dimen/_50sdp" />
+                                        android:layout_marginRight="@dimen/_35sdp" />
 
-                                    <View
+                                    <androidx.appcompat.widget.LinearLayoutCompat
                                         android:id="@+id/tvSeperator"
                                         android:layout_width="@dimen/_130sdp"
-                                        android:layout_height="1dp"
+                                        android:layout_height="wrap_content"
                                         android:layout_below="@id/rvCoachList"
                                         android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="@dimen/_4sdp"
-                                        android:background="#D8D8D8" />
-
-                                    <TextView
-                                        android:id="@+id/tvSummary"
-                                        android:layout_width="@dimen/_150sdp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_below="@+id/tvSeperator"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="@dimen/_4sdp"
-                                        android:fontFamily="@font/roboto_bold"
+                                        android:layout_marginTop="@dimen/_6sdp"
+                                        android:layout_marginBottom="@dimen/_6sdp"
+                                        android:background="@drawable/ic_square_drawable"
                                         android:gravity="center"
-                                        android:text="AVG: 8 | SUM: 48"
-                                        android:textColor="@color/actionBarColor"
-                                        android:textSize="@dimen/_13sdp" />
+                                        android:orientation="vertical">
 
-                                    <View
-                                        android:layout_width="@dimen/_130sdp"
-                                        android:layout_height="1dp"
-                                        android:layout_below="@id/tvSummary"
-                                        android:layout_centerHorizontal="true"
-                                        android:layout_marginTop="@dimen/_4sdp"
-                                        android:background="#D8D8D8" />
-
+                                        <TextView
+                                            android:id="@+id/tvSummary"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tvSeperator"
+                                            android:layout_centerHorizontal="true"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_marginBottom="@dimen/_4sdp"
+                                            android:fontFamily="@font/roboto_bold"
+                                            android:gravity="center"
+                                            android:text="AVG: 8 | SUM: 48"
+                                            android:textColor="@color/actionBarColor"
+                                            android:textSize="@dimen/_13sdp" />
+                                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                                 </RelativeLayout>
 
