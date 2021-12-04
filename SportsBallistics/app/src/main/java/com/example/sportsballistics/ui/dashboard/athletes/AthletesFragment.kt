@@ -24,8 +24,11 @@ import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
+import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteActivity
+import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
+import com.example.sportsballistics.utils.launchActivity
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -75,6 +78,14 @@ class AthletesFragment : Fragment() {
                 }
             }
         }
+        binding.clubListLayout.llAddAthlete.setOnClickListener {
+            requireActivity().launchActivity<CreateAthleteActivity> {
+                putExtra(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
+            }
+        }
+        binding.clubListLayout.llAddTrainer.setOnClickListener {
+
+        }
     }
 
     private fun initCoachListData(services: List<Service>) {
@@ -110,9 +121,7 @@ class AthletesFragment : Fragment() {
 
                 override fun onViewClick(adapterType: Int, anyData: Any) {
                     if (anyData is List<*>) {
-//                        if (anyData.id == 0) {
                         loadCoachData(anyData as List<Service>, adapterType)
-//                        }
                     }
                 }
 
@@ -172,7 +181,18 @@ class AthletesFragment : Fragment() {
 //        -------------------------------------
         athletesAdapter = AthletesUserAdapter(object : OnItemClickListener {
             override fun onEditClick(adapterType: Int, anyData: Any) {
-
+                if (anyData is UserModel) {
+                    requireActivity().launchActivity<CreateAthleteActivity> {
+                        putExtra(
+                            AppConstant.INTENT_SCREEN_TYPE,
+                            AppConstant.INTENT_SCREEN_TYPE_EDIT
+                        )
+                        putExtra(
+                            AppConstant.INTENT_EXTRA_1,
+                            anyData.id
+                        )
+                    }
+                }
             }
 
             override fun onViewClick(adapterType: Int, anyData: Any) {
