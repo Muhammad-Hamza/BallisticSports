@@ -8,7 +8,8 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.databinding.ActivityDashboardBinding
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
-import com.example.sportsballistics.ui.dashboard.clubs.ClubFragment
+import com.example.sportsballistics.ui.dashboard.club.ClubFragment
+import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.my_account.AccountFragment
 import com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment
 import com.example.sportsballistics.ui.dashboard.users.UserFragment
@@ -20,22 +21,25 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
-
-        setCurrentFragment(ClubFragment())
+        setCurrentFragment(DashboardFragment())
 
 
         if (AppSystem.getInstance().getCurrentUser() != null) {
             when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
                 AppConstant.ROLE_SUPER_PORTAL -> {
+                    binding.bottomNavigationView.menu.clear()
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
                 }
                 AppConstant.ROLE_ATHLETES_PORTAL -> {
+                    binding.bottomNavigationView.menu.clear()
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
                 }
                 AppConstant.ROLE_CLUB_PORTAL -> {
+                    binding.bottomNavigationView.menu.clear()
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
                 }
                 AppConstant.ROLE_TRAINER_PORTAL -> {
+                    binding.bottomNavigationView.menu.clear()
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
                 }
             }
@@ -47,6 +51,7 @@ class DashboardActivity : AppCompatActivity() {
                 when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
                     AppConstant.ROLE_SUPER_PORTAL -> {
                         when (it.itemId) {//Working Fine
+                            R.id.dashboard -> setCurrentFragment(DashboardFragment())
                             R.id.club -> setCurrentFragment(ClubFragment())
                             R.id.trainer -> setCurrentFragment(TrainerFragment())
                             R.id.athlete -> setCurrentFragment(AthletesFragment())
@@ -57,7 +62,7 @@ class DashboardActivity : AppCompatActivity() {
                     }
                     AppConstant.ROLE_ATHLETES_PORTAL -> { //Working Fine.
                         when (it.itemId) {
-                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.dashboard -> setCurrentFragment(DashboardFragment())
                             R.id.trainer -> setCurrentFragment(TrainerFragment())
                             R.id.athlete -> setCurrentFragment(AthletesFragment())
                             R.id.users -> setCurrentFragment(UserFragment())
@@ -67,7 +72,7 @@ class DashboardActivity : AppCompatActivity() {
                     }
                     AppConstant.ROLE_CLUB_PORTAL -> {//Working Fine
                         when (it.itemId) {
-                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.dashboard -> setCurrentFragment(DashboardFragment())
                             R.id.trainer -> setCurrentFragment(TrainerFragment())
                             R.id.athlete -> setCurrentFragment(AthletesFragment())
                             R.id.users -> setCurrentFragment(UserFragment())
@@ -77,7 +82,7 @@ class DashboardActivity : AppCompatActivity() {
                     }
                     AppConstant.ROLE_TRAINER_PORTAL -> {
                         when (it.itemId) {
-                            R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.dashboard -> setCurrentFragment(DashboardFragment())
                             R.id.athlete -> setCurrentFragment(AthletesFragment())
                             R.id.account -> setCurrentFragment(AccountFragment())
                         }

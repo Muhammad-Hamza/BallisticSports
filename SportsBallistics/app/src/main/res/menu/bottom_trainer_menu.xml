@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/club"
-        android:icon="@drawable/tab_club_selector"
+        android:id="@+id/dashboard"
+        android:icon="@drawable/ic_dashboard_super_admin_total_clubs"
         android:title="Dashboard" />
+<!--    <item-->
+<!--        android:id="@+id/club"-->
+<!--        android:icon="@drawable/tab_club_selector"-->
+<!--        android:title="Dashboard" />-->
     <item
         android:id="@+id/athlete"
         android:icon="@drawable/tab_athletes_selector"

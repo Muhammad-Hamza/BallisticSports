@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui.dashboard.clubs
+package com.example.sportsballistics.ui.dashboard.club
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,10 +14,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ClubListFragment.newInstance] factory method to
+ * Use the [CreateClubFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ClubListFragment : Fragment()
+class CreateClubFragment : Fragment()
 {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -35,7 +35,7 @@ class ClubListFragment : Fragment()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_club_list, container, false)
+        return inflater.inflate(R.layout.fragment_create_club, container, false)
     }
 
     companion object
@@ -46,11 +46,11 @@ class ClubListFragment : Fragment()
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ClubListFragment.
+         * @return A new instance of fragment CreateClubFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = ClubListFragment().apply {
+        fun newInstance(param1: String, param2: String) = CreateClubFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_PARAM1, param1)
                 putString(ARG_PARAM2, param2)

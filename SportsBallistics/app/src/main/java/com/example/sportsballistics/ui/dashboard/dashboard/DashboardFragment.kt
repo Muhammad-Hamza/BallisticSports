@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui.dashboard.clubs
+package com.example.sportsballistics.ui.dashboard.dashboard
 
 import android.os.Bundle
 import android.util.Log
@@ -17,16 +17,16 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
-import com.example.sportsballistics.databinding.FragmentClubBinding
+import com.example.sportsballistics.databinding.FragmentDashboardBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.*
 import com.google.gson.Gson
 
-class ClubFragment : Fragment() {
-    lateinit var binding: FragmentClubBinding
-    private lateinit var viewModel: ClubListViewModel
+class DashboardFragment : Fragment() {
+    lateinit var binding: FragmentDashboardBinding
+    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,37 +34,22 @@ class ClubFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_club, container, false
+            inflater, R.layout.fragment_dashboard, container, false
         );
         initViewModel()
         initViews()
-        binding.flTrainer.setOnClickListener{
+        binding.flTrainer.setOnClickListener {
 
         }
         binding.rlClub.setOnClickListener {
-            binding.clubListLayout.clubListLayoutParent.visibility = View.VISIBLE
-            binding.llDashboard.visibility = View.GONE
 
-            viewModel.getContent(
-                requireContext(),
-                URLIdentifiers.CLUB_CONTENT,
-                "",
-                object : ClubListViewModel.ContentFetchListener {
-                    override fun onFetched(content: ClubResponse) {
-                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-                    }
-                })
         }
 
-        binding.rlTotalAthletes.setOnClickListener{
-            (activity as DashboardActivity).add(AthletesFragment(),R.id.rlParent)
+        binding.rlTotalAthletes.setOnClickListener {
+            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
         }
-        binding.llAthleteView.setOnClickListener{
-            (activity as DashboardActivity).add(AthletesFragment(),R.id.rlParent)
-        }
-        binding.clubListLayout.backClubList.setOnClickListener {
-            binding.clubListLayout.clubListLayoutParent.visibility = View.GONE
-            binding.llDashboard.visibility = View.VISIBLE
+        binding.llAthleteView.setOnClickListener {
+            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
         }
         return binding.root
     }
@@ -172,27 +157,8 @@ class ClubFragment : Fragment() {
         }
     }
 
-
-    private fun initRecyclerView(list: MutableList<UsersItem>)
-    {
-        val mLayoutManager = LinearLayoutManager(context)
-        val mAdapter = ClubListAdapter(context, list, object : ClubListAdapter.OnItemClickListener {
-            override fun onEditClick(adapterType: Int, user: UsersItem) {
-            }
-
-            override fun onViewClick(adapterType: Int, user: UsersItem) {
-                (activity as DashboardActivity).add(CreateClubFragment(), R.id.flFragment)
-            }
-
-            override fun onDeleteClick(adapterType: Int, user: UsersItem) {
-            }
-        })
-        binding.clubListLayout.recyclerView.layoutManager = mLayoutManager
-        binding.clubListLayout.recyclerView.adapter = mAdapter
-    }
-
     private fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
             }
@@ -207,10 +173,9 @@ class ClubFragment : Fragment() {
             }
         })
 
-        viewModel.getDashboard(requireContext(),object:ClubListViewModel.DashboardFetchListener{
-            override fun onFetched(content: DashboardResponse)
-            {
-                Log.d(ClubFragment::javaClass.name,Gson().toJson(content))
+        viewModel.getDashboard(requireContext(), object : DashboardViewModel.DashboardFetchListener {
+            override fun onFetched(content: DashboardResponse) {
+                Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
                 //TODO Asher bind this data to UI
             }
         })

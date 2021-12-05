@@ -13,15 +13,14 @@ import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
-import com.example.sportsballistics.databinding.FragmentClubBinding
 import com.example.sportsballistics.databinding.FragmentTrainerBinding
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListAdapter
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
+import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
+import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 
 class TrainerFragment : Fragment()
 {
     lateinit var binding: FragmentTrainerBinding
-    private lateinit var viewModel: ClubListViewModel
+    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -60,7 +59,7 @@ class TrainerFragment : Fragment()
     }
 
     fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
             }
@@ -75,7 +74,7 @@ class TrainerFragment : Fragment()
             }
         })
 
-        viewModel.getContent(requireContext(), URLIdentifiers.CLUB_CONTENT,"" ,object : ClubListViewModel.ContentFetchListener {
+        viewModel.getContent(requireContext(), URLIdentifiers.CLUB_CONTENT,"" ,object : DashboardViewModel.ContentFetchListener {
             override fun onFetched(content: ClubResponse) {
 //                initRecyclerView(content.content?.users as MutableList<UsersItem>)
                 initRecyclerView()

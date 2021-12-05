@@ -1,26 +1,26 @@
-package com.example.sportsballistics.ui.dashboard.athletes
+package com.example.sportsballistics.ui.dashboard.dashboard
 
 import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.sportsballistics.R
-import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
-import com.example.sportsballistics.data.remote.DashboardModel
-import com.example.sportsballistics.data.remote.generic.GenericResponse
-import com.example.sportsballistics.data.remote.generic.UserModel
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
+import com.example.sportsballistics.data.remote.club.ClubResponse
+import com.example.sportsballistics.data.api.ApiClient
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
 
-class AthletesViewModel(application: Application) : AndroidViewModel(application) {
+class DashboardViewModel(application: Application) : AndroidViewModel(application) {
     private lateinit var mErrorListener: Listeners.DialogInteractionListener
-    lateinit var categoryResponse: GenericResponse
+
+    lateinit var categoryResponse: ClubResponse
+    lateinit var dashboardResponse: DashboardResponse
     fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener) {
         this.mErrorListener = mErrorListener
     }
@@ -37,12 +37,9 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
     ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getMainContent(10, content)
-        call.enqueue(object : Callback<GenericResponse> {
-            override fun onResponse(
-                call: Call<GenericResponse>,
-                response: Response<GenericResponse>
-            ) {
+        val call = apiService.getContent(10, content)
+        call.enqueue(object : Callback<ClubResponse> {
+            override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
                 Log.d(TAG, response.raw().toString())
                 mErrorListener.dismissDialog()
                 try {
@@ -58,7 +55,7 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
                 }
             }
 
-            override fun onFailure(call: Call<GenericResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ClubResponse>, t: Throwable) {
                 mErrorListener.dismissDialog()
                 if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
@@ -69,32 +66,48 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun getAthleteInfo(context: Context, userModel: UserModel, mListener: ContentFetchListener) {
+    fun getDashboard(context: Context, mListener: DashboardFetchListener) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        apiService.getGenericDashboard(userModel.id).enqueue(object : Callback<DashboardModel> {
+        val call = apiService.dashboard
+        call.enqueue(object : Callback<DashboardResponse> {
             override fun onResponse(
-                call: Call<DashboardModel>,
-                response: Response<DashboardModel>
+                call: Call<DashboardResponse>,
+                response: Response<DashboardResponse>
             ) {
-                if (response.body() != null) {
-                    mListener.onFetched(response.body()!!)
-                    mErrorListener.dismissDialog()
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        dashboardResponse = responseBody
+                        mListener.onFetched(responseBody)
+                    } else {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
                 } else {
                     mErrorListener.addErrorDialog()
                 }
             }
-
-            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
-                mErrorListener.addErrorDialog()
-            }
-
         })
     }
 
 
     interface ContentFetchListener {
-        fun onFetched(anyObject: Any)
+        fun onFetched(content: ClubResponse)
+    }
+
+    interface DashboardFetchListener {
+        fun onFetched(content: DashboardResponse)
     }
 
 }

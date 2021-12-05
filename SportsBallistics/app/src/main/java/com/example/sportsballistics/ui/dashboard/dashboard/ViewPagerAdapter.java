@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui.dashboard.clubs;
+package com.example.sportsballistics.ui.dashboard.dashboard;
 
 
 import android.content.Context;
@@ -29,7 +29,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new ClubFragment();
+                return new DashboardFragment();
             case 1:
                 return new AthletesFragment();
             case 2:

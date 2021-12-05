@@ -14,16 +14,15 @@ import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
-import com.example.sportsballistics.databinding.FragmentTrainerBinding
 import com.example.sportsballistics.databinding.FragmentUserBinding
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListAdapter
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
+import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
+import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.google.gson.Gson
 
 class UserFragment : Fragment()
 {
     lateinit var binding: FragmentUserBinding
-    private lateinit var viewModel: ClubListViewModel
+    private lateinit var viewModel: DashboardViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -61,7 +60,7 @@ class UserFragment : Fragment()
 
     private fun initViewModel()
     {
-        viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener
         {
             override fun dismissDialog()
@@ -86,7 +85,7 @@ class UserFragment : Fragment()
 
     private fun getContent(searchKey:String){
         viewModel.getContent(requireContext(), URLIdentifiers.USER_CONTENT, searchKey, object :
-                ClubListViewModel.ContentFetchListener
+                DashboardViewModel.ContentFetchListener
         {
             override fun onFetched(content: ClubResponse)
             {

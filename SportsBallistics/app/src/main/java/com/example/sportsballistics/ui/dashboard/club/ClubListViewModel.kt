@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui.dashboard.clubs
+package com.example.sportsballistics.ui.dashboard.club
 
 import android.app.Application
 import android.content.Context

@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.sportsballistics.R
 import com.example.sportsballistics.databinding.FragmentHomeBinding
-import com.example.sportsballistics.ui.dashboard.clubs.ClubListViewModel
 
 
 class homeFragment : Fragment() {
