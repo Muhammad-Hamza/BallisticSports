@@ -3,22 +3,26 @@ package com.example.sportsballistics.ui.dashboard.create_athlete
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
-import com.example.sportsballistics.databinding.ActivityCreateAthleteBinding
+import com.example.sportsballistics.databinding.FragmentCreateAthleteBinding
 import com.example.sportsballistics.utils.AppConstant
 
 
-class CreateAthleteActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityCreateAthleteBinding
+class CreateAthleteFragment : Fragment() {
+    private lateinit var binding: FragmentCreateAthleteBinding
     lateinit var viewModel: CreateAthleteViewModel
     var athleteId: String? = null
 
@@ -27,23 +31,36 @@ class CreateAthleteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_athlete);
-        if (intent.hasExtra(AppConstant.INTENT_SCREEN_TYPE)) {
-            screenType = intent.getIntExtra(
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_create_athlete, container, false);
+        initViewModel()
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (arguments != null && requireArguments().containsKey(AppConstant.INTENT_SCREEN_TYPE)) {
+            screenType = requireArguments().getInt(
                 AppConstant.INTENT_SCREEN_TYPE,
                 AppConstant.INTENT_SCREEN_TYPE_ADD
             )
         }
-        if (intent.hasExtra(AppConstant.INTENT_EXTRA_1)) {
-            athleteId = intent.getStringExtra(AppConstant.INTENT_EXTRA_1)!!
+        if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
+            athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
         initStateAdapter()
-        initViewModel()
         initClickListener()
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             if (athleteId != null) {
                 viewModel.getAthleteInfo(
-                    this,
+                    requireContext(),
                     athleteId!!,
                     object : CreateAthleteViewModel.ContentFetchListener {
                         override fun onFetched(anyObject: Any) {
@@ -105,7 +122,7 @@ class CreateAthleteActivity : AppCompatActivity() {
 
     private fun initStateAdapter() {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(this, android.R.layout.select_dialog_item, stateArray)
+            ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_item, stateArray)
         binding.etStatus.threshold = 1 //will start working from first character
         binding.etStatus.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
     }
@@ -128,7 +145,7 @@ class CreateAthleteActivity : AppCompatActivity() {
         }
 
         binding.tvCancel.setOnClickListener {
-            finish()
+            Navigation.findNavController(binding.root).navigateUp()
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -169,10 +186,11 @@ class CreateAthleteActivity : AppCompatActivity() {
         } else {
 //            create new add athlete request
         }
+        Navigation.findNavController(binding.root).navigateUp()
     }
 
     private fun showMessage(content: String) {
-        Toast.makeText(this, content, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {

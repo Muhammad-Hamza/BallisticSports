@@ -27,7 +27,11 @@
     <fragment
         android:id="@+id/athletesFragment"
         android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
-        android:label="AthletesFragment" />
+        android:label="AthletesFragment" >
+        <action
+            android:id="@+id/action_athletesFragment_to_createAthleteFragment"
+            app:destination="@id/createAthleteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/trainerFragment"
         android:name="com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment"
@@ -40,6 +44,10 @@
         android:id="@+id/homeFragment"
         android:name="com.example.sportsballistics.ui.dashboard.home.homeFragment"
         android:label="homeFragment" />
+    <fragment
+        android:id="@+id/createAthleteFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment"
+        android:label="CreateAthleteFragment" />
 
 
 </navigation>
