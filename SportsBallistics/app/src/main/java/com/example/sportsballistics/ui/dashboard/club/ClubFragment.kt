@@ -67,7 +67,7 @@ class ClubFragment : Fragment() {
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {
                 MaterialDialog(binding.root.context)
                     .title(null, "Want to delete!")
-                    .message(null, "Do you want to delete this user?")
+                    .message(null, "Do you want to delete this Club?")
                     .positiveButton(null, "YES", {
 
                     }).negativeButton(null, "NO", {
