@@ -12,6 +12,7 @@ public class URLIdentifiers {
     public static final String GET_EX = "/ContentPages/index/about_us";
     public static final String USER_CONTENT = "user_content";
     public static final String CLUB_CONTENT = "club_content";
+    public static final String ADD_CLUB = "user/add/1";
     public static final String ATHLETE_CONTENT = "trainee_content";
     public static final String USER_SIGNUP = "club_content";
     public static final String GET_ATEGORIES = "categories";

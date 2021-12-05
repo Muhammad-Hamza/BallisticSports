@@ -41,6 +41,25 @@ public interface ApiInterface {
 
     @POST(URLIdentifiers.GET_GENERIC_DASHBOARD)
     Call<DashboardModel> getGenericDashboard(@Path("id") String id);
+
+    @POST(URLIdentifiers.ADD_CLUB)
+    @FormUrlEncoded
+    Call<DashboardModel> addClub(
+            @Field("email") int email,
+            @Field("fullname") int fullname,
+            @Field("contact_no") int contact_no,
+            @Field("age") int age,
+            @Field("state") int state,
+            @Field("zipcode") int zipcode,
+            @Field("city") int limit,
+            @Field("status") int status,
+            @Field("address") int address,
+            @Field("grade") int grade,
+            @Field("password") int password,
+            @Field("package_type") int package_type,
+            @Field("club_name") int club_name,
+            @Field("role_id") int role_id,
+            @Field("image_name") int image_name);
 }
 
 
