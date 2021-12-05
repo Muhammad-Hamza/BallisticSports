@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
@@ -39,18 +40,26 @@ class DashboardFragment : Fragment() {
         initViewModel()
         initViews()
         binding.flTrainer.setOnClickListener {
-
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_dashboardFragment_to_trainerFragment)
         }
         binding.rlClub.setOnClickListener {
-
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_dashboardFragment_to_clubFragment)
         }
 
         binding.rlTotalAthletes.setOnClickListener {
-            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_dashboardFragment_to_athletesFragment)
+        }
+        binding.flNewAtheles.setOnClickListener {
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_dashboardFragment_to_athletesFragment)
         }
         binding.llAthleteView.setOnClickListener {
             (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
         }
+
         return binding.root
     }
 
@@ -173,11 +182,13 @@ class DashboardFragment : Fragment() {
             }
         })
 
-        viewModel.getDashboard(requireContext(), object : DashboardViewModel.DashboardFetchListener {
-            override fun onFetched(content: DashboardResponse) {
-                Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
-                //TODO Asher bind this data to UI
-            }
-        })
+        viewModel.getDashboard(
+            requireContext(),
+            object : DashboardViewModel.DashboardFetchListener {
+                override fun onFetched(content: DashboardResponse) {
+                    Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
+                    //TODO Asher bind this data to UI
+                }
+            })
     }
 }
