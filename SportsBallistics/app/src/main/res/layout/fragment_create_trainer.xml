@@ -4,8 +4,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.dashboard.create_athlete.CreateAthleteActivity">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="match_parent"
@@ -62,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Create Athlete"
+                    android:text="Create Trainer"
                     android:textColor="@color/actionBarColor"
                     android:textSize="@dimen/_16sdp" />
 
@@ -199,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="User will be notified automatically via email notification"
-                            android:textSize="@dimen/_8sdp" />
+                            android:textSize="@dimen/_7sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat

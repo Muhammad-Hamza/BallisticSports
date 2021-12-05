@@ -16,6 +16,7 @@ public class URLIdentifiers {
     public static final String ADD_CLUB = "club/add/1";
     public static final String EDIT_CLUB = "club/edit/{club_id}/1";
     public static final String VIEW_CLUB = "club/edit/{club_id}/1/1";
+    public static final String TRAINER_CONTENT = "trainers_list";
     public static final String ATHLETE_CONTENT = "trainee_content";
     public static final String USER_SIGNUP = "club_content";
     public static final String GET_ATEGORIES = "categories";

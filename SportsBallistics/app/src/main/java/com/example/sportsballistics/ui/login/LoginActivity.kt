@@ -14,6 +14,7 @@ import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.LoginBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.utils.launchActivity
+import com.example.sportsballistics.utils.launchActivityFinish
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: LoginBinding
@@ -63,13 +64,12 @@ class LoginActivity : AppCompatActivity() {
 //                                }
                             binding.btnLogin.revertAnimation();
 
-                            launchActivity<DashboardActivity> {
+                            launchActivityFinish<DashboardActivity> {
                                 this.putExtra(
                                     URLIdentifiers.USER_ROLE,
                                     userResponse.loggedIn?.roleId
                                 )
                             }
-                            finish()
 
                         } else {
                             Toast.makeText(

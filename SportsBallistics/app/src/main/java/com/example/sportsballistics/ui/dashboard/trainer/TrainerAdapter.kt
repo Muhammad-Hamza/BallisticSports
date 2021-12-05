@@ -1,4 +1,4 @@
-package com.example.sportsballistics.ui.dashboard.club
+package com.example.sportsballistics.ui.dashboard.trainer
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.ClubListItemBinding
 
-class ClubListAdapter(
+class TrainerAdapter(
     val context: Context?,
     var users: List<UsersItem?>?,
     val mListener: OnItemClickListener
@@ -40,28 +40,25 @@ class ClubListAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ClubListViewHolder) {
-            users?.get(position).let {
-                holder.bindData(users!!.get(position), (position + 1))
-            }
+        with(holder as ClubListViewHolder) {
+            users?.get(position)?.let { this.bindData(it, position) }
         }
     }
 
     inner class ClubListViewHolder(binding: ClubListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(user: UsersItem?, position: Int) {
-            binding.txtClubName.text = user?.name
+            binding.txtClubName.text = user?.fullname
             binding.txtSerialNo.text = position.toString()
 
             binding.imgViewClub.setOnClickListener {
                 mListener.onViewClick(adapterType, user!!)
             }
             binding.imgEdit.setOnClickListener {
-                mListener.onEditClick(adapterType, user!!)
+                mListener.onViewClick(adapterType, user!!)
             }
-
             binding.txtAction.setOnClickListener {
-                mListener.onDeleteClick(adapterType, user!!)
+                mListener.onViewClick(adapterType, user!!)
             }
         }
 

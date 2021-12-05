@@ -10,10 +10,10 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogBehavior
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
@@ -27,18 +27,16 @@ import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
-import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteActivity
+import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
-import com.example.sportsballistics.utils.launchActivity
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.google.android.material.dialog.MaterialDialogs
 
 
 class AthletesFragment : Fragment() {
@@ -66,16 +64,17 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.llMainLayout.visibility = View.GONE
         loadMainUI()
         binding.clubListLayout.llEditAthlete.setOnClickListener {
-            requireActivity().launchActivity<CreateAthleteActivity> {
-                putExtra(
-                    AppConstant.INTENT_SCREEN_TYPE,
-                    AppConstant.INTENT_SCREEN_TYPE_EDIT
-                )
-                putExtra(
-                    AppConstant.INTENT_EXTRA_1,
-                    currentAthleteDataModel!!.user_id
-                )
-            }
+            val bundle = Bundle()
+            bundle.putInt(
+                AppConstant.INTENT_SCREEN_TYPE,
+                AppConstant.INTENT_SCREEN_TYPE_EDIT
+            )
+            bundle.putString(
+                AppConstant.INTENT_EXTRA_1,
+                currentAthleteDataModel!!.user_id
+            )
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
         }
         binding.clubListLayout.tvDashboard.setOnClickListener {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
@@ -96,9 +95,11 @@ class AthletesFragment : Fragment() {
             }
         }
         binding.clubListLayout.llAddAthlete.setOnClickListener {
-            requireActivity().launchActivity<CreateAthleteActivity> {
-                putExtra(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
-            }
+            val bundle = Bundle()
+            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
+
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
         }
         binding.clubListLayout.llAddTrainer.setOnClickListener {
 
@@ -227,16 +228,12 @@ class AthletesFragment : Fragment() {
                 object : OnItemClickListener {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
                         if (anyData is UserModel) {
-                            requireActivity().launchActivity<CreateAthleteActivity> {
-                                putExtra(
-                                    AppConstant.INTENT_SCREEN_TYPE,
-                                    AppConstant.INTENT_SCREEN_TYPE_EDIT
-                                )
-                                putExtra(
-                                    AppConstant.INTENT_EXTRA_1,
-                                    anyData.id
-                                )
-                            }
+                            val bundle = Bundle()
+                            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
+                            bundle.putString(AppConstant.INTENT_EXTRA_1, anyData.id)
+
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
                         }
                     }
 
@@ -256,16 +253,12 @@ class AthletesFragment : Fragment() {
 
                     override fun onViewClick(adapterType: Int, anyData: Any) {
                         if (anyData is UserModel) {
-                            requireActivity().launchActivity<CreateAthleteActivity> {
-                                putExtra(
-                                    AppConstant.INTENT_SCREEN_TYPE,
-                                    AppConstant.INTENT_SCREEN_TYPE_VIEW
-                                )
-                                putExtra(
-                                    AppConstant.INTENT_EXTRA_1,
-                                    anyData.id
-                                )
-                            }
+                            val bundle = Bundle()
+                            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
+                            bundle.putString(AppConstant.INTENT_EXTRA_1, anyData.id)
+
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
                         }
 //                bindDataInUserProfile(anyData as UserModel)
                     }

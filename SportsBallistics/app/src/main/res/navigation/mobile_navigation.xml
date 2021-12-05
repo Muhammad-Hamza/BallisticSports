@@ -7,7 +7,17 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment"
-        android:label="DashboardFragment" />
+        android:label="DashboardFragment" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_clubFragment"
+            app:destination="@id/clubFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_trainerFragment"
+            app:destination="@id/trainerFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_athletesFragment"
+            app:destination="@id/athletesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/clubFragment"
         android:name="com.example.sportsballistics.ui.dashboard.club.ClubFragment"
@@ -18,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/createClubFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club.CreateClubFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.create_club.CreateClubFragment"
         android:label="CreateClubFragment" />
     <fragment
         android:id="@+id/accountFragment"
@@ -27,15 +37,22 @@
     <fragment
         android:id="@+id/athletesFragment"
         android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
-        android:label="AthletesFragment" />
-    <fragment
-        android:id="@+id/clubListFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club.ClubListFragment"
-        android:label="ClubListFragment" />
+        android:label="AthletesFragment" >
+        <action
+            android:id="@+id/action_athletesFragment_to_createAthleteFragment"
+            app:destination="@id/createAthleteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/trainerFragment"
         android:name="com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment"
-        android:label="TrainerFragment" />
+        android:label="TrainerFragment" >
+        <action
+            android:id="@+id/action_trainerFragment_to_createTrainerFragment"
+            app:destination="@id/createTrainerFragment" />
+        <action
+            android:id="@+id/action_trainerFragment_to_createAthleteFragment"
+            app:destination="@id/createAthleteFragment" />
+    </fragment>
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.sportsballistics.ui.dashboard.users.UserFragment"
@@ -44,6 +61,14 @@
         android:id="@+id/homeFragment"
         android:name="com.example.sportsballistics.ui.dashboard.home.homeFragment"
         android:label="homeFragment" />
+    <fragment
+        android:id="@+id/createAthleteFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment"
+        android:label="CreateAthleteFragment" />
+    <fragment
+        android:id="@+id/createTrainerFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.create_trainer.CreateTrainerFragment"
+        android:label="CreateTrainerFragment" />
 
 
 </navigation>
