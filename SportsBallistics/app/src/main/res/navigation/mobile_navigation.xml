@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment"
+        android:label="DashboardFragment" />
+    <fragment
+        android:id="@+id/clubFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.club.ClubFragment"
+        android:label="ClubFragment">
+        <action
+            android:id="@+id/action_clubFragment_to_createClubFragment"
+            app:destination="@id/createClubFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createClubFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.club.CreateClubFragment"
+        android:label="CreateClubFragment" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountFragment"
+        android:label="AccountFragment" />
+    <fragment
+        android:id="@+id/athletesFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
+        android:label="AthletesFragment" />
+    <fragment
+        android:id="@+id/clubListFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.club.ClubListFragment"
+        android:label="ClubListFragment" />
+    <fragment
+        android:id="@+id/trainerFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment"
+        android:label="TrainerFragment" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.users.UserFragment"
+        android:label="UserFragment" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.home.homeFragment"
+        android:label="homeFragment" />
+
+
+</navigation>

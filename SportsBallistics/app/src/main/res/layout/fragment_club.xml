@@ -12,6 +12,11 @@
             android:id="@+id/clubListLayout"
             layout="@layout/club_list_layout" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
 </layout>

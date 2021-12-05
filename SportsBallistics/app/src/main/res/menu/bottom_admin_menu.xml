@@ -5,23 +5,23 @@
     <!--        android:icon="@drawable/ic_dashboard_super_admin_total_clubs"-->
     <!--        android:title="Dashboard" />-->
     <item
-        android:id="@+id/club"
+        android:id="@+id/clubFragment"
         android:icon="@drawable/tab_club_selector"
         android:title="Club" />
     <item
-        android:id="@+id/trainer"
+        android:id="@+id/trainerFragment"
         android:icon="@drawable/tab_bg_selector"
         android:title="Trainers" />
     <item
-        android:id="@+id/athlete"
+        android:id="@+id/athletesFragment"
         android:icon="@drawable/tab_athletes_selector"
         android:title="Athletes" />
     <item
-        android:id="@+id/users"
+        android:id="@+id/userFragment"
         android:icon="@drawable/tab_user_selector"
         android:title="Users" />
     <item
-        android:id="@+id/account"
+        android:id="@+id/accountFragment"
         android:icon="@drawable/tab_account_selector"
         android:title="My Account" />
 </menu>

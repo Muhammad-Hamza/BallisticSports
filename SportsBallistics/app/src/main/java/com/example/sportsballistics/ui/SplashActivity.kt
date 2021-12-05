@@ -17,6 +17,7 @@ class SplashActivity : AppCompatActivity()
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
             val intent = Intent(this, SelectionActivity::class.java)
             startActivity(intent)
+            finish()
         }, 2000)
 
     }

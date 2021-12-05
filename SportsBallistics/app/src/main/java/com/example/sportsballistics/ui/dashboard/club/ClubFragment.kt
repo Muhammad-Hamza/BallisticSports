@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.api.URLIdentifiers
@@ -40,7 +41,9 @@ class ClubFragment : Fragment() {
             }
 
             override fun onViewClick(adapterType: Int, user: UsersItem) {
-                (activity as DashboardActivity).add(CreateClubFragment(), R.id.flFragment)
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_clubFragment_to_createClubFragment)
+//                (activity as DashboardActivity).add(CreateClubFragment(), R.id.flFragment)
             }
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {
@@ -54,15 +57,19 @@ class ClubFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addDialog() {
+                binding.progressBar.visibility = View.VISIBLE
             }
 
             override fun addErrorDialog() {
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addErrorDialog(msg: String?) {
+                binding.progressBar.visibility = View.GONE
             }
         })
         viewModel.getContent(
