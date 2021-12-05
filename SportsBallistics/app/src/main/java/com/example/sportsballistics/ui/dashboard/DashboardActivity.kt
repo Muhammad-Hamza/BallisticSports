@@ -78,6 +78,7 @@ class DashboardActivity : AppCompatActivity() {
                     AppConstant.ROLE_TRAINER_PORTAL -> {
                         when (it.itemId) {
                             R.id.club -> setCurrentFragment(ClubFragment())
+                            R.id.athlete -> setCurrentFragment(AthletesFragment())
                             R.id.account -> setCurrentFragment(AccountFragment())
                         }
                         true

@@ -13,7 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.DialogBehavior
+import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
 import com.example.sportsballistics.data.api.URLIdentifiers
@@ -35,6 +38,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.google.android.material.dialog.MaterialDialogs
 
 
 class AthletesFragment : Fragment() {
@@ -44,6 +48,7 @@ class AthletesFragment : Fragment() {
     private var currentModel: List<Service>? = null
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
+    private var currentAthleteDataModel: AthleteDataModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +65,18 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
         loadMainUI()
+        binding.clubListLayout.llEditAthlete.setOnClickListener {
+            requireActivity().launchActivity<CreateAthleteActivity> {
+                putExtra(
+                    AppConstant.INTENT_SCREEN_TYPE,
+                    AppConstant.INTENT_SCREEN_TYPE_EDIT
+                )
+                putExtra(
+                    AppConstant.INTENT_EXTRA_1,
+                    currentAthleteDataModel!!.user_id
+                )
+            }
+        }
         binding.clubListLayout.tvDashboard.setOnClickListener {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
                 currentModel = null
@@ -86,6 +103,29 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.llAddTrainer.setOnClickListener {
 
         }
+        when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+            AppConstant.ROLE_CLUB_PORTAL -> {
+                binding.clubListLayout.llAddAthlete.visibility = View.VISIBLE
+                binding.clubListLayout.llAddTrainer.visibility = View.VISIBLE
+            }
+            AppConstant.ROLE_SUPER_PORTAL -> {
+                binding.clubListLayout.llAddAthlete.visibility = View.GONE
+                binding.clubListLayout.llAddTrainer.visibility = View.GONE
+            }
+            AppConstant.ROLE_ATHLETES_PORTAL -> {
+                binding.clubListLayout.llAddAthlete.visibility = View.GONE
+                binding.clubListLayout.llAddTrainer.visibility = View.GONE
+            }
+            AppConstant.ROLE_TRAINER_PORTAL -> {
+                binding.clubListLayout.llAddAthlete.visibility = View.VISIBLE
+                binding.clubListLayout.llAddTrainer.visibility = View.GONE
+            }
+            else -> {
+                binding.clubListLayout.llAddAthlete.visibility = View.GONE
+                binding.clubListLayout.llAddTrainer.visibility = View.GONE
+            }
+        }
+
     }
 
     private fun initCoachListData(services: List<Service>) {
@@ -126,6 +166,9 @@ class AthletesFragment : Fragment() {
                 }
 
                 override fun onDeleteClick(adapterType: Int, anyData: Any) {
+                }
+
+                override fun onDashboardClick(adapterType: Int, anyData: Any) {
                 }
 
             })
@@ -179,42 +222,66 @@ class AthletesFragment : Fragment() {
 //        binding.clubListLayout.rvAtheletes
 //        this recyclerView is using for athelets lists
 //        -------------------------------------
-        athletesAdapter = AthletesUserAdapter(object : OnItemClickListener {
-            override fun onEditClick(adapterType: Int, anyData: Any) {
-                if (anyData is UserModel) {
-                    requireActivity().launchActivity<CreateAthleteActivity> {
-                        putExtra(
-                            AppConstant.INTENT_SCREEN_TYPE,
-                            AppConstant.INTENT_SCREEN_TYPE_EDIT
-                        )
-                        putExtra(
-                            AppConstant.INTENT_EXTRA_1,
-                            anyData.id
-                        )
-                    }
-                }
-            }
-
-            override fun onViewClick(adapterType: Int, anyData: Any) {
-                viewModel.getAthleteInfo(
-                    requireContext(),
-                    anyData as UserModel,
-                    object : AthletesViewModel.ContentFetchListener {
-                        override fun onFetched(anyObject: Any) {
-                            if (anyObject is DashboardModel) {
-                                bindDataInUserProfile(anyObject.data as AthleteDataModel)
+        athletesAdapter =
+            AthletesUserAdapter(AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId!!,
+                object : OnItemClickListener {
+                    override fun onEditClick(adapterType: Int, anyData: Any) {
+                        if (anyData is UserModel) {
+                            requireActivity().launchActivity<CreateAthleteActivity> {
+                                putExtra(
+                                    AppConstant.INTENT_SCREEN_TYPE,
+                                    AppConstant.INTENT_SCREEN_TYPE_EDIT
+                                )
+                                putExtra(
+                                    AppConstant.INTENT_EXTRA_1,
+                                    anyData.id
+                                )
                             }
                         }
+                    }
 
-                    });
+                    override fun onDashboardClick(adapterType: Int, anyData: Any) {
+                        viewModel.getAthleteInfo(
+                            requireContext(),
+                            anyData as UserModel,
+                            object : AthletesViewModel.ContentFetchListener {
+                                override fun onFetched(anyObject: Any) {
+                                    if (anyObject is DashboardModel) {
+                                        bindDataInUserProfile(anyObject.data as AthleteDataModel)
+                                    }
+                                }
+
+                            });
+                    }
+
+                    override fun onViewClick(adapterType: Int, anyData: Any) {
+                        if (anyData is UserModel) {
+                            requireActivity().launchActivity<CreateAthleteActivity> {
+                                putExtra(
+                                    AppConstant.INTENT_SCREEN_TYPE,
+                                    AppConstant.INTENT_SCREEN_TYPE_VIEW
+                                )
+                                putExtra(
+                                    AppConstant.INTENT_EXTRA_1,
+                                    anyData.id
+                                )
+                            }
+                        }
 //                bindDataInUserProfile(anyData as UserModel)
-            }
+                    }
 
-            override fun onDeleteClick(adapterType: Int, anyData: Any) {
+                    override fun onDeleteClick(adapterType: Int, anyData: Any) {
+                        MaterialDialog(binding.root.context)
+                            .title(null, "Want to delete!")
+                            .message(null, "Do you want to delete this user?")
+                            .positiveButton(null, "YES", {
 
-            }
+                            }).negativeButton(null, "NO", {
 
-        })
+                            }).show()
+                    }
+
+                })
 //        -------------------------------------
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
@@ -227,6 +294,7 @@ class AthletesFragment : Fragment() {
     }
 
     private fun bindDataInUserProfile(athleteDataModel: AthleteDataModel) {
+        this.currentAthleteDataModel = athleteDataModel
         binding.clubListLayout.tvClub.setText(
             AppFunctions.getSpannableText(
                 getString(R.string.txt_athletes_club_name),
@@ -268,6 +336,23 @@ class AthletesFragment : Fragment() {
         initRecyclerView(athleteDataModel.services)
         binding.clubListLayout.llList.visibility = View.GONE
         binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
+        when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+            AppConstant.ROLE_CLUB_PORTAL -> {
+                binding.clubListLayout.llEditAthlete.visibility = View.VISIBLE
+            }
+            AppConstant.ROLE_SUPER_PORTAL -> {
+
+            }
+            AppConstant.ROLE_ATHLETES_PORTAL -> {
+
+            }
+            AppConstant.ROLE_TRAINER_PORTAL -> {
+
+            }
+            else -> {
+                binding.clubListLayout.llEditAthlete.visibility = View.GONE
+            }
+        }
     }
 
     private fun loadCoachabilityChart(services: List<Service>) {

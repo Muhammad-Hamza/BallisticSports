@@ -174,98 +174,132 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_10sdp"
-                            android:layout_marginRight="@dimen/_10sdp"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
-                            <androidx.appcompat.widget.LinearLayoutCompat
-                                android:layout_width="@dimen/_75sdp"
-                                android:layout_height="@dimen/_75sdp"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:layout_marginRight="@dimen/_10sdp"
-                                android:background="@drawable/ic_dash_profile"
-                                android:padding="@dimen/_3sdp">
-
-                                <com.makeramen.roundedimageview.RoundedImageView
-                                    android:id="@+id/ivImageView"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:scaleType="centerCrop"
-                                    android:src="@mipmap/ic_temp_avatar"
-                                    app:riv_corner_radius="@dimen/_5sdp" />
-                            </androidx.appcompat.widget.LinearLayoutCompat>
+                            android:layout_marginRight="@dimen/_10sdp">
 
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical">
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <TextView
-                                    android:id="@+id/tvName"
-                                    android:layout_width="match_parent"
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="@dimen/_75sdp"
+                                    android:layout_height="@dimen/_75sdp"
+                                    android:layout_marginEnd="@dimen/_10sdp"
+                                    android:layout_marginRight="@dimen/_10sdp"
+                                    android:background="@drawable/ic_dash_profile"
+                                    android:padding="@dimen/_3sdp">
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        android:id="@+id/ivImageView"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="centerCrop"
+                                        android:src="@mipmap/ic_temp_avatar"
+                                        app:riv_corner_radius="@dimen/_5sdp" />
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/roboto_bold"
-                                    android:maxLines="1"
-                                    android:text="John Smith"
-                                    android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_11sdp" />
+                                    android:orientation="vertical">
 
-                                <TextView
-                                    android:id="@+id/tvClub"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_2sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:maxLines="1"
-                                    android:text="Club Name: Club Name 1"
-                                    android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_8sdp" />
+                                    <TextView
+                                        android:id="@+id/tvName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/roboto_bold"
+                                        android:maxLines="1"
+                                        android:text="John Smith"
+                                        android:textColor="@color/actionBarColor"
+                                        android:textSize="@dimen/_11sdp" />
 
-                                <TextView
-                                    android:id="@+id/tvTrainer"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_2sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:maxLines="1"
-                                    android:text="Trainer: Mike Thomas"
-                                    android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_8sdp"
-                                    android:visibility="gone" />
+                                    <TextView
+                                        android:id="@+id/tvClub"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:maxLines="1"
+                                        android:text="Club Name: Club Name 1"
+                                        android:textColor="@color/actionBarColor"
+                                        android:textSize="@dimen/_8sdp" />
 
-                                <TextView
-                                    android:id="@+id/tvAge"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_2sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:maxLines="1"
-                                    android:text="Age: 25"
-                                    android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_8sdp" />
+                                    <TextView
+                                        android:id="@+id/tvTrainer"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:maxLines="1"
+                                        android:text="Trainer: Mike Thomas"
+                                        android:textColor="@color/actionBarColor"
+                                        android:textSize="@dimen/_8sdp"
+                                        android:visibility="gone" />
 
-                                <TextView
-                                    android:id="@+id/tvGrade"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_2sdp"
-                                    android:ellipsize="end"
-                                    android:fontFamily="@font/roboto_regular"
-                                    android:maxLines="1"
-                                    android:text="Grade: 10"
-                                    android:textColor="@color/actionBarColor"
-                                    android:textSize="@dimen/_8sdp" />
+                                    <TextView
+                                        android:id="@+id/tvAge"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:maxLines="1"
+                                        android:text="Age: 25"
+                                        android:textColor="@color/actionBarColor"
+                                        android:textSize="@dimen/_8sdp" />
 
+                                    <TextView
+                                        android:id="@+id/tvGrade"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:maxLines="1"
+                                        android:text="Grade: 10"
+                                        android:textColor="@color/actionBarColor"
+                                        android:textSize="@dimen/_8sdp" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
                             </androidx.appcompat.widget.LinearLayoutCompat>
-                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/llEditAthlete"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:background="@drawable/ic_add_layout"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingStart="@dimen/_4sdp"
+                                android:paddingLeft="@dimen/_4sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingEnd="@dimen/_4sdp"
+                                android:paddingRight="@dimen/_4sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:text="Edit"
+                                    android:textColor="@color/actionBarTextColor"
+                                    android:textSize="@dimen/_10sdp" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        </RelativeLayout>
 
                         <View
                             android:layout_width="match_parent"

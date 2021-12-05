@@ -23,7 +23,7 @@ class CreateAthleteActivity : AppCompatActivity() {
     var athleteId: String? = null
 
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
-    var stateArray = arrayOf("Status 1", "Status 2", "Status 3", "Status 4", "Status 5")
+    var stateArray = arrayOf("Active", "Inactive")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class CreateAthleteActivity : AppCompatActivity() {
         initStateAdapter()
         initViewModel()
         initClickListener()
-        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             if (athleteId != null) {
                 viewModel.getAthleteInfo(
                     this,
@@ -53,6 +53,16 @@ class CreateAthleteActivity : AppCompatActivity() {
                         }
                     })
             }
+        }
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+            binding.txtTotalTrainersText.setText("Create Athlete")
+            binding.txtEdit.visibility = View.GONE
+        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+            binding.txtTotalTrainersText.setText("View Athlete Profile")
+            binding.txtEdit.visibility = View.VISIBLE
+        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
+            binding.txtTotalTrainersText.setText("Edit Athlete")
+            binding.txtEdit.visibility = View.GONE
         }
     }
 
@@ -69,6 +79,28 @@ class CreateAthleteActivity : AppCompatActivity() {
         binding.etCity.setText("")
         binding.etState.setText("")
         binding.etZipcode.setText("")
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+            doDisableEditing(false)
+        } else {
+            doDisableEditing(true)
+        }
+    }
+
+    private fun doDisableEditing(boolean: Boolean) {
+        binding.etFullName.isEnabled = boolean
+        binding.etAge.isEnabled = boolean
+        binding.etGrade.isEnabled = boolean
+        binding.etEmail.isEnabled = boolean
+        binding.etPassword.isEnabled = boolean
+        binding.etContact.isEnabled = boolean
+        binding.etAddress1.isEnabled = boolean
+        binding.etAddress2.isEnabled = boolean
+        binding.etCity.isEnabled = boolean
+        binding.etState.isEnabled = boolean
+        binding.etZipcode.isEnabled = boolean
+        binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
+        binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
+//        binding.etState.isClickable = boolean
     }
 
     private fun initStateAdapter() {
@@ -79,12 +111,20 @@ class CreateAthleteActivity : AppCompatActivity() {
     }
 
     private fun initClickListener() {
+        binding.txtEdit.setOnClickListener {
+            doDisableEditing(true)
+            binding.txtTotalTrainersText.setText("Edit Athlete")
+            binding.txtEdit.visibility = View.GONE
+            screenType = AppConstant.INTENT_SCREEN_TYPE_EDIT
+        }
         binding.etStatus.setOnClickListener {
-            binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW)
+                binding.etStatus.showDropDown()
         }
 
         binding.llStateDropdown.setOnClickListener {
-            binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW)
+                binding.etStatus.showDropDown()
         }
 
         binding.tvCancel.setOnClickListener {
@@ -124,7 +164,6 @@ class CreateAthleteActivity : AppCompatActivity() {
 
     private fun hitAPIRequest() {
         //TODO NEED TO ADD API REQUEST HIT.
-
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null) {
             //Create Edit Request
         } else {

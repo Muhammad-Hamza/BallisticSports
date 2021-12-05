@@ -6,4 +6,5 @@ interface OnItemClickListener {
     fun onEditClick(adapterType: Int, anyData: Any)
     fun onViewClick(adapterType: Int, anyData: Any)
     fun onDeleteClick(adapterType: Int, anyData: Any)
+    fun onDashboardClick(adapterType: Int, anyData: Any)
 }

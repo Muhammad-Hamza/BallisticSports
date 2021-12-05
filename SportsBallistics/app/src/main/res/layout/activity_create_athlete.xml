@@ -27,10 +27,34 @@
                 android:layout_marginRight="@dimen/_10sdp"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_toddler_inner_logo" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/ic_toddler_inner_logo" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="start"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:background="@drawable/edit_text_bg"
+                        android:gravity="start"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingTop="@dimen/_3sdp"
+                        android:paddingEnd="@dimen/_5sdp"
+                        android:paddingBottom="@dimen/_3sdp"
+                        android:text="Edit"
+                        android:textSize="@dimen/_9sdp" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/txtTotalTrainersText"
@@ -282,11 +306,11 @@
                                 android:textSize="@dimen/_8sdp" />
 
                             <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/llStateDropdown"
                                 android:layout_width="@dimen/_25sdp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/_1sdp"
                                 android:background="#EFEFEF"
-                                android:id="@+id/llStateDropdown"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:paddingTop="@dimen/_3sdp">
