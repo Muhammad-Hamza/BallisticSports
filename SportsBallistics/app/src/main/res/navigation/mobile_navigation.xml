@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/createClubFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club.CreateClubFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.create_club.CreateClubFragment"
         android:label="CreateClubFragment" />
     <fragment
         android:id="@+id/accountFragment"
@@ -28,10 +28,6 @@
         android:id="@+id/athletesFragment"
         android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
         android:label="AthletesFragment" />
-    <fragment
-        android:id="@+id/clubListFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club.ClubListFragment"
-        android:label="ClubListFragment" />
     <fragment
         android:id="@+id/trainerFragment"
         android:name="com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment"

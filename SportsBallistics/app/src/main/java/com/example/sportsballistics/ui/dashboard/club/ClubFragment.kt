@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.afollestad.materialdialogs.MaterialDialog
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
@@ -34,19 +35,44 @@ class ClubFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.clubListLayout.llAddClub.setOnClickListener {
+            val args = Bundle()
+            args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_clubFragment_to_createClubFragment, args)
+        }
+    }
+
     private fun initRecyclerView(list: MutableList<UsersItem>) {
         val mLayoutManager = LinearLayoutManager(context)
         val mAdapter = ClubListAdapter(context, list, object : ClubListAdapter.OnItemClickListener {
             override fun onEditClick(adapterType: Int, user: UsersItem) {
+                val args = Bundle()
+                args.putString(AppConstant.INTENT_EXTRA_1, user.id)
+                args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
             }
 
             override fun onViewClick(adapterType: Int, user: UsersItem) {
+                val args = Bundle()
+                args.putString(AppConstant.INTENT_EXTRA_1, user.id)
+                args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
                 Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_clubFragment_to_createClubFragment)
-//                (activity as DashboardActivity).add(CreateClubFragment(), R.id.flFragment)
+                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
             }
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {
+                MaterialDialog(binding.root.context)
+                    .title(null, "Want to delete!")
+                    .message(null, "Do you want to delete this user?")
+                    .positiveButton(null, "YES", {
+
+                    }).negativeButton(null, "NO", {
+
+                    }).show()
             }
         })
         binding.clubListLayout.recyclerView.layoutManager = mLayoutManager

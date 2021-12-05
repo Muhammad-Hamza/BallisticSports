@@ -56,6 +56,13 @@ class ClubListAdapter(
             binding.imgViewClub.setOnClickListener {
                 mListener.onViewClick(adapterType, user!!)
             }
+            binding.imgEdit.setOnClickListener {
+                mListener.onEditClick(adapterType, user!!)
+            }
+
+            binding.txtAction.setOnClickListener {
+                mListener.onDeleteClick(adapterType, user!!)
+            }
         }
 
     }

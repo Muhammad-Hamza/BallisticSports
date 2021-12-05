@@ -199,7 +199,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:text="User will be notified automatically via email notification"
-                            android:textSize="@dimen/_8sdp" />
+                            android:textSize="@dimen/_7sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
