@@ -64,7 +64,9 @@ class DashboardFragment : Fragment() {
     }
 
     private fun initViews() {
-        if (AppSystem.getInstance().getCurrentUser() != null) {
+        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
+                .getCurrentUser().loggedIn != null
+        ) {
             when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
                 AppConstant.ROLE_TRAINER_PORTAL -> {
                     binding.txtLogin.setText(R.string.txt_welcome_trainer_admin)
