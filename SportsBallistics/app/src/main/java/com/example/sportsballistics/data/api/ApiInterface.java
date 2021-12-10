@@ -2,6 +2,7 @@ package com.example.sportsballistics.data.api;
 
 
 import com.example.sportsballistics.data.remote.DashboardModel;
+import com.example.sportsballistics.data.remote.ViewClubResponse;
 import com.example.sportsballistics.data.remote.club.ClubResponse;
 import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
@@ -57,23 +58,26 @@ public interface ApiInterface
 
     @POST(URLIdentifiers.ADD_CLUB)
     @FormUrlEncoded
-    Call<DashboardModel> addClub(@Field("name") String name,
+    Call<DashboardModel> addClub(
+            @Field("name") String name,
             @Field("address") String address,
             @Field("state") String state,
             @Field("city") String city,
-            @Field("password") String password,
             @Field("status") String status,
-            @Field("email") String email,
-            @Field("zipcode") int zipcode,
-            @Field("city") int limit);
+            @Field("zipcode") int zipcode);
 
     @POST(URLIdentifiers.EDIT_CLUB)
     @FormUrlEncoded
-    Call<DashboardModel> editClub(@Path(value = "club_id", encoded = true) String id, @Field("name") int name, @Field("address") int address, @Field("state") int state, @Field("zipcode") int zipcode, @Field("city") int limit);
+    Call<DashboardModel> editClub(@Path(value = "club_id", encoded = true) String id,
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("state") String state,
+            @Field("city") String city,
+            @Field("status") String status,
+            @Field("zipcode") int zipcode);
 
     @POST(URLIdentifiers.VIEW_CLUB)
-    @FormUrlEncoded
-    Call<DashboardModel> viewClub(@Path(value = "club_id", encoded = true) String id);
+    Call<ViewClubResponse> viewClub(@Path(value = "club_id", encoded = true) String id);
 
     @POST("club/delete/{club_id}/1")
     @FormUrlEncoded

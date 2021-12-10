@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
+import com.example.sportsballistics.data.remote.ViewClubResponse
 import com.example.sportsballistics.databinding.FragmentClubBinding
 import com.example.sportsballistics.databinding.FragmentCreateClubBinding
 import com.example.sportsballistics.ui.dashboard.club.ClubListViewModel
@@ -27,6 +28,7 @@ class CreateClubFragment : Fragment()
     lateinit var clubId: String
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
     var stateArray = arrayOf("Active", "Inactive")
+    var isEdit = false
 
     lateinit var binding: FragmentCreateClubBinding
     private lateinit var viewModel: CreateClubViewModel
@@ -56,12 +58,14 @@ class CreateClubFragment : Fragment()
         {
             binding.txtTotalTrainersText.setText("View Club Profile")
             binding.txtEdit.visibility = View.VISIBLE
+            isEdit = true
             doDisableEditing(false)
         }
         else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT)
         {
             binding.txtTotalTrainersText.setText("Edit Club Profile")
             binding.txtEdit.visibility = View.GONE
+            isEdit = true
             doDisableEditing(true)
         }
         else if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD)
@@ -93,18 +97,18 @@ class CreateClubFragment : Fragment()
             {
                 showMessage("Club Name is required")
             }
-            else if (TextUtils.isEmpty(binding.etEmail.text.toString()))
-            {
-                showMessage("Email is required")
-            }
-            else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
-            {
-                showMessage("Email is not valid")
-            }
-            else if (TextUtils.isEmpty(binding.etPassword.text.toString()))
-            {
-                showMessage("Password is required")
-            }
+//            else if (TextUtils.isEmpty(binding.etEmail.text.toString()))
+//            {
+//                showMessage("Email is required")
+//            }
+//            else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
+//            {
+//                showMessage("Email is not valid")
+//            }
+//            else if (TextUtils.isEmpty(binding.etPassword.text.toString()))
+//            {
+//                showMessage("Password is required")
+//            }
             else if (TextUtils.isEmpty(binding.etAddress1.text.toString()))
             {
                 showMessage("First Address is required")
@@ -127,9 +131,9 @@ class CreateClubFragment : Fragment()
             }
             else
             {
-                addClub(binding.etClubName.text.toString(),
-                       binding.etAddress1.text.toString(),
-                        binding.etState.text.toString(),binding.etZipcode.text.toString().toInt(),10,binding.etEmail.text.toString(),binding.etCity.text.toString(),binding.etPassword.text.toString(),binding.etStatus.text.toString())
+
+                if (!isEdit) addClub(isEdit, binding.etClubName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), 10, "", binding.etCity.text.toString(), "", binding.etStatus.text.toString())
+                else editClub(isEdit, binding.etClubName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), 10, "", binding.etCity.text.toString(), "", binding.etStatus.text.toString())
             }
         }
     }
@@ -189,26 +193,52 @@ class CreateClubFragment : Fragment()
 
     private fun doDisableEditing(boolean: Boolean)
     {
-        binding.etClubName.isEnabled = boolean
-        binding.etEmail.isEnabled = boolean
-        binding.etPassword.isEnabled = boolean
-        binding.etAddress1.isEnabled = boolean
-        binding.etAddress2.isEnabled = boolean
-        binding.etCity.isEnabled = boolean
-        binding.etState.isEnabled = boolean
-        binding.etZipcode.isEnabled = boolean
-        binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
-        binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
+        viewModel.viewClub(requireContext(), clubId, object :
+                CreateClubViewModel.ContentFetchListener
+        {
+            override fun onSuccess(content: ViewClubResponse)
+            {
+                binding.etClubName.setText(content.clubData?.name)
+                binding.etAddress1.setText(content.clubData?.address)
+                binding.etCity.setText(content.clubData?.city)
+                binding.etState.setText(content.clubData?.state)
+                binding.etZipcode.setText(content.clubData?.zipcode)
+                binding.etStatus.setText(content.clubData?.status)
+                binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
+                binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
+                binding.etClubName.isEnabled = boolean
+                binding.etAddress1.isEnabled = boolean
+                binding.etCity.isEnabled = boolean
+                binding.etState.isEnabled = boolean
+                binding.etZipcode.isEnabled = boolean
+                binding.etStatus.isEnabled = boolean
+            }
+
+            override fun onSuccess(content: DashboardModel)
+            {
+            }
+
+            override fun onError(t: Throwable)
+            {
+                TODO("Not yet implemented")
+            }
+        })
+
 //        binding.etState.isClickable = boolean
     }
 
-    private fun addClub(name: String, address: String, state: String, zipcode: Int, limit: Int, email: String, city: String, password: String, status: String)
+    private fun addClub(isEdit: Boolean, name: String, address: String, state: String, zipcode: Int, limit: Int, email: String, city: String, password: String, status: String)
     {
         if (name.isNotEmpty() && address.isNotEmpty() && email.isNotEmpty() && city.isNotEmpty() && password.isNotEmpty())
         {
-            viewModel.addClub(requireContext(), name, address, state, zipcode, limit, email, city, password, status, object :
+            viewModel.addClub(isEdit, requireContext(), name, address, state, zipcode, city, status, object :
                     CreateClubViewModel.ContentFetchListener
             {
+                override fun onSuccess(content: ViewClubResponse)
+                {
+
+                }
+
                 override fun onSuccess(content: DashboardModel)
                 {
                     Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
@@ -222,11 +252,40 @@ class CreateClubFragment : Fragment()
         }
         else
         {
-            validate(name, address, state, zipcode,  email, city, password, status)
+            validate(name, address, state, zipcode, email, city, password, status)
         }
     }
 
-    fun validate(name: String, address: String, state: String, zipcode: Int,  email: String, city: String, password: String, status: String)
+    private fun editClub(isEdit: Boolean, name: String, address: String, state: String, zipcode: Int, limit: Int, email: String, city: String, password: String, status: String)
+    {
+        if (name.isNotEmpty() && address.isNotEmpty())
+        {
+            viewModel.editClub(requireContext(), clubId, name, address, state, zipcode, city, status, object :
+                    CreateClubViewModel.ContentFetchListener
+            {
+                override fun onSuccess(content: ViewClubResponse)
+                {
+
+                }
+
+                override fun onSuccess(content: DashboardModel)
+                {
+                    Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onError(t: Throwable)
+                {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+        else
+        {
+            validate(name, address, state, zipcode, email, city, password, status)
+        }
+    }
+
+    fun validate(name: String, address: String, state: String, zipcode: Int, email: String, city: String, password: String, status: String)
     {
         when
         {

@@ -90,7 +90,7 @@
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Club Name"
+                        android:text="Club Name*"
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
 
@@ -110,84 +110,6 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:orientation="horizontal"
-                        android:weightSum="2">
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
-                            android:layout_weight="1.3"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/txtEmail"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/roboto_regular"
-                                android:text="Enter Email"
-                                android:textColor="@color/txtGrey"
-                                android:textSize="@dimen/_9sdp" />
-
-                            <EditText
-                                android:id="@+id/etEmail"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_22sdp"
-                                android:layout_below="@+id/txt_main"
-
-                                android:background="@drawable/edit_text_bg"
-                                android:gravity="top|start"
-                                android:padding="@dimen/_4sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:textSize="@dimen/_8sdp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:text="User will be notified automatically via email notification"
-                                android:textSize="@dimen/_7sdp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-                        <androidx.appcompat.widget.LinearLayoutCompat
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.7"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/txtPass"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_6sdp"
-                                android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/roboto_regular"
-                                android:text="Password"
-                                android:textColor="@color/txtGrey"
-                                android:textSize="@dimen/_9sdp" />
-
-                            <EditText
-                                android:id="@+id/etPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/_22sdp"
-                                android:layout_below="@+id/txt_main"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:layout_marginEnd="@dimen/_20sdp"
-                                android:background="@drawable/edit_text_bg"
-                                android:gravity="top|start"
-                                android:padding="@dimen/_4sdp"
-                                android:paddingStart="@dimen/_5sdp"
-                                android:textSize="@dimen/_8sdp" />
-                        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
-
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="0.7"
@@ -199,7 +121,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Address 1"
+                            android:text="Address*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -217,37 +139,6 @@
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_weight="0.7"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtAddress2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_5sdp"
-                            android:fontFamily="@font/roboto_regular"
-                            android:text="Address 2"
-                            android:textColor="@color/txtGrey"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <EditText
-                            android:id="@+id/etAddress2"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_below="@+id/txt_main"
-                            android:layout_marginEnd="@dimen/_20sdp"
-                            android:background="@drawable/edit_text_bg"
-                            android:gravity="top|start"
-                            android:padding="@dimen/_5sdp"
-                            android:paddingStart="@dimen/_5sdp"
-                            android:textSize="@dimen/_8sdp" />
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -330,7 +221,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:fontFamily="@font/roboto_regular"
-                                android:text="Zipcode"
+                                android:text="Zipcode*"
                                 android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_9sdp" />
 
