@@ -14,7 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.remote.AthleteResponse
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.databinding.FragmentCreateAthleteBinding
@@ -57,16 +59,34 @@ class CreateAthleteFragment : Fragment() {
         }
         initStateAdapter()
         initClickListener()
+
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             if (athleteId != null) {
+                viewModel.viewAthlete(requireContext(),athleteId!!,object:CreateAthleteViewModel.ContentFetchListener{
+                    override fun onFetched(anyObject: Any)
+                    {
+                        if (anyObject is AthleteResponse) {
+                            val response = anyObject as AthleteResponse
+                            bindDataInUserProfile(response)
+                        }
+                    }
+
+                    override fun onError(t: Throwable)
+                    {
+                        TODO("Not yet implemented")
+                    }
+                })
                 viewModel.getAthleteInfo(
                     requireContext(),
                     athleteId!!,
                     object : CreateAthleteViewModel.ContentFetchListener {
                         override fun onFetched(anyObject: Any) {
-                            if (anyObject is DashboardModel) {
-                                bindDataInUserProfile(anyObject.data as AthleteDataModel)
-                            }
+
+                        }
+
+                        override fun onError(t: Throwable)
+                        {
+                            TODO("Not yet implemented")
                         }
                     })
             }
@@ -78,24 +98,23 @@ class CreateAthleteFragment : Fragment() {
             binding.txtTotalTrainersText.setText("View Athlete Profile")
             binding.txtEdit.visibility = View.VISIBLE
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
-            binding.txtTotalTrainersText.setText("Edit Athlete")
+            binding.txtTotalTrainersText.text = "Edit Athlete"
             binding.txtEdit.visibility = View.GONE
         }
     }
 
-    private fun bindDataInUserProfile(athleteDataModel: AthleteDataModel) {
-        binding.etFullName.setText(athleteDataModel.athletic_name.fullname)
-        binding.etAge.setText(athleteDataModel.athletic_name.age)
-        binding.etGrade.setText(athleteDataModel.athletic_name.grade)
-        binding.etEmail.setText("")
-        binding.etPassword.setText("")
-        binding.etContact.setText("")
-        binding.etStatus.setText("")
-        binding.etAddress1.setText("")
-        binding.etAddress2.setText("")
-        binding.etCity.setText("")
-        binding.etState.setText("")
-        binding.etZipcode.setText("")
+    private fun bindDataInUserProfile(athleteResponse: AthleteResponse) {
+        binding.etFullName.setText(athleteResponse.userData?.fullname)
+        binding.etAge.setText(athleteResponse.userData?.age)
+        binding.etGrade.setText(athleteResponse.userData?.grade)
+        binding.etEmail.setText(athleteResponse.userData?.email)
+        binding.etPassword.setText(athleteResponse.userData?.password)
+        binding.etContact.setText(athleteResponse.userData?.contactNo)
+        binding.etStatus.setText(athleteResponse.userData?.status)
+        binding.etAddress1.setText(athleteResponse.userData?.address)
+        binding.etCity.setText(athleteResponse.userData?.city)
+        binding.etState.setText(athleteResponse.userData?.state)
+        binding.etZipcode.setText(athleteResponse.userData?.zipcode)
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             doDisableEditing(false)
         } else {
@@ -111,7 +130,6 @@ class CreateAthleteFragment : Fragment() {
         binding.etPassword.isEnabled = boolean
         binding.etContact.isEnabled = boolean
         binding.etAddress1.isEnabled = boolean
-        binding.etAddress2.isEnabled = boolean
         binding.etCity.isEnabled = boolean
         binding.etState.isEnabled = boolean
         binding.etZipcode.isEnabled = boolean
@@ -180,17 +198,62 @@ class CreateAthleteFragment : Fragment() {
     }
 
     private fun hitAPIRequest() {
-        //TODO NEED TO ADD API REQUEST HIT.
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null) {
-            //Create Edit Request
+            viewModel.editAthlete(requireContext(), athleteId!!,binding.etFullName.text.toString(),
+                binding.etAddress1.text.toString(),
+                binding.etState.text.toString(),
+                binding.etZipcode.text.toString().toInt(),
+                binding.etCity.text.toString(),
+                binding.etStatus.text.toString(),
+                binding.etContact.text.toString(),
+                binding.etAge.text.toString(),
+                binding.etGrade.text.toString(),
+                binding.etPassword.text.toString(),
+                "",
+                SharedPrefUtil.getInstance().user.loggedIn?.clubId.toString(),
+                SharedPrefUtil.getInstance().user.loggedIn?.roleId.toString(),
+                binding.etEmail.text.toString(),object : CreateAthleteViewModel.ContentFetchListener{
+                    override fun onFetched(anyObject: Any)
+                    {
+//                        showMessage("Athlete Added")
+                    }
+
+                    override fun onError(t: Throwable)
+                    {
+//                        showMessage(t?.localizedMessage)
+                    }
+                })
         } else {
-//            create new add athlete request
+            viewModel.addAthelete(requireContext(),binding.etFullName.text.toString(),
+                binding.etAddress1.text.toString(),
+                binding.etState.text.toString(),
+                binding.etZipcode.text.toString().toInt(),
+                binding.etCity.text.toString(),
+                binding.etStatus.text.toString(),
+                binding.etContact.text.toString(),
+                binding.etAge.text.toString(),
+                binding.etGrade.text.toString(),
+                binding.etPassword.text.toString(),
+                "",
+                SharedPrefUtil.getInstance().user.loggedIn?.clubId.toString(),
+                SharedPrefUtil.getInstance().user.loggedIn?.roleId.toString(),
+                binding.etEmail.text.toString(),object : CreateAthleteViewModel.ContentFetchListener{
+                    override fun onFetched(anyObject: Any)
+                    {
+//                        showMessage("Athlete Added")
+                    }
+
+                    override fun onError(t: Throwable)
+                    {
+//                        showMessage(t?.localizedMessage)
+                    }
+                })
         }
         Navigation.findNavController(binding.root).navigateUp()
     }
 
     private fun showMessage(content: String) {
-        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, content, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {

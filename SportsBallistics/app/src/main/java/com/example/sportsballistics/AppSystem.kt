@@ -8,8 +8,9 @@ import com.google.gson.Gson
 import okhttp3.Cookie
 
 class AppSystem : Application() {
-    private lateinit var context: Context
+
     val TAG = AppSystem::class.java.name
+
     private var prefs: SharedPreferences? = null
     private val USER = "user"
     private val PREFERENCES_KEY = "com.example.sportsballistics"
@@ -18,6 +19,7 @@ class AppSystem : Application() {
 
     private lateinit var currentUser: UserResponse
     fun setCurrentUser(user: UserResponse) {
+
         currentUser = user
     }
 
@@ -25,10 +27,11 @@ class AppSystem : Application() {
         return currentUser
     }
 
-    override fun onCreate() {
+    override fun onCreate()
+    {
         super.onCreate()
+        context = applicationContext
     }
-
     companion object {
         /*
         Volatile instance to make singleton
@@ -36,6 +39,8 @@ class AppSystem : Application() {
         */
         @Volatile
         private var sSoleInstance: AppSystem? = null
+
+        lateinit var context: Context
 
         fun getInstance(): AppSystem {
 

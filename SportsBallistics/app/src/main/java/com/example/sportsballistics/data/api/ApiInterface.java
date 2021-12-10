@@ -1,7 +1,11 @@
 package com.example.sportsballistics.data.api;
 
 
+import static com.example.sportsballistics.data.api.URLIdentifiers.DELETE_USER;
+
+import com.example.sportsballistics.data.remote.AthleteResponse;
 import com.example.sportsballistics.data.remote.DashboardModel;
+import com.example.sportsballistics.data.remote.ViewClubResponse;
 import com.example.sportsballistics.data.remote.club.ClubResponse;
 import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
@@ -58,21 +62,32 @@ public interface ApiInterface {
 
     @POST(URLIdentifiers.ADD_CLUB)
     @FormUrlEncoded
-    Call<DashboardModel> addClub(@Field("name") int name, @Field("address") int address, @Field("state") int state, @Field("zipcode") int zipcode, @Field("city") int limit);
+    Call<DashboardModel> addClub(
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("state") String state,
+            @Field("city") String city,
+            @Field("status") String status,
+            @Field("zipcode") int zipcode);
 
     @POST(URLIdentifiers.EDIT_CLUB)
     @FormUrlEncoded
-    Call<DashboardModel> editClub(@Path(value = "club_id", encoded = true) String id, @Field("name") int name, @Field("address") int address, @Field("state") int state, @Field("zipcode") int zipcode, @Field("city") int limit);
+    Call<DashboardModel> editClub(@Path(value = "club_id", encoded = true) String id,
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("state") String state,
+            @Field("city") String city,
+            @Field("status") String status,
+            @Field("zipcode") int zipcode);
 
     @POST(URLIdentifiers.VIEW_CLUB)
-    @FormUrlEncoded
-    Call<DashboardModel> viewClub(@Path(value = "club_id", encoded = true) String id);
+    Call<ViewClubResponse> viewClub(@Path(value = "club_id", encoded = true) String id);
 
     @POST("club/delete/{club_id}/1")
     @FormUrlEncoded
     Call<DashboardModel> deleteClub(@Path(value = "club_id", encoded = true) String id);
 
-    @POST(URLIdentifiers.ADD_CLUB)
+    @POST(URLIdentifiers.ADD_USER)
     @FormUrlEncoded
     Call<DashboardModel> addTrainer(@Field("email") int email,
                                     @Field("fullname") int fullname,
@@ -90,16 +105,44 @@ public interface ApiInterface {
                                     @Field("role_id") int role_id); //role will be for only role 4
 
     @POST(URLIdentifiers.EDIT_CLUB)
-    @FormUrlEncoded
-    Call<DashboardModel> editTrainer(@Path(value = "club_id", encoded = true) String id, @Field("name") int name, @Field("address") int address, @Field("state") int state, @Field("zipcode") int zipcode, @Field("city") int limit);
+    Call<DashboardModel> addTrainer(@Field("email") String email,
+            @Field("fullname") String fullname,
+            @Field("contact_no") String contact_no,
+            @Field("age") String age,
+            @Field("state") String state,
+            @Field("zipcode") int zipcode,
+            @Field("city") String city,
+            @Field("status") String status,
+            @Field("address") String address,
+            @Field("grade") String grade,
+            @Field("password") String password,
+            @Field("package_type") String package_type,
+            @Field("club_name") String club_name,
+            @Field("role_id") String role_id); //role will be for only role 4
 
-    @POST(URLIdentifiers.VIEW_CLUB)
+    @POST(URLIdentifiers.EDIT_USER)
     @FormUrlEncoded
-    Call<DashboardModel> viewTrainer(@Path(value = "club_id", encoded = true) String id);
+    Call<DashboardModel> editTrainer(@Path(value = "userid", encoded = true) String id,@Field("email") String email,
+            @Field("fullname") String fullname,
+            @Field("contact_no") String contact_no,
+            @Field("age") String age,
+            @Field("state") String state,
+            @Field("zipcode") int zipcode,
+            @Field("city") String city,
+            @Field("status") String status,
+            @Field("address") String address,
+            @Field("grade") String grade,
+            @Field("password") String password,
+            @Field("package_type") String package_type,
+            @Field("club_name") String club_name,
+            @Field("role_id") String role_id);
 
-    @POST("club/delete/{trainer_id}/1")
+    @POST(URLIdentifiers.VIEW_USER)
+    Call<AthleteResponse> viewTrainer(@Path(value = "userid", encoded = true) String id);
+
+    @POST(DELETE_USER)
     @FormUrlEncoded
-    Call<DashboardModel> deleteTrainer(@Path(value = "club_id", encoded = true) String id);
+    Call<DashboardModel> deleteTrainer(@Path(value = "userid", encoded = true) String id);
 
     @GET(URLIdentifiers.SERVICE_LIST_CONTENT)
     Call<Object> getServiceContent();
