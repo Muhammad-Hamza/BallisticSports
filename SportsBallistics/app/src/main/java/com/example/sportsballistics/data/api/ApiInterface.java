@@ -1,6 +1,8 @@
 package com.example.sportsballistics.data.api;
 
 
+import static com.example.sportsballistics.data.api.URLIdentifiers.DELETE_USER;
+
 import com.example.sportsballistics.data.remote.AthleteResponse;
 import com.example.sportsballistics.data.remote.DashboardModel;
 import com.example.sportsballistics.data.remote.ViewClubResponse;
@@ -121,9 +123,9 @@ public interface ApiInterface
     @POST(URLIdentifiers.VIEW_USER)
     Call<AthleteResponse> viewTrainer(@Path(value = "userid", encoded = true) String id);
 
-    @POST("club/delete/{trainer_id}/1")
+    @POST(DELETE_USER)
     @FormUrlEncoded
-    Call<DashboardModel> deleteTrainer(@Path(value = "club_id", encoded = true) String id);
+    Call<DashboardModel> deleteTrainer(@Path(value = "userid", encoded = true) String id);
 
 
 

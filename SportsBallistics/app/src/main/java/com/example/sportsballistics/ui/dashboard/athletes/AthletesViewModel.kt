@@ -12,6 +12,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
+import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,6 +90,49 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
                 mErrorListener.addErrorDialog()
             }
 
+        })
+    }
+
+    fun deleteTrainer(context: Context, clubId: String, mListener: ContentFetchListener)
+    {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.deleteTrainer(clubId)
+        call.enqueue(object : Callback<DashboardModel>
+        {
+            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
+            {
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try
+                {
+                    val responseBody = response.body()
+                    if (responseBody != null)
+                    {
+                        mListener.onFetched(responseBody)
+                    }
+                    else
+                    {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException)
+                {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable)
+            {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException)
+                {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                }
+                else
+                {
+                    mErrorListener.addErrorDialog()
+                }
+            }
         })
     }
 

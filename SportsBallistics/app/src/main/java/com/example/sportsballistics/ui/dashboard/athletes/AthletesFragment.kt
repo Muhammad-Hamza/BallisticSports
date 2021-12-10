@@ -27,7 +27,6 @@ import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
-import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
@@ -150,6 +149,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.rlCoach.visibility = View.GONE
     }
 
+    //TODO whats this?
     private fun initRecyclerView(services: List<Service>) {
         binding.clubListLayout.recyclerView.layoutManager =
             GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
@@ -166,7 +166,8 @@ class AthletesFragment : Fragment() {
                     }
                 }
 
-                override fun onDeleteClick(adapterType: Int, anyData: Any) {
+                override fun onDeleteClick(adapterType: Int, id:String) {
+
                 }
 
                 override fun onDashboardClick(adapterType: Int, anyData: Any) {
@@ -263,13 +264,20 @@ class AthletesFragment : Fragment() {
 //                bindDataInUserProfile(anyData as UserModel)
                     }
 
-                    override fun onDeleteClick(adapterType: Int, anyData: Any) {
+                    override fun onDeleteClick(adapterType: Int, id: String) {
                         MaterialDialog(binding.root.context)
                             .title(null, "Want to delete!")
                             .message(null, "Do you want to delete this user?")
-                            .positiveButton(null, "YES", {
-
-                            }).negativeButton(null, "NO", {
+                            .positiveButton(null, "YES") {
+                                viewModel.deleteTrainer(requireContext(), id, object :
+                                        AthletesViewModel.ContentFetchListener
+                                {
+                                    override fun onFetched(anyObject: Any)
+                                    {
+                                        showMessage("Athlete Deleted")
+                                    }
+                                })
+                            }.negativeButton(null, "NO", {
 
                             }).show()
                     }

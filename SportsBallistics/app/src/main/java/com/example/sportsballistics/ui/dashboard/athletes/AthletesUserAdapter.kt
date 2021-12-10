@@ -106,7 +106,7 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
                 mListener.onEditClick(position, model)
             }
             holder.binding.txtAction.setOnClickListener {
-                mListener.onDeleteClick(position, model)
+                mListener.onDeleteClick(position, model.id)
             }
         } else if (holder is ViewHolderClub) {
             holder.binding.txtClubName.setText(model.fullname)
@@ -121,7 +121,7 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
                 mListener.onEditClick(position, model)
             }
             holder.binding.txtAction.setOnClickListener {
-                mListener.onDeleteClick(position, model)
+                mListener.onDeleteClick(position, model.id)
             }
         } else if (holder is ViewHolderTrainer) {
             holder.binding.txtClubName.setText(model.fullname)
@@ -136,7 +136,7 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
                 mListener.onEditClick(position, model)
             }
             holder.binding.txtAction.setOnClickListener {
-                mListener.onDeleteClick(position, model)
+                mListener.onDeleteClick(position, model.id)
             }
         }
     }

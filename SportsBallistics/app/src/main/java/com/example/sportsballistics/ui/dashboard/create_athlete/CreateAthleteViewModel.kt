@@ -211,6 +211,50 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         })
     }
 
+    fun deleteTrainer(context: Context, clubId: String, mListener:ContentFetchListener)
+    {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.deleteTrainer(clubId)
+        call.enqueue(object : Callback<DashboardModel>
+        {
+            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
+            {
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try
+                {
+                    val responseBody = response.body()
+                    if (responseBody != null)
+                    {
+                        mListener.onFetched(responseBody)
+                    }
+                    else
+                    {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException)
+                {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable)
+            {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException)
+                {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                }
+                else
+                {
+                    mListener.onError(t)
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+
     interface ContentFetchListener
     {
         fun onFetched(anyObject: Any)
