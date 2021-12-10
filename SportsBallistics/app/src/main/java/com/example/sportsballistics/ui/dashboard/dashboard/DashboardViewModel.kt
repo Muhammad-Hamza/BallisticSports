@@ -101,6 +101,41 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         })
     }
 
+    fun getServiceContent(context: Context, mListener: DataFetchListener) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.serviceContent
+        call.enqueue(object : Callback<Any> {
+            override fun onResponse(
+                call: Call<Any>,
+                response: Response<Any>
+            ) {
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+//                try {
+//                    val responseBody = response.body()
+//                    if (responseBody != null) {
+//                        dashboardResponse = responseBody
+//                        mListener.onFetched(responseBody)
+//                    } else {
+//                        mErrorListener.addErrorDialog()
+//                    }
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+
 
     interface ContentFetchListener {
         fun onFetched(content: ClubResponse)
@@ -108,6 +143,10 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
 
     interface DashboardFetchListener {
         fun onFetched(content: DashboardResponse)
+    }
+
+    interface DataFetchListener {
+        fun onFetched(content: Any)
     }
 
 }

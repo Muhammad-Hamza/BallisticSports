@@ -7,6 +7,8 @@ import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
 import com.example.sportsballistics.data.remote.login.UserResponse;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -15,8 +17,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface ApiInterface
-{
+public interface ApiInterface {
 
     @POST(URLIdentifiers.LOGIN)
     @FormUrlEncoded
@@ -74,19 +75,19 @@ public interface ApiInterface
     @POST(URLIdentifiers.ADD_CLUB)
     @FormUrlEncoded
     Call<DashboardModel> addTrainer(@Field("email") int email,
-            @Field("fullname") int fullname,
-            @Field("contact_no") int contact_no,
-            @Field("age") int age,
-            @Field("state") int state,
-            @Field("zipcode") int zipcode,
-            @Field("city") int limit,
-            @Field("status") int status,
-            @Field("address") int address,
-            @Field("grade") int grade,
-            @Field("password") int password,
-            @Field("package_type") int package_type,
-            @Field("club_name") int club_name,
-            @Field("role_id") int role_id); //role will be for only role 4
+                                    @Field("fullname") int fullname,
+                                    @Field("contact_no") int contact_no,
+                                    @Field("age") int age,
+                                    @Field("state") int state,
+                                    @Field("zipcode") int zipcode,
+                                    @Field("city") int limit,
+                                    @Field("status") int status,
+                                    @Field("address") int address,
+                                    @Field("grade") int grade,
+                                    @Field("password") int password,
+                                    @Field("package_type") int package_type,
+                                    @Field("club_name") int club_name,
+                                    @Field("role_id") int role_id); //role will be for only role 4
 
     @POST(URLIdentifiers.EDIT_CLUB)
     @FormUrlEncoded
@@ -99,6 +100,10 @@ public interface ApiInterface
     @POST("club/delete/{trainer_id}/1")
     @FormUrlEncoded
     Call<DashboardModel> deleteTrainer(@Path(value = "club_id", encoded = true) String id);
+
+    @GET(URLIdentifiers.SERVICE_LIST_CONTENT)
+    Call<Object> getServiceContent();
+
 
 }
 
