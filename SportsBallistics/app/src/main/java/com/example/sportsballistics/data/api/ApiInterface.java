@@ -57,7 +57,15 @@ public interface ApiInterface
 
     @POST(URLIdentifiers.ADD_CLUB)
     @FormUrlEncoded
-    Call<DashboardModel> addClub(@Field("name") int name, @Field("address") int address, @Field("state") int state, @Field("zipcode") int zipcode, @Field("city") int limit);
+    Call<DashboardModel> addClub(@Field("name") String name,
+            @Field("address") String address,
+            @Field("state") String state,
+            @Field("city") String city,
+            @Field("password") String password,
+            @Field("status") String status,
+            @Field("email") String email,
+            @Field("zipcode") int zipcode,
+            @Field("city") int limit);
 
     @POST(URLIdentifiers.EDIT_CLUB)
     @FormUrlEncoded
