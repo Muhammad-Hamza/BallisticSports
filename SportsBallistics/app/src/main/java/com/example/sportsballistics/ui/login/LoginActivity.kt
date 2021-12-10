@@ -46,31 +46,25 @@ class LoginActivity : AppCompatActivity() {
                 binding.etPassword.text.toString(),
                 object : LoginViewModel.onSignInCompleteListener {
                     override fun onSignInComplete(userResponse: UserResponse) {
+                        binding.btnLogin.revertAnimation()
                         if (userResponse != null) {
-                            AppSystem.getInstance().setCurrentUser(userResponse)
-//                                AppSystem.getInstance().saveVerificationStatus(true)
-//                                AppSystem.getInstance().saveUser(userResponse)
-//                                AppSystem.getInstance().cityList.addAll(userResponse.data.cities!!)
-//                                AppSystem.getInstance().bannerList.addAll(userResponse.data.banners!!)
-//                                AppSystem.getInstance().saveUserId(userResponse.data.id!!)
-//                                AppSystem.getInstance().saveApiKey(userResponse.data.apiKey!!)
-//                                AppSystem.getInstance()
-//                                    .saveIsRemember(binding.switchRemember.isChecked)
-//                                AppSystem.getInstance()
-//                                    .saveDeliveryTimes(userResponse.data.deliveryTimes)
-//                                if (intent.hasExtra("isFromOrder")) {
-//                                    finish()
-//                                    return
-//                                }
-                            binding.btnLogin.revertAnimation();
+                            if (userResponse.isError!!) {
+                                Toast.makeText(
+                                    applicationContext!!,
+                                    userResponse.message,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            } else {
+                                AppSystem.getInstance().setCurrentUser(userResponse)
+                                binding.btnLogin.revertAnimation();
 
-                            launchActivityFinish<DashboardActivity> {
-                                this.putExtra(
-                                    URLIdentifiers.USER_ROLE,
-                                    userResponse.loggedIn?.roleId
-                                )
+                                launchActivityFinish<DashboardActivity> {
+                                    this.putExtra(
+                                        URLIdentifiers.USER_ROLE,
+                                        userResponse.loggedIn?.roleId
+                                    )
+                                }
                             }
-
                         } else {
                             Toast.makeText(
                                 applicationContext!!,

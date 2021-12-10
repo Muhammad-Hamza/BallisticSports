@@ -1,6 +1,7 @@
 package com.example.sportsballistics.ui.dashboard
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -15,7 +16,9 @@ import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.my_account.AccountFragment
 import com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment
 import com.example.sportsballistics.ui.dashboard.users.UserFragment
+import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.launchActivityFinish
 
 
 class DashboardActivity : AppCompatActivity() {
@@ -26,7 +29,9 @@ class DashboardActivity : AppCompatActivity() {
 //        setCurrentFragment(DashboardFragment())
 
 
-        if (AppSystem.getInstance().getCurrentUser() != null) {
+        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
+                .getCurrentUser().loggedIn != null
+        ) {
             when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
                 AppConstant.ROLE_SUPER_PORTAL -> {
                     binding.bottomNavigationView.menu.clear()
@@ -45,6 +50,15 @@ class DashboardActivity : AppCompatActivity() {
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
                 }
             }
+        } else {
+            Toast.makeText(
+                this,
+                "User not found\n please login with your credentials",
+                Toast.LENGTH_SHORT
+            ).show()
+            launchActivityFinish<LoginActivity> {
+            }
+
         }
 
         val navHostFragment = supportFragmentManager

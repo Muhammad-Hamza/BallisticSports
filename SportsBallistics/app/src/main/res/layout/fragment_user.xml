@@ -7,80 +7,82 @@
         android:layout_height="match_parent"
         android:background="@drawable/ic_toddler_bg">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <RelativeLayout
+            android:id="@+id/clubListLayoutParent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/clubListLayoutParent"
             android:background="@drawable/ic_toddler_bg">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backClubList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/backClubList"
-                app:srcCompat="@drawable/ic_back"
-                android:padding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:padding="@dimen/_10sdp"
+                app:srcCompat="@drawable/ic_back" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="180dp"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.064"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_marginTop="@dimen/_100sdp"
+                android:layout_marginBottom="@dimen/_100sdp"
+                android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imgLogo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/ic_toddler_inner_logo"
                     android:gravity="start" />
+
                 <TextView
                     android:id="@+id/txtTotalTrainersText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Users List"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:textSize="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/actionBarColor" />
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_15sdp" />
+
                 <EditText
+                    android:id="@+id/et_reason"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_22sdp"
-                    android:id="@+id/et_reason"
                     android:layout_below="@+id/txt_main"
-                    android:gravity="top|start"
-                    android:padding="@dimen/_4sdp"
-                    android:hint="Search for Athlete"
-                    android:paddingStart="@dimen/_5sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:textSize="@dimen/_8sdp"
-                    android:drawableEnd="@drawable/ic_search"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@drawable/edit_text_bg"/>
-                <include android:id="@+id/clubListHeader" layout="@layout/club_list_item_header"/>
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:background="@drawable/edit_text_bg"
+                    android:drawableEnd="@drawable/ic_search"
+                    android:gravity="top|start"
+                    android:hint="Search for User"
+                    android:padding="@dimen/_4sdp"
+                    android:paddingStart="@dimen/_5sdp"
+                    android:textSize="@dimen/_8sdp" />
+
+                <include
+                    android:id="@+id/clubListHeader"
+                    layout="@layout/user_list_item_header" />
+
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/_40sdp"
-                    android:background="@color/white"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:id="@+id/recyclerView"
-                    />
+                    android:layout_marginTop="@dimen/_5sdp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+        </RelativeLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
