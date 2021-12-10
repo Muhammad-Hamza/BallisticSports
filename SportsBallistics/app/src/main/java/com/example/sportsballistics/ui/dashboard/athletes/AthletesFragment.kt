@@ -183,7 +183,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
     }
 
-    fun initViewModel() {
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(AthletesViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {

@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.login.UserResponse
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
                                 ).show()
                             } else {
                                 AppSystem.getInstance().setCurrentUser(userResponse)
+                                SharedPrefUtil.getInstance().saveUser(userResponse)
                                 binding.btnLogin.revertAnimation();
 
                                 launchActivityFinish<DashboardActivity> {

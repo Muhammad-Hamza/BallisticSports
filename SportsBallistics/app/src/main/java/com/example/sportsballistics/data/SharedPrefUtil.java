@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.sportsballistics.AppSystem;
+import com.example.sportsballistics.data.remote.login.UserResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -56,6 +57,7 @@ public class SharedPrefUtil<T>
     public static final String SYNC_TIME_COMPLAINTS = "sp_sync_time_complaints";
     public static final String SYNC_TIME_PAYMENT_METHODS = "sp_sync_time_payment_methods";
     public static final String SP_COOKIES = "SP_COOKIES";
+    public static final String USER = "USER";
 
     public static final String SCAN_N_PAY_HELP_SHOWN = "sp_scan_n_pay_help_shown";
     public static final String IS_PAYMENT_DELETION_HELP_SHOWN = "sp_payment_method_deletion_help_shown";
@@ -85,7 +87,13 @@ public class SharedPrefUtil<T>
     public void saveCookies(List<Cookie> cookies){
         setPreferenceArray(SP_COOKIES, cookies);
     }
+  public void saveUser(UserResponse res){
+        setPreferences(USER, res);
+    }
 
+    public UserResponse getUser(){
+        return (UserResponse) getPreferenceObject(USER,UserResponse.class);
+    }
     public List<Cookie> getCookies()
     {
         return (List<Cookie>) getPreferenceArray(SP_COOKIES, new TypeToken<ArrayList<Cookie>>()

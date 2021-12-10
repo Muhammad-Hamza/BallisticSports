@@ -19,6 +19,7 @@ class AppSystem : Application() {
 
     private lateinit var currentUser: UserResponse
     fun setCurrentUser(user: UserResponse) {
+
         currentUser = user
     }
 
