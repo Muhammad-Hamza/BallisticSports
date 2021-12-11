@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_clubFragment_to_createClubFragment"
             app:destination="@id/createClubFragment" />
+        <action
+            android:id="@+id/action_clubFragment_to_createClubAdminFragment"
+            app:destination="@id/createClubAdminFragment" />
     </fragment>
     <fragment
         android:id="@+id/createClubFragment"
@@ -84,6 +87,10 @@
         android:id="@+id/athleteFormFragment"
         android:name="com.example.sportsballistics.ui.dashboard.create_athlete_form.AthleteFormFragment"
         android:label="AthleteFormFragment" />
+    <fragment
+        android:id="@+id/createClubAdminFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.club_admin.CreateClubAdminFragment"
+        android:label="CreateClubAdminFragment" />
 
 
 </navigation>

@@ -130,30 +130,34 @@ class CreateClubFragment : Fragment() {
         }
 
         binding.llState.setOnClickListener {
-            binding.etState.setText("")
-            Handler(Looper.myLooper()!!, object : Handler.Callback {
-                override fun handleMessage(msg: Message): Boolean {
-                    return true
-                }
-            }).postDelayed(object : Runnable {
-                override fun run() {
-                    binding.etState.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                binding.etState.setText("")
+                Handler(Looper.myLooper()!!, object : Handler.Callback {
+                    override fun handleMessage(msg: Message): Boolean {
+                        return true
+                    }
+                }).postDelayed(object : Runnable {
+                    override fun run() {
+                        binding.etState.showDropDown()
 
-                }
-            }, 250)
+                    }
+                }, 250)
+            }
         }
         binding.etState.setOnClickListener {
-            binding.etState.setText("")
-            Handler(Looper.myLooper()!!, object : Handler.Callback {
-                override fun handleMessage(msg: Message): Boolean {
-                    return true
-                }
-            }).postDelayed(object : Runnable {
-                override fun run() {
-                    binding.etState.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                binding.etState.setText("")
+                Handler(Looper.myLooper()!!, object : Handler.Callback {
+                    override fun handleMessage(msg: Message): Boolean {
+                        return true
+                    }
+                }).postDelayed(object : Runnable {
+                    override fun run() {
+                        binding.etState.showDropDown()
 
-                }
-            }, 250)
+                    }
+                }, 250)
+            }
         }
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etClubName.text.toString())) {
