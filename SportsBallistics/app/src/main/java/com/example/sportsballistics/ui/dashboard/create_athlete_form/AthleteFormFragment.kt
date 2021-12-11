@@ -55,7 +55,7 @@ class AthleteFormFragment : Fragment() {
         }
         if (!TextUtils.isEmpty(athleteId) && serviceModel != null) {
             viewModel.getServiceContent(
-                requireContext(),
+                binding.root.context,
                 object : AthleteFormViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
                         if (anyObject is FormServiceModel)
@@ -90,9 +90,9 @@ class AthleteFormFragment : Fragment() {
                 listOfQuestion.add(AthleteFormLocalModel(i, anyObject.data.nameArr[i], null, null))
             }
 
-            adapter = AthleteFormAdapter(requireContext(), listOfQuestion)
+            adapter = AthleteFormAdapter(binding.root.context, listOfQuestion)
             binding.recyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.setItemViewCacheSize(1000)
             binding.recyclerView.adapter = adapter
@@ -134,7 +134,7 @@ class AthleteFormFragment : Fragment() {
     }
 
     private fun showMessage(content: String) {
-        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
+        Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
 
 }

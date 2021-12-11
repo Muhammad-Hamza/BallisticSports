@@ -46,7 +46,7 @@ class FormListFragment : Fragment() {
         }
         if (!TextUtils.isEmpty(athleteId)) {
             viewModel.getServiceContent(
-                requireContext(),
+                binding.root.context,
                 object : FormListViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
                         if (anyObject is ServiceResponseModel) {
@@ -66,7 +66,7 @@ class FormListFragment : Fragment() {
             binding.tvInfo.setText(anyObject.data!!.athletic_name.fullname)
 
             adapter = FormListAdapter(
-                requireContext(),
+                binding.root.context,
                 anyObject.data.services,
                 object : FormListAdapter.OnItemClickListener {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
@@ -84,7 +84,7 @@ class FormListFragment : Fragment() {
 
                 })
             binding.recyclerView.layoutManager =
-                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.adapter = adapter
         }
@@ -121,7 +121,7 @@ class FormListFragment : Fragment() {
     }
 
     private fun showMessage(content: String) {
-        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
+        Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
 
 }
