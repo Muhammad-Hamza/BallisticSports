@@ -9,6 +9,7 @@ class AppConstant {
         const val ROLE_ATHLETES_PORTAL = "2"
         const val INTENT_EXTRA_1 = "extra_1"
         const val INTENT_EXTRA_2 = "extra_2"
+        const val SLUG_EDIT = "SLUG_EDIT"
         const val INTENT_SCREEN_TYPE = "intent_screen_type"
         const val INTENT_SCREEN_TYPE_EDIT = 1;
         const val INTENT_SCREEN_TYPE_VIEW = 2;

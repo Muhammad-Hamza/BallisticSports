@@ -70,7 +70,13 @@ class AthleteFormFragment : Fragment() {
         }
 
         binding.btnSubmit.setOnClickListener {
-            if (adapter != null && adapter.allFieldsEdit()) {
+            if (adapter != null && context != null) {
+                viewModel.submitForm(requireContext(),object :AthleteFormViewModel.ContentFetchListener{
+                    override fun onFetched(anyObject: Any)
+                    {
+                        TODO("Not yet implemented")
+                    }
+                }, athleteId!!,adapter.paramMap,serviceModel!!.slug)
                 showMessage("Add data inserted")
                 getBackNavigate()
             }
@@ -136,5 +142,4 @@ class AthleteFormFragment : Fragment() {
     private fun showMessage(content: String) {
         Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
     }
-
 }

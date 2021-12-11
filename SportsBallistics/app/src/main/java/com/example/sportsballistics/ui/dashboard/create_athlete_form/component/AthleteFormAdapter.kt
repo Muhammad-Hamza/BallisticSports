@@ -15,6 +15,9 @@ import com.example.sportsballistics.databinding.ListitemEditFormBinding
 
 class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    public val paramMap = HashMap<String,String>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding: ListitemEditFormBinding =
@@ -46,6 +49,7 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    paramMap.put(list[position].placeHolder!!,s.toString())
                     list.get(position).data = s.toString()
                 }
 
