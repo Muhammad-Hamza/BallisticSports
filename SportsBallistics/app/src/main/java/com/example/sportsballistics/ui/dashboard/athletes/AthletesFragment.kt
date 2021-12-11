@@ -2,6 +2,9 @@ package com.example.sportsballistics.ui.dashboard.athletes
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -74,6 +77,25 @@ class AthletesFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_athletesFragment_to_formListFragment, bundle)
         }
+
+        binding.clubListLayout.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    loadDataFromServer(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        loadDataFromServer("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
 
         binding.clubListLayout.tvDashboard.setOnClickListener()
         {
@@ -210,20 +232,29 @@ class AthletesFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+
+        loadDataFromServer("")
 //
-        viewModel.getContent(binding.root.context, URLIdentifiers.ATHLETE_CONTENT, "", object :
-            AthletesViewModel.ContentFetchListener {
-            override fun onFetched(content: Any) {
-                binding.progressBar.visibility = View.GONE
-                if (content is GenericResponse) {
-                    if (content.content!!.users != null && content.content!!.users.size > 0) {
-                        initAtheletesRecyclerView(content.content!!.users)
-                    } else {
-                        showMessage("No Athletes found")
+    }
+
+    private fun loadDataFromServer(strKeywords: String) {
+        viewModel.getContent(
+            binding.root.context,
+            URLIdentifiers.ATHLETE_CONTENT,
+            strKeywords,
+            object :
+                AthletesViewModel.ContentFetchListener {
+                override fun onFetched(content: Any) {
+                    binding.progressBar.visibility = View.GONE
+                    if (content is GenericResponse) {
+                        if (content.content!!.users != null && content.content!!.users.size > 0) {
+                            initAtheletesRecyclerView(content.content!!.users)
+                        } else {
+                            showMessage("No Athletes found")
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     private fun initAtheletesRecyclerView(mutableList: ArrayList<UserModel>) {
