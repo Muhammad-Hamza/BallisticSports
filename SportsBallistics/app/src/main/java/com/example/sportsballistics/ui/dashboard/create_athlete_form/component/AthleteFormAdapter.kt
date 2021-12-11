@@ -49,7 +49,7 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    paramMap.put(list[position].placeHolder!!,s.toString())
+                    paramMap[list[position].heading!!] = s.toString()
                     list.get(position).data = s.toString()
                 }
 
