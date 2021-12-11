@@ -15,9 +15,9 @@ data class AthleteDataModel(
 
 data class Service(
     val name: String,
-    val average: Int,
-    val sum: Int,
-    val percent: Int,
+    val average: Double,
+    val sum: Double,
+    val percent: Double,
     val slug: String,
     val slug_edit: String,
 )

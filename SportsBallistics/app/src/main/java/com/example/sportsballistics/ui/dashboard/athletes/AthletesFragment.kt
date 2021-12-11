@@ -167,8 +167,8 @@ class AthletesFragment : Fragment() {
         var sum = 0
         var avg = 0
         for (i in 0..(services.size - 1)) {
-            sum = sum + services.get(i).sum
-            avg = avg + services.get(i).average
+            sum = sum.toInt() + services.get(i).sum.toInt()
+            avg = avg.toInt() + services.get(i).average.toInt()
         }
         binding.clubListLayout.tvSummary.setText("AVG: ${avg} | SUM: ${sum}")
 

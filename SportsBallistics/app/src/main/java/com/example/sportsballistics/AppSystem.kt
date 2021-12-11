@@ -3,6 +3,7 @@ package com.example.sportsballistics
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.google.gson.Gson
 import okhttp3.Cookie
@@ -15,23 +16,24 @@ class AppSystem : Application() {
     private val USER = "user"
     private val PREFERENCES_KEY = "com.example.sportsballistics"
     private val IS_VERIFIED = "is_verified"
-     var cookies: List<Cookie> = arrayListOf()
+    var cookies: List<Cookie> = arrayListOf()
 
     private lateinit var currentUser: UserResponse
     fun setCurrentUser(user: UserResponse) {
 
-        currentUser = user
+        SharedPrefUtil.getInstance().saveUser(user)
+
     }
 
     fun getCurrentUser(): UserResponse {
-        return currentUser
+        return SharedPrefUtil.getInstance().user
     }
 
-    override fun onCreate()
-    {
+    override fun onCreate() {
         super.onCreate()
         context = applicationContext
     }
+
     companion object {
         /*
         Volatile instance to make singleton

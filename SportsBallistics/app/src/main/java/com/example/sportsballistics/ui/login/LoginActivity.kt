@@ -57,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
                                 ).show()
                             } else {
                                 AppSystem.getInstance().setCurrentUser(userResponse)
-                                SharedPrefUtil.getInstance().saveUser(userResponse)
                                 binding.btnLogin.revertAnimation();
 
                                 launchActivityFinish<DashboardActivity> {

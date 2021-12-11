@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/dashboardFragment"
         android:icon="@drawable/tab_club_selector"
         android:title="Dashboard" />
     <item
