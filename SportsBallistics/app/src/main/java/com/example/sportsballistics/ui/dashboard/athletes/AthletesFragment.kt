@@ -291,9 +291,9 @@ class AthletesFragment : Fragment() {
                                         showMessage("Athlete Deleted")
                                     }
                                 })
-                            }.negativeButton(null, "NO", {
+                            }.negativeButton(null, "NO") {
 
-                            }).show()
+                            }.show()
                     }
 
                 })

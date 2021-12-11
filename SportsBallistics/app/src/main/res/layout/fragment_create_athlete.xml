@@ -471,6 +471,21 @@
                     android:text="Cancel"
                     android:textColor="@color/textColorSecondary"
                     android:textSize="@dimen/_11sdp" />
+
+                <TextView
+                    android:id="@+id/tvProfilePic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    android:text="Profile Photo"
+                    android:textColor="@color/textColorSecondary"
+                    android:textSize="@dimen/_11sdp" />
+                <ImageView
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_60sdp"
+                    android:id="@+id/imgProfile"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
 
@@ -480,5 +495,7 @@
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
             android:visibility="gone" />
+
+
     </RelativeLayout>
 </layout>

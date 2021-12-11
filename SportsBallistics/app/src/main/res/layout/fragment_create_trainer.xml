@@ -355,34 +355,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Address 2"
-                        android:textColor="@color/txtGrey"
-                        android:textSize="@dimen/_9sdp" />
-
-                    <EditText
-                        android:id="@+id/etAddress2"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_22sdp"
-                        android:layout_below="@+id/txt_main"
-                        android:layout_marginTop="@dimen/_4sdp"
-                        android:background="@drawable/edit_text_bg"
-                        android:gravity="top|start"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:padding="@dimen/_5sdp"
-                        android:textSize="@dimen/_8sdp" />
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
