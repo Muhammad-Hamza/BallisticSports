@@ -20,7 +20,6 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentTrainerBinding
-import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 
@@ -111,12 +110,12 @@ class TrainerFragment : Fragment() {
     }
 
 
-    private fun initRecyclerView(content: ClubResponse) {
+    private fun initRecyclerView(users: List<UsersItem?>?) {
         val mLayoutManager = LinearLayoutManager(context)
         var mAdapter =
             TrainerAdapter(
                 context,
-                content.content!!.users,
+                users,
                 object : TrainerAdapter.OnItemClickListener {
                     override fun onEditClick(adapterType: Int, user: UsersItem) {
                         val bundle = Bundle()
@@ -184,8 +183,10 @@ class TrainerFragment : Fragment() {
             searchContent,
             object : DashboardViewModel.ContentFetchListener {
                 override fun onFetched(content: ClubResponse) {
-//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-                    initRecyclerView(content)
+                    if (content != null && content.content != null && content.content.users != null && content.content.users.size > 0)
+                        initRecyclerView(content.content.users)
+                    else
+                        initRecyclerView(ArrayList<UsersItem>())
                 }
             })
     }

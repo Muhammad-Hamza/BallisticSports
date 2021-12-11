@@ -1,6 +1,9 @@
 package com.example.sportsballistics.ui.dashboard.users
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -43,6 +46,26 @@ class UserFragment : Fragment() {
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
+
+        binding.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    getContent(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        getContent("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
     }
 
     private fun initRecyclerView() {
@@ -91,9 +114,11 @@ class UserFragment : Fragment() {
         viewModel.getContent(requireContext(), URLIdentifiers.USER_CONTENT, searchKey, object :
             DashboardViewModel.ContentFetchListener {
             override fun onFetched(content: ClubResponse) {
-                //TODO Asher bind data with ui
-                Log.d(UserFragment::class.simpleName, Gson().toJson(content))
-                initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                if (content != null && content.content != null && content.content.users != null && content.content.users.size > 0) {
+                    initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                } else {
+                    initRecyclerView(ArrayList<UsersItem>())
+                }
             }
         })
     }

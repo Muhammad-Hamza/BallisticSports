@@ -28,6 +28,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
+import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
@@ -246,10 +247,11 @@ class AthletesFragment : Fragment() {
                 AthletesViewModel.ContentFetchListener {
                 override fun onFetched(content: Any) {
                     binding.progressBar.visibility = View.GONE
-                    if (content is GenericResponse) {
-                        if (content.content!!.users != null && content.content!!.users.size > 0) {
-                            initAtheletesRecyclerView(content.content!!.users)
+                    if (content != null && content is GenericResponse) {
+                        if (content.content != null && content.content!!.users != null && content.content.users.size > 0) {
+                            initAtheletesRecyclerView(content.content.users)
                         } else {
+                            initAtheletesRecyclerView(ArrayList<UserModel>())
                             showMessage("No Athletes found")
                         }
                     }

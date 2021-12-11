@@ -132,7 +132,10 @@ class ClubFragment : Fragment() {
             strKeyword,
             object : ClubListViewModel.ContentFetchListener {
                 override fun onFetched(content: ClubResponse) {
-                    initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                    if (content.content != null && content.content.users != null && content.content.users.size > 0)
+                        initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                    else
+                        initRecyclerView(ArrayList<UsersItem>())
                 }
             })
 
