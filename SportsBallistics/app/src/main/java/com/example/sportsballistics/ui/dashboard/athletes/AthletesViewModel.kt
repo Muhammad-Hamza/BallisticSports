@@ -12,6 +12,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
+import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import retrofit2.Call
@@ -93,49 +94,73 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
         })
     }
 
-    fun deleteTrainer(context: Context, clubId: String, mListener: ContentFetchListener)
-    {
+    fun deleteTrainer(context: Context, clubId: String, mListener: ContentFetchListener) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val call = apiService.deleteTrainer(clubId)
-        call.enqueue(object : Callback<DashboardModel>
-        {
-            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
-            {
+        call.enqueue(object : Callback<DashboardModel> {
+            override fun onResponse(
+                call: Call<DashboardModel>,
+                response: Response<DashboardModel>
+            ) {
                 Log.d(TAG, response.raw().toString())
                 mErrorListener.dismissDialog()
-                try
-                {
+                try {
                     val responseBody = response.body()
-                    if (responseBody != null)
-                    {
+                    if (responseBody != null) {
                         mListener.onFetched(responseBody)
-                    }
-                    else
-                    {
+                    } else {
                         mErrorListener.addErrorDialog()
                     }
-                } catch (e: IOException)
-                {
+                } catch (e: IOException) {
                     e.printStackTrace()
                 }
             }
 
-            override fun onFailure(call: Call<DashboardModel>, t: Throwable)
-            {
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
                 mErrorListener.dismissDialog()
-                if (t is NoConnectivityException)
-                {
+                if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
-                }
-                else
-                {
+                } else {
                     mErrorListener.addErrorDialog()
                 }
             }
         })
     }
 
+
+    fun getServiceContent(context: Context, mListener: ContentFetchListener, athleteID: String) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call =
+            apiService.getServiceContent(athleteID)
+        call.enqueue(object : Callback<ServiceResponseModel> {
+            override fun onResponse(
+                call: Call<ServiceResponseModel>,
+                response: Response<ServiceResponseModel>
+            ) {
+                try {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        mListener.onFetched(responseBody)
+                    } else {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<ServiceResponseModel>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
 
     interface ContentFetchListener {
         fun onFetched(anyObject: Any)

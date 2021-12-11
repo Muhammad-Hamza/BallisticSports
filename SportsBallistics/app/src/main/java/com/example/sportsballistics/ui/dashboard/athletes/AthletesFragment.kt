@@ -2,6 +2,7 @@ package com.example.sportsballistics.ui.dashboard.athletes
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,9 @@ import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
+import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
+import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
@@ -64,24 +67,23 @@ class AthletesFragment : Fragment() {
         loadMainUI()
         binding.clubListLayout.llEditAthlete.setOnClickListener {
             val bundle = Bundle()
-            bundle.putInt(
-                AppConstant.INTENT_SCREEN_TYPE,
-                AppConstant.INTENT_SCREEN_TYPE_EDIT
-            )
             bundle.putString(
                 AppConstant.INTENT_EXTRA_1,
                 currentAthleteDataModel!!.user_id
             )
             Navigation.findNavController(binding.root)
-                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
+                .navigate(R.id.action_athletesFragment_to_formListFragment, bundle)
         }
-        binding.clubListLayout.tvDashboard.setOnClickListener {
+
+        binding.clubListLayout.tvDashboard.setOnClickListener()
+        {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
                 currentModel = null
                 loadMainUI()
             }
         }
-        binding.clubListLayout.tvNext.setOnClickListener {
+        binding.clubListLayout.tvNext.setOnClickListener()
+        {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
 //                Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
                 if (binding.clubListLayout.pieChart.visibility == View.VISIBLE) {
@@ -93,14 +95,16 @@ class AthletesFragment : Fragment() {
                 }
             }
         }
-        binding.clubListLayout.llAddAthlete.setOnClickListener {
+        binding.clubListLayout.llAddAthlete.setOnClickListener()
+        {
             val bundle = Bundle()
             bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
 
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
         }
-        binding.clubListLayout.llAddTrainer.setOnClickListener {
+        binding.clubListLayout.llAddTrainer.setOnClickListener()
+        {
 
         }
         when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
@@ -166,7 +170,7 @@ class AthletesFragment : Fragment() {
                     }
                 }
 
-                override fun onDeleteClick(adapterType: Int, id:String) {
+                override fun onDeleteClick(adapterType: Int, id: String) {
 
                 }
 
@@ -230,11 +234,17 @@ class AthletesFragment : Fragment() {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
                         if (anyData is UserModel) {
                             val bundle = Bundle()
-                            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
+                            bundle.putInt(
+                                AppConstant.INTENT_SCREEN_TYPE,
+                                AppConstant.INTENT_SCREEN_TYPE_EDIT
+                            )
                             bundle.putString(AppConstant.INTENT_EXTRA_1, anyData.id)
 
                             Navigation.findNavController(binding.root)
-                                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
+                                .navigate(
+                                    R.id.action_athletesFragment_to_createAthleteFragment,
+                                    bundle
+                                )
                         }
                     }
 
@@ -255,11 +265,17 @@ class AthletesFragment : Fragment() {
                     override fun onViewClick(adapterType: Int, anyData: Any) {
                         if (anyData is UserModel) {
                             val bundle = Bundle()
-                            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
+                            bundle.putInt(
+                                AppConstant.INTENT_SCREEN_TYPE,
+                                AppConstant.INTENT_SCREEN_TYPE_VIEW
+                            )
                             bundle.putString(AppConstant.INTENT_EXTRA_1, anyData.id)
 
                             Navigation.findNavController(binding.root)
-                                .navigate(R.id.action_athletesFragment_to_createAthleteFragment, bundle)
+                                .navigate(
+                                    R.id.action_athletesFragment_to_createAthleteFragment,
+                                    bundle
+                                )
                         }
 //                bindDataInUserProfile(anyData as UserModel)
                     }
@@ -270,10 +286,8 @@ class AthletesFragment : Fragment() {
                             .message(null, "Do you want to delete this user?")
                             .positiveButton(null, "YES") {
                                 viewModel.deleteTrainer(requireContext(), id, object :
-                                        AthletesViewModel.ContentFetchListener
-                                {
-                                    override fun onFetched(anyObject: Any)
-                                    {
+                                    AthletesViewModel.ContentFetchListener {
+                                    override fun onFetched(anyObject: Any) {
                                         showMessage("Athlete Deleted")
                                     }
                                 })
