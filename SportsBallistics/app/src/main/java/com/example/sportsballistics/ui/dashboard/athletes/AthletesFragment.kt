@@ -95,6 +95,9 @@ class AthletesFragment : Fragment() {
                 }
             }
         }
+        binding.clubListLayout.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.clubListLayout.llAddAthlete.setOnClickListener()
         {
             val bundle = Bundle()
@@ -421,7 +424,12 @@ class AthletesFragment : Fragment() {
         )
         listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_attitude))
         listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_focus))
-        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_work_ethics))
+        listOfColors.add(
+            ContextCompat.getColor(
+                binding.root.context,
+                R.color.txt_color_work_ethics
+            )
+        )
         dataSet.setColors(listOfColors);
         data.setValueTextSize(10f);
 

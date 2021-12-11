@@ -84,6 +84,9 @@ class CreateClubFragment : Fragment() {
         }
         initStatusAdapter()
         initStateAdapter()
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.etStatus.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
                 binding.etStatus.setText("")

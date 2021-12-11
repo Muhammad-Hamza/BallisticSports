@@ -8,20 +8,20 @@
         android:background="@drawable/ic_toddler_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clubListLayoutParent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/clubListLayoutParent"
             android:background="@drawable/ic_toddler_bg">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/backClubList"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/backClubList"
-                app:srcCompat="@drawable/ic_back"
-                android:padding="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:padding="@dimen/_10sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_back" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -38,74 +38,76 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:background="@drawable/ic_toddler_inner_logo"
                     android:gravity="start" />
+
                 <TextView
                     android:id="@+id/txtTotalTrainersText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:fontFamily="@font/roboto_bold"
                     android:text="Settings"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:textSize="@dimen/_15sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/actionBarColor" />
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_15sdp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_3sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <TextView
                     android:id="@+id/txtLogout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Log out of sports Ballistics Account"
-                    android:textSize="@dimen/_10sdp"
                     android:layout_gravity="center"
-                    android:padding="@dimen/_3sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/actionBarColor" />
+                    android:fontFamily="@font/roboto_bold"
+                    android:padding="@dimen/_3sdp"
+                    android:text="Log out of sports Ballistics Account"
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/txtAcountDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_bold"
-                    android:text="Account Details:"
-                    android:layout_marginStart="@dimen/_25sdp"
-                    android:textSize="@dimen/_10sdp"
                     android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/actionBarColor" />
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Account Details:"
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_10sdp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
                     <TextView
                         android:id="@+id/txtName"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start"
                         android:fontFamily="@font/roboto_bold"
                         android:text="Name:"
-                        android:textSize="@dimen/_10sdp"
-                        android:layout_gravity="start"
-                        android:textColor="@color/textColorSecondary" />
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/txtNameValue"
@@ -125,24 +127,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
                     <TextView
                         android:id="@+id/txtEmail"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start"
                         android:fontFamily="@font/roboto_bold"
                         android:text="Email:"
-                        android:textSize="@dimen/_10sdp"
-                        android:layout_gravity="start"
-                        android:textColor="@color/textColorSecondary" />
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/txtEmailValue"
@@ -161,24 +164,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
                     <TextView
                         android:id="@+id/txtNumber"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start"
                         android:fontFamily="@font/roboto_bold"
                         android:text="Number:"
-                        android:textSize="@dimen/_10sdp"
-                        android:layout_gravity="start"
-                        android:textColor="@color/textColorSecondary" />
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/txtNumberValue"
@@ -197,24 +201,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_5sdp">
+
                     <TextView
                         android:id="@+id/txtRole"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start"
                         android:fontFamily="@font/roboto_bold"
                         android:text="Role:"
-                        android:textSize="@dimen/_10sdp"
-                        android:layout_gravity="start"
-                        android:textColor="@color/textColorSecondary" />
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="@dimen/_10sdp" />
 
                     <TextView
                         android:id="@+id/txtRoleValue"
@@ -233,38 +238,39 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <TextView
                     android:id="@+id/txtChangePassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="Account Details:"
-                    android:layout_marginStart="@dimen/_25sdp"
-                    android:textSize="@dimen/_9sdp"
                     android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
-                    android:textColor="@color/actionBarColor" />
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="Account Details:"
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_9sdp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_3sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@color/txtGrey"/>
-                    <TextView
-                        android:id="@+id/txtSportsBallistics"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_bold"
-                        android:text="Sports Ballistics:"
-                        android:layout_marginStart="@dimen/_25sdp"
-                        android:textSize="@dimen/_10sdp"
-                        android:layout_gravity="start"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:textColor="@color/actionBarColor" />
+                    android:background="@color/txtGrey" />
+
+                <TextView
+                    android:id="@+id/txtSportsBallistics"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Sports Ballistics:"
+                    android:textColor="@color/actionBarColor"
+                    android:textSize="@dimen/_10sdp" />
 
                 <View
                     android:layout_width="match_parent"
@@ -272,15 +278,15 @@
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
 
                     <TextView
                         android:id="@+id/txtAboutSports"
@@ -298,24 +304,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_right_arrow_chev"
-                        />
+                        app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -331,16 +337,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_right_arrow_chev"
-                        />
+                        app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
 
                 <RelativeLayout
@@ -348,8 +354,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -365,23 +371,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_right_arrow_chev"
-                        />
+                        app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -397,24 +404,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_right_arrow_chev"
-                        />
+                        app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                 </RelativeLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:background="@color/txtGrey"/>
+                    android:background="@color/txtGrey" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:padding="@dimen/_2sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="@dimen/_2sdp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -430,8 +437,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        app:srcCompat="@drawable/ic_right_arrow_chev"
-                        />
+                        app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                 </RelativeLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>

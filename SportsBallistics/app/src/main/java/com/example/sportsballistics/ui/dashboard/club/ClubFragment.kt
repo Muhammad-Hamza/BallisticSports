@@ -43,6 +43,9 @@ class ClubFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_clubFragment_to_createClubFragment, args)
         }
+        binding.clubListLayout.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
     }
 
     private fun initRecyclerView(list: MutableList<UsersItem>) {

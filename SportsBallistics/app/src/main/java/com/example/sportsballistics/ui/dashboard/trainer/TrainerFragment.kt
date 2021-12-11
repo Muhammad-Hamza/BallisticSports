@@ -81,7 +81,10 @@ class TrainerFragment : Fragment() {
             )
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_trainerFragment_to_createAthleteFragment, bundle)
+        }
 
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
         }
     }
 

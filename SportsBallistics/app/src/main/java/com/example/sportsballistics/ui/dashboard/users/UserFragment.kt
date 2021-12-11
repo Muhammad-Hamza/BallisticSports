@@ -34,9 +34,15 @@ class UserFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false);
         initViewModel()
-
         binding.clubListHeader.txtClubName.text = "User Name"
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
     }
 
     private fun initRecyclerView() {
