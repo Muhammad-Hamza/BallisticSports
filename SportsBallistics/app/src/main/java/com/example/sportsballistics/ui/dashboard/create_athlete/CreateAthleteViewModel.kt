@@ -16,10 +16,16 @@ import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import com.example.sportsballistics.ui.dashboard.club.ClubListViewModel
 import com.example.sportsballistics.ui.dashboard.create_club.CreateClubViewModel
+import okhttp3.MediaType
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.IOException
+import okhttp3.RequestBody
+
+import okhttp3.MultipartBody
+import retrofit2.http.Multipart
+import java.io.File
 
 class CreateAthleteViewModel(application: Application) : AndroidViewModel(application)
 {
@@ -31,6 +37,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     {
         this.mErrorListener = mErrorListener
     }
+
     companion object
     {
         private val TAG = CreateAthleteViewModel::class.java.simpleName
@@ -66,14 +73,14 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     /*
     Will be used for athletes and trainer both
      */
-    fun addAthelete(context: Context, name: String,
-        address: String, state: String, zipcode: Int,
-        city: String, status: String,contact_no: String,age: String,
-        grade: String,password: String,package_type: String,club_name: String,role_id: String,email: String, mListener:ContentFetchListener)
+    fun addAthelete(context: Context, file: File?, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.addTrainer(email,name,contact_no ,age, state,  zipcode,city,status,address,grade,password,package_type,club_name,role_id,)
+        var filePart: MultipartBody.Part? = null
+        if (file != null) filePart = MultipartBody.Part.createFormData("profile_image", file?.getName(), RequestBody.create(MediaType.parse("image/*"), file))
+
+        val call = apiService.addTrainer(email, name, contact_no, age, state, zipcode, city, status, address, grade, password, package_type, club_name, role_id, filePart)
         call.enqueue(object : Callback<DashboardModel>
         {
             override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
@@ -114,17 +121,15 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
             }
         })
     }
+
     /*
     Will be used for athletes and trainer both
      */
-    fun editAthlete(context: Context,userId:String, name: String,
-        address: String, state: String, zipcode: Int,
-        city: String, status: String,contact_no: String,age: String,
-        grade: String,password: String,package_type: String,club_name: String,role_id: String,email: String, mListener:ContentFetchListener)
+    fun editAthlete(context: Context, userId: String, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.editTrainer(userId,email,name,contact_no ,age, state,  zipcode,city,status,address,grade,password,package_type,club_name,role_id,)
+        val call = apiService.editTrainer(userId, email, name, contact_no, age, state, zipcode, city, status, address, grade, password, package_type, club_name, role_id)
         call.enqueue(object : Callback<DashboardModel>
         {
             override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
@@ -166,7 +171,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         })
     }
 
-    fun viewAthlete(context: Context, clubId: String, mListener:ContentFetchListener)
+    fun viewAthlete(context: Context, clubId: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
@@ -211,7 +216,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         })
     }
 
-    fun deleteTrainer(context: Context, clubId: String, mListener:ContentFetchListener)
+    fun deleteTrainer(context: Context, clubId: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)

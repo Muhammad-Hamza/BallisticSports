@@ -47,7 +47,7 @@
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/etPassword"
                 android:paddingStart="1dp"
-                android:text="adnan@gmail.com"
+                android:text="amir@gmail.com"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/_10sdp" />
 

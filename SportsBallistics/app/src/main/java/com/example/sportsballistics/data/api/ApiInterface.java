@@ -11,13 +11,18 @@ import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
 import com.example.sportsballistics.data.remote.login.UserResponse;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface
 {
@@ -86,22 +91,23 @@ public interface ApiInterface
     @FormUrlEncoded
     Call<DashboardModel> deleteClub(@Path(value = "club_id", encoded = true) String id);
 
+    @Multipart
     @POST(URLIdentifiers.ADD_USER)
-    @FormUrlEncoded
-    Call<DashboardModel> addTrainer(@Field("email") String email,
-            @Field("fullname") String fullname,
-            @Field("contact_no") String contact_no,
-            @Field("age") String age,
-            @Field("state") String state,
-            @Field("zipcode") int zipcode,
-            @Field("city") String city,
-            @Field("status") String status,
-            @Field("address") String address,
-            @Field("grade") String grade,
-            @Field("password") String password,
-            @Field("package_type") String package_type,
-            @Field("club_name") String club_name,
-            @Field("role_id") String role_id); //role will be for only role 4
+    Call<DashboardModel> addTrainer(@Query("email") String email,
+            @Query("fullname") String fullname,
+            @Query("contact_no") String contact_no,
+            @Query("age") String age,
+            @Query("state") String state,
+            @Query("zipcode") int zipcode,
+            @Query("city") String city,
+            @Query("status") String status,
+            @Query("address") String address,
+            @Query("grade") String grade,
+            @Query("password") String password,
+            @Query("package_type") String package_type,
+            @Query("club_name") String club_name,
+            @Query("role_id") String role_id,
+            @Part MultipartBody.Part filePart);
 
     @POST(URLIdentifiers.EDIT_USER)
     @FormUrlEncoded
