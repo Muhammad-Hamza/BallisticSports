@@ -6,7 +6,11 @@ data class AthleteDataModel(
     val profile_image_thumb: String,
     val clubname: String,
     val user_id: String,
-    val services: List<Service>
+    val services: List<Service>,
+    val statNav: StatNav,
+    val result: List<String>,
+    val nameArr: List<String>,
+    val title: String,
 )
 
 data class Service(
@@ -26,4 +30,9 @@ data class AthleticName(
     val role_id: String,
     val created_by: String,
     val club_id: String
+)
+
+data class StatNav(
+    val prev: String,
+    val next: String
 )

@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
@@ -11,6 +12,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
+import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -101,13 +103,16 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         })
     }
 
-
     interface ContentFetchListener {
         fun onFetched(content: ClubResponse)
     }
 
     interface DashboardFetchListener {
         fun onFetched(content: DashboardResponse)
+    }
+
+    interface DataFetchListener {
+        fun onFetched(content: Any)
     }
 
 }
