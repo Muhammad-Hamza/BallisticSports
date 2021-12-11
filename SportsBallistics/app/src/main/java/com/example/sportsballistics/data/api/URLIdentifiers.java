@@ -24,7 +24,7 @@ public class URLIdentifiers {
     public static final String SERVICE_LIST_CONTENT = "DashboardMobile/index/{USER_ID}";
     //    public static final String SERVICE_LIST_CONTENT ="DashboardMobile/index/88";
     public static final String SERVICE_SLUG_DETAILS = "DashboardMobile/{SLUG}/{USER_ID}";
-    public static final String SKILL_POST = "traineeMobile/{SLUG}/{USER_ID}";
+    public static final String SKILL_POST = "DashboardMobile/{SLUG}/{USER_ID}";
     public static final String USER_SIGNUP = "club_content";
     public static final String GET_ATEGORIES = "categories";
     public static final String ADD_FAV = "addfavorite";

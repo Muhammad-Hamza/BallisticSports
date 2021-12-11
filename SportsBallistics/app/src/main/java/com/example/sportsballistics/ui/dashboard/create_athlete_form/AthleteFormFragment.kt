@@ -74,11 +74,11 @@ class AthleteFormFragment : Fragment() {
                 viewModel.submitForm(requireContext(),object :AthleteFormViewModel.ContentFetchListener{
                     override fun onFetched(anyObject: Any)
                     {
-                        TODO("Not yet implemented")
+                        showMessage("Add data inserted")
+                        getBackNavigate()
                     }
                 }, athleteId!!,adapter.paramMap,serviceModel!!.slug)
-                showMessage("Add data inserted")
-                getBackNavigate()
+
             }
         }
         binding.tvCancel.setOnClickListener {
