@@ -2,6 +2,9 @@ package com.example.sportsballistics.ui.dashboard.athletes
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +28,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
+import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
@@ -75,6 +79,25 @@ class AthletesFragment : Fragment() {
                 .navigate(R.id.action_athletesFragment_to_formListFragment, bundle)
         }
 
+        binding.clubListLayout.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    loadDataFromServer(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        loadDataFromServer("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
         binding.clubListLayout.tvDashboard.setOnClickListener()
         {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
@@ -85,7 +108,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.tvNext.setOnClickListener()
         {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
-//                Toast.makeText(requireContext(), "onNext Click", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(binding.root.context, "onNext Click", Toast.LENGTH_SHORT).show()
                 if (binding.clubListLayout.pieChart.visibility == View.VISIBLE) {
                     binding.clubListLayout.pieChart.visibility = View.GONE
                     binding.clubListLayout.barChart.visibility = View.VISIBLE
@@ -94,6 +117,9 @@ class AthletesFragment : Fragment() {
                     binding.clubListLayout.barChart.visibility = View.GONE
                 }
             }
+        }
+        binding.clubListLayout.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
         }
         binding.clubListLayout.llAddAthlete.setOnClickListener()
         {
@@ -134,15 +160,15 @@ class AthletesFragment : Fragment() {
 
     private fun initCoachListData(services: List<Service>) {
         binding.clubListLayout.rvCoachList.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
         coachListAdapter = CoachDataAdapter(services)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
         var sum = 0
         var avg = 0
         for (i in 0..(services.size - 1)) {
-            sum = sum + services.get(i).sum
-            avg = avg + services.get(i).average
+            sum = sum.toInt() + services.get(i).sum.toInt()
+            avg = avg.toInt() + services.get(i).average.toInt()
         }
         binding.clubListLayout.tvSummary.setText("AVG: ${avg} | SUM: ${sum}")
 
@@ -156,7 +182,7 @@ class AthletesFragment : Fragment() {
     //TODO whats this?
     private fun initRecyclerView(services: List<Service>) {
         binding.clubListLayout.recyclerView.layoutManager =
-            GridLayoutManager(requireContext(), 2, RecyclerView.VERTICAL, false)
+            GridLayoutManager(binding.root.context, 2, RecyclerView.VERTICAL, false)
         binding.clubListLayout.recyclerView.setHasFixedSize(true)
         adapter = AthletesAdapter(services,
             object : OnItemClickListener {
@@ -207,20 +233,30 @@ class AthletesFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+
+        loadDataFromServer("")
 //
-        viewModel.getContent(requireContext(), URLIdentifiers.ATHLETE_CONTENT, "", object :
-            AthletesViewModel.ContentFetchListener {
-            override fun onFetched(content: Any) {
-                binding.progressBar.visibility = View.GONE
-                if (content is GenericResponse) {
-                    if (content.content!!.users != null && content.content!!.users.size > 0) {
-                        initAtheletesRecyclerView(content.content!!.users)
-                    } else {
-                        showMessage("No Athletes found")
+    }
+
+    private fun loadDataFromServer(strKeywords: String) {
+        viewModel.getContent(
+            binding.root.context,
+            URLIdentifiers.ATHLETE_CONTENT,
+            strKeywords,
+            object :
+                AthletesViewModel.ContentFetchListener {
+                override fun onFetched(content: Any) {
+                    binding.progressBar.visibility = View.GONE
+                    if (content != null && content is GenericResponse) {
+                        if (content.content != null && content.content!!.users != null && content.content.users.size > 0) {
+                            initAtheletesRecyclerView(content.content.users)
+                        } else {
+                            initAtheletesRecyclerView(ArrayList<UserModel>())
+                            showMessage("No Athletes found")
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
     private fun initAtheletesRecyclerView(mutableList: ArrayList<UserModel>) {
@@ -250,7 +286,7 @@ class AthletesFragment : Fragment() {
 
                     override fun onDashboardClick(adapterType: Int, anyData: Any) {
                         viewModel.getAthleteInfo(
-                            requireContext(),
+                            binding.root.context,
                             anyData as UserModel,
                             object : AthletesViewModel.ContentFetchListener {
                                 override fun onFetched(anyObject: Any) {
@@ -285,7 +321,7 @@ class AthletesFragment : Fragment() {
                             .title(null, "Want to delete!")
                             .message(null, "Do you want to delete this user?")
                             .positiveButton(null, "YES") {
-                                viewModel.deleteTrainer(requireContext(), id, object :
+                                viewModel.deleteTrainer(binding.root.context, id, object :
                                     AthletesViewModel.ContentFetchListener {
                                     override fun onFetched(anyObject: Any) {
                                         showMessage("Athlete Deleted")
@@ -302,7 +338,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.llMainLayout.visibility = View.GONE
         binding.clubListLayout.rvAtheletes.setHasFixedSize(true)
         binding.clubListLayout.rvAtheletes.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvAtheletes.adapter = athletesAdapter
         athletesAdapter!!.loadData(mutableList)
 
@@ -342,7 +378,7 @@ class AthletesFragment : Fragment() {
             "{{name}}",
             athleteDataModel.athletic_name.fullname
         )
-        Glide.with(requireContext()).load(athleteDataModel.profile_image)
+        Glide.with(binding.root.context).load(athleteDataModel.profile_image)
             .into(binding.clubListLayout.ivImageView)
         binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(strContent))
 
@@ -406,22 +442,27 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.pieChart.setHoleRadius(58f);
 //        binding.clubListLayout.pieChart.setEntryLabelColor(
 //            ContextCompat.getColor(
-//                requireContext(),
+//                binding.root.context,
 //                R.color.white
 //            )
 //        )
         binding.clubListLayout.pieChart.setEntryLabelColor(Color.WHITE)
         val listOfColors = ArrayList<Int>()
-        listOfColors.add(ContextCompat.getColor(requireContext(), R.color.txt_color_listening))
+        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_listening))
         listOfColors.add(
             ContextCompat.getColor(
-                requireContext(),
+                binding.root.context,
                 R.color.txt_color_following_direction
             )
         )
-        listOfColors.add(ContextCompat.getColor(requireContext(), R.color.txt_color_attitude))
-        listOfColors.add(ContextCompat.getColor(requireContext(), R.color.txt_color_focus))
-        listOfColors.add(ContextCompat.getColor(requireContext(), R.color.txt_color_work_ethics))
+        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_attitude))
+        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_focus))
+        listOfColors.add(
+            ContextCompat.getColor(
+                binding.root.context,
+                R.color.txt_color_work_ethics
+            )
+        )
         dataSet.setColors(listOfColors);
         data.setValueTextSize(10f);
 
@@ -481,6 +522,6 @@ class AthletesFragment : Fragment() {
     }
 
     private fun showMessage(content: String) {
-        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
+        Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
 }

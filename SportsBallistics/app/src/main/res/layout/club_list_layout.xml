@@ -101,7 +101,7 @@
                 android:background="@drawable/edit_text_bg"
                 android:drawableEnd="@drawable/ic_search"
                 android:gravity="top|start"
-                android:hint="Search for Athlete"
+                android:hint="Search for Club"
                 android:padding="@dimen/_4sdp"
                 android:paddingStart="@dimen/_5sdp"
                 android:textSize="@dimen/_8sdp" />

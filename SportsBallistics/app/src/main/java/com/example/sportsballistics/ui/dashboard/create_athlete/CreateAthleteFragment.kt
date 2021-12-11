@@ -30,6 +30,7 @@ import android.R.attr.data
 
 import android.app.Activity
 import android.os.Environment
+import com.example.sportsballistics.AppSystem
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -289,7 +290,7 @@ class CreateAthleteFragment : Fragment()
     {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null)
         {
-            viewModel.editAthlete(requireContext(), athleteId!!, binding.etFullName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), binding.etCity.text.toString(), binding.etStatus.text.toString(), binding.etContact.text.toString(), binding.etAge.text.toString(), binding.etGrade.text.toString(), binding.etPassword.text.toString(), "", SharedPrefUtil.getInstance().user.loggedIn?.clubId.toString(), SharedPrefUtil.getInstance().user.loggedIn?.roleId.toString(), binding.etEmail.text.toString(), object :
+            viewModel.editAthlete(requireContext(), athleteId!!, binding.etFullName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), binding.etCity.text.toString(), binding.etStatus.text.toString(), binding.etContact.text.toString(), binding.etAge.text.toString(), binding.etGrade.text.toString(), binding.etPassword.text.toString(), "", AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(), AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(), binding.etEmail.text.toString(), object :
                     CreateAthleteViewModel.ContentFetchListener
             {
                 override fun onFetched(anyObject: Any)
@@ -305,7 +306,7 @@ class CreateAthleteFragment : Fragment()
         }
         else
         {
-            viewModel.addAthelete(requireContext(), imageFile,binding.etFullName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), binding.etCity.text.toString(), binding.etStatus.text.toString(), binding.etContact.text.toString(), binding.etAge.text.toString(), binding.etGrade.text.toString(), binding.etPassword.text.toString(), "", SharedPrefUtil.getInstance().user.loggedIn?.clubId.toString(), SharedPrefUtil.getInstance().user.loggedIn?.roleId.toString(), binding.etEmail.text.toString(), object :
+            viewModel.addAthelete(requireContext(), imageFile,binding.etFullName.text.toString(), binding.etAddress1.text.toString(), binding.etState.text.toString(), binding.etZipcode.text.toString().toInt(), binding.etCity.text.toString(), binding.etStatus.text.toString(), binding.etContact.text.toString(), binding.etAge.text.toString(), binding.etGrade.text.toString(), binding.etPassword.text.toString(), "", AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(), AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(), binding.etEmail.text.toString(), object :
                     CreateAthleteViewModel.ContentFetchListener
             {
                 override fun onFetched(anyObject: Any)

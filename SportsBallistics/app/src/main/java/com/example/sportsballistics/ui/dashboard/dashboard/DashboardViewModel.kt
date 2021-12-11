@@ -13,6 +13,7 @@ import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
+import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +40,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getContent(10, content)
+        val call = apiService.getContent(10, content, searchKey)
         call.enqueue(object : Callback<ClubResponse> {
             override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
                 Log.d(TAG, response.raw().toString())
@@ -102,6 +103,43 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
             }
         })
     }
+
+    fun getAthleteInfo(context: Context, mListener: AthleteContentFetchListener, athleteID: String) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call =
+            apiService.getServiceContent(athleteID)
+        call.enqueue(object : Callback<ServiceResponseModel> {
+            override fun onResponse(
+                call: Call<ServiceResponseModel>,
+                response: Response<ServiceResponseModel>
+            ) {
+                try {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        mListener.onFetched(responseBody)
+                    } else {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<ServiceResponseModel>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+    interface AthleteContentFetchListener {
+        fun onFetched(anyObject: ServiceResponseModel)
+    }
+
 
     interface ContentFetchListener {
         fun onFetched(content: ClubResponse)

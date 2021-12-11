@@ -1,6 +1,9 @@
 package com.example.sportsballistics.ui.dashboard.trainer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +20,6 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentTrainerBinding
-import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 
@@ -81,17 +83,39 @@ class TrainerFragment : Fragment() {
             )
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_trainerFragment_to_createAthleteFragment, bundle)
+        }
 
+        binding.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    getTrainerFromServer(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        getTrainerFromServer("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
         }
     }
 
 
-    private fun initRecyclerView(content: ClubResponse) {
+    private fun initRecyclerView(users: List<UsersItem?>?) {
         val mLayoutManager = LinearLayoutManager(context)
         var mAdapter =
             TrainerAdapter(
                 context,
-                content.content!!.users,
+                users,
                 object : TrainerAdapter.OnItemClickListener {
                     override fun onEditClick(adapterType: Int, user: UsersItem) {
                         val bundle = Bundle()
@@ -149,15 +173,20 @@ class TrainerFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+        getTrainerFromServer("")
+    }
 
+    private fun getTrainerFromServer(searchContent: String) {
         viewModel.getContent(
             requireContext(),
             URLIdentifiers.TRAINER_CONTENT,
-            "",
+            searchContent,
             object : DashboardViewModel.ContentFetchListener {
                 override fun onFetched(content: ClubResponse) {
-//                initRecyclerView(content.content?.users as MutableList<UsersItem>)
-                    initRecyclerView(content)
+                    if (content != null && content.content != null && content.content.users != null && content.content.users.size > 0)
+                        initRecyclerView(content.content.users)
+                    else
+                        initRecyclerView(ArrayList<UsersItem>())
                 }
             })
     }

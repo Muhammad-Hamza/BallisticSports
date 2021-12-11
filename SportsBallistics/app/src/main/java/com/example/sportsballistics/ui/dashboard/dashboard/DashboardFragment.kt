@@ -10,14 +10,12 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
-import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
-import com.example.sportsballistics.data.remote.club.ClubResponse
-import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
+import com.example.sportsballistics.data.remote.dashboard.LoggedIn
+import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentDashboardBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
@@ -37,8 +35,8 @@ class DashboardFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_dashboard, container, false
         );
+        hideAllViews()
         initViewModel()
-        initViews()
         binding.flTrainer.setOnClickListener {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_dashboardFragment_to_trainerFragment)
@@ -63,88 +61,139 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    private fun initViews() {
+    private fun hideAllViews() {
+        binding.rlClub.visibility = View.GONE
+        binding.flTrainer.visibility = View.GONE
+        binding.flNewAtheles.visibility = View.GONE
+        binding.flAtheles.visibility = View.GONE
+        binding.llProfile.visibility = View.GONE
+    }
+
+    private fun initViews(loggedIn: LoggedIn?, athleteDataModel: ServiceResponseModel?) {
         if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
                 .getCurrentUser().loggedIn != null
         ) {
             when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
                 AppConstant.ROLE_TRAINER_PORTAL -> {
-                    binding.txtLogin.setText(R.string.txt_welcome_trainer_admin)
-                    binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_trainer_admin)
-                    binding.rlClub.visibility = View.GONE
-                    binding.flTrainer.visibility = View.GONE
-                    binding.flNewAtheles.visibility = View.VISIBLE
-                    binding.flAtheles.visibility = View.VISIBLE
-                    binding.llProfile.visibility = View.GONE
+                    if (loggedIn != null) {
+                        binding.txtLogin.setText(R.string.txt_welcome_trainer_admin)
+                        binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_trainer_admin)
+                        binding.rlClub.visibility = View.GONE
+                        binding.flTrainer.visibility = View.GONE
+                        //TODO: Getting GOne for some reason like we are not getting data from backed: NEED DISCUSSION
+                        binding.flNewAtheles.visibility = View.GONE
+
+                        binding.flAtheles.visibility = View.VISIBLE
+                        binding.llProfile.visibility = View.GONE
+                        if (loggedIn!!.athleteCount != null)
+                            binding.txtTotalAthletes.setText(loggedIn.athleteCount.toString())
+                        else
+                            binding.txtTotalAthletes.setText("0")
+                    }
                 }
                 AppConstant.ROLE_CLUB_PORTAL -> {
-                    binding.txtLogin.setText(R.string.txt_welcome_club_admin)
-                    binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_club_admin)
-                    binding.rlClub.visibility = View.GONE
-                    binding.flNewAtheles.visibility = View.GONE
-                    binding.flTrainer.visibility = View.VISIBLE
-                    binding.flAtheles.visibility = View.VISIBLE
-                    binding.llProfile.visibility = View.GONE
+                    if (loggedIn != null) {
+                        binding.txtLogin.setText(R.string.txt_welcome_club_admin)
+                        binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_club_admin)
+                        binding.rlClub.visibility = View.GONE
+                        binding.flNewAtheles.visibility = View.GONE
+                        binding.flTrainer.visibility = View.VISIBLE
+                        binding.flAtheles.visibility = View.VISIBLE
+                        binding.llProfile.visibility = View.GONE
+                        if (loggedIn!!.athleteCount != null) {
+                            binding.txtTotalAthletes.setText(loggedIn.athleteCount.toString())
+                        } else {
+                            binding.txtTotalAthletes.setText("0")
+                        }
+                        if (loggedIn!!.trainerCount != null) {
+                            binding.txtTotalTrainers.setText(loggedIn.trainerCount.toString())
+                        } else {
+                            binding.txtTotalTrainers.setText("0")
+                        }
+                    }
                 }
                 AppConstant.ROLE_ATHLETES_PORTAL -> {
-                    binding.txtLogin.setText(R.string.txt_welcome_athletes_admin)
-                    binding.txtSADashboard.setText(
-                        getString(R.string.txt_welcome_dashboard_athletes_admin).replace(
-                            "{name}",
-                            AppSystem.getInstance().getCurrentUser().loggedIn!!.fullname!!
+                    if (athleteDataModel != null) {
+                        val response = AppSystem.getInstance().getCurrentUser();
+                        binding.txtLogin.setText(R.string.txt_welcome_athletes_admin)
+                        binding.txtSADashboard.setText(
+                            getString(R.string.txt_welcome_dashboard_athletes_admin).replace(
+                                "{name}",
+                                athleteDataModel.data!!.athletic_name.fullname
+                            )
                         )
-                    )
-                    binding.rlClub.visibility = View.GONE
-                    binding.flTrainer.visibility = View.GONE
-                    binding.flAtheles.visibility = View.GONE
-                    binding.flNewAtheles.visibility = View.GONE
-                    binding.llProfile.visibility = View.VISIBLE
-                    binding.tvName.setText(
-                        AppSystem.getInstance().getCurrentUser().loggedIn!!.fullname!!
-                    )
-                    binding.tvClub.setText(
-                        AppFunctions.getSpannableText(
-                            getString(R.string.txt_athletes_club_name),
-                            "{{clubName}}",
-                            "Club Name 1"
+                        binding.rlClub.visibility = View.GONE
+                        binding.flTrainer.visibility = View.GONE
+                        binding.flAtheles.visibility = View.GONE
+                        binding.flNewAtheles.visibility = View.GONE
+                        binding.llProfile.visibility = View.VISIBLE
+                        binding.tvName.setText(
+                            athleteDataModel.data!!.athletic_name.fullname
                         )
-                    )
-                    binding.tvTrainer.setText(
-                        AppFunctions.getSpannableText(
-                            getString(R.string.txt_athletes_trainer),
-                            "{{trainer}}",
-                            "Mike Thomas"
+                        binding.tvClub.setText(
+                            AppFunctions.getSpannableText(
+                                getString(R.string.txt_athletes_club_name),
+                                "{{clubName}}",
+                                "${athleteDataModel.data.clubname}"
+                            )
                         )
-                    )
-                    binding.tvAge.setText(
-                        AppFunctions.getSpannableText(
-                            getString(R.string.txt_athletes_age),
-                            "{{age}}",
-                            AppSystem.getInstance().getCurrentUser().loggedIn!!.age!!
+                        binding.tvTrainer.setText(
+                            AppFunctions.getSpannableText(
+                                getString(R.string.txt_athletes_trainer),
+                                "{{trainer}}",
+                                "Mike Thomas"
+                            )
                         )
-                    )
-                    binding.tvGrade.setText(
-                        AppFunctions.getSpannableText(
-                            getString(R.string.txt_athletes_grade),
-                            "{{grade}}",
-                            AppSystem.getInstance().getCurrentUser().loggedIn!!.grade!!
+                        binding.tvAge.setText(
+                            AppFunctions.getSpannableText(
+                                getString(R.string.txt_athletes_age),
+                                "{{age}}",
+                                "${athleteDataModel.data.athletic_name.age}"
+                            )
                         )
-                    )
-                    if (AppSystem.getInstance().getCurrentUser().loggedIn!!.profileImage != null) {
-                        loadImage(
-                            AppSystem.getInstance().getCurrentUser().loggedIn!!.profileImage!!,
-                            binding.ivUserImage
+                        binding.tvGrade.setText(
+                            AppFunctions.getSpannableText(
+                                getString(R.string.txt_athletes_grade),
+                                "{{grade}}",
+                                "${athleteDataModel.data.athletic_name.grade}"
+                            )
                         )
+                        if (AppSystem.getInstance()
+                                .getCurrentUser().loggedIn!!.profileImage != null
+                        ) {
+                            loadImage(
+                                AppSystem.getInstance().getCurrentUser().loggedIn!!.profileImage!!,
+                                binding.ivUserImage
+                            )
+                        }
                     }
                 }
                 AppConstant.ROLE_SUPER_PORTAL -> {
-                    binding.txtLogin.setText(R.string.txt_welcome_super_admin)
-                    binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_super_admin)
-                    binding.rlClub.visibility = View.VISIBLE
-                    binding.flTrainer.visibility = View.VISIBLE
-                    binding.flAtheles.visibility = View.VISIBLE
-                    binding.flNewAtheles.visibility = View.GONE
-                    binding.llProfile.visibility = View.GONE
+                    if (loggedIn != null) {
+                        binding.txtLogin.setText(R.string.txt_welcome_super_admin)
+                        binding.txtSADashboard.setText(R.string.txt_welcome_dashboard_super_admin)
+                        binding.rlClub.visibility = View.VISIBLE
+                        binding.flTrainer.visibility = View.VISIBLE
+                        binding.flAtheles.visibility = View.VISIBLE
+                        binding.flNewAtheles.visibility = View.GONE
+                        binding.llProfile.visibility = View.GONE
+
+                        if (loggedIn!!.caCount != null) {
+                            binding.txtTotalClubs.setText(loggedIn.caCount.toString())
+                        } else {
+                            binding.txtTotalClubs.setText("0")
+                        }
+                        if (loggedIn!!.athleteCount != null) {
+                            binding.txtTotalAthletes.setText(loggedIn.athleteCount.toString())
+                        } else {
+                            binding.txtTotalAthletes.setText("0")
+                        }
+                        if (loggedIn!!.trainerCount != null) {
+                            binding.txtTotalTrainers.setText(loggedIn.trainerCount.toString())
+                        } else {
+                            binding.txtTotalTrainers.setText("0")
+                        }
+                    }
                 }
                 else -> {
                     Toast.makeText(
@@ -172,25 +221,59 @@ class DashboardFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
+                binding.progressBar.visibility=View.GONE
             }
 
             override fun addDialog() {
+                binding.progressBar.visibility=View.VISIBLE
             }
 
             override fun addErrorDialog() {
+                binding.progressBar.visibility=View.GONE
             }
 
             override fun addErrorDialog(msg: String?) {
+                binding.progressBar.visibility=View.GONE
+                Toast.makeText(binding.root.context,msg,Toast.LENGTH_SHORT).show()
             }
         })
 
-        viewModel.getDashboard(
-            requireContext(),
-            object : DashboardViewModel.DashboardFetchListener {
-                override fun onFetched(content: DashboardResponse) {
-                    Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
-                    //TODO Asher bind this data to UI
-                }
-            })
+        if (AppSystem.getInstance()
+                .getCurrentUser().loggedIn!!.roleId.equals(AppConstant.ROLE_ATHLETES_PORTAL)
+        ) {
+            viewModel.getAthleteInfo(
+                binding.root.context,
+                object : DashboardViewModel.AthleteContentFetchListener {
+                    override fun onFetched(anyObject: ServiceResponseModel) {
+                        if (anyObject is ServiceResponseModel) {
+                            initViews(null, anyObject)
+                        }
+                    }
+
+                }, AppSystem.getInstance().getCurrentUser().loggedIn!!.id!!
+            )
+        } else {
+            viewModel.getDashboard(
+                requireContext(),
+                object : DashboardViewModel.DashboardFetchListener {
+                    override fun onFetched(content: DashboardResponse) {
+                        Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
+                        //TODO Asher bind this data to UI
+                        if (content != null && content.loggedIn != null)
+                            initViews(content.loggedIn, null)
+                        else {
+                            Toast.makeText(
+                                binding.root.context,
+                                "User not found",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            Navigation.findNavController(binding.root).navigateUp()
+                        }
+                    }
+                })
+        }
     }
+
+
 }

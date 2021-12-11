@@ -2,7 +2,6 @@ package com.example.sportsballistics.data.api;
 
 
 import static com.example.sportsballistics.data.api.URLIdentifiers.DELETE_USER;
-import static com.example.sportsballistics.data.api.URLIdentifiers.SKILL_POST;
 
 import com.example.sportsballistics.data.remote.AthleteResponse;
 import com.example.sportsballistics.data.remote.DashboardModel;
@@ -15,13 +14,11 @@ import com.example.sportsballistics.data.remote.login.UserResponse;
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel;
 
 import java.util.List;
-import java.util.Map;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
@@ -113,8 +110,8 @@ public interface ApiInterface {
                                     @Field("package_type") int package_type,
                                     @Field("club_name") int club_name,
                                     @Field("role_id") int role_id); //role will be for only role 4
-    @FormUrlEncoded
-    @POST(URLIdentifiers.ADD_USER)
+
+    @POST(URLIdentifiers.EDIT_CLUB)
     Call<DashboardModel> addTrainer(@Field("email") String email,
                                     @Field("fullname") String fullname,
                                     @Field("contact_no") String contact_no,
@@ -128,10 +125,7 @@ public interface ApiInterface {
                                     @Field("password") String password,
                                     @Field("package_type") String package_type,
                                     @Field("club_name") String club_name,
-                                    @Field("role_id") String role_id);
-
-    @Multipart
-    @POST(URLIdentifiers.ADD_USER)
+                                    @Field("role_id") String role_id); //role will be for only role 4
     Call<DashboardModel> addTrainer(@Query("email") String email,
             @Query("fullname") String fullname,
             @Query("contact_no") String contact_no,
@@ -178,11 +172,9 @@ public interface ApiInterface {
     @GET(URLIdentifiers.SERVICE_SLUG_DETAILS)
     Call<FormServiceModel> getFormInfo(@Path("SLUG") String slug, @Path("USER_ID") String path);
 
-    @FormUrlEncoded
-    @POST(SKILL_POST)
-    Call<DashboardModel> submitSkillForm(@Path("SLUG") String slug, @Path("USER_ID") String id,
-            @FieldMap Map<String, String> params
-    );
+//    Call<ServiceResponseModel> getServiceContent();
+
+
 }
 
 
