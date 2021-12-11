@@ -1,6 +1,9 @@
 package com.example.sportsballistics.ui.dashboard.trainer
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +86,25 @@ class TrainerFragment : Fragment() {
                 .navigate(R.id.action_trainerFragment_to_createAthleteFragment, bundle)
         }
 
+        binding.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    getTrainerFromServer(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        getTrainerFromServer("")
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
+
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
@@ -152,11 +174,14 @@ class TrainerFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+        getTrainerFromServer("")
+    }
 
+    private fun getTrainerFromServer(searchContent: String) {
         viewModel.getContent(
             requireContext(),
             URLIdentifiers.TRAINER_CONTENT,
-            "",
+            searchContent,
             object : DashboardViewModel.ContentFetchListener {
                 override fun onFetched(content: ClubResponse) {
 //                initRecyclerView(content.content?.users as MutableList<UsersItem>)
