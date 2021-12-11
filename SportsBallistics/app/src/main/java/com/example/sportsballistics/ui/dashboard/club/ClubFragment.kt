@@ -1,6 +1,9 @@
 package com.example.sportsballistics.ui.dashboard.club
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +46,24 @@ class ClubFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_clubFragment_to_createClubFragment, args)
         }
+        binding.clubListLayout.etReason.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                    getDataFromServer(s.toString())
+                } else {
+                    if (TextUtils.isEmpty(s))
+                        getDataFromServer()
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+        })
         binding.clubListLayout.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
@@ -101,6 +122,23 @@ class ClubFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+        getDataFromServer()
+    }
+
+    private fun getDataFromServer(strKeyword: String) {
+        viewModel.getContent(
+            requireContext(),
+            URLIdentifiers.CLUB_CONTENT,
+            strKeyword,
+            object : ClubListViewModel.ContentFetchListener {
+                override fun onFetched(content: ClubResponse) {
+                    initRecyclerView(content.content?.users as MutableList<UsersItem>)
+                }
+            })
+
+    }
+
+    private fun getDataFromServer() {
         viewModel.getContent(
             requireContext(),
             URLIdentifiers.CLUB_CONTENT,

@@ -36,12 +36,12 @@ public interface ApiInterface {
 
     @POST(URLIdentifiers.GET_ALL_CLUBS)
     @FormUrlEncoded
-    Call<ClubResponse> getContent(@Field("select_limit") int limit, @Field("action") String action);
+    Call<ClubResponse> getContent(@Field("select_limit") int limit, @Field("action") String action, @Field("search_text") String search_text);
 
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @POST(URLIdentifiers.GET_ALL_CLUBS)
     @FormUrlEncoded
-    Call<GenericResponse> getMainContent(@Field("select_limit") int limit, @Field("action") String action);
+    Call<GenericResponse> getMainContent(@Field("select_limit") int limit, @Field("action") String action, @Field("search_text") String search_text);
 
     @POST(URLIdentifiers.GET_DASHBOARD)
     Call<DashboardResponse> getDashboard();
@@ -126,21 +126,22 @@ public interface ApiInterface {
                                     @Field("package_type") String package_type,
                                     @Field("club_name") String club_name,
                                     @Field("role_id") String role_id); //role will be for only role 4
+
     Call<DashboardModel> addTrainer(@Query("email") String email,
-            @Query("fullname") String fullname,
-            @Query("contact_no") String contact_no,
-            @Query("age") String age,
-            @Query("state") String state,
-            @Query("zipcode") int zipcode,
-            @Query("city") String city,
-            @Query("status") String status,
-            @Query("address") String address,
-            @Query("grade") String grade,
-            @Query("password") String password,
-            @Query("package_type") String package_type,
-            @Query("club_name") String club_name,
-            @Query("role_id") String role_id,
-            @Part MultipartBody.Part filePart);
+                                    @Query("fullname") String fullname,
+                                    @Query("contact_no") String contact_no,
+                                    @Query("age") String age,
+                                    @Query("state") String state,
+                                    @Query("zipcode") int zipcode,
+                                    @Query("city") String city,
+                                    @Query("status") String status,
+                                    @Query("address") String address,
+                                    @Query("grade") String grade,
+                                    @Query("password") String password,
+                                    @Query("package_type") String package_type,
+                                    @Query("club_name") String club_name,
+                                    @Query("role_id") String role_id,
+                                    @Part MultipartBody.Part filePart);
 
     @POST(URLIdentifiers.EDIT_USER)
     @FormUrlEncoded
