@@ -48,34 +48,69 @@
 
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/llAddClub"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:background="@drawable/ic_add_layout"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/_4sdp"
-                    android:paddingLeft="@dimen/_4sdp"
-                    android:paddingTop="@dimen/_2sdp"
-                    android:paddingEnd="@dimen/_4sdp"
-                    android:paddingRight="@dimen/_4sdp"
-                    android:paddingBottom="@dimen/_2sdp">
+                    android:gravity="center_vertical|right|end"
+                    android:orientation="vertical">
 
-                    <TextView
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llAddClub"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="Add Club"
-                        android:textSize="@dimen/_10sdp" />
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/ic_add_layout"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingLeft="@dimen/_4sdp"
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingEnd="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_2sdp">
 
-                    <ImageView
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:src="@mipmap/ic_plus_icon" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Add Club"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@mipmap/ic_plus_icon" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llAddClubAdmin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:background="@drawable/ic_add_layout"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/_4sdp"
+                        android:paddingLeft="@dimen/_4sdp"
+                        android:paddingTop="@dimen/_2sdp"
+                        android:paddingEnd="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_4sdp"
+                        android:paddingBottom="@dimen/_2sdp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto_regular"
+                            android:text="Add Club Admin"
+                            android:textSize="@dimen/_10sdp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:src="@mipmap/ic_plus_icon" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
             </RelativeLayout>

@@ -46,6 +46,12 @@ class ClubFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_clubFragment_to_createClubFragment, args)
         }
+        binding.clubListLayout.llAddClubAdmin.setOnClickListener {
+            val args = Bundle()
+            args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_clubFragment_to_createClubAdminFragment, args)
+        }
         binding.clubListLayout.etReason.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 

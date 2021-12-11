@@ -10,12 +10,6 @@ import androidx.navigation.ui.NavigationUI
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.databinding.ActivityDashboardBinding
-import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
-import com.example.sportsballistics.ui.dashboard.club.ClubFragment
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
-import com.example.sportsballistics.ui.dashboard.my_account.AccountFragment
-import com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment
-import com.example.sportsballistics.ui.dashboard.users.UserFragment
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.launchActivityFinish

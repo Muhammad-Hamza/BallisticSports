@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="Create Athlete"
+                    android:text="Create Club Admin"
                     android:textColor="@color/actionBarColor"
                     android:textSize="@dimen/_16sdp" />
 
@@ -405,18 +405,45 @@
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
-                        <EditText
-                            android:id="@+id/etState"
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_below="@+id/txt_main"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
-                            android:gravity="top|start"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_8sdp" />
+                            android:orientation="horizontal">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/etState"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_22sdp"
+                                android:layout_below="@+id/txt_main"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:clickable="true"
+                                android:editable="false"
+                                android:focusable="false"
+                                android:gravity="top|start"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:padding="@dimen/_5sdp"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/llState"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:background="#EFEFEF"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="@dimen/_3sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:src="@drawable/ic_drop_down_icon" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -452,39 +479,80 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <TextView
-                    android:id="@+id/tvProfilePic"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
-                    android:paddingTop="@dimen/_5sdp"
-                    android:paddingBottom="@dimen/_5sdp"
-                    android:text="Profile Photo"
-                    android:textColor="@color/textColorSecondary"
-                    android:textSize="@dimen/_11sdp" />
-                <ImageView
-                    android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_60sdp"
-                    android:id="@+id/imgProfile"/>
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="Select Club*"
+                        android:textColor="@color/txtGrey"
+                        android:textSize="@dimen/_9sdp" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:background="@drawable/edit_text_bg"
+                        android:orientation="horizontal">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/etClub"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_22sdp"
+                            android:layout_below="@+id/txt_main"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:clickable="true"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="top|start"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:padding="@dimen/_5sdp"
+                            android:textSize="@dimen/_8sdp" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/llClub"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_1sdp"
+                            android:background="#EFEFEF"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/_3sdp">
+
+                            <ImageView
+                                android:layout_width="@dimen/_12sdp"
+                                android:layout_height="@dimen/_12sdp"
+                                android:src="@drawable/ic_drop_down_icon" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:backgroundTint="#753F93"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Submit" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvCancel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:backgroundTint="@color/white"
                     android:fontFamily="@font/roboto_regular"
                     android:padding="@dimen/_5sdp"
                     android:text="Cancel"
-                    android:textColor="@color/textColorSecondary"
+                    android:textColor="@color/actionBarTextColor"
                     android:textSize="@dimen/_11sdp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
