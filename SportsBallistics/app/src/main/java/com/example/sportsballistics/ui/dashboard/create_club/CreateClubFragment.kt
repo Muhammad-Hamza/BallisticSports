@@ -1,6 +1,9 @@
 package com.example.sportsballistics.ui.dashboard.create_club
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -77,11 +80,24 @@ class CreateClubFragment : Fragment() {
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Add New Club")
             binding.txtEdit.visibility = View.GONE
+
         }
         initStatusAdapter()
         initStateAdapter()
         binding.etStatus.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                binding.etStatus.setText("")
+                Handler(Looper.myLooper()!!, object : Handler.Callback {
+                    override fun handleMessage(msg: Message): Boolean {
+                        return true
+                    }
+                }).postDelayed(object : Runnable {
+                    override fun run() {
+                        binding.etStatus.showDropDown()
+
+                    }
+                }, 250)
+            }
         }
 
         binding.tvCancel.setOnClickListener {
@@ -89,7 +105,19 @@ class CreateClubFragment : Fragment() {
         }
 
         binding.llStateDropdown.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                binding.etStatus.setText("")
+                Handler(Looper.myLooper()!!, object : Handler.Callback {
+                    override fun handleMessage(msg: Message): Boolean {
+                        return true
+                    }
+                }).postDelayed(object : Runnable {
+                    override fun run() {
+                        binding.etStatus.showDropDown()
+
+                    }
+                }, 250)
+            }
         }
         binding.txtEdit.setOnClickListener {
             doDisableEditing(true)
@@ -99,10 +127,30 @@ class CreateClubFragment : Fragment() {
         }
 
         binding.llState.setOnClickListener {
-            binding.etState.showDropDown()
+            binding.etState.setText("")
+            Handler(Looper.myLooper()!!, object : Handler.Callback {
+                override fun handleMessage(msg: Message): Boolean {
+                    return true
+                }
+            }).postDelayed(object : Runnable {
+                override fun run() {
+                    binding.etState.showDropDown()
+
+                }
+            }, 250)
         }
         binding.etState.setOnClickListener {
-            binding.etState.showDropDown()
+            binding.etState.setText("")
+            Handler(Looper.myLooper()!!, object : Handler.Callback {
+                override fun handleMessage(msg: Message): Boolean {
+                    return true
+                }
+            }).postDelayed(object : Runnable {
+                override fun run() {
+                    binding.etState.showDropDown()
+
+                }
+            }, 250)
         }
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etClubName.text.toString())) {
