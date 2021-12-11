@@ -80,6 +80,7 @@ class FormListFragment : Fragment() {
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.adapter = adapter
         }
+        binding.recyclerView.visibility = View.GONE
     }
 
     private fun initViewModel() {
