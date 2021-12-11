@@ -21,15 +21,14 @@ import java.io.IOException
 class FormListViewModel(application: Application) : AndroidViewModel(application) {
 
     private lateinit var mErrorListener: Listeners.DialogInteractionListener
-    lateinit var dashboardResponse: DashboardModel
-    lateinit var viewAthleteResp: AthleteResponse
+
 
     fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener) {
         this.mErrorListener = mErrorListener
     }
 
     companion object {
-        private val TAG = CreateAthleteViewModel::class.java.simpleName
+        private val TAG = FormListViewModel::class.java.simpleName
     }
 
 

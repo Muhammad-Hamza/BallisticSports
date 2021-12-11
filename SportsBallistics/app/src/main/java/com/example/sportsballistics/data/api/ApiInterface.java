@@ -7,6 +7,7 @@ import com.example.sportsballistics.data.remote.AthleteResponse;
 import com.example.sportsballistics.data.remote.DashboardModel;
 import com.example.sportsballistics.data.remote.ViewClubResponse;
 import com.example.sportsballistics.data.remote.club.ClubResponse;
+import com.example.sportsballistics.data.remote.form_service.FormServiceModel;
 import com.example.sportsballistics.data.remote.generic.GenericResponse;
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse;
 import com.example.sportsballistics.data.remote.login.UserResponse;
@@ -149,6 +150,10 @@ public interface ApiInterface {
 
     @GET(URLIdentifiers.SERVICE_LIST_CONTENT)
     Call<ServiceResponseModel> getServiceContent(@Path("USER_ID") String path);
+
+    @GET(URLIdentifiers.SERVICE_SLUG_DETAILS)
+    Call<FormServiceModel> getFormInfo(@Path("SLUG") String slug, @Path("USER_ID") String path);
+
 //    Call<ServiceResponseModel> getServiceContent();
 
 

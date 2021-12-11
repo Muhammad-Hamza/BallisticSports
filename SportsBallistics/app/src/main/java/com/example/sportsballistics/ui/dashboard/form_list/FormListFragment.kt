@@ -20,6 +20,7 @@ import com.example.sportsballistics.databinding.FragmentFormListBinding
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListAdapter
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListViewModel
 import com.example.sportsballistics.utils.AppConstant
+import com.google.gson.Gson
 
 class FormListFragment : Fragment() {
     lateinit var binding: FragmentFormListBinding
@@ -70,7 +71,14 @@ class FormListFragment : Fragment() {
                 object : FormListAdapter.OnItemClickListener {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
                         if (anyData is Service) {
-                            showMessage(anyData.name)
+//                            showMessage(anyData.name)
+                            val bundle = Bundle()
+                            bundle.putString(AppConstant.INTENT_EXTRA_1, athleteId)
+                            bundle.putString(AppConstant.INTENT_EXTRA_2, Gson().toJson(anyData))
+                            Navigation.findNavController(binding.root).navigate(
+                                R.id.action_formListFragment_to_athleteFormFragment,
+                                bundle
+                            )
                         }
                     }
 
@@ -80,7 +88,7 @@ class FormListFragment : Fragment() {
             binding.recyclerView.setHasFixedSize(true)
             binding.recyclerView.adapter = adapter
         }
-        binding.recyclerView.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun initViewModel() {

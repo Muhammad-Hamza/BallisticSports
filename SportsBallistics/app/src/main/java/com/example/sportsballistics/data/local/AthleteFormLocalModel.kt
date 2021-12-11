@@ -1,7 +1,8 @@
 package com.example.sportsballistics.data.local
 
-data class AthleteFormLocalAdapter(
+data class AthleteFormLocalModel(
+    val index: Int,
     val heading: String,
-    var placeHolder: String,
-    var data: String
+    var placeHolder: String?,
+    var data: String?
 )
