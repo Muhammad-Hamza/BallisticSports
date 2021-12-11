@@ -62,7 +62,7 @@ class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListene
         holder.binding.tvView.setOnClickListener {
             mListener.onViewClick(position, list)
         }
-        val content = "AVERAGE: " + list.get(position).average + " SUM: " + list.get(position).sum
+        val content = "AVERAGE: " + list.get(position).average.toInt() + " SUM: " + list.get(position).sum.toInt()
         holder.binding.tvDescription.setText(content)
     }
 }

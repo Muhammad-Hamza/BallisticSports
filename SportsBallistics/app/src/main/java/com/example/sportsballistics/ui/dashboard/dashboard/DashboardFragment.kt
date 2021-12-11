@@ -221,15 +221,20 @@ class DashboardFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
+                binding.progressBar.visibility=View.GONE
             }
 
             override fun addDialog() {
+                binding.progressBar.visibility=View.VISIBLE
             }
 
             override fun addErrorDialog() {
+                binding.progressBar.visibility=View.GONE
             }
 
             override fun addErrorDialog(msg: String?) {
+                binding.progressBar.visibility=View.GONE
+                Toast.makeText(binding.root.context,msg,Toast.LENGTH_SHORT).show()
             }
         })
 

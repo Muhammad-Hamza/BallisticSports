@@ -501,6 +501,13 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+
+        <ProgressBar
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
+            android:id="@+id/progressBar"
+            android:visibility="gone"
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
 
 </layout>
