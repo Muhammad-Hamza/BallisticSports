@@ -4,6 +4,7 @@ package com.example.sportsballistics.data.api;
 import static com.example.sportsballistics.data.api.URLIdentifiers.DELETE_USER;
 import static com.example.sportsballistics.data.api.URLIdentifiers.SKILL_POST;
 
+import com.example.sportsballistics.data.remote.AccountResponse;
 import com.example.sportsballistics.data.remote.AthleteResponse;
 import com.example.sportsballistics.data.remote.DashboardModel;
 import com.example.sportsballistics.data.remote.ViewClubResponse;
@@ -183,6 +184,9 @@ public interface ApiInterface {
     Call<DashboardModel> submitSkillForm(@Path("SLUG") String slug, @Path("USER_ID") String id,
             @FieldMap Map<String, String> params
     );
+
+    @POST(URLIdentifiers.GET_SETTING)
+    Call<AccountResponse> getSetting(@Path("SLUG") String slug);
 }
 
 

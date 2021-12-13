@@ -76,8 +76,7 @@ class AthleteFormViewModel(application: Application) : AndroidViewModel(applicat
         mListener: ContentFetchListener,
         athleteID: String,
         paramMap:  HashMap<String,String>,
-        slug: String
-    ) {
+        slug: String) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val call = apiService.submitSkillForm(slug, athleteID,paramMap)
