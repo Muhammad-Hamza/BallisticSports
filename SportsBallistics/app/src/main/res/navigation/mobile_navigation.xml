@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/dashboardFragment">
 
@@ -36,7 +37,11 @@
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountFragment"
-        android:label="AccountFragment" />
+        android:label="AccountFragment" >
+        <action
+            android:id="@+id/action_accountFragment_to_accountDetailFragment"
+            app:destination="@id/accountDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/athletesFragment"
         android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
@@ -91,6 +96,10 @@
         android:id="@+id/createClubAdminFragment"
         android:name="com.example.sportsballistics.ui.dashboard.club_admin.CreateClubAdminFragment"
         android:label="CreateClubAdminFragment" />
-
+    <fragment
+        android:id="@+id/accountDetailFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountDetailFragment"
+        android:label="fragment_account_detail"
+        tools:layout="@layout/fragment_account_detail" />
 
 </navigation>
