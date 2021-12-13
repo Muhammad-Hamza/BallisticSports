@@ -185,6 +185,10 @@ public interface ApiInterface {
             @FieldMap Map<String, String> params
     );
 
+    @FormUrlEncoded
+    @POST("Change_Password_Mobile")
+    Call<AccountResponse> changePass(@Field("old-password") String oldpassword,@Field("new-password") String newpassword,@Field("confirm-password") String confirmpassword);
+
     @POST(URLIdentifiers.GET_SETTING)
     Call<AccountResponse> getSetting(@Path("SLUG") String slug);
 }

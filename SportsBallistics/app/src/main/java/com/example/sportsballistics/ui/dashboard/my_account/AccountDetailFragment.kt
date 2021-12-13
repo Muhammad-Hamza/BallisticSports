@@ -9,11 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.sportsballistics.R
-import com.example.sportsballistics.data.remote.athletes.Service
-import com.example.sportsballistics.databinding.FragmentAccountBinding
 import com.example.sportsballistics.databinding.FragmentAccountDetailBinding
 import com.example.sportsballistics.utils.AppConstant
-import com.google.gson.Gson
 
 class AccountDetailFragment : Fragment()
 {

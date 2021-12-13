@@ -249,9 +249,9 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="Account Details:"
+                    android:text="Change Password"
                     android:textColor="@color/actionBarColor"
-                    android:textSize="@dimen/_9sdp" />
+                    android:textSize="@dimen/_10sdp" />
 
                 <View
                     android:layout_width="match_parent"

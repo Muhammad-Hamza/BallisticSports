@@ -78,6 +78,49 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
         })
     }
 
+    fun changePassword(context: Context,oldPass:String,newPass:String,confirmPass:String, mListener: ContentFetchListener)
+    {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.changePass(oldPass,newPass,confirmPass)
+        call.enqueue(object : Callback<AccountResponse>
+        {
+            override fun onResponse(call: Call<AccountResponse>, response: Response<AccountResponse>)
+            {
+                Log.d(TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try
+                {
+                    val responseBody = response.body()
+                    if (responseBody != null)
+                    {
+                        categoryResponse = responseBody
+                        mListener.onFetched(responseBody)
+                    }
+                    else
+                    {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException)
+                {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<AccountResponse>, t: Throwable)
+            {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException)
+                {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                }
+                else
+                {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
     interface ContentFetchListener
     {
         fun onFetched(content: AccountResponse)

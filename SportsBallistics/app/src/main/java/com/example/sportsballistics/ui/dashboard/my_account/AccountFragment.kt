@@ -21,9 +21,11 @@ import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentAccountBinding
 import com.example.sportsballistics.databinding.FragmentDashboardBinding
+import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.add
 import com.google.gson.Gson
 
 class AccountFragment : Fragment()
@@ -49,11 +51,15 @@ class AccountFragment : Fragment()
     }
 
    private fun setListeners(){
-        binding.rlAboutSportsBallistics.setOnClickListener{         getAccountData("about-us") }
-        binding.rlPP.setOnClickListener{         getAccountData("privacy-policy") }
-        binding.rlTerms.setOnClickListener{         getAccountData("terms-use") }
-        binding.rlContactSupport.setOnClickListener{         getAccountData("contact-support") }
-        binding.rlFAQs.setOnClickListener{         getAccountData("faqs ") }
+        binding.rlAboutSportsBallistics.setOnClickListener{ getAccountData("about-us") }
+        binding.rlPP.setOnClickListener{getAccountData("privacy-policy") }
+        binding.rlTerms.setOnClickListener{getAccountData("terms-use") }
+        binding.rlContactSupport.setOnClickListener{getAccountData("contact-support") }
+        binding.rlFAQs.setOnClickListener{getAccountData("faqs ") }
+
+       binding.txtChangePassword.setOnClickListener{
+
+       }
     }
     fun setData(){
         val user = SharedPrefUtil.getInstance().user

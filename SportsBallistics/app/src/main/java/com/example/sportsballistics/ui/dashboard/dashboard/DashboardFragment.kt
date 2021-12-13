@@ -55,7 +55,8 @@ class DashboardFragment : Fragment() {
                 .navigate(R.id.action_dashboardFragment_to_athletesFragment)
         }
         binding.llAthleteView.setOnClickListener {
-            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
+            (activity as DashboardActivity).
+            add(AthletesFragment(), R.id.rlParent)
         }
 
         return binding.root
