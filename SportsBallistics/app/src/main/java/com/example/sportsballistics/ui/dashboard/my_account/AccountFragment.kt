@@ -60,7 +60,7 @@ class AccountFragment : Fragment() {
         binding.rlFAQs.setOnClickListener { getAccountData("faqs ") }
 
         binding.txtChangePassword.setOnClickListener {
-
+            Navigation.findNavController(binding.root).navigate(R.id.action_accountFragment_to_changePasswordFragment)
         }
     }
 

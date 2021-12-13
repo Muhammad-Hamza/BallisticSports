@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_accountFragment_to_accountDetailFragment"
             app:destination="@id/accountDetailFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/athletesFragment"
@@ -101,5 +104,9 @@
         android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountDetailFragment"
         android:label="fragment_account_detail"
         tools:layout="@layout/fragment_account_detail" />
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.sportsballistics.ui.dashboard.my_account.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
 
 </navigation>

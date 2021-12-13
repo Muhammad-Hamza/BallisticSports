@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AccountResponse
@@ -25,6 +26,9 @@ class ChangePasswordFragment : Fragment()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_change_password, container, false)
         initViewModel()
 
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.btnSubmit.setOnClickListener {
             if (!etNewPass.text.toString().isNotEmpty())
             {

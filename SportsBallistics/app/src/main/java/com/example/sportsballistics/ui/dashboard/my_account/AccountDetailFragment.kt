@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import com.example.sportsballistics.R
 import com.example.sportsballistics.databinding.FragmentAccountDetailBinding
 import com.example.sportsballistics.utils.AppConstant
@@ -20,6 +21,9 @@ class AccountDetailFragment : Fragment()
     {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_account_detail, container, false)
 
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1))
         {
             var title = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!

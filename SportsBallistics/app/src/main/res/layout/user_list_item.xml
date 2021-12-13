@@ -17,7 +17,7 @@
                 android:id="@+id/txtSerialNo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/roboto_regular"
                 android:text="1"
                 android:textColor="@color/actionBarColor"
@@ -29,7 +29,7 @@
                 android:id="@+id/txtClubName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_15sdp"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Xavior Club"
@@ -53,7 +53,7 @@
                 android:id="@+id/llAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -86,7 +86,6 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
-
                     app:srcCompat="@drawable/ic_delete_icon" />
 
 
@@ -97,9 +96,9 @@
             android:id="@+id/view4"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/txtGrey"
             app:layout_constraintTop_toBottomOf="@id/llAction" />
     </androidx.appcompat.widget.LinearLayoutCompat>

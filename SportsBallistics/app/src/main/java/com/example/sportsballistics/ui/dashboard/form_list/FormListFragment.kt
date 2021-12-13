@@ -59,6 +59,10 @@ class FormListFragment : Fragment() {
         } else {
             Navigation.findNavController(binding.root).navigateUp()
         }
+
+        binding.backClubList.setOnClickListener {
+            getBackNavigate()
+        }
     }
 
     private fun loadUIContent(anyObject: ServiceResponseModel) {

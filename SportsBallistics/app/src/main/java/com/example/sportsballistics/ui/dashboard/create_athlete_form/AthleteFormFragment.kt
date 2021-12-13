@@ -69,6 +69,9 @@ class AthleteFormFragment : Fragment() {
             getBackNavigate()
         }
 
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.btnSubmit.setOnClickListener {
             if (adapter != null && context != null) {
                 viewModel.submitForm(requireContext(),object :AthleteFormViewModel.ContentFetchListener{
