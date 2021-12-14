@@ -43,7 +43,7 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_athletes.xml" value="0.190625" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_change_password.xml" value="0.2" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_club.xml" value="0.264" />
-        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_athlete.xml" value="0.4" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_athlete.xml" value="0.2" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_club.xml" value="0.264" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_trainer.xml" value="0.4" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_dashboard.xml" value="0.21403508771929824" />
@@ -56,6 +56,7 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/trainer_tab.xml" value="0.4" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/user_tab.xml" value="0.20854700854700856" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/menu/bottom_menu.xml" value="0.21403508771929824" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/mipmap-anydpi-v26/app_icon.xml" value="0.22763157894736843" />
         <entry key="..\:/Users/muhammad.hamza/AndroidStudioProjects/SportsBallistics/app/src/main/res/drawable/splash_bg.xml" value="0.2703125" />
         <entry key="..\:/Users/muhammad.hamza/AndroidStudioProjects/SportsBallistics/app/src/main/res/drawable/splash_dr.xml" value="0.14635416666666667" />
         <entry key="..\:/Users/muhammad.hamza/AndroidStudioProjects/SportsBallistics/app/src/main/res/drawable/splash_img.xml" value="0.2703125" />

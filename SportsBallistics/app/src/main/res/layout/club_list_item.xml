@@ -11,7 +11,7 @@
             android:id="@+id/txtSerialNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/roboto_regular"
             android:text="1"
             android:textColor="@color/actionBarColor"
@@ -79,8 +79,6 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
             android:background="@color/txtGrey"
             app:layout_constraintTop_toBottomOf="@id/llAction" />
     </androidx.constraintlayout.widget.ConstraintLayout>
