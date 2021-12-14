@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -20,6 +21,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentTrainerBinding
+import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 
@@ -143,11 +145,19 @@ class TrainerFragment : Fragment() {
                         MaterialDialog(binding.root.context)
                             .title(null, "Want to delete!")
                             .message(null, "Do you want to delete this Trainer?")
-                            .positiveButton(null, "YES", {
+                            .positiveButton(null, "YES") {
+                                viewModel.deleteTrainer(requireContext(), user.id!!, object :
+                                        AthletesViewModel.ContentFetchListener
+                                {
+                                    override fun onFetched(anyObject: Any)
+                                    {
+                                        Toast.makeText(requireContext(), "Athlete Deleted", Toast.LENGTH_SHORT).show()
+                                        getTrainerFromServer("")
+                                    }
+                                })
+                            }.negativeButton(null, "NO") {
 
-                            }).negativeButton(null, "NO", {
-
-                            }).show()
+                            }.show()
                     }
                 })
         binding.recyclerView.layoutManager = mLayoutManager

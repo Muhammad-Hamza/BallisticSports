@@ -27,6 +27,7 @@ import com.example.sportsballistics.data.local.StateModel
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentCreateClubAdminBinding
+import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -168,19 +169,13 @@ class CreateClubAdminFragment : Fragment() {
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, newList)
         binding.etState.threshold = 1 //will start working from first character
         binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-        binding.etState.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
+        binding.etState.onItemClickListener = object : AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 selectedStateModel = listOfState.get(position)
-                if (selectedStateModel != null)
-                    binding.etState.setText(selectedStateModel!!.name)
+                if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
             }
 
-        })
+        }
     }
 
     private fun initClickListener() {
@@ -352,7 +347,32 @@ class CreateClubAdminFragment : Fragment() {
                     }
                 })
         } else {
-            // TODO: 12/11/2021  Need to add API here.
+            viewModel.addAthelete(
+                requireContext(),
+                binding.etFullName.text.toString(),
+                binding.etAddress1.text.toString(),
+                binding.etState.text.toString(),
+                binding.etZipcode.text.toString().toInt(),
+                binding.etCity.text.toString(),
+                binding.etStatus.text.toString(),
+                binding.etContact.text.toString(),
+                binding.etAge.text.toString(),
+                binding.etGrade.text.toString(),
+                binding.etPassword.text.toString(),
+                "",
+                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
+                AppConstant.ROLE_ATHLETES_PORTAL,
+                binding.etEmail.text.toString(),
+                object :
+                        CreateAthleteViewModel.ContentFetchListener {
+                    override fun onFetched(anyObject: Any) {
+                        Navigation.findNavController(binding.root).navigateUp()
+                    }
+
+                    override fun onError(t: Throwable) {
+//                        showMessage(t?.localizedMessage)
+                    }
+                })
         }
         Navigation.findNavController(binding.root).navigateUp()
     }

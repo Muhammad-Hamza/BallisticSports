@@ -170,7 +170,6 @@ public interface ApiInterface {
     Call<AthleteResponse> viewTrainer(@Path(value = "userid", encoded = true) String id);
 
     @POST(DELETE_USER)
-    @FormUrlEncoded
     Call<DashboardModel> deleteTrainer(@Path(value = "userid", encoded = true) String id);
 
     @GET(URLIdentifiers.SERVICE_LIST_CONTENT)

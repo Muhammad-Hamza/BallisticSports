@@ -28,7 +28,7 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
     }
 
     companion object {
-        private val TAG = DashboardViewModel::class.java.simpleName
+         val TAG = DashboardViewModel::class.java.simpleName
     }
 
     fun getContent(

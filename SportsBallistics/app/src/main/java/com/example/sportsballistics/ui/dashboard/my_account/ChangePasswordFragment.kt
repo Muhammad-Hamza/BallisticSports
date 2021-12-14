@@ -30,15 +30,15 @@ class ChangePasswordFragment : Fragment()
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.btnSubmit.setOnClickListener {
-            if (!etNewPass.text.toString().isNotEmpty())
+            if (etNewPass.text.toString().isEmpty())
             {
                 showMessage("Please insert new password")
             }
-            else if (etOldPass.text.toString().isNotEmpty())
+            else if (etOldPass.text.toString().isEmpty())
             {
                 showMessage("Please insert old password")
             }
-            else if (etConfirmPass.text.toString().isNotEmpty())
+            else if (etConfirmPass.text.toString().isEmpty())
             {
                 showMessage("Please insert confirm password")
             }
@@ -53,7 +53,7 @@ class ChangePasswordFragment : Fragment()
                 {
                     override fun onFetched(content: AccountResponse)
                     {
-                        if (content.message != null) showMessage(content.message!!)
+                        if (content.message != null) showMessage(content.message)
                     }
                 })
             }
