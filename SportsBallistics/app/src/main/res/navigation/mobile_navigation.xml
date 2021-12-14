@@ -70,7 +70,17 @@
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.sportsballistics.ui.dashboard.users.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_createTrainerFragment"
+            app:destination="@id/createTrainerFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_createAthleteFragment"
+            app:destination="@id/createAthleteFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_createClubFragment"
+            app:destination="@id/createClubFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.sportsballistics.ui.dashboard.home.homeFragment"
