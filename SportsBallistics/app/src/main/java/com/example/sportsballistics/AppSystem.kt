@@ -20,12 +20,14 @@ class AppSystem : Application() {
 
     private lateinit var currentUser: UserResponse
     fun setCurrentUser(user: UserResponse) {
-
         SharedPrefUtil.getInstance().saveUser(user)
-
     }
 
-    fun getCurrentUser(): UserResponse {
+    fun logoutUser() {
+        SharedPrefUtil.getInstance().saveUser(null)
+    }
+
+    fun getCurrentUser(): UserResponse? {
         return SharedPrefUtil.getInstance().user
     }
 

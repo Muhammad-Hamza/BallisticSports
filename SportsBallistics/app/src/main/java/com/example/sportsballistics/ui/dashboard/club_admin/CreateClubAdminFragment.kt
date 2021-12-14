@@ -338,8 +338,8 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
-                AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
                 binding.etEmail.text.toString(),
                 object :
                     CreateClubAdminViewModel.ContentFetchListener {

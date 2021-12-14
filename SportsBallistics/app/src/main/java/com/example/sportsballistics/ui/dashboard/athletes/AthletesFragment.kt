@@ -133,7 +133,7 @@ class AthletesFragment : Fragment() {
         {
 
         }
-        when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+        when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
             AppConstant.ROLE_CLUB_PORTAL -> {
                 binding.clubListLayout.llAddAthlete.visibility = View.VISIBLE
                 binding.clubListLayout.llAddTrainer.visibility = View.VISIBLE
@@ -265,7 +265,7 @@ class AthletesFragment : Fragment() {
 //        this recyclerView is using for athelets lists
 //        -------------------------------------
         athletesAdapter =
-            AthletesUserAdapter(AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId!!,
+            AthletesUserAdapter(AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId!!,
                 object : OnItemClickListener {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
                         if (anyData is UserModel) {
@@ -387,7 +387,7 @@ class AthletesFragment : Fragment() {
         initRecyclerView(athleteDataModel.services)
         binding.clubListLayout.llList.visibility = View.GONE
         binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
-        when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+        when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
             AppConstant.ROLE_CLUB_PORTAL -> {
                 binding.clubListLayout.llEditAthlete.visibility = View.VISIBLE
             }

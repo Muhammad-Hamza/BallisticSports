@@ -453,6 +453,41 @@
                             app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                     </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:background="@color/txtGrey" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/_2sdp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="Logout"
+                            android:textColor="@color/textColorSecondary"
+                            android:textSize="@dimen/_9sdp" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            app:srcCompat="@drawable/ic_right_arrow_chev" />
+
+                    </RelativeLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </ScrollView>
 

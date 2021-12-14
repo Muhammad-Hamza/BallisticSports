@@ -24,9 +24,9 @@ class DashboardActivity : AppCompatActivity() {
 
 
         if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
-                .getCurrentUser().loggedIn != null
+                .getCurrentUser()!!.loggedIn != null
         ) {
-            when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
                 AppConstant.ROLE_SUPER_PORTAL -> {
                     binding.bottomNavigationView.menu.clear()
                     binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
@@ -110,6 +110,14 @@ class DashboardActivity : AppCompatActivity() {
             true
 
         }*/
+    }
+
+    fun logoutFromUser() {
+        launchActivityFinish<LoginActivity> { }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 
     private fun setCurrentFragment(fragment: Fragment) =

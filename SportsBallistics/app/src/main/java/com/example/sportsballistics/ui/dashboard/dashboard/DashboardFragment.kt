@@ -72,9 +72,9 @@ class DashboardFragment : Fragment() {
 
     private fun initViews(loggedIn: LoggedIn?, athleteDataModel: ServiceResponseModel?) {
         if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
-                .getCurrentUser().loggedIn != null
+                .getCurrentUser()!!.loggedIn != null
         ) {
-            when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
                 AppConstant.ROLE_TRAINER_PORTAL -> {
                     if (loggedIn != null) {
                         binding.txtLogin.setText(R.string.txt_welcome_trainer_admin)
@@ -115,7 +115,6 @@ class DashboardFragment : Fragment() {
                 }
                 AppConstant.ROLE_ATHLETES_PORTAL -> {
                     if (athleteDataModel != null) {
-                        val response = AppSystem.getInstance().getCurrentUser();
                         binding.txtLogin.setText(R.string.txt_welcome_athletes_admin)
                         binding.txtSADashboard.setText(
                             getString(R.string.txt_welcome_dashboard_athletes_admin).replace(
@@ -160,10 +159,10 @@ class DashboardFragment : Fragment() {
                             )
                         )
                         if (AppSystem.getInstance()
-                                .getCurrentUser().loggedIn!!.profileImage != null
+                                .getCurrentUser()!!.loggedIn!!.profileImage != null
                         ) {
                             loadImage(
-                                AppSystem.getInstance().getCurrentUser().loggedIn!!.profileImage!!,
+                                AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.profileImage!!,
                                 binding.ivUserImage
                             )
                         }
@@ -240,7 +239,7 @@ class DashboardFragment : Fragment() {
         })
 
         if (AppSystem.getInstance()
-                .getCurrentUser().loggedIn!!.roleId.equals(AppConstant.ROLE_ATHLETES_PORTAL)
+                .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_ATHLETES_PORTAL)
         ) {
             viewModel.getAthleteInfo(
                 binding.root.context,
@@ -251,7 +250,7 @@ class DashboardFragment : Fragment() {
                         }
                     }
 
-                }, AppSystem.getInstance().getCurrentUser().loggedIn!!.id!!
+                }, AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.id!!
             )
         } else {
             viewModel.getDashboard(

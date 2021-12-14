@@ -43,7 +43,7 @@ class TrainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        when (AppSystem.getInstance().getCurrentUser().loggedIn!!.roleId) {
+        when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
             AppConstant.ROLE_CLUB_PORTAL -> {
                 binding.llAddAthlete.visibility = View.VISIBLE
                 binding.llAddTrainer.visibility = View.VISIBLE
