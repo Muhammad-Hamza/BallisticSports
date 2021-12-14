@@ -31,7 +31,7 @@
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_90sdp"
             android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_90sdp"
+            android:layout_marginBottom="@dimen/_80sdp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
