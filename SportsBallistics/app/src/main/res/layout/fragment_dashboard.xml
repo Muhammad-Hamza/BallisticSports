@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rlParent"
         android:background="@drawable/ic_toddler_bg">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -79,7 +79,7 @@
                 android:layout_marginStart="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_40sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:id="@+id/rlClub"
@@ -159,7 +159,7 @@
                 android:layout_marginStart="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_40sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -235,7 +235,7 @@
                 android:layout_marginStart="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_40sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:id="@+id/rlTotalAthletes"
@@ -314,7 +314,7 @@
                 android:layout_marginStart="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_40sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -396,12 +396,12 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/llAthleteView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_5sdp"
-                    android:id="@+id/llAthleteView"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingLeft="@dimen/_15sdp"
@@ -503,11 +503,11 @@
 
 
         <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
-            android:id="@+id/progressBar"
-            android:visibility="gone"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
     </RelativeLayout>
 
 </layout>
