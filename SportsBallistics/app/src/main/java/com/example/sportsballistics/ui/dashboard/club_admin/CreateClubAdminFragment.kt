@@ -101,6 +101,9 @@ class CreateClubAdminFragment : Fragment() {
                 })
             }
         }
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Create Club Admin")
             binding.txtEdit.visibility = View.GONE

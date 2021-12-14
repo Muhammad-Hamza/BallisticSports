@@ -139,6 +139,9 @@ class CreateTrainerFragment : Fragment() {
             binding.txtEdit.visibility = View.GONE
             screenType = AppConstant.INTENT_SCREEN_TYPE_EDIT
         }
+        binding.backClubList.setOnClickListener {
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.etStatus.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) binding.etStatus.showDropDown()
         }
