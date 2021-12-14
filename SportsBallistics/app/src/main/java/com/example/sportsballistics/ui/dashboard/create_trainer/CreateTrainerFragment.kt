@@ -219,7 +219,6 @@ class CreateTrainerFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
-                null,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
