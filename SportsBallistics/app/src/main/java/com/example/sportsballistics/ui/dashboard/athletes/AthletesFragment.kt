@@ -202,7 +202,6 @@ class AthletesFragment : Fragment() {
 
                 override fun onDashboardClick(adapterType: Int, anyData: Any) {
                 }
-
             })
         binding.clubListLayout.recyclerView.adapter = adapter
     }

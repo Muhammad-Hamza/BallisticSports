@@ -65,26 +65,26 @@ class UserFragment : Fragment() {
             }
 
         })
+        binding.llAddTrainer.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(
+                AppConstant.INTENT_SCREEN_TYPE,
+                AppConstant.INTENT_SCREEN_TYPE_ADD
+                         )
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_trainerFragment_to_createTrainerFragment, bundle)
+        }
 
-    }
+        binding.llAddAthlete.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putInt(
+                AppConstant.INTENT_SCREEN_TYPE,
+                AppConstant.INTENT_SCREEN_TYPE_ADD
+                         )
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_trainerFragment_to_createAthleteFragment, bundle)
+        }
 
-    private fun initRecyclerView() {
-        val mLayoutManager = LinearLayoutManager(context)
-        var mAdapter = ClubListAdapter(context, null, object : ClubListAdapter.OnItemClickListener {
-            override fun onEditClick(adapterType: Int, user: UsersItem) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onViewClick(adapterType: Int, user: UsersItem) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onDeleteClick(adapterType: Int, user: UsersItem) {
-                TODO("Not yet implemented")
-            }
-        })
-        binding.recyclerView.layoutManager = mLayoutManager
-        binding.recyclerView.adapter = mAdapter
     }
 
     private fun initViewModel() {
@@ -131,16 +131,16 @@ class UserFragment : Fragment() {
                 val args = Bundle()
                 args.putString(AppConstant.INTENT_EXTRA_1, user.id)
                 args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
-//                Navigation.findNavController(binding.root)
-//                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
             }
 
             override fun onViewClick(adapterType: Int, user: UsersItem) {
                 val args = Bundle()
                 args.putString(AppConstant.INTENT_EXTRA_1, user.id)
                 args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
-//                Navigation.findNavController(binding.root)
-//                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_clubFragment_to_createClubFragment, args)
             }
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {

@@ -277,7 +277,6 @@ class CreateAthleteFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
-                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
@@ -290,12 +289,12 @@ class CreateAthleteFragment : Fragment() {
                 binding.etPassword.text.toString(),
                 "",
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
-                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
+                AppConstant.ROLE_ATHLETES_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-//                        showMessage("Athlete Added")
+                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
@@ -303,7 +302,6 @@ class CreateAthleteFragment : Fragment() {
                     }
                 })
         }
-        Navigation.findNavController(binding.root).navigateUp()
     }
 
     private fun showMessage(content: String) {

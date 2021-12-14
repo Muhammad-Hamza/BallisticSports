@@ -55,10 +55,10 @@ class TrainerAdapter(
                 mListener.onViewClick(adapterType, user!!)
             }
             binding.imgEdit.setOnClickListener {
-                mListener.onViewClick(adapterType, user!!)
+                mListener.onEditClick(adapterType, user!!)
             }
             binding.txtAction.setOnClickListener {
-                mListener.onViewClick(adapterType, user!!)
+                mListener.onDeleteClick(adapterType, user!!)
             }
         }
 

@@ -2,6 +2,8 @@ package com.example.sportsballistics.ui.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -59,12 +61,12 @@ class LoginActivity : AppCompatActivity() {
                                 AppSystem.getInstance().setCurrentUser(userResponse)
                                 binding.btnLogin.revertAnimation();
 
-                                launchActivityFinish<DashboardActivity> {
-                                    this.putExtra(
-                                        URLIdentifiers.USER_ROLE,
-                                        userResponse.loggedIn?.roleId
-                                    )
-                                }
+                                Handler(Looper.getMainLooper()).postDelayed( {
+                                    launchActivityFinish<DashboardActivity> {
+                                        this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
+                                    }
+                                    finish()
+                                },200)
                             }
                         } else {
                             Toast.makeText(
@@ -76,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
         }
-
     }
 
     private fun initViewModel() {

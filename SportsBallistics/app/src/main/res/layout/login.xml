@@ -46,8 +46,10 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/etPassword"
-                android:paddingStart="1dp"
-                android:text="amir@gmail.com"
+                android:paddingStart="5dp"
+                android:text="admin@admin.com"
+                android:drawableEnd="@drawable/ic_username_icon"
+                android:drawablePadding="@dimen/_5sdp"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/_10sdp" />
 
@@ -58,8 +60,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:inputType="textPassword"
-                android:paddingStart="1dp"
-                android:text="1234"
+                android:drawableEnd="@drawable/ic_password_icon"
+                android:drawablePadding="@dimen/_5sdp"
+                android:paddingStart="5dp"
+                android:text="123456"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView

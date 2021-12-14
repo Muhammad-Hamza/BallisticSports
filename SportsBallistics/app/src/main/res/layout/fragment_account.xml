@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/_5sdp"
+                        android:background="?android:attr/selectableItemBackground"
                         android:fontFamily="@font/roboto_bold"
                         android:padding="@dimen/_3sdp"
                         android:text="Log out of sports Ballistics Account"
@@ -251,6 +252,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:fontFamily="@font/roboto_regular"
+                        android:background="?android:attr/selectableItemBackground"
                         android:text="Change Password"
                         android:textColor="@color/actionBarColor"
                         android:textSize="@dimen/_10sdp" />
@@ -461,33 +463,6 @@
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:background="@color/txtGrey" />
 
-                    <RelativeLayout
-                        android:id="@+id/rlLogout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_marginEnd="@dimen/_20sdp"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:orientation="horizontal"
-                        android:padding="@dimen/_2sdp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:fontFamily="@font/roboto_bold"
-                            android:text="Logout"
-                            android:textColor="@color/textColorSecondary"
-                            android:textSize="@dimen/_9sdp" />
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            app:srcCompat="@drawable/ic_right_arrow_chev" />
-
-                    </RelativeLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </ScrollView>
 

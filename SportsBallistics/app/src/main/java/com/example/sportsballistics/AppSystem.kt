@@ -24,7 +24,7 @@ class AppSystem : Application() {
     }
 
     fun logoutUser() {
-        SharedPrefUtil.getInstance().saveUser(null)
+        SharedPrefUtil.getInstance().logout()
     }
 
     fun getCurrentUser(): UserResponse? {

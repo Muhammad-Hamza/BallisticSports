@@ -26,8 +26,10 @@ import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
+import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.add
+import com.example.sportsballistics.utils.launchActivity
 import com.google.gson.Gson
 
 class AccountFragment : Fragment() {
@@ -39,6 +41,7 @@ class AccountFragment : Fragment() {
         super.onAttach(context)
         mActivity = activity as DashboardActivity
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,12 +63,33 @@ class AccountFragment : Fragment() {
     }
 
     private fun setListeners() {
+//        binding.rlAboutSportsBallistics.setOnClickListener { getAccountData("about-us") }
+//        binding.rlPP.setOnClickListener { getAccountData("privacy-policy") }
+//        binding.rlTerms.setOnClickListener { getAccountData("terms-use") }
+//        binding.rlContactSupport.setOnClickListener { getAccountData("contact-support") }
+//        binding.rlFAQs.setOnClickListener { getAccountData("faqs ") }
+//        binding.rlLogout.setOnClickListener {
+//            AppSystem.getInstance().logoutUser()
+//            mActivity.logoutFromUser()
+//        binding.rlFAQs.setOnClickListener { getAccountData("faqs") }
+//
+//        binding.txtLogout.setOnClickListener{
+//            SharedPrefUtil.getInstance().logout()
+//            requireActivity().launchActivity<LoginActivity> {  }
+//            requireActivity().finish()
+//        }
+//        binding.txtChangePassword.setOnClickListener {
+//            Navigation.findNavController(binding.root)
+//                .navigate(R.id.action_accountFragment_to_changePasswordFragment)
+//        }
+
         binding.rlAboutSportsBallistics.setOnClickListener { getAccountData("about-us") }
         binding.rlPP.setOnClickListener { getAccountData("privacy-policy") }
         binding.rlTerms.setOnClickListener { getAccountData("terms-use") }
         binding.rlContactSupport.setOnClickListener { getAccountData("contact-support") }
-        binding.rlFAQs.setOnClickListener { getAccountData("faqs ") }
-        binding.rlLogout.setOnClickListener {
+        binding.rlFAQs.setOnClickListener { getAccountData("faqs") }
+
+        binding.txtLogout.setOnClickListener {
             AppSystem.getInstance().logoutUser()
             mActivity.logoutFromUser()
         }
