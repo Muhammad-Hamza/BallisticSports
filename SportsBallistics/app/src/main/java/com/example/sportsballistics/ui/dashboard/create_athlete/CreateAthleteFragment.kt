@@ -277,7 +277,6 @@ class CreateAthleteFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
-                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),

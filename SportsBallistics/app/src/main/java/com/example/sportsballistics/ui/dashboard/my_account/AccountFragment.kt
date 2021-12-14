@@ -24,8 +24,10 @@ import com.example.sportsballistics.databinding.FragmentDashboardBinding
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
+import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.add
+import com.example.sportsballistics.utils.launchActivity
 import com.google.gson.Gson
 
 class AccountFragment : Fragment() {
@@ -57,8 +59,13 @@ class AccountFragment : Fragment() {
         binding.rlPP.setOnClickListener { getAccountData("privacy-policy") }
         binding.rlTerms.setOnClickListener { getAccountData("terms-use") }
         binding.rlContactSupport.setOnClickListener { getAccountData("contact-support") }
-        binding.rlFAQs.setOnClickListener { getAccountData("faqs ") }
+        binding.rlFAQs.setOnClickListener { getAccountData("faqs") }
 
+        binding.txtLogout.setOnClickListener{
+            SharedPrefUtil.getInstance().logout()
+            requireActivity().launchActivity<LoginActivity> {  }
+            requireActivity().finish()
+        }
         binding.txtChangePassword.setOnClickListener {
             Navigation.findNavController(binding.root).navigate(R.id.action_accountFragment_to_changePasswordFragment)
         }

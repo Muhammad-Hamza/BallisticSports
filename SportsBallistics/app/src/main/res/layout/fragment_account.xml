@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/_5sdp"
+                        android:background="?android:attr/selectableItemBackground"
                         android:fontFamily="@font/roboto_bold"
                         android:padding="@dimen/_3sdp"
                         android:text="Log out of sports Ballistics Account"
@@ -251,6 +252,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:fontFamily="@font/roboto_regular"
+                        android:background="?android:attr/selectableItemBackground"
                         android:text="Change Password"
                         android:textColor="@color/actionBarColor"
                         android:textSize="@dimen/_10sdp" />

@@ -65,6 +65,7 @@ class LoginActivity : AppCompatActivity() {
                                     launchActivityFinish<DashboardActivity> {
                                         this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
                                     }
+                                    finish()
                                 },200)
                             }
                         } else {
@@ -77,7 +78,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 })
         }
-
     }
 
     private fun initViewModel() {

@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
+import com.example.sportsballistics.ui.dashboard.DashboardActivity
+import com.example.sportsballistics.utils.launchActivity
 
 class SplashActivity : AppCompatActivity()
 {
@@ -15,9 +18,15 @@ class SplashActivity : AppCompatActivity()
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed(Runnable {
-            val intent = Intent(this, SelectionActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (!SharedPrefUtil.getInstance().isUserLoggedIn)
+            {
+                val intent = Intent(this, SelectionActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                launchActivity<DashboardActivity> {  }
+                finish()
+            }
         }, 2000)
 
     }
