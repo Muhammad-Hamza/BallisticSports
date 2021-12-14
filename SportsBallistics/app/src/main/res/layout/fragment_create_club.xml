@@ -94,7 +94,7 @@
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
 
-                    <EditText
+                        <EditText
                         android:id="@+id/etClubName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_22sdp"
