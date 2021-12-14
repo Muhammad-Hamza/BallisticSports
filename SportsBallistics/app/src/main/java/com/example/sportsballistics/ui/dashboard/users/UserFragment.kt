@@ -70,7 +70,7 @@ class UserFragment : Fragment() {
             bundle.putInt(
                 AppConstant.INTENT_SCREEN_TYPE,
                 AppConstant.INTENT_SCREEN_TYPE_ADD
-                         )
+            )
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_userFragment_to_createTrainerFragment, bundle)
         }
@@ -80,7 +80,7 @@ class UserFragment : Fragment() {
             bundle.putInt(
                 AppConstant.INTENT_SCREEN_TYPE,
                 AppConstant.INTENT_SCREEN_TYPE_ADD
-                         )
+            )
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_userFragment_to_createAthleteFragment, bundle)
         }
@@ -128,19 +128,39 @@ class UserFragment : Fragment() {
         val mAdapter = UserAdapter(context, list, object :
             UserAdapter.OnItemClickListener {
             override fun onEditClick(adapterType: Int, user: UsersItem) {
-//                val args = Bundle()
-//                args.putString(AppConstant.INTENT_EXTRA_1, user.id)
-//                args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
-//                Navigation.findNavController(binding.root)
-//                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                if (user != null && user.role_name != null) {
+                    val args = Bundle()
+                    args.putString(AppConstant.INTENT_EXTRA_1, user.id)
+                    args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_EDIT)
+                    when (user.role_name) {
+                        "Athlete" -> {
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_userFragment_to_createAthleteFragment, args)
+                        }
+                        "Trainer" -> {
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_userFragment_to_createTrainerFragment, args)
+                        }
+                    }
+                }
             }
 
             override fun onViewClick(adapterType: Int, user: UsersItem) {
-//                val args = Bundle()
-//                args.putString(AppConstant.INTENT_EXTRA_1, user.id)
-//                args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
-//                Navigation.findNavController(binding.root)
-//                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                if (user != null && user.role_name != null) {
+                    val args = Bundle()
+                    args.putString(AppConstant.INTENT_EXTRA_1, user.id)
+                    args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_VIEW)
+                    when (user.role_name) {
+                        "Athlete" -> {
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_userFragment_to_createAthleteFragment, args)
+                        }
+                        "Trainer" -> {
+                            Navigation.findNavController(binding.root)
+                                .navigate(R.id.action_userFragment_to_createTrainerFragment, args)
+                        }
+                    }
+                }
             }
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {
