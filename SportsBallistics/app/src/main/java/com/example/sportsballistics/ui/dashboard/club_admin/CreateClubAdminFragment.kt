@@ -366,7 +366,7 @@ class CreateClubAdminFragment : Fragment() {
                 object :
                         CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+//                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
