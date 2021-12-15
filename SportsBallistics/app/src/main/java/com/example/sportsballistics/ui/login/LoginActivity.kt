@@ -65,15 +65,12 @@ class LoginActivity : AppCompatActivity() {
                                 AppSystem.getInstance().setCurrentUser(userResponse)
                                 binding.btnLogin.revertAnimation();
 
-                                Handler(Looper.getMainLooper()).postDelayed({
+                                Handler(Looper.getMainLooper()).postDelayed( {
                                     launchActivityFinish<DashboardActivity> {
-                                        this.putExtra(
-                                            URLIdentifiers.USER_ROLE,
-                                            userResponse.loggedIn?.roleId
-                                        )
+                                        this.putExtra(URLIdentifiers.USER_ROLE, userResponse.loggedIn?.roleId)
                                     }
                                     finish()
-                                }, 200)
+                                },200)
                             }
                         } else {
                             Toast.makeText(
@@ -107,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //TODO use this method temp for all asset loading
-    fun loadAssets() {
+    fun loadAssets(){
         val sportsType = SharedPrefUtil.getInstance().sportsType
         when (sportsType) {
             AppConstant.BASEBALL -> {

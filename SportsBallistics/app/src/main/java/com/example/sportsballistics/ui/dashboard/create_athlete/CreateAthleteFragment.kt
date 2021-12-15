@@ -30,6 +30,7 @@ import android.R.attr.data
 
 import android.app.Activity
 import android.os.Environment
+import androidx.core.content.ContextCompat
 import com.example.sportsballistics.AppSystem
 import java.io.File
 import java.io.FileOutputStream
@@ -54,6 +55,7 @@ class CreateAthleteFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_athlete, container, false);
+        loadAssets()
         initViewModel()
         return binding.root
     }
@@ -327,5 +329,33 @@ class CreateAthleteFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+    }
+
+    fun loadAssets(){
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        when(sportsType){
+            AppConstant.BASEBALL->{
+                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+            }
+            AppConstant.VOLLEYBALL->{
+                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_all_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+            }
+
+            AppConstant.QB->{
+                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+            }
+        }
     }
 }
