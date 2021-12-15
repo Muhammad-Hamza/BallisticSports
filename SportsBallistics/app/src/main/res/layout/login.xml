@@ -3,10 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_toddler_login_bg">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_toddler_login_bg" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -19,11 +23,12 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bb_inner_logo"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/ic_toddler_inner_logo"
                 android:gravity="center" />
 
             <TextView
@@ -44,12 +49,12 @@
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:drawableEnd="@drawable/ic_username_icon"
+                android:drawablePadding="@dimen/_5sdp"
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/etPassword"
                 android:paddingStart="5dp"
                 android:text="admin@admin.com"
-                android:drawableEnd="@drawable/ic_username_icon"
-                android:drawablePadding="@dimen/_5sdp"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/_10sdp" />
 
@@ -59,9 +64,9 @@
                 android:layout_width="@dimen/_170sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:inputType="textPassword"
                 android:drawableEnd="@drawable/ic_password_icon"
                 android:drawablePadding="@dimen/_5sdp"
+                android:inputType="textPassword"
                 android:paddingStart="5dp"
                 android:text="123456"
                 android:textSize="@dimen/_10sdp" />
@@ -72,8 +77,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginBottom="@dimen/_15sdp"
-                android:fontFamily="@font/roboto_regular"
                 android:background="?android:attr/selectableItemBackground"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Forgot your password"
                 android:textSize="@dimen/_7sdp"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -95,19 +100,19 @@
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
                 android:background="@drawable/btn_bg"
                 android:fontFamily="@font/roboto_regular"
-                android:text="Login"
-                android:layout_gravity="center"
                 android:gravity="center"
+                android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
+                app:finalCornerAngle="@dimen/_4sdp"
+                app:initialCornerAngle="@dimen/_4sdp"
                 app:spinning_bar_color="@color/white"
                 app:spinning_bar_padding="@dimen/_4sdp"
-                app:spinning_bar_width="4dp"
-                app:finalCornerAngle="@dimen/_4sdp"
-                app:initialCornerAngle="@dimen/_4sdp"/>
+                app:spinning_bar_width="4dp" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
