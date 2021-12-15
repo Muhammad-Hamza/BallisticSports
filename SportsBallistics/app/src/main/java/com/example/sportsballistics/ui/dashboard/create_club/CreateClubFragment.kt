@@ -393,23 +393,19 @@ class CreateClubFragment : Fragment()
             address.isNotEmpty() ->
             {
                 Toast.makeText(requireContext(), "Please insert address", Toast.LENGTH_SHORT).show()
-
             }
             email.isNotEmpty() ->
             {
                 Toast.makeText(requireContext(), "Please insert email", Toast.LENGTH_SHORT).show()
-
             }
             city.isNotEmpty() ->
             {
                 Toast.makeText(requireContext(), "Please insert city", Toast.LENGTH_SHORT).show()
-
             }
             password.isNotEmpty() ->
             {
                 Toast.makeText(requireContext(), "Please insert password", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
 }
