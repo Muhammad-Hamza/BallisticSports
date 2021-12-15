@@ -474,8 +474,8 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imgProfile"
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_70sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_temp_avatar"
                     app:riv_corner_radius="@dimen/_5sdp" />

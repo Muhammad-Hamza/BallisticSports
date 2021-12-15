@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 
 import com.example.sportsballistics.AppSystem;
 import com.example.sportsballistics.data.remote.login.UserResponse;
+import com.example.sportsballistics.utils.AppConstant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,11 +46,11 @@ public class SharedPrefUtil<T>
         return (UserResponse) getPreferenceObject(USER,UserResponse.class);
     }
   public void saveSportsType(String sportsType){
-        setPreferences(SPORTS_TYPE, sportsType);
+        setPreference(SPORTS_TYPE, sportsType);
     }
 
     public String getSportsType(){
-        return (String) getPreferenceObject(SPORTS_TYPE,UserResponse.class);
+        return getPreference(SPORTS_TYPE, AppConstant.TODDLER);
     }
     public List<Cookie> getCookies()
     {

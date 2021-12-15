@@ -12,6 +12,7 @@ import java.net.CookieHandler
 import java.net.CookieManager
 import com.example.sportsballistics.data.PersistentCookieStore
 import com.example.sportsballistics.data.SharedPrefUtil
+import com.example.sportsballistics.utils.AppConstant
 import java.net.CookiePolicy
 import okhttp3.HttpUrl
 
@@ -73,6 +74,15 @@ object ApiClient
                 cookies
             }
             else Collections.emptyList()
+        }
+    }
+
+    fun getBaseURL(){
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        when(sportsType){
+            AppConstant.BASEBALL->{}
+            AppConstant.VOLLEYBALL->{}
+            AppConstant.QB->{}
         }
     }
 }

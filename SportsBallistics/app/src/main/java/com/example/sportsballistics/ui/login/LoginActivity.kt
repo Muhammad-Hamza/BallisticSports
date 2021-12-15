@@ -102,7 +102,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //TODO use this method temp for all asset loading
-
     fun loadAssets(){
         val sportsType = SharedPrefUtil.getInstance().sportsType
         when(sportsType){
