@@ -10,6 +10,7 @@
             android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_toddler_login_bg" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -26,10 +27,9 @@
                 android:layout_width="@dimen/_120sdp"
                 android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bb_inner_logo"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:gravity="center" />
+                android:gravity="center"
+                android:src="@drawable/bb_inner_logo" />
 
             <TextView
                 android:id="@+id/txtLogin"
