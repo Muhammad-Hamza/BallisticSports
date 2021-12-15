@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.my_account
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentAccountBinding
 import com.example.sportsballistics.databinding.FragmentDashboardBinding
+import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
@@ -33,12 +35,18 @@ import com.google.gson.Gson
 class AccountFragment : Fragment() {
     private lateinit var viewModel: AccountViewModel
     lateinit var binding: FragmentAccountBinding
+    lateinit var mActivity: DashboardActivity
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mActivity = activity as DashboardActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_account, container, false
@@ -55,19 +63,39 @@ class AccountFragment : Fragment() {
     }
 
     private fun setListeners() {
+//        binding.rlAboutSportsBallistics.setOnClickListener { getAccountData("about-us") }
+//        binding.rlPP.setOnClickListener { getAccountData("privacy-policy") }
+//        binding.rlTerms.setOnClickListener { getAccountData("terms-use") }
+//        binding.rlContactSupport.setOnClickListener { getAccountData("contact-support") }
+//        binding.rlFAQs.setOnClickListener { getAccountData("faqs ") }
+//        binding.rlLogout.setOnClickListener {
+//            AppSystem.getInstance().logoutUser()
+//            mActivity.logoutFromUser()
+//        binding.rlFAQs.setOnClickListener { getAccountData("faqs") }
+//
+//        binding.txtLogout.setOnClickListener{
+//            SharedPrefUtil.getInstance().logout()
+//            requireActivity().launchActivity<LoginActivity> {  }
+//            requireActivity().finish()
+//        }
+//        binding.txtChangePassword.setOnClickListener {
+//            Navigation.findNavController(binding.root)
+//                .navigate(R.id.action_accountFragment_to_changePasswordFragment)
+//        }
+
         binding.rlAboutSportsBallistics.setOnClickListener { getAccountData("about-us") }
         binding.rlPP.setOnClickListener { getAccountData("privacy-policy") }
         binding.rlTerms.setOnClickListener { getAccountData("terms-use") }
         binding.rlContactSupport.setOnClickListener { getAccountData("contact-support") }
         binding.rlFAQs.setOnClickListener { getAccountData("faqs") }
 
-        binding.txtLogout.setOnClickListener{
-            SharedPrefUtil.getInstance().logout()
-            requireActivity().launchActivity<LoginActivity> {  }
-            requireActivity().finish()
+        binding.txtLogout.setOnClickListener {
+            AppSystem.getInstance().logoutUser()
+            mActivity.logoutFromUser()
         }
         binding.txtChangePassword.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_accountFragment_to_changePasswordFragment)
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_accountFragment_to_changePasswordFragment)
         }
     }
 
@@ -113,7 +141,7 @@ class AccountFragment : Fragment() {
             object : AccountViewModel.ContentFetchListener {
                 override fun onFetched(content: AccountResponse) {
                     Log.d("ACCOUNT", Gson().toJson(content))
-                    binding.progressBar.visibility=View.GONE
+                    binding.progressBar.visibility = View.GONE
                     if (content.data != null && content.data.size > 0) {
                         val bundle = Bundle()
                         bundle.putString(AppConstant.INTENT_EXTRA_1, content.data.get(0)!!.title)

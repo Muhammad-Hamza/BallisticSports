@@ -333,13 +333,13 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
-                AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
                 binding.etEmail.text.toString(),
                 object :
                     CreateClubAdminViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-//                        showMessage("Athlete Added")
+                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
@@ -360,7 +360,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
                 AppConstant.ROLE_ATHLETES_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
@@ -374,7 +374,6 @@ class CreateClubAdminFragment : Fragment() {
                     }
                 })
         }
-        Navigation.findNavController(binding.root).navigateUp()
     }
 
     private fun showMessage(content: String) {

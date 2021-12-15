@@ -455,6 +455,14 @@
                             app:srcCompat="@drawable/ic_right_arrow_chev" />
 
                     </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:background="@color/txtGrey" />
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </ScrollView>
 

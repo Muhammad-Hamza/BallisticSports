@@ -261,8 +261,8 @@ class CreateAthleteFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
-                AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
@@ -288,13 +288,13 @@ class CreateAthleteFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
                 AppConstant.ROLE_ATHLETES_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                           Navigation.findNavController(binding.root).navigateUp()
+                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {

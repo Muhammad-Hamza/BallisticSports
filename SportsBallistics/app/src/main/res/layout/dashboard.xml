@@ -59,7 +59,6 @@
                 android:layout_width="@dimen/_184sdp"
                 android:layout_height="2dp"
                 android:layout_gravity="center"
-
                 android:background="@color/txtGrey" />
 
             <TextView
@@ -92,7 +91,7 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -164,7 +163,7 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -236,7 +235,7 @@
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
-                android:background="@color/txtGrey">
+                android:background="@drawable/txt_grey_ripple">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -303,6 +302,7 @@
                 </RelativeLayout>
 
             </FrameLayout>
+
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat

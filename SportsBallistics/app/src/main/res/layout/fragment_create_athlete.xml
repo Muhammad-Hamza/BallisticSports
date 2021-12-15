@@ -319,7 +319,7 @@
                                 android:layout_width="@dimen/_25sdp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/_1sdp"
-                                android:background="#EFEFEF"
+                                android:background="@drawable/ic_spinner_style"
                                 android:gravity="center"
                                 android:orientation="vertical"
                                 android:paddingTop="@dimen/_3sdp">
@@ -479,6 +479,7 @@
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_temp_avatar"
                     app:riv_corner_radius="@dimen/_5sdp" />
+
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
@@ -493,6 +494,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
                     android:fontFamily="@font/roboto_regular"
                     android:padding="@dimen/_5sdp"
                     android:text="Cancel"

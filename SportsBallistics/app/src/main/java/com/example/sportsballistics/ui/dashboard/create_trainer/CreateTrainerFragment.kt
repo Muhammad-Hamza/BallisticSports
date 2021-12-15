@@ -201,8 +201,8 @@ class CreateTrainerFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(),
-                AppSystem.getInstance().getCurrentUser().loggedIn?.roleId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
@@ -230,7 +230,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser().loggedIn?.clubId.toString(), AppConstant.ROLE_TRAINER_PORTAL,
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(), AppConstant.ROLE_TRAINER_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {

@@ -28,6 +28,7 @@ inline fun <reified T : Any> Activity.launchActivityFinish(
     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     overridePendingTransition(R.anim.bottom_up, R.anim.nothing)
     startActivity(intent, options)
+    finish()
 }
 
 inline fun <reified T : Any> Activity.launchActivityForResult(
