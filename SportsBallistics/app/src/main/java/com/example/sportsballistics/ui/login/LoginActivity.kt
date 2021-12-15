@@ -105,11 +105,13 @@ class LoginActivity : AppCompatActivity() {
     fun loadAssets(){
         val sportsType = SharedPrefUtil.getInstance().sportsType
         when(sportsType){
-            AppConstant.BASEBALL->{}
+            AppConstant.BASEBALL->{
+                binding.btnLogin.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.actionBarColor))
+
+            }
             AppConstant.VOLLEYBALL->{}
             AppConstant.QB->{}
         }
-        binding.btnLogin.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.actionBarColor))
     }
 
 }

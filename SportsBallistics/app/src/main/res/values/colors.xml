@@ -9,6 +9,10 @@
     <color name="white">#FFFFFFFF</color>
     <color name="rippelColor">#FFFFFF</color>
     <color name="actionBarColor">#521A71</color>
+    <color name="colorTodd">#521A71</color>
+    <color name="colorBB">#E86A24</color>
+    <color name="colorVB">#DE9700</color>
+    <color name="colorQB">#C5203D</color>
     <color name="actionBarTextColor">#521A71</color>
     <color name="txtGrey">#BEBEBE</color>
 
