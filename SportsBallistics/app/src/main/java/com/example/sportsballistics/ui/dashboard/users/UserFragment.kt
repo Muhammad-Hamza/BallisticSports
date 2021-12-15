@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
@@ -24,6 +27,7 @@ import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.user_list_item_header.view.*
 
 class UserFragment : Fragment() {
     lateinit var binding: FragmentUserBinding
@@ -36,6 +40,7 @@ class UserFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, container, false);
+        loadAssets()
         initViewModel()
         binding.clubListHeader.txtClubName.text = "User Name"
         return binding.root
@@ -174,6 +179,47 @@ class UserFragment : Fragment() {
         })
         binding.recyclerView.layoutManager = mLayoutManager
         binding.recyclerView.adapter = mAdapter
+    }
+
+    fun loadAssets(){
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        when(sportsType){
+            AppConstant.BASEBALL->{
+                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+            }
+            AppConstant.VOLLEYBALL->{
+                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_all_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
+
+
+            }
+
+            AppConstant.QB->{
+
+                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_bg)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
+                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
+                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+            }
+        }
+
+        AppSystem.getInstance().setStatusColor(requireActivity())
     }
 
 }
