@@ -21,6 +21,7 @@ public class SharedPrefUtil<T>
 
     public static final String SP_COOKIES = "SP_COOKIES";
     public static final String USER = "USER";
+    public static final String SPORTS_TYPE = "SPORTS_TYPE";
 
 
     private static SharedPrefUtil instance;
@@ -42,6 +43,13 @@ public class SharedPrefUtil<T>
 
     public UserResponse getUser(){
         return (UserResponse) getPreferenceObject(USER,UserResponse.class);
+    }
+  public void saveSportsType(String sportsType){
+        setPreferences(SPORTS_TYPE, sportsType);
+    }
+
+    public String getSportsType(){
+        return (String) getPreferenceObject(SPORTS_TYPE,UserResponse.class);
     }
     public List<Cookie> getCookies()
     {

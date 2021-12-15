@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.sportsballistics.AppSystem
@@ -16,6 +17,7 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.LoginBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
+import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.launchActivity
 import com.example.sportsballistics.utils.launchActivityFinish
 
@@ -97,6 +99,18 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    //TODO use this method temp for all asset loading
+
+    fun loadAssets(){
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        when(sportsType){
+            AppConstant.BASEBALL->{}
+            AppConstant.VOLLEYBALL->{}
+            AppConstant.QB->{}
+        }
+        binding.btnLogin.setBackgroundColor(ContextCompat.getColor(applicationContext,R.color.actionBarColor))
     }
 
 }

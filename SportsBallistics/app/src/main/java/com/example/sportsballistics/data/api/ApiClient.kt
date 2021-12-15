@@ -24,7 +24,7 @@ import kotlin.collections.ArrayList
 object ApiClient
 {
 
-    const val BASE_URL = "https://appservice.basketballballistics.com/"
+    const val BASE_URL ="https://appservice.basketballballistics.com/"
 
     private lateinit var retrofit: Retrofit
     lateinit var okHttpClient: OkHttpClient
