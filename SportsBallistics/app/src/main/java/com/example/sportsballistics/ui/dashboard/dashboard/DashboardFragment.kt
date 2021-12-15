@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.dashboard.LoggedIn
@@ -31,10 +33,11 @@ class DashboardFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_dashboard, container, false
         );
+        loadAssets()
         hideAllViews()
         initViewModel()
         binding.flTrainer.setOnClickListener {
@@ -55,8 +58,7 @@ class DashboardFragment : Fragment() {
                 .navigate(R.id.action_dashboardFragment_to_athletesFragment)
         }
         binding.llAthleteView.setOnClickListener {
-            (activity as DashboardActivity).
-            add(AthletesFragment(), R.id.rlParent)
+            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
         }
 
         return binding.root
@@ -162,7 +164,8 @@ class DashboardFragment : Fragment() {
                                 .getCurrentUser()!!.loggedIn!!.profileImage != null
                         ) {
                             loadImage(
-                                AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.profileImage!!,
+                                AppSystem.getInstance()
+                                    .getCurrentUser()!!.loggedIn!!.profileImage!!,
                                 binding.ivUserImage
                             )
                         }
@@ -221,20 +224,20 @@ class DashboardFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(DashboardViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
-                binding.progressBar.visibility=View.GONE
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addDialog() {
-                binding.progressBar.visibility=View.VISIBLE
+                binding.progressBar.visibility = View.VISIBLE
             }
 
             override fun addErrorDialog() {
-                binding.progressBar.visibility=View.GONE
+                binding.progressBar.visibility = View.GONE
             }
 
             override fun addErrorDialog(msg: String?) {
-                binding.progressBar.visibility=View.GONE
-                Toast.makeText(binding.root.context,msg,Toast.LENGTH_SHORT).show()
+                binding.progressBar.visibility = View.GONE
+                Toast.makeText(binding.root.context, msg, Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -275,5 +278,49 @@ class DashboardFragment : Fragment() {
         }
     }
 
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        AppConstant.changeColor(binding.imgTotalClubs)
+        AppConstant.changeColor(binding.imgTotalTrainers)
+        AppConstant.changeColor(binding.imgTotalAthletes)
+        AppConstant.changeColor(binding.imgNewTotalAthletes)
+        AppConstant.changeColor(binding.txtTotalClubs)
+        AppConstant.changeColor(binding.txtTotalClubsText)
+        AppConstant.changeColor(binding.txtTotalTrainers)
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.txtTotalAthletes)
+        AppConstant.changeColor(binding.txtTotalAthletesText)
+        AppConstant.changeColor(binding.txtNewTotalAthletes)
+        AppConstant.changeColor(binding.txtNewTotalAthletesText)
+        AppConstant.changeColor(binding.tvName)
+        AppConstant.changeColor(binding.tvClub)
+        AppConstant.changeColor(binding.tvTrainer)
+        AppConstant.changeColor(binding.tvAge)
+        AppConstant.changeColor(binding.tvGrade)
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg).into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo).into(binding.imgLogo)
+                binding.llProfileLayout.setBackgroundResource(R.drawable.ic_bb_dash_profile)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg).into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo).into(binding.imgLogo)
+                binding.llProfileLayout.setBackgroundResource(R.drawable.ic_vb_dash_profile)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+                binding.llProfileLayout.setBackgroundResource(R.drawable.ic_dash_profile)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg).into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo).into(binding.imgLogo)
+                binding.llProfileLayout.setBackgroundResource(R.drawable.ic_qb_dash_profile)
+            }
+        }
+    }
 
 }

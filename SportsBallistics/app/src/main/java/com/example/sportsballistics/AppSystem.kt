@@ -133,10 +133,10 @@ class AppSystem : Application()
     {
         when (SharedPrefUtil.getInstance().sportsType)
         {
-            AppConstant.TODDLER ->
-            {
-                return R.color.colorTodd
-            }
+//            AppConstant.TODDLER ->
+//            {
+//                return R.color.colorTodd
+//            }
             AppConstant.BASEBALL ->
             {
                 return R.color.colorBB

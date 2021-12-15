@@ -5,8 +5,14 @@
     <RelativeLayout
         android:id="@+id/rlParent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_toddler_bg">
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_toddler_login_bg" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/llDashboard"
@@ -22,11 +28,10 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_60sdp"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_40sdp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/ic_toddler_inner_logo"
                 android:gravity="center" />
 
 
@@ -410,6 +415,7 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
+                        android:id="@+id/llProfileLayout"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/ic_dash_profile"

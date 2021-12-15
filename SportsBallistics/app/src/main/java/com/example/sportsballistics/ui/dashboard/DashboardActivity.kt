@@ -7,8 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.databinding.ActivityDashboardBinding
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
@@ -23,6 +25,7 @@ class DashboardActivity : AppCompatActivity() {
 //        setCurrentFragment(DashboardFragment())
 
 
+        loadAssets()
         if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
                 .getCurrentUser()!!.loggedIn != null
         ) {
@@ -125,4 +128,32 @@ class DashboardActivity : AppCompatActivity() {
             replace(R.id.flFragment, fragment)
             commit()
         }
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+            }
+            AppConstant.VOLLEYBALL -> {
+            }
+            AppConstant.TODDLER -> {
+            }
+            AppConstant.QB -> {
+            }
+        }
+    }
+//    fun loadAssets(){
+//        val sportsType = SharedPrefUtil.getInstance().sportsType
+//        when (sportsType) {
+//            AppConstant.BASEBALL -> {
+//            }
+//            AppConstant.VOLLEYBALL -> {
+//            }
+//            AppConstant.TODDLER -> {
+//            }
+//            AppConstant.QB -> {
+//            }
+//        }
+//    }
+
 }
