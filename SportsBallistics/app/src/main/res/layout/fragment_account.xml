@@ -251,8 +251,8 @@
                         android:layout_marginStart="@dimen/_25sdp"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:fontFamily="@font/roboto_regular"
                         android:background="?android:attr/selectableItemBackground"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="Change Password"
                         android:textColor="@color/actionBarColor"
                         android:textSize="@dimen/_10sdp" />

@@ -7,8 +7,16 @@ import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.remote.login.UserResponse
 import com.google.gson.Gson
 import okhttp3.Cookie
+import android.app.Activity
+import android.view.Window
 
-class AppSystem : Application() {
+import androidx.core.content.ContextCompat
+
+import android.view.WindowManager
+import com.example.sportsballistics.utils.AppConstant
+
+class AppSystem : Application()
+{
 
     val TAG = AppSystem::class.java.name
 
@@ -19,24 +27,29 @@ class AppSystem : Application() {
     var cookies: List<Cookie> = arrayListOf()
 
     private lateinit var currentUser: UserResponse
-    fun setCurrentUser(user: UserResponse) {
+    fun setCurrentUser(user: UserResponse)
+    {
         SharedPrefUtil.getInstance().saveUser(user)
     }
 
-    fun logoutUser() {
+    fun logoutUser()
+    {
         SharedPrefUtil.getInstance().logout()
     }
 
-    fun getCurrentUser(): UserResponse? {
+    fun getCurrentUser(): UserResponse?
+    {
         return SharedPrefUtil.getInstance().user
     }
 
-    override fun onCreate() {
+    override fun onCreate()
+    {
         super.onCreate()
         context = applicationContext
     }
 
-    companion object {
+    companion object
+    {
         /*
         Volatile instance to make singleton
         thread safe
@@ -46,15 +59,18 @@ class AppSystem : Application() {
 
         lateinit var context: Context
 
-        fun getInstance(): AppSystem {
+        fun getInstance(): AppSystem
+        {
 
             //Double check locking pattern
-            if (sSoleInstance == null) {
+            if (sSoleInstance == null)
+            {
 
                 //Check for the first time
                 synchronized(AppSystem::class.java) {   //Check for the second time.
                     //if there is no instance available... create new one
-                    if (sSoleInstance == null) {
+                    if (sSoleInstance == null)
+                    {
                         sSoleInstance = AppSystem()
                     }
                 }
@@ -64,26 +80,79 @@ class AppSystem : Application() {
         }
     }
 
-    fun getUser(): UserResponse? {
+    fun getUser(): UserResponse?
+    {
         return Gson().fromJson(getPrefs()?.getString(USER, ""), UserResponse::class.java)
     }
 
-    fun saveUser(user: UserResponse?) {
+    fun saveUser(user: UserResponse?)
+    {
         getPrefs().edit().putString(USER, Gson().toJson(user)).apply()
     }
 
-    private fun getPrefs(): SharedPreferences {
-        if (prefs == null) {
+    private fun getPrefs(): SharedPreferences
+    {
+        if (prefs == null)
+        {
             prefs = context?.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
         }
         return prefs!!
     }
 
-    fun saveVerificationStatus(isVerified: Boolean) {
+    fun saveVerificationStatus(isVerified: Boolean)
+    {
         getPrefs().edit().putBoolean(IS_VERIFIED, isVerified).apply()
     }
 
-    fun isVerified(): Boolean {
+    fun isVerified(): Boolean
+    {
         return getPrefs().getBoolean(IS_VERIFIED, false)
+    }
+
+    fun setStatusColor(activity: Activity)
+    {
+        val window: Window = activity.getWindow()
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+// finally change the color
+
+// finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(activity, getColor()))
+    }
+
+    fun getColor(): Int
+    {
+        when (SharedPrefUtil.getInstance().sportsType)
+        {
+            AppConstant.TODDLER ->
+            {
+                return R.color.colorTodd
+            }
+            AppConstant.BASEBALL ->
+            {
+                return R.color.colorBB
+            }
+            AppConstant.VOLLEYBALL ->
+            {
+                return R.color.colorVB
+            }
+            AppConstant.QB ->
+            {
+                return R.color.colorQB
+            }
+            else ->
+            {
+                return R.color.colorTodd
+            }
+        }
     }
 }
