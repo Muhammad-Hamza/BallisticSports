@@ -1,5 +1,7 @@
 package com.example.sportsballistics.ui.dashboard.club_admin
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -20,8 +22,11 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.widget.AdapterView
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 
 import com.example.sportsballistics.AppSystem
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.local.StateModel
 import com.example.sportsballistics.data.remote.club.ClubResponse
@@ -59,6 +64,7 @@ class CreateClubAdminFragment : Fragment() {
             container,
             false
         );
+        loadAssets()
         val type: Type = object : TypeToken<List<StateModel>>() {}.type
 
         val list: List<StateModel> = Gson().fromJson(AppConstant.STATE_CONTENT, type)
@@ -170,7 +176,12 @@ class CreateClubAdminFragment : Fragment() {
         binding.etState.threshold = 1 //will start working from first character
         binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
         binding.etState.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 selectedStateModel = listOfState.get(position)
                 if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
             }
@@ -364,7 +375,7 @@ class CreateClubAdminFragment : Fragment() {
                 AppConstant.ROLE_ATHLETES_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
-                        CreateAthleteViewModel.ContentFetchListener {
+                    CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
 //                        Navigation.findNavController(binding.root).navigateUp()
                     }
@@ -445,7 +456,56 @@ class CreateClubAdminFragment : Fragment() {
             }
 
         })
+    }
 
 
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.tvCancel)
+        binding.btnSubmit.background = null
+        var drawable: Drawable? = null
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
+//                binding.btnSubmit.setBackgroundResource(R.drawable.btn_baseball)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable =
+                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+//                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_volleyball)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+        }
+        // TODO: 12/16/2021 Hamza bhai yeha pe issue a rha hai yeh es button pe toddler ke style apply kr rha hai even ke sub condition pe humne baseball ke drawable de rhe hai hardcoded.
+        if (drawable != null) {
+            binding.btnSubmit.background = drawable
+        }
     }
 }

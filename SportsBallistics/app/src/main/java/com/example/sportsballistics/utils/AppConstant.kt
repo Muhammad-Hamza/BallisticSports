@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -52,7 +53,10 @@ AppConstant {
         }
 
         fun changeColor(imageView: ImageView) {
-            ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(AppSystem.getInstance().getColor()));
+            ImageViewCompat.setImageTintList(
+                imageView,
+                ColorStateList.valueOf(AppSystem.getInstance().getColor())
+            );
 
 //            imageView.setColorFilter(
 //                ContextCompat.getColor(
@@ -79,6 +83,15 @@ AppConstant {
             textView.setTextColor(
                 ContextCompat.getColor(
                     textView.context,
+                    AppSystem.getInstance().getColor()
+                )
+            );
+        }
+
+        fun changeColor(button: Button) {
+            button.setTextColor(
+                ContextCompat.getColor(
+                    button.context,
                     AppSystem.getInstance().getColor()
                 )
             );
