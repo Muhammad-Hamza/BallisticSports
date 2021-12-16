@@ -297,6 +297,9 @@ class DashboardFragment : Fragment() {
         AppConstant.changeColor(binding.tvTrainer)
         AppConstant.changeColor(binding.tvAge)
         AppConstant.changeColor(binding.tvGrade)
+        AppConstant.changeColor(binding.txtLogin,requireContext())
+        AppConstant.changeColor(binding.txtSADashboard,requireContext())
+        AppSystem.getInstance().setStatusColor(requireActivity())
         when (sportsType) {
             AppConstant.BASEBALL -> {
                 Glide.with(binding.root).load(R.drawable.bb_login_bg).into(binding.ivBackground)

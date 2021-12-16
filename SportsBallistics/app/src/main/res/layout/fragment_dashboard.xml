@@ -413,9 +413,9 @@
                     android:paddingRight="@dimen/_15sdp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llProfileLayout"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
-                        android:id="@+id/llProfileLayout"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/ic_dash_profile"

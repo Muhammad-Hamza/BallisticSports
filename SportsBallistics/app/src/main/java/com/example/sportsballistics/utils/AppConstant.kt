@@ -1,6 +1,7 @@
 package com.example.sportsballistics.utils
 
 import android.R
+import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.EditText
@@ -59,6 +60,9 @@ AppConstant {
 
         fun changeColor(textView: TextView) {
             textView.setTextColor(AppSystem.getInstance().getColor())
+        }
+        fun changeColor(textView: TextView,context:Context) {
+            textView.setTextColor(ContextCompat.getColor(context,AppSystem.getInstance().getColor()));
         }
     }
 }
