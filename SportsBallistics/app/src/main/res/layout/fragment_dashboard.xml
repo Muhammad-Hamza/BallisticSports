@@ -94,15 +94,14 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgTotalClubs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/ic_dashboard_super_admin_total_clubs"
                         android:gravity="center_vertical" />
 
                     <View
@@ -172,15 +171,14 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgTotalTrainers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/ic_total_trainers"
                         android:gravity="center_vertical" />
 
                     <View
@@ -251,15 +249,14 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgTotalAthletes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/ic_nav_dashboard_super_admin_atheles_selected"
                         android:gravity="center_vertical" />
 
                     <View
@@ -329,15 +326,14 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imgNewTotalAthletes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/ic_nav_dashboard_super_admin_atheles_selected"
                         android:gravity="center_vertical" />
 
                     <View

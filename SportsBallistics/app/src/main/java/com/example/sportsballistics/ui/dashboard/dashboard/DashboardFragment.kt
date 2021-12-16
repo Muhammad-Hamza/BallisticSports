@@ -254,6 +254,7 @@ class DashboardFragment : Fragment() {
                         if (anyObject is ServiceResponseModel) {
                             initViews(null, anyObject)
                         }
+                        binding.progressBar.visibility = View.GONE
                     }
 
                 }, AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.id!!
@@ -265,9 +266,10 @@ class DashboardFragment : Fragment() {
                     override fun onFetched(content: DashboardResponse) {
                         Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
                         //TODO Asher bind this data to UI
-                        if (content != null && content.loggedIn != null)
+                        if (content != null && content.loggedIn != null) {
                             initViews(content.loggedIn, null)
-                        else {
+                            binding.progressBar.visibility = View.GONE
+                        } else {
                             Toast.makeText(
                                 binding.root.context,
                                 "User not found",
@@ -313,20 +315,28 @@ class DashboardFragment : Fragment() {
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_bb_dash_profile)
 
-                Glide.with(binding.root).load(R.drawable.bb_club_selected).into(binding.imgTotalClubs)
-                Glide.with(binding.root).load(R.drawable.bb_trainers_selected).into(binding.imgTotalTrainers)
-                Glide.with(binding.root).load(R.drawable.bb_athlete_selected).into(binding.imgTotalAthletes)
-                Glide.with(binding.root).load(R.drawable.bb_athlete_selected).into(binding.imgNewTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.bb_club_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.bb_trainers_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.bb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.bb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.VOLLEYBALL -> {
                 Glide.with(binding.root).load(R.drawable.vb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.vb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_vb_dash_profile)
 
-                Glide.with(binding.root).load(R.drawable.vb_clubs_selected).into(binding.imgTotalClubs)
-                Glide.with(binding.root).load(R.drawable.vb_trainer_selected).into(binding.imgTotalTrainers)
-                Glide.with(binding.root).load(R.drawable.vb_athlete_selected).into(binding.imgTotalAthletes)
-                Glide.with(binding.root).load(R.drawable.vb_athlete_selected).into(binding.imgNewTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.vb_clubs_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.vb_trainer_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.vb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.vb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.TODDLER -> {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
@@ -335,20 +345,30 @@ class DashboardFragment : Fragment() {
                     .into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_dash_profile)
 
-                Glide.with(binding.root).load(R.drawable.ic_dashboard_super_admin_total_clubs).into(binding.imgTotalClubs)
-                Glide.with(binding.root).load(R.drawable.ic_total_trainers).into(binding.imgTotalTrainers)
-                Glide.with(binding.root).load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected).into(binding.imgTotalAthletes)
-                Glide.with(binding.root).load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected).into(binding.imgNewTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.ic_dashboard_super_admin_total_clubs)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.ic_total_trainers)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root)
+                    .load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root)
+                    .load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.QB -> {
                 Glide.with(binding.root).load(R.drawable.qb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.qb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_qb_dash_profile)
 
-                Glide.with(binding.root).load(R.drawable.qb_club_selected).into(binding.imgTotalClubs)
-                Glide.with(binding.root).load(R.drawable.qb_trainer_selected).into(binding.imgTotalTrainers)
-                Glide.with(binding.root).load(R.drawable.qb_athlete_selected).into(binding.imgTotalAthletes)
-                Glide.with(binding.root).load(R.drawable.qb_athlete_selected).into(binding.imgNewTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.qb_club_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.qb_trainer_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.qb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.qb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
         }
     }

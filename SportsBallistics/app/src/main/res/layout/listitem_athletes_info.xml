@@ -14,9 +14,10 @@
             android:layout_height="@dimen/_60sdp">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMainCircle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_circle_with_dash" />
+                android:src="@drawable/ic_circle_with_todd" />
 
             <TextView
                 android:id="@+id/tvPercentage"

@@ -108,6 +108,8 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
             holder.binding.txtAction.setOnClickListener {
                 mListener.onDeleteClick(position, model.id)
             }
+            AppConstant.changeColor(holder.binding.txtSerialNo)
+            AppConstant.changeColor(holder.binding.txtClubName)
         } else if (holder is ViewHolderClub) {
             holder.binding.txtClubName.setText(model.fullname)
             holder.binding.txtSerialNo.setText((position + 1).toString())
@@ -123,6 +125,9 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
             holder.binding.txtAction.setOnClickListener {
                 mListener.onDeleteClick(position, model.id)
             }
+            AppConstant.changeColor(holder.binding.txtSerialNo)
+            AppConstant.changeColor(holder.binding.txtClubName)
+            AppConstant.changeColor(holder.binding.tvViewDashboard)
         } else if (holder is ViewHolderTrainer) {
             holder.binding.txtClubName.setText(model.fullname)
             holder.binding.txtSerialNo.setText((position + 1).toString())
@@ -138,6 +143,9 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
             holder.binding.txtAction.setOnClickListener {
                 mListener.onDeleteClick(position, model.id)
             }
+            AppConstant.changeColor(holder.binding.txtSerialNo)
+            AppConstant.changeColor(holder.binding.txtClubName)
+            AppConstant.changeColor(holder.binding.tvViewDashboard)
         }
     }
 

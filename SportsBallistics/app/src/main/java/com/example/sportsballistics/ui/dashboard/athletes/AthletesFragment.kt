@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.athletes
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
@@ -60,6 +62,7 @@ class AthletesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_athletes, container, false);
+        loadAssets()
         initViewModel()
         return binding.root
     }
@@ -373,13 +376,27 @@ class AthletesFragment : Fragment() {
                 athleteDataModel.athletic_name.grade
             )
         )
-        val strContent = getString(R.string.txt_atheleteNameStr).replace(
-            "{{name}}",
-            athleteDataModel.athletic_name.fullname
+        var dataContent = getString(R.string.txt_atheleteNameStr).replace(
+            "{{name}}", athleteDataModel.athletic_name.fullname
         )
+        when (SharedPrefUtil.getInstance().sportsType) {
+            AppConstant.BASEBALL -> {
+                dataContent = dataContent.replace("{{COLOR}}", "E86A24")
+            }
+            AppConstant.VOLLEYBALL -> {
+                dataContent = dataContent.replace("{{COLOR}}", "DE9700")
+            }
+            AppConstant.QB -> {
+                dataContent = dataContent.replace("{{COLOR}}", "C5203D")
+            }
+            else -> {
+                dataContent = dataContent.replace("{{COLOR}}", "521A71")
+            }
+        }
+
         Glide.with(binding.root.context).load(athleteDataModel.profile_image)
             .into(binding.clubListLayout.ivImageView)
-        binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(strContent))
+        binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(dataContent))
 
         loadCoachabilityChart(athleteDataModel.services)
         initCoachListData(athleteDataModel.services)
@@ -523,4 +540,90 @@ class AthletesFragment : Fragment() {
     private fun showMessage(content: String) {
         Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+
+        AppConstant.changeColor(binding.clubListLayout.txtTotalTrainersText)
+        AppConstant.changeColor(binding.clubListLayout.clubListHeader.txtSerialNo)
+        AppConstant.changeColor(binding.clubListLayout.clubListHeader.txtClubName)
+        AppConstant.changeColor(binding.clubListLayout.clubListHeader.txtAction)
+        AppConstant.changeColor(binding.clubListLayout.tvName)
+        AppConstant.changeColor(binding.clubListLayout.tvClub)
+        AppConstant.changeColor(binding.clubListLayout.tvAge)
+        AppConstant.changeColor(binding.clubListLayout.tvTrainer)
+        AppConstant.changeColor(binding.clubListLayout.tvGrade)
+        AppConstant.changeColor(binding.clubListLayout.txtDetailHeading)
+        AppConstant.changeColor(binding.clubListLayout.tvSummary)
+        AppConstant.changeColor(binding.clubListLayout.tvEdit)
+
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+                binding.clubListLayout.llProfileLayout.setBackgroundResource(R.drawable.ic_bb_dash_profile)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+                binding.clubListLayout.llProfileLayout.setBackgroundResource(R.drawable.ic_vb_dash_profile)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+                binding.clubListLayout.llProfileLayout.setBackgroundResource(R.drawable.ic_dash_profile)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+                binding.clubListLayout.llProfileLayout.setBackgroundResource(R.drawable.ic_qb_dash_profile)
+            }
+        }
+    }
+
+//    fun loadAssets() {
+//        val sportsType = SharedPrefUtil.getInstance().sportsType
+//
+//        binding.progressBar.progressTintList =
+//            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+//
+//        when (sportsType) {
+//            AppConstant.BASEBALL -> {
+//                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+//                    .into(binding.clubListLayout.ivBackground)
+//                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+//                    .into(binding.clubListLayout.imgLogo)
+//            }
+//            AppConstant.VOLLEYBALL -> {
+//                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+//                    .into(binding.clubListLayout.ivBackground)
+//                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+//                    .into(binding.clubListLayout.imgLogo)
+//            }
+//            AppConstant.TODDLER -> {
+//                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+//                    .into(binding.clubListLayout.ivBackground)
+//                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+//                    .into(binding.clubListLayout.imgLogo)
+//            }
+//            AppConstant.QB -> {
+//                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+//                    .into(binding.clubListLayout.ivBackground)
+//                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+//                    .into(binding.clubListLayout.imgLogo)
+//            }
+//        }
+//    }
+
 }
