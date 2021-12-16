@@ -283,10 +283,10 @@ class DashboardFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        AppConstant.changeDrawableColor(binding.imgTotalClubs,requireContext())
-        AppConstant.changeDrawableColor(binding.imgTotalTrainers,requireContext())
-        AppConstant.changeDrawableColor(binding.imgTotalAthletes,requireContext())
-        AppConstant.changeDrawableColor(binding.imgNewTotalAthletes,requireContext())
+        AppConstant.changeColor(binding.imgTotalClubs)
+        AppConstant.changeColor(binding.imgTotalTrainers)
+        AppConstant.changeColor(binding.imgTotalAthletes)
+        AppConstant.changeColor(binding.imgNewTotalAthletes)
         AppConstant.changeColor(binding.txtTotalClubs)
         AppConstant.changeColor(binding.txtTotalClubsText)
         AppConstant.changeColor(binding.txtTotalTrainers)
