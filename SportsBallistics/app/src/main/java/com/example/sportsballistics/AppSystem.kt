@@ -15,8 +15,7 @@ import androidx.core.content.ContextCompat
 import android.view.WindowManager
 import com.example.sportsballistics.utils.AppConstant
 
-class AppSystem : Application()
-{
+class AppSystem : Application() {
 
     val TAG = AppSystem::class.java.name
 
@@ -27,29 +26,24 @@ class AppSystem : Application()
     var cookies: List<Cookie> = arrayListOf()
 
     private lateinit var currentUser: UserResponse
-    fun setCurrentUser(user: UserResponse)
-    {
+    fun setCurrentUser(user: UserResponse) {
         SharedPrefUtil.getInstance().saveUser(user)
     }
 
-    fun logoutUser()
-    {
+    fun logoutUser() {
         SharedPrefUtil.getInstance().logout()
     }
 
-    fun getCurrentUser(): UserResponse?
-    {
+    fun getCurrentUser(): UserResponse? {
         return SharedPrefUtil.getInstance().user
     }
 
-    override fun onCreate()
-    {
+    override fun onCreate() {
         super.onCreate()
         context = applicationContext
     }
 
-    companion object
-    {
+    companion object {
         /*
         Volatile instance to make singleton
         thread safe
@@ -59,18 +53,15 @@ class AppSystem : Application()
 
         lateinit var context: Context
 
-        fun getInstance(): AppSystem
-        {
+        fun getInstance(): AppSystem {
 
             //Double check locking pattern
-            if (sSoleInstance == null)
-            {
+            if (sSoleInstance == null) {
 
                 //Check for the first time
                 synchronized(AppSystem::class.java) {   //Check for the second time.
                     //if there is no instance available... create new one
-                    if (sSoleInstance == null)
-                    {
+                    if (sSoleInstance == null) {
                         sSoleInstance = AppSystem()
                     }
                 }
@@ -80,37 +71,30 @@ class AppSystem : Application()
         }
     }
 
-    fun getUser(): UserResponse?
-    {
+    fun getUser(): UserResponse? {
         return Gson().fromJson(getPrefs()?.getString(USER, ""), UserResponse::class.java)
     }
 
-    fun saveUser(user: UserResponse?)
-    {
+    fun saveUser(user: UserResponse?) {
         getPrefs().edit().putString(USER, Gson().toJson(user)).apply()
     }
 
-    private fun getPrefs(): SharedPreferences
-    {
-        if (prefs == null)
-        {
+    private fun getPrefs(): SharedPreferences {
+        if (prefs == null) {
             prefs = context?.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE)
         }
         return prefs!!
     }
 
-    fun saveVerificationStatus(isVerified: Boolean)
-    {
+    fun saveVerificationStatus(isVerified: Boolean) {
         getPrefs().edit().putBoolean(IS_VERIFIED, isVerified).apply()
     }
 
-    fun isVerified(): Boolean
-    {
+    fun isVerified(): Boolean {
         return getPrefs().getBoolean(IS_VERIFIED, false)
     }
 
-    fun setStatusColor(activity: Activity)
-    {
+    fun setStatusColor(activity: Activity) {
         val window: Window = activity.getWindow()
 
 // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -129,28 +113,22 @@ class AppSystem : Application()
         window.setStatusBarColor(ContextCompat.getColor(activity, getColor()))
     }
 
-    fun getColor(): Int
-    {
-        when (SharedPrefUtil.getInstance().sportsType)
-        {
+    fun getColor(): Int {
+        when (SharedPrefUtil.getInstance().sportsType) {
 //            AppConstant.TODDLER ->
 //            {
 //                return R.color.colorTodd
 //            }
-            AppConstant.BASEBALL ->
-            {
+            AppConstant.BASEBALL -> {
                 return R.color.colorBB
             }
-            AppConstant.VOLLEYBALL ->
-            {
+            AppConstant.VOLLEYBALL -> {
                 return R.color.colorVB
             }
-            AppConstant.QB ->
-            {
+            AppConstant.QB -> {
                 return R.color.colorQB
             }
-            else ->
-            {
+            else -> {
                 return R.color.colorTodd
             }
         }

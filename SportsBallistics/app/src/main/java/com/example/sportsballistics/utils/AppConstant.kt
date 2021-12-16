@@ -50,10 +50,8 @@ AppConstant {
 
         fun changeColor(imageView: ImageView) {
             imageView.setColorFilter(
-                ContextCompat.getColor(
-                    AppSystem.context,
-                    AppSystem.getInstance().getColor()
-                )
+                AppSystem.getInstance().getColor(),
+                PorterDuff.Mode.SRC_ATOP
             )
         }
 

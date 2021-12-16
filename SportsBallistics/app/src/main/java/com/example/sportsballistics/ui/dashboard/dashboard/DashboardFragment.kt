@@ -36,7 +36,7 @@ class DashboardFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_dashboard, container, false
-        );
+        )
         loadAssets()
         hideAllViews()
         initViewModel()
