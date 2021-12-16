@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="true"
-        android:drawable="@drawable/t" /> <!-- focused -->
-    <item android:drawable="@drawable/ic_nav_dashboard_super_admin_trainers1" /> <!-- default -->
+        android:drawable="@drawable/bb_trainers_selected" /> <!-- focused -->
+    <item android:drawable="@drawable/bb_trainers_selected" /> <!-- default -->
 </selector>

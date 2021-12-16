@@ -179,8 +179,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_margin="@dimen/_5sdp"
-                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         android:background="@drawable/ic_total_trainers"
                         android:gravity="center_vertical" />
 
@@ -413,9 +415,9 @@
                     android:paddingRight="@dimen/_15sdp">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llProfileLayout"
                         android:layout_width="@dimen/_80sdp"
                         android:layout_height="@dimen/_80sdp"
-                        android:id="@+id/llProfileLayout"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:background="@drawable/ic_dash_profile"

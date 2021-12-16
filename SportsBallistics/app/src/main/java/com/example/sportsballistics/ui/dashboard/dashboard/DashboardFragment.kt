@@ -25,6 +25,9 @@ import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.*
 import com.google.gson.Gson
 
+
+
+
 class DashboardFragment : Fragment() {
     lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
@@ -60,6 +63,7 @@ class DashboardFragment : Fragment() {
         binding.llAthleteView.setOnClickListener {
             (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
         }
+        loadAssets()
 
         return binding.root
     }
@@ -280,10 +284,10 @@ class DashboardFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        AppConstant.changeColor(binding.imgTotalClubs)
-        AppConstant.changeColor(binding.imgTotalTrainers)
-        AppConstant.changeColor(binding.imgTotalAthletes)
-        AppConstant.changeColor(binding.imgNewTotalAthletes)
+        AppConstant.changeDrawableColor(binding.imgTotalClubs,requireContext())
+        AppConstant.changeDrawableColor(binding.imgTotalTrainers,requireContext())
+        AppConstant.changeDrawableColor(binding.imgTotalAthletes,requireContext())
+        AppConstant.changeDrawableColor(binding.imgNewTotalAthletes,requireContext())
         AppConstant.changeColor(binding.txtTotalClubs)
         AppConstant.changeColor(binding.txtTotalClubsText)
         AppConstant.changeColor(binding.txtTotalTrainers)
@@ -297,6 +301,11 @@ class DashboardFragment : Fragment() {
         AppConstant.changeColor(binding.tvTrainer)
         AppConstant.changeColor(binding.tvAge)
         AppConstant.changeColor(binding.tvGrade)
+        AppConstant.changeColor(binding.txtLogin,requireContext())
+        AppConstant.changeColor(binding.txtSADashboard,requireContext())
+        AppSystem.getInstance().setStatusColor(requireActivity())
+
+
         when (sportsType) {
             AppConstant.BASEBALL -> {
                 Glide.with(binding.root).load(R.drawable.bb_login_bg).into(binding.ivBackground)

@@ -1,6 +1,7 @@
 package com.example.sportsballistics.utils
 
 import android.R
+import android.content.Context
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.EditText
@@ -49,14 +50,25 @@ AppConstant {
         }
 
         fun changeColor(imageView: ImageView) {
+
             imageView.setColorFilter(
                 AppSystem.getInstance().getColor(),
                 PorterDuff.Mode.SRC_ATOP
             )
         }
 
+        fun changeDrawableColor(imageView: ImageView,context: Context){
+            if(imageView != null)
+            {
+                DrawableCompat.setTint(DrawableCompat.wrap(imageView.getDrawable()), ContextCompat.getColor(context, AppSystem.getInstance().getColor()));
+            }
+        }
+
         fun changeColor(textView: TextView) {
             textView.setTextColor(AppSystem.getInstance().getColor())
+        }
+        fun changeColor(textView: TextView,context:Context) {
+            textView.setTextColor(ContextCompat.getColor(context,AppSystem.getInstance().getColor()));
         }
     }
 }
