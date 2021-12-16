@@ -44,7 +44,6 @@
                 android:fontFamily="@font/roboto_bold"
                 android:gravity="center"
                 android:text="@string/txtWelcomeSuperAdmin"
-                android:textColor="#4B126B"
                 android:textSize="@dimen/_18sdp" />
 
             <View
@@ -62,7 +61,6 @@
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"
                 android:text="@string/txtSADashboard"
-                android:textColor="#562575"
                 android:textSize="@dimen/_12sdp" />
 
             <TextView
@@ -142,7 +140,6 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Total Clubs"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <View
@@ -300,7 +297,6 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Total Atheles"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <View
@@ -379,7 +375,6 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_medium"
                             android:text="Newly Created Athletes"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <View
@@ -445,7 +440,6 @@
                             android:fontFamily="@font/roboto_bold"
                             android:maxLines="1"
                             android:text="John Smith"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_12sdp" />
 
                         <TextView
@@ -457,7 +451,6 @@
                             android:fontFamily="@font/roboto_regular"
                             android:maxLines="1"
                             android:text="Club Name: Club Name 1"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <TextView
@@ -469,7 +462,6 @@
                             android:fontFamily="@font/roboto_regular"
                             android:maxLines="1"
                             android:text="Trainer: Mike Thomas"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <TextView
@@ -481,7 +473,6 @@
                             android:fontFamily="@font/roboto_regular"
                             android:maxLines="1"
                             android:text="Age: 25"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                         <TextView
@@ -493,7 +484,6 @@
                             android:fontFamily="@font/roboto_regular"
                             android:maxLines="1"
                             android:text="Grade: 10"
-                            android:textColor="@color/actionBarColor"
                             android:textSize="@dimen/_9sdp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>

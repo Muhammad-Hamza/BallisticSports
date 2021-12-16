@@ -2,6 +2,7 @@ package com.example.sportsballistics.utils
 
 import android.R
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.widget.EditText
@@ -12,6 +13,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.widget.ImageViewCompat
 import com.example.sportsballistics.AppSystem
 
 
@@ -50,25 +52,36 @@ AppConstant {
         }
 
         fun changeColor(imageView: ImageView) {
+            ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(AppSystem.getInstance().getColor()));
 
-            imageView.setColorFilter(
-                AppSystem.getInstance().getColor(),
-                PorterDuff.Mode.SRC_ATOP
-            )
+//            imageView.setColorFilter(
+//                ContextCompat.getColor(
+//                    imageView.context,
+//                    AppSystem.getInstance().getColor()
+//                )
+//            )
         }
 
-        fun changeDrawableColor(imageView: ImageView,context: Context){
-            if(imageView != null)
-            {
-                DrawableCompat.setTint(DrawableCompat.wrap(imageView.getDrawable()), ContextCompat.getColor(context, AppSystem.getInstance().getColor()));
+        fun changeDrawableColor(imageView: ImageView, context: Context) {
+            if (imageView != null) {
+                DrawableCompat.setTint(
+                    DrawableCompat.wrap(imageView.getDrawable()),
+                    ContextCompat.getColor(context, AppSystem.getInstance().getColor())
+                );
             }
         }
 
+//        fun changeColor(textView: TextView) {
+//            textView.setTextColor(AppSystem.getInstance().getColor())
+//        }
+
         fun changeColor(textView: TextView) {
-            textView.setTextColor(AppSystem.getInstance().getColor())
-        }
-        fun changeColor(textView: TextView,context:Context) {
-            textView.setTextColor(ContextCompat.getColor(context,AppSystem.getInstance().getColor()));
+            textView.setTextColor(
+                ContextCompat.getColor(
+                    textView.context,
+                    AppSystem.getInstance().getColor()
+                )
+            );
         }
     }
 }
