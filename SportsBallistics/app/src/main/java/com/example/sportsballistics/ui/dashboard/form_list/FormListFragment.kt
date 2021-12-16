@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.form_list
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -12,7 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
@@ -41,6 +45,7 @@ class FormListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
             athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
@@ -128,4 +133,39 @@ class FormListFragment : Fragment() {
         Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
 
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+
+        AppConstant.changeColor(binding.tvInfo)
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+        }
+    }
 }

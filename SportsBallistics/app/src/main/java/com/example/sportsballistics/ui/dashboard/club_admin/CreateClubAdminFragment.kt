@@ -64,7 +64,6 @@ class CreateClubAdminFragment : Fragment() {
             container,
             false
         );
-        loadAssets()
         val type: Type = object : TypeToken<List<StateModel>>() {}.type
 
         val list: List<StateModel> = Gson().fromJson(AppConstant.STATE_CONTENT, type)
@@ -77,6 +76,7 @@ class CreateClubAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         if (arguments != null && requireArguments().containsKey(AppConstant.INTENT_SCREEN_TYPE)) {
             screenType = requireArguments().getInt(
                 AppConstant.INTENT_SCREEN_TYPE,
