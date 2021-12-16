@@ -1,5 +1,7 @@
 package com.example.sportsballistics.ui.dashboard.create_athlete_form
 
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -7,12 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.local.AthleteFormLocalModel
 import com.example.sportsballistics.data.remote.athletes.Service
@@ -46,6 +52,7 @@ class AthleteFormFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
             athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
@@ -74,13 +81,18 @@ class AthleteFormFragment : Fragment() {
         }
         binding.btnSubmit.setOnClickListener {
             if (adapter != null && context != null) {
-                viewModel.submitForm(requireContext(),object :AthleteFormViewModel.ContentFetchListener{
-                    override fun onFetched(anyObject: Any)
-                    {
-                        showMessage("Add data inserted")
-                        getBackNavigate()
-                    }
-                }, athleteId!!,adapter.paramMap,serviceModel!!.slug)
+                viewModel.submitForm(
+                    requireContext(),
+                    object : AthleteFormViewModel.ContentFetchListener {
+                        override fun onFetched(anyObject: Any) {
+                            showMessage("Add data inserted")
+                            getBackNavigate()
+                        }
+                    },
+                    athleteId!!,
+                    adapter.paramMap,
+                    serviceModel!!.slug
+                )
 
             }
         }
@@ -144,5 +156,60 @@ class AthleteFormFragment : Fragment() {
 
     private fun showMessage(content: String) {
         Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
+    }
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+
+        AppConstant.changeColor(binding.tvInfo)
+        AppConstant.changeColor(binding.tvFormHeading)
+        AppConstant.changeColor(binding.tvCancel)
+
+        binding.btnSubmit.background = null
+        var drawable: Drawable? = null
+
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable =
+                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
+            }
+        }
+        if (drawable != null) {
+            binding.btnSubmit.background = drawable
+            binding.btnSubmit.setTextColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.white
+                )
+            )
+        }
     }
 }
