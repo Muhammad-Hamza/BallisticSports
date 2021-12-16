@@ -20,119 +20,149 @@ import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.launchActivityFinish
 
-
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity()
+{
     lateinit var binding: ActivityDashboardBinding
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         AppSystem.getInstance().setStatusColor(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         binding.bottomNavigationView.setItemIconTintList(null);
-
-        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
-                .getCurrentUser()!!.loggedIn != null
-        ) {
-            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
-                AppConstant.ROLE_SUPER_PORTAL -> {
-                    binding.bottomNavigationView.menu.clear()
-                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
-                }
-                AppConstant.ROLE_ATHLETES_PORTAL -> {
-                    binding.bottomNavigationView.menu.clear()
-                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
-                }
-                AppConstant.ROLE_CLUB_PORTAL -> {
-                    binding.bottomNavigationView.menu.clear()
-                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
-                }
-                AppConstant.ROLE_TRAINER_PORTAL -> {
-                    binding.bottomNavigationView.menu.clear()
-                    binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
-                }
-            }
-        } else {
-            Toast.makeText(
-                this,
-                "User not found\n please login with your credentials",
-                Toast.LENGTH_SHORT
-            ).show()
-            launchActivityFinish<LoginActivity> {
-            }
-
-        }
-        loadAssets()
-
-        val navHostFragment = supportFragmentManager
-            .findFragmentById(R.id.flFragment) as NavHostFragment?
-        NavigationUI.setupWithNavController(
-            binding.bottomNavigationView,
-            navHostFragment!!.navController
-        )
+        loadMenu()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.flFragment) as NavHostFragment?
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navHostFragment!!.navController)
 
     }
-    fun loadAssets() {
-        val sportsType = SharedPrefUtil.getInstance().sportsType
-        val menu: Menu = binding.bottomNavigationView.getMenu()
-        when (sportsType) {
-            AppConstant.BASEBALL -> {
 
+    fun loadMenu(){
+        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance().getCurrentUser()!!.loggedIn != null)
+        {
+            val sportsType = SharedPrefUtil.getInstance().sportsType
 
-            }
-            AppConstant.VOLLEYBALL -> {
-                Log.d(TAG,"")
-                when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
-                    AppConstant.ROLE_SUPER_PORTAL -> {
-                        menu.getItem(0).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector_vb))
-                        menu.getItem(1).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                        menu.getItem(2).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                        menu.getItem(3).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                        menu.getItem(4).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
+            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId)
+            {
+                AppConstant.ROLE_SUPER_PORTAL ->
+                {
+                    binding.bottomNavigationView.menu.clear()
+
+                    when (sportsType)
+                    {
+                        AppConstant.BASEBALL ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menubb)
+                        }
+                        AppConstant.VOLLEYBALL ->
+                        {
+                            Log.d(TAG, "")
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menuvb)
+                        }
+                        AppConstant.TODDLER ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
+                        }
+                        AppConstant.QB ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menuqb)
+
+                        }
                     }
-                    AppConstant.ROLE_ATHLETES_PORTAL -> {
-                        binding.bottomNavigationView.menu.clear()
-                        binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
+                }
+                AppConstant.ROLE_ATHLETES_PORTAL ->
+                {
+                    binding.bottomNavigationView.menu.clear()
+
+                    when (sportsType)
+                    {
+                        AppConstant.BASEBALL ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menubb)
+                        }
+                        AppConstant.VOLLEYBALL ->
+                        {
+                            Log.d(TAG, "")
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menuvb)
+                        }
+                        AppConstant.TODDLER ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
+                        }
+                        AppConstant.QB ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menuqb)
+
+                        }
                     }
-                    AppConstant.ROLE_CLUB_PORTAL -> {
-                        binding.bottomNavigationView.menu.clear()
-                        binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
+
+                }
+                AppConstant.ROLE_CLUB_PORTAL ->
+                {                    binding.bottomNavigationView.menu.clear()
+
+                    when (sportsType)
+                    {
+                        AppConstant.BASEBALL ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menubb)
+                        }
+                        AppConstant.VOLLEYBALL ->
+                        {
+                            Log.d(TAG, "")
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menuvb)
+                        }
+                        AppConstant.TODDLER ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
+                        }
+                        AppConstant.QB ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menuqb)
+
+                        }
                     }
-                    AppConstant.ROLE_TRAINER_PORTAL -> {
-                        binding.bottomNavigationView.menu.clear()
-                        binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
+                }
+                AppConstant.ROLE_TRAINER_PORTAL ->
+                {
+                    binding.bottomNavigationView.menu.clear()
+
+                    when (sportsType)
+                    {
+                        AppConstant.BASEBALL ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menubb)
+                        }
+                        AppConstant.VOLLEYBALL ->
+                        {
+                            Log.d(TAG, "")
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menuvb)
+                        }
+                        AppConstant.TODDLER ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
+                        }
+                        AppConstant.QB ->
+                        {
+                            binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menuqb)
+
+                        }
                     }
                 }
             }
-            AppConstant.TODDLER -> {
-//                menu.findItem(R.id.clubFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector_))
-//                menu.findItem(R.id.trainerFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-//                menu.findItem(R.id.athletesFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-//                menu.findItem(R.id.userFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-//                menu.findItem(R.id.accountFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-//                menu.findItem(R.id.dashboardFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-            }
-            AppConstant.QB -> {
-                menu.findItem(R.id.clubFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector_qb))
-                menu.findItem(R.id.trainerFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                menu.findItem(R.id.athletesFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                menu.findItem(R.id.userFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                menu.findItem(R.id.accountFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-                menu.findItem(R.id.dashboardFragment).setIcon(ContextCompat.getDrawable(applicationContext,R.drawable.tab_club_selector))
-            }
+        }
+        else
+        {
+            Toast.makeText(this, "User not found\n please login with your credentials", Toast.LENGTH_SHORT).show()
+            launchActivityFinish<LoginActivity> {}
+
         }
     }
-    fun logoutFromUser() {
+    fun logoutFromUser()
+    {
         launchActivityFinish<LoginActivity> { }
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed()
+    {
         super.onBackPressed()
     }
-
-    private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment, fragment)
-            commit()
-        }
-
 
 }

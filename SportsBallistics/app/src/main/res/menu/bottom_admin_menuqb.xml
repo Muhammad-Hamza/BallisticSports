@@ -6,22 +6,22 @@
     <!--        android:title="Dashboard" />-->
     <item
         android:id="@+id/clubFragment"
-        android:icon="@drawable/tab_club_selector"
+        android:icon="@drawable/tab_club_selector_qb"
         android:title="Club" />
     <item
         android:id="@+id/trainerFragment"
-        android:icon="@drawable/tab_trainer_selector"
+        android:icon="@drawable/tab_trainer_selectorqb"
         android:title="Trainers" />
     <item
         android:id="@+id/athletesFragment"
-        android:icon="@drawable/tab_athletes_selector"
+        android:icon="@drawable/tab_athletes_selectorqb"
         android:title="Athletes" />
     <item
         android:id="@+id/userFragment"
-        android:icon="@drawable/tab_user_selector"
+        android:icon="@drawable/tab_user_selector_qb"
         android:title="Users" />
     <item
         android:id="@+id/accountFragment"
-        android:icon="@drawable/tab_account_selector"
+        android:icon="@drawable/tab_account_selectorqb"
         android:title="My Account" />
 </menu>

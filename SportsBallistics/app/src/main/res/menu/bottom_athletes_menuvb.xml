@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/tab_profile_selector_vb"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/accountFragment"
+        android:icon="@drawable/tab_account_selectorvb"
+        android:title="My Account" />
+</menu>
