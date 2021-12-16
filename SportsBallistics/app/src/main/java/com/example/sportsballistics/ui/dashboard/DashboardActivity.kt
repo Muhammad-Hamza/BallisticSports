@@ -153,6 +153,27 @@ class DashboardActivity : AppCompatActivity()
             launchActivityFinish<LoginActivity> {}
 
         }
+
+        when (SharedPrefUtil.getInstance().sportsType)
+        {
+            AppConstant.BASEBALL ->
+            {
+                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorbb)
+            }
+            AppConstant.VOLLEYBALL ->
+            {
+                Log.d(TAG, "")
+                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorvb)
+            }
+            AppConstant.TODDLER ->
+            {
+                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selector)
+            }
+            AppConstant.QB ->
+            {
+                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorqb)
+            }
+        }
     }
     fun logoutFromUser()
     {

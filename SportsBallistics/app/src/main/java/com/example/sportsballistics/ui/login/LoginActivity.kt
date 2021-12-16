@@ -171,6 +171,8 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         }
+
+        AppSystem.getInstance().setStatusColor(this)
     }
 
 }

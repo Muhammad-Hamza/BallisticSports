@@ -38,6 +38,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:textSize="@dimen/_8sdp"
                     app:labelVisibilityMode="labeled"
+                    app:itemTextColor="@color/selector"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
