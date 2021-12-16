@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.dashboard
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -26,8 +27,6 @@ import com.example.sportsballistics.utils.*
 import com.google.gson.Gson
 
 
-
-
 class DashboardFragment : Fragment() {
     lateinit var binding: FragmentDashboardBinding
     private lateinit var viewModel: DashboardViewModel
@@ -39,7 +38,8 @@ class DashboardFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_dashboard, container, false
-        );
+        )
+        loadAssets()
         hideAllViews()
         initViewModel()
         binding.flTrainer.setOnClickListener {
@@ -254,6 +254,7 @@ class DashboardFragment : Fragment() {
                         if (anyObject is ServiceResponseModel) {
                             initViews(null, anyObject)
                         }
+                        binding.progressBar.visibility = View.GONE
                     }
 
                 }, AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.id!!
@@ -265,9 +266,10 @@ class DashboardFragment : Fragment() {
                     override fun onFetched(content: DashboardResponse) {
                         Log.d(DashboardFragment::javaClass.name, Gson().toJson(content))
                         //TODO Asher bind this data to UI
-                        if (content != null && content.loggedIn != null)
+                        if (content != null && content.loggedIn != null) {
                             initViews(content.loggedIn, null)
-                        else {
+                            binding.progressBar.visibility = View.GONE
+                        } else {
                             Toast.makeText(
                                 binding.root.context,
                                 "User not found",
@@ -283,38 +285,58 @@ class DashboardFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        AppConstant.changeColor(binding.imgTotalClubs)
-        AppConstant.changeColor(binding.imgTotalTrainers)
-        AppConstant.changeColor(binding.imgTotalAthletes)
-        AppConstant.changeColor(binding.imgNewTotalAthletes)
-        AppConstant.changeColor(binding.txtTotalClubs)
+
+//        AppConstant.changeColor(binding.txtTotalClubs)
         AppConstant.changeColor(binding.txtTotalClubsText)
-        AppConstant.changeColor(binding.txtTotalTrainers)
+//        AppConstant.changeColor(binding.txtTotalTrainers)
         AppConstant.changeColor(binding.txtTotalTrainersText)
-        AppConstant.changeColor(binding.txtTotalAthletes)
+//        AppConstant.changeColor(binding.txtTotalAthletes)
         AppConstant.changeColor(binding.txtTotalAthletesText)
-        AppConstant.changeColor(binding.txtNewTotalAthletes)
+//        AppConstant.changeColor(binding.txtNewTotalAthletes)
         AppConstant.changeColor(binding.txtNewTotalAthletesText)
         AppConstant.changeColor(binding.tvName)
         AppConstant.changeColor(binding.tvClub)
         AppConstant.changeColor(binding.tvTrainer)
         AppConstant.changeColor(binding.tvAge)
         AppConstant.changeColor(binding.tvGrade)
-        AppConstant.changeColor(binding.txtLogin,requireContext())
-        AppConstant.changeColor(binding.txtSADashboard,requireContext())
-        AppSystem.getInstance().setStatusColor(requireActivity())
+        AppConstant.changeColor(binding.txtLogin)
+        AppConstant.changeColor(binding.txtSADashboard)
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
 
 
+        //        AppConstant.changeColor(binding.imgTotalClubs)
+//        AppConstant.changeColor(binding.imgTotalTrainers)
+//        AppConstant.changeColor(binding.imgTotalAthletes)
+//        AppConstant.changeColor(binding.imgNewTotalAthletes)
         when (sportsType) {
             AppConstant.BASEBALL -> {
                 Glide.with(binding.root).load(R.drawable.bb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_bb_dash_profile)
+
+                Glide.with(binding.root).load(R.drawable.bb_club_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.bb_trainers_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.bb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.bb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.VOLLEYBALL -> {
                 Glide.with(binding.root).load(R.drawable.vb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.vb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_vb_dash_profile)
+
+                Glide.with(binding.root).load(R.drawable.vb_clubs_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.vb_trainer_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.vb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.vb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.TODDLER -> {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
@@ -322,11 +344,31 @@ class DashboardFragment : Fragment() {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
                     .into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_dash_profile)
+
+                Glide.with(binding.root).load(R.drawable.ic_dashboard_super_admin_total_clubs)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.ic_total_trainers)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root)
+                    .load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root)
+                    .load(R.drawable.ic_nav_dashboard_super_admin_atheles_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
             AppConstant.QB -> {
                 Glide.with(binding.root).load(R.drawable.qb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.qb_inner_logo).into(binding.imgLogo)
                 binding.llProfileLayout.setBackgroundResource(R.drawable.ic_qb_dash_profile)
+
+                Glide.with(binding.root).load(R.drawable.qb_club_selected)
+                    .into(binding.imgTotalClubs)
+                Glide.with(binding.root).load(R.drawable.qb_trainer_selected)
+                    .into(binding.imgTotalTrainers)
+                Glide.with(binding.root).load(R.drawable.qb_athlete_selected)
+                    .into(binding.imgTotalAthletes)
+                Glide.with(binding.root).load(R.drawable.qb_athlete_selected)
+                    .into(binding.imgNewTotalAthletes)
             }
         }
     }

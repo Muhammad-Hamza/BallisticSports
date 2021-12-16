@@ -5,11 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.sportsballistics.AppSystem
+import com.example.sportsballistics.R
 import com.example.sportsballistics.appInterface.OnItemClickListener
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.local.AthletesModel
 import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.ListitemAthletesInfoBinding
+import com.example.sportsballistics.utils.AppConstant
 
 class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListener) :
     ListAdapter<Service, AthletesAdapter.ViewHolder>(DiffCallback()) {
@@ -62,7 +67,29 @@ class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListene
         holder.binding.tvView.setOnClickListener {
             mListener.onViewClick(position, list)
         }
-        val content = "AVERAGE: " + list.get(position).average.toInt() + " SUM: " + list.get(position).sum.toInt()
+        AppConstant.changeColor(holder.binding.tvHeading)
+        AppConstant.changeColor(holder.binding.tvView)
+        AppConstant.changeColor(holder.binding.tvPercentage)
+        when (SharedPrefUtil.getInstance().sportsType) {
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(holder.itemView.context).load(R.drawable.ic_circle_with_vollyball)
+                    .into(holder.binding.ivMainCircle)
+            }
+            AppConstant.BASEBALL -> {
+                Glide.with(holder.itemView.context).load(R.drawable.ic_circle_with_baseball)
+                    .into(holder.binding.ivMainCircle)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(holder.itemView.context).load(R.drawable.ic_circle_with_todd)
+                    .into(holder.binding.ivMainCircle)
+            }
+            AppConstant.QB -> {
+                Glide.with(holder.itemView.context).load(R.drawable.ic_circle_with_qb)
+                    .into(holder.binding.ivMainCircle)
+            }
+        }
+        val content =
+            "AVERAGE: " + list.get(position).average.toInt() + " SUM: " + list.get(position).sum.toInt()
         holder.binding.tvDescription.setText(content)
     }
 }

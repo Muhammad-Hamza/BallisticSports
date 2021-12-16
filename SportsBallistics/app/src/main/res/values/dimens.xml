@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="ripple_timestamp">400</dimen>
+    <dimen name="dimen_logo_height">@dimen/_45sdp</dimen>
+    <dimen name="dimen_logo_width">@dimen/_120sdp</dimen>
 </resources>

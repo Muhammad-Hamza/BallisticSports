@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.club
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -13,7 +14,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.Glide
+import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
@@ -34,6 +38,7 @@ class ClubFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_club, container, false
         );
+        loadAssets()
         initViewModel()
         return binding.root
     }
@@ -157,6 +162,45 @@ class ClubFragment : Fragment() {
                     initRecyclerView(content.content?.users as MutableList<UsersItem>)
                 }
             })
+    }
 
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        binding.progressBar.progressTintList =
+            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+
+        AppConstant.changeColor(binding.clubListLayout.txtTotalTrainersText)
+        AppConstant.changeColor(binding.clubListLayout.clubHeader.txtSerialNo)
+        AppConstant.changeColor(binding.clubListLayout.clubHeader.txtClubName)
+        AppConstant.changeColor(binding.clubListLayout.clubHeader.txtAction)
+
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.clubListLayout.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.clubListLayout.imgLogo)
+            }
+        }
     }
 }
