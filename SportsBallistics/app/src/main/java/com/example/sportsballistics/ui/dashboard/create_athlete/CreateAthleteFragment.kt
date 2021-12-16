@@ -337,8 +337,6 @@ class CreateAthleteFragment : Fragment() {
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
 
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.tvCancel)
         AppConstant.changeColor(binding.tvProfilePic)
@@ -378,7 +376,12 @@ class CreateAthleteFragment : Fragment() {
         }
         if (drawable != null) {
             binding.btnSubmit.background = drawable
-            binding.btnSubmit.setTextColor(ContextCompat.getColor(binding.root.context,R.color.white))
+            binding.btnSubmit.setTextColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.white
+                )
+            )
         }
     }
 }

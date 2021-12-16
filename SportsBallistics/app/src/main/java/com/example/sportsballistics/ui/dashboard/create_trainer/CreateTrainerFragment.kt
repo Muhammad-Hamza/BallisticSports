@@ -235,7 +235,8 @@ class CreateTrainerFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(), AppConstant.ROLE_TRAINER_PORTAL,
+                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppConstant.ROLE_TRAINER_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
@@ -279,9 +280,6 @@ class CreateTrainerFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
 
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.tvCancel)

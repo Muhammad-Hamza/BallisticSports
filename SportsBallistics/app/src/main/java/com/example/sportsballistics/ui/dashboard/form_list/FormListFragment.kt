@@ -137,9 +137,6 @@ class FormListFragment : Fragment() {
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
 
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
-
         AppConstant.changeColor(binding.tvInfo)
         when (sportsType) {
             AppConstant.BASEBALL -> {

@@ -301,8 +301,6 @@ class DashboardFragment : Fragment() {
         AppConstant.changeColor(binding.tvGrade)
         AppConstant.changeColor(binding.txtLogin)
         AppConstant.changeColor(binding.txtSADashboard)
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
 
 
         //        AppConstant.changeColor(binding.imgTotalClubs)

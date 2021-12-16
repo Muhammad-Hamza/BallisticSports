@@ -168,9 +168,6 @@ class ClubFragment : Fragment() {
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
 
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
-
         AppConstant.changeColor(binding.clubListLayout.txtTotalTrainersText)
         AppConstant.changeColor(binding.clubListLayout.clubHeader.txtSerialNo)
         AppConstant.changeColor(binding.clubListLayout.clubHeader.txtClubName)

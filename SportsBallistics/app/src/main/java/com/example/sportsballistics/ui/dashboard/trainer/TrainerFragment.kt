@@ -151,11 +151,13 @@ class TrainerFragment : Fragment() {
                             .message(null, "Do you want to delete this Trainer?")
                             .positiveButton(null, "YES") {
                                 viewModel.deleteTrainer(requireContext(), user.id!!, object :
-                                        AthletesViewModel.ContentFetchListener
-                                {
-                                    override fun onFetched(anyObject: Any)
-                                    {
-                                        Toast.makeText(requireContext(), "Athlete Deleted", Toast.LENGTH_SHORT).show()
+                                    AthletesViewModel.ContentFetchListener {
+                                    override fun onFetched(anyObject: Any) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Athlete Deleted",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         getTrainerFromServer("")
                                     }
                                 })
@@ -208,8 +210,7 @@ class TrainerFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
+
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.clubListHeader.txtSerialNo)
         AppConstant.changeColor(binding.clubListHeader.txtClubName)
