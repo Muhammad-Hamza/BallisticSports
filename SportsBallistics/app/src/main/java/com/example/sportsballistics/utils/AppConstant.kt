@@ -50,12 +50,20 @@ AppConstant {
         }
 
         fun changeColor(imageView: ImageView) {
+
             imageView.setColorFilter(
                 ContextCompat.getColor(
                     AppSystem.context,
                     AppSystem.getInstance().getColor()
                 )
             )
+        }
+
+        fun changeDrawableColor(imageView: ImageView,context: Context){
+            if(imageView != null)
+            {
+                DrawableCompat.setTint(DrawableCompat.wrap(imageView.getDrawable()), ContextCompat.getColor(context, AppSystem.getInstance().getColor()));
+            }
         }
 
         fun changeColor(textView: TextView) {
