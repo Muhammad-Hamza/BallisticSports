@@ -26,8 +26,6 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
-//        setCurrentFragment(DashboardFragment())
-
 
         if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
                 .getCurrentUser()!!.loggedIn != null
