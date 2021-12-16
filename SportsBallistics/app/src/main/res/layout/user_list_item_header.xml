@@ -38,9 +38,9 @@
                 android:textSize="@dimen/_12sdp" />
 
             <TextView
+                android:id="@+id/txtRole"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/txtRole"
                 android:layout_weight="1"
                 android:fontFamily="@font/roboto_bold"
                 android:text="Role"
