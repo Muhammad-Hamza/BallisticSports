@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
@@ -154,41 +155,40 @@ class AccountFragment : Fragment() {
             })
     }
 
-    fun loadAssets(){
+    fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        when(sportsType){
-            AppConstant.BASEBALL->{
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.txtLogout.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.txtAcountDetail.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.txtSportsBallistics.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.txtLogout)
+        AppConstant.changeColor(binding.txtAcountDetail)
+        AppConstant.changeColor(binding.txtSportsBallistics)
+        AppConstant.changeColor(binding.txtChangePassword)
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
             }
-            AppConstant.VOLLEYBALL->{
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_all_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.txtLogout.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.txtAcountDetail.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.txtSportsBallistics.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
             }
-
-            AppConstant.QB->{
-
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.txtLogout.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.txtAcountDetail.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.txtSportsBallistics.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
             }
         }
 
-        AppSystem.getInstance().setStatusColor(requireActivity())
     }
 
 }

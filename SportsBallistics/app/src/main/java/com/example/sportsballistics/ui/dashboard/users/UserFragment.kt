@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.users
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
@@ -48,6 +50,7 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
@@ -181,45 +184,41 @@ class UserFragment : Fragment() {
         binding.recyclerView.adapter = mAdapter
     }
 
-    fun loadAssets(){
+    fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        when(sportsType){
-            AppConstant.BASEBALL->{
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
+
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.clubListHeader.txtSerialNo)
+        AppConstant.changeColor(binding.clubListHeader.txtClubName)
+        AppConstant.changeColor(binding.clubListHeader.txtAction)
+        AppConstant.changeColor(binding.clubListHeader.txtRole)
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
             }
-            AppConstant.VOLLEYBALL->{
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_all_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-
-
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
             }
-
-            AppConstant.QB->{
-
-                binding.clubListLayoutParent.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.clubListHeader.clubListHeaderParent.txtSerialNo.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.clubListHeader.clubListHeaderParent.txtClubName.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.clubListHeader.clubListHeaderParent.txtRole.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.clubListHeader.clubListHeaderParent.txtAction.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
             }
         }
-
-        AppSystem.getInstance().setStatusColor(requireActivity())
     }
+
 
 }

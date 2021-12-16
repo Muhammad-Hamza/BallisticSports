@@ -9,6 +9,7 @@
         tools:context=".ui.dashboard.create_athlete_form.AthleteFormFragment">
 
         <ImageView
+            android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -32,8 +33,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/imgLogo"
+                android:layout_width="@dimen/dimen_logo_width"
+                android:layout_height="@dimen/dimen_logo_height"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:src="@drawable/ic_toddler_inner_logo" />
 
@@ -78,16 +80,15 @@
             android:layout_margin="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:backgroundTint="#753F93"
                 android:fontFamily="@font/roboto_regular"
                 android:text="Submit" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/tvCancel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +106,8 @@
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color" />
 
     </RelativeLayout>
 </layout>

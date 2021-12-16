@@ -7,15 +7,16 @@
 
         <include
             android:id="@+id/clubListLayout"
+            layout="@layout/athletes_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            layout="@layout/athletes_layout" />
+            android:layout_height="match_parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color"
             android:visibility="gone" />
     </RelativeLayout>
 </layout>

@@ -11,6 +11,7 @@ import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.ClubListItemBinding
 import com.example.sportsballistics.databinding.ListitemFormInfoBinding
 import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
+import com.example.sportsballistics.utils.AppConstant
 
 class FormListAdapter(
     val context: Context,
@@ -33,6 +34,8 @@ class FormListAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int, service: Service) {
             binding.tvContent.setText(service.name)
+            AppConstant.changeColor(binding.tvContent)
+            AppConstant.changeColor(binding.tvEdit)
             binding.tvEdit.setOnClickListener {
                 listener.onEditClick(position, service)
             }

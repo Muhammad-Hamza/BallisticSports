@@ -9,7 +9,7 @@
         tools:context=".ui.dashboard.create_athlete.CreateAthleteFragment">
 
         <ImageView
-            android:id="@+id/imgBg"
+            android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -26,8 +26,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_130sdp"
-            android:layout_marginBottom="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginBottom="@dimen/_80sdp"
             android:scrollbars="none">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -44,8 +44,8 @@
 
                     <ImageView
                         android:id="@+id/imgLogo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/dimen_logo_width"
+                        android:layout_height="@dimen/dimen_logo_height"
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/ic_toddler_inner_logo" />
 
@@ -482,12 +482,11 @@
                     android:src="@mipmap/ic_temp_avatar"
                     app:riv_corner_radius="@dimen/_5sdp" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:backgroundTint="#753F93"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Submit" />
 
@@ -511,6 +510,7 @@
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color"
             android:visibility="gone" />
 
 

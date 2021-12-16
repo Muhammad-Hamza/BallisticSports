@@ -45,9 +45,9 @@
                     <ImageView
                         android:id="@+id/imgLogo"
                         android:layout_width="@dimen/dimen_logo_width"
-                        android:layout_marginBottom="@dimen/_5sdp"
                         android:layout_height="@dimen/dimen_logo_height"
                         android:layout_alignParentLeft="true"
+                        android:layout_marginBottom="@dimen/_5sdp"
                         android:scaleType="centerCrop" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -546,7 +546,7 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -554,7 +554,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:text="Submit" />
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/tvCancel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -574,6 +574,7 @@
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color"
             android:visibility="gone" />
 
 

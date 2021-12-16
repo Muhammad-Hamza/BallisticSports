@@ -1,5 +1,6 @@
 package com.example.sportsballistics.ui.dashboard.trainer
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -14,8 +15,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.afollestad.materialdialogs.MaterialDialog
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
+import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
@@ -45,6 +48,7 @@ class TrainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
             AppConstant.ROLE_CLUB_PORTAL -> {
                 binding.llAddAthlete.visibility = View.VISIBLE
@@ -147,11 +151,13 @@ class TrainerFragment : Fragment() {
                             .message(null, "Do you want to delete this Trainer?")
                             .positiveButton(null, "YES") {
                                 viewModel.deleteTrainer(requireContext(), user.id!!, object :
-                                        AthletesViewModel.ContentFetchListener
-                                {
-                                    override fun onFetched(anyObject: Any)
-                                    {
-                                        Toast.makeText(requireContext(), "Athlete Deleted", Toast.LENGTH_SHORT).show()
+                                    AthletesViewModel.ContentFetchListener {
+                                    override fun onFetched(anyObject: Any) {
+                                        Toast.makeText(
+                                            requireContext(),
+                                            "Athlete Deleted",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         getTrainerFromServer("")
                                     }
                                 })
@@ -199,5 +205,41 @@ class TrainerFragment : Fragment() {
                         initRecyclerView(ArrayList<UsersItem>())
                 }
             })
+    }
+
+
+    fun loadAssets() {
+        val sportsType = SharedPrefUtil.getInstance().sportsType
+
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.clubListHeader.txtSerialNo)
+        AppConstant.changeColor(binding.clubListHeader.txtClubName)
+        AppConstant.changeColor(binding.clubListHeader.txtAction)
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+            }
+        }
     }
 }

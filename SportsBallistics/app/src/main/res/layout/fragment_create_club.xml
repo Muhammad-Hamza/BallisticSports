@@ -8,10 +8,15 @@
         android:background="@drawable/ic_toddler_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clubListLayoutParent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_toddler_bg">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_toddler_bg" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/backClubList"
@@ -45,12 +50,11 @@
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/imgLogo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/dimen_logo_width"
+                            android:layout_height="@dimen/dimen_logo_height"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:background="@drawable/ic_toddler_inner_logo"
                             android:gravity="start" />
 
                         <androidx.appcompat.widget.AppCompatTextView
@@ -76,7 +80,7 @@
                         android:id="@+id/txtTotalTrainersText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:fontFamily="@font/roboto_bold"
                         android:text="View Club Profile"
@@ -87,20 +91,20 @@
                         android:id="@+id/txtClubName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Club Name*"
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
 
-                        <EditText
+                    <EditText
                         android:id="@+id/etClubName"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_22sdp"
                         android:layout_below="@+id/txt_main"
-                        android:layout_marginStart="@dimen/_20sdp"
-                        android:layout_marginEnd="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
                         android:background="@drawable/edit_text_bg"
                         android:gravity="top|start"
                         android:padding="@dimen/_5sdp"
@@ -110,7 +114,7 @@
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_20sdp"
+                        android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_weight="0.7"
                         android:orientation="vertical">
@@ -130,7 +134,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_22sdp"
                             android:layout_below="@+id/txt_main"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:background="@drawable/edit_text_bg"
                             android:gravity="top|start"
                             android:padding="@dimen/_4sdp"
@@ -157,7 +161,7 @@
                                 android:id="@+id/txtCity"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:fontFamily="@font/roboto_regular"
                                 android:text="City"
@@ -169,7 +173,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_22sdp"
                                 android:layout_below="@+id/txt_main"
-                                android:layout_marginStart="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
                                 android:background="@drawable/edit_text_bg"
                                 android:gravity="top|start"
                                 android:padding="@dimen/_5sdp"
@@ -259,14 +263,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_22sdp"
                                 android:layout_below="@+id/txt_main"
-                                android:layout_marginEnd="@dimen/_20sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
                                 android:background="@drawable/edit_text_bg"
                                 android:gravity="top|start"
-                                android:padding="@dimen/_5sdp"
                                 android:inputType="number"
+                                android:padding="@dimen/_5sdp"
                                 android:paddingStart="@dimen/_5sdp"
                                 android:textSize="@dimen/_8sdp" />
                         </androidx.appcompat.widget.LinearLayoutCompat>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -277,9 +282,9 @@
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_20sdp"
+                            android:layout_marginStart="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_marginEnd="@dimen/_20sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
                             android:layout_weight="2"
                             android:orientation="vertical">
 
@@ -339,14 +344,13 @@
                             android:layout_weight="1" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnSubmit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_20sdp"
-                        android:backgroundTint="#753F93"
+                        android:layout_marginRight="@dimen/_10sdp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Submit" />
 
@@ -354,8 +358,8 @@
                         android:id="@+id/tvCancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="?android:attr/selectableItemBackground"
                         android:layout_gravity="center"
+                        android:background="?android:attr/selectableItemBackground"
                         android:fontFamily="@font/roboto_regular"
                         android:padding="@dimen/_5sdp"
                         android:text="Cancel"
@@ -375,6 +379,7 @@
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color"
             android:visibility="gone" />
 
 

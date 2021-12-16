@@ -8,6 +8,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/ivBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -41,8 +42,9 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/imgLogo"
+                        android:layout_width="@dimen/dimen_logo_width"
+                        android:layout_height="@dimen/dimen_logo_height"
                         android:layout_alignParentLeft="true"
                         android:src="@drawable/ic_toddler_inner_logo" />
 
@@ -459,12 +461,11 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:backgroundTint="#753F93"
                     android:fontFamily="@font/roboto_regular"
                     android:text="Submit" />
 
@@ -486,6 +487,7 @@
             android:layout_width="@dimen/_56sdp"
             android:layout_height="@dimen/_56sdp"
             android:layout_centerInParent="true"
+            android:indeterminateTint="@color/color_progressbar_tint_color"
             android:visibility="gone" />
     </RelativeLayout>
 </layout>

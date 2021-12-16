@@ -64,7 +64,6 @@ class CreateClubAdminFragment : Fragment() {
             container,
             false
         );
-        loadAssets()
         val type: Type = object : TypeToken<List<StateModel>>() {}.type
 
         val list: List<StateModel> = Gson().fromJson(AppConstant.STATE_CONTENT, type)
@@ -77,6 +76,7 @@ class CreateClubAdminFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadAssets()
         if (arguments != null && requireArguments().containsKey(AppConstant.INTENT_SCREEN_TYPE)) {
             screenType = requireArguments().getInt(
                 AppConstant.INTENT_SCREEN_TYPE,
@@ -462,8 +462,6 @@ class CreateClubAdminFragment : Fragment() {
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
 
-        binding.progressBar.progressTintList =
-            ColorStateList.valueOf(AppSystem.getInstance().getColor())
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.tvCancel)
         binding.btnSubmit.background = null
@@ -474,7 +472,6 @@ class CreateClubAdminFragment : Fragment() {
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo)
                     .into(binding.imgLogo)
-//                binding.btnSubmit.setBackgroundResource(R.drawable.btn_baseball)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
             AppConstant.VOLLEYBALL -> {
@@ -484,28 +481,30 @@ class CreateClubAdminFragment : Fragment() {
                     .into(binding.imgLogo)
                 drawable =
                     ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
-//                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_volleyball)
             }
             AppConstant.TODDLER -> {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
                     .into(binding.imgLogo)
-//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
-                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
             }
             AppConstant.QB -> {
                 Glide.with(binding.root).load(R.drawable.qb_login_bg)
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.qb_inner_logo)
                     .into(binding.imgLogo)
-//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
-                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
             }
         }
-        // TODO: 12/16/2021 Hamza bhai yeha pe issue a rha hai yeh es button pe toddler ke style apply kr rha hai even ke sub condition pe humne baseball ke drawable de rhe hai hardcoded.
         if (drawable != null) {
             binding.btnSubmit.background = drawable
+            binding.btnSubmit.setTextColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.white
+                )
+            )
         }
     }
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.local.AthleteFormLocalModel
 import com.example.sportsballistics.databinding.ListitemEditFormBinding
+import com.example.sportsballistics.utils.AppConstant
 
 class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -35,6 +36,7 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(position: Int, atheletFormModel: AthleteFormLocalModel) {
             binding.tvTitle.setText(atheletFormModel.heading)
+            AppConstant.changeColor(binding.tvTitle)
             if (!TextUtils.isEmpty(atheletFormModel.placeHolder)) {
                 binding.etEditInfo.setText(atheletFormModel.placeHolder)
             }

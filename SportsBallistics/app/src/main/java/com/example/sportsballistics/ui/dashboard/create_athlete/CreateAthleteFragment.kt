@@ -29,8 +29,11 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import android.R.attr.data
 
 import android.app.Activity
+import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.os.Environment
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import java.io.File
 import java.io.FileOutputStream
@@ -331,31 +334,54 @@ class CreateAthleteFragment : Fragment() {
         })
     }
 
-    fun loadAssets(){
+    fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        when(sportsType){
-            AppConstant.BASEBALL->{
-                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.bb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorBB))
-            }
-            AppConstant.VOLLEYBALL->{
-                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_all_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.vb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorVB))
-            }
 
-            AppConstant.QB->{
-                binding.btnSubmit.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
-                binding.imgBg.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_bg)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.imgLogo.background = ContextCompat.getDrawable(requireContext(),R.drawable.qb_inner_logo)
-                binding.txtTotalTrainersText.setTextColor(ContextCompat.getColor(requireContext(),R.color.colorQB))
+        AppConstant.changeColor(binding.txtTotalTrainersText)
+        AppConstant.changeColor(binding.tvCancel)
+        AppConstant.changeColor(binding.tvProfilePic)
+        binding.btnSubmit.background = null
+        var drawable: Drawable? = null
+
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
+                Glide.with(binding.root).load(R.drawable.bb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.bb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
+            AppConstant.VOLLEYBALL -> {
+                Glide.with(binding.root).load(R.drawable.vb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.vb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable =
+                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+            }
+            AppConstant.TODDLER -> {
+                Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
+            }
+            AppConstant.QB -> {
+                Glide.with(binding.root).load(R.drawable.qb_login_bg)
+                    .into(binding.ivBackground)
+                Glide.with(binding.root).load(R.drawable.qb_inner_logo)
+                    .into(binding.imgLogo)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
+            }
+        }
+        if (drawable != null) {
+            binding.btnSubmit.background = drawable
+            binding.btnSubmit.setTextColor(
+                ContextCompat.getColor(
+                    binding.root.context,
+                    R.color.white
+                )
+            )
         }
     }
 }

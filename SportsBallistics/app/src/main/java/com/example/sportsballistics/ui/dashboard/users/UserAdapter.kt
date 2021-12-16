@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.UserListItemBinding
+import com.example.sportsballistics.utils.AppConstant
 
 class UserAdapter(
     val context: Context?,
@@ -64,6 +65,9 @@ class UserAdapter(
             binding.txtAction.setOnClickListener {
                 mListener.onDeleteClick(adapterType, user!!)
             }
+            AppConstant.changeColor(binding.txtSerialNo)
+            AppConstant.changeColor(binding.txtClubName)
+            AppConstant.changeColor(binding.txtRoleType)
         }
 
     }
