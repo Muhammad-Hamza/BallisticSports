@@ -474,7 +474,6 @@ class CreateClubAdminFragment : Fragment() {
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo)
                     .into(binding.imgLogo)
-//                binding.btnSubmit.setBackgroundResource(R.drawable.btn_baseball)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
             AppConstant.VOLLEYBALL -> {
@@ -484,28 +483,25 @@ class CreateClubAdminFragment : Fragment() {
                     .into(binding.imgLogo)
                 drawable =
                     ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
-//                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_volleyball)
             }
             AppConstant.TODDLER -> {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
                     .into(binding.imgLogo)
-//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
-                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
             }
             AppConstant.QB -> {
                 Glide.with(binding.root).load(R.drawable.qb_login_bg)
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.qb_inner_logo)
                     .into(binding.imgLogo)
-//                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
-                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
             }
         }
-        // TODO: 12/16/2021 Hamza bhai yeha pe issue a rha hai yeh es button pe toddler ke style apply kr rha hai even ke sub condition pe humne baseball ke drawable de rhe hai hardcoded.
         if (drawable != null) {
             binding.btnSubmit.background = drawable
+            binding.btnSubmit.setTextColor(ContextCompat.getColor(binding.root.context,R.color.white))
         }
     }
 }
