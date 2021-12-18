@@ -130,7 +130,7 @@
             <EditText
                 android:id="@+id/et_reason"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:layout_below="@+id/txt_main"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_10sdp"
@@ -138,8 +138,7 @@
                 android:drawableEnd="@drawable/ic_search"
                 android:gravity="top|start"
                 android:hint="Search for Club"
-                android:padding="@dimen/_4sdp"
-                android:paddingStart="@dimen/_5sdp"
+                android:padding="@dimen/_6sdp"
                 android:textSize="@dimen/_8sdp" />
 
             <include android:id="@+id/clubHeader"

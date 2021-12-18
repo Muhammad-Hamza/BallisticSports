@@ -141,8 +141,7 @@
                     android:drawableEnd="@drawable/ic_search"
                     android:gravity="top|start"
                     android:hint="Search for Athlete"
-                    android:padding="@dimen/_4sdp"
-                    android:paddingStart="@dimen/_5sdp"
+                    android:padding="@dimen/_6sdp"
                     android:textSize="@dimen/_8sdp" />
 
                 <include
