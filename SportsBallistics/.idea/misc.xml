@@ -43,6 +43,9 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_clubs1_selected.xml" value="0.22179487179487178" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_dashboard1.xml" value="0.22179487179487178" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_dashboard_selected.xml" value="0.22179487179487178" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_myaccount.xml" value="0.22763157894736843" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_trainers1.xml" value="0.22763157894736843" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_nav_dashboard_super_admin_users1.xml" value="0.22763157894736843" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_password_icon.xml" value="0.22763157894736843" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_right_arrow_chev.xml" value="0.22763157894736843" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/drawable/ic_search.xml" value="0.202734375" />
@@ -85,7 +88,7 @@
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_athlete.xml" value="0.176" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_club.xml" value="0.264" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_create_trainer.xml" value="0.4" />
-        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_dashboard.xml" value="0.21403508771929824" />
+        <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_trainer.xml" value="0.21403508771929824" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/fragment_user.xml" value="0.264" />
         <entry key="..\:/BallisticSports/SportsBallistics/app/src/main/res/layout/listitem_edit_form.xml" value="0.21403508771929824" />
