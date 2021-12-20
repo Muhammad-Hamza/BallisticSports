@@ -284,7 +284,7 @@ class CreateClubFragment : Fragment() {
                 binding.etCity.setText(content.clubData?.city)
                 binding.etState.setText(content.clubData?.state)
                 binding.etZipcode.setText(content.clubData?.zipcode)
-                binding.etStatus.setText(content.clubData?.status)
+                if (content.clubData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText("Inactive")
                 binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.etClubName.isEnabled = boolean

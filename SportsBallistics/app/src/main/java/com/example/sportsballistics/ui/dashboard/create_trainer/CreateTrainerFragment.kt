@@ -101,7 +101,8 @@ class CreateTrainerFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
         binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        binding.etStatus.setText(athleteResponse.userData?.status)
+        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText("Inactive")
+
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
