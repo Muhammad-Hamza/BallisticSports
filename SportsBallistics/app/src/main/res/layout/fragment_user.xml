@@ -29,9 +29,9 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_100sdp"
-                android:layout_marginBottom="@dimen/_80sdp"
+                android:layout_marginBottom="@dimen/_30sdp"
                 android:orientation="vertical">
 
                 <RelativeLayout

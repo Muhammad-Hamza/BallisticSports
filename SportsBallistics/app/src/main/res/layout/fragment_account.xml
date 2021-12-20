@@ -31,8 +31,9 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:layout_marginTop="100dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:scrollbars="none">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -303,6 +304,7 @@
                             android:id="@+id/txtAboutSports"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_bold"
@@ -339,6 +341,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_bold"
@@ -367,7 +370,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_20sdp"
-
                         android:layout_marginEnd="@dimen/_20sdp"
                         android:background="?android:attr/selectableItemBackground"
                         android:orientation="horizontal"
@@ -376,6 +378,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_bold"
@@ -411,6 +414,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_bold"
@@ -446,6 +450,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
                             android:layout_gravity="start"
                             android:layout_marginStart="@dimen/_5sdp"
                             android:fontFamily="@font/roboto_bold"

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_80sdp"
-            android:layout_marginBottom="@dimen/_80sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:scrollbars="none">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -476,8 +476,8 @@
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/imgProfile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_70sdp"
                     android:scaleType="centerCrop"
                     android:src="@mipmap/ic_temp_avatar"
                     app:riv_corner_radius="@dimen/_5sdp" />
