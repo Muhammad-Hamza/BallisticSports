@@ -198,17 +198,7 @@ class CreateClubAdminFragment : Fragment() {
         }
         binding.etStatus.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etStatus.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etStatus.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etStatus)
             }
         }
 
@@ -218,77 +208,27 @@ class CreateClubAdminFragment : Fragment() {
 
         binding.llStateDropdown.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etStatus.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etStatus.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etStatus)
             }
         }
         binding.llClub.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etClub.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etClub.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etClub)
             }
         }
         binding.etClub.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etClub.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etClub.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etClub)
             }
         }
         binding.llState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etState.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etState.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
         binding.etState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etState.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etState.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
         binding.tvCancel.setOnClickListener {

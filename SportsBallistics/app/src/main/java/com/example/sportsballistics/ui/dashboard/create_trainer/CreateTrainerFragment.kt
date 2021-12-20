@@ -1,6 +1,5 @@
 package com.example.sportsballistics.ui.dashboard.create_trainer
 
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.TextUtils
@@ -21,9 +20,6 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AthleteResponse
-import com.example.sportsballistics.data.remote.DashboardModel
-import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
-import com.example.sportsballistics.databinding.FragmentCreateAthleteBinding
 import com.example.sportsballistics.databinding.FragmentCreateTrainerBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.utils.AppConstant
@@ -101,7 +97,9 @@ class CreateTrainerFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
         binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText("Inactive")
+        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
+            "Inactive"
+        )
 
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
@@ -149,11 +147,15 @@ class CreateTrainerFragment : Fragment() {
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.etStatus.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etStatus)
+            }
         }
 
         binding.llStateDropdown.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) binding.etStatus.showDropDown()
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etStatus)
+            }
         }
 
         binding.tvCancel.setOnClickListener {

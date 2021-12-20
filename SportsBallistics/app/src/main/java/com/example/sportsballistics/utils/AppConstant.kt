@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -95,6 +95,21 @@ AppConstant {
                     AppSystem.getInstance().getColor()
                 )
             );
+        }
+
+        fun showSpinnerDropdown(etDropdown: AutoCompleteTextView) {
+            etDropdown.setText("")
+            Handler(Looper.myLooper()!!, object : Handler.Callback {
+                override fun handleMessage(msg: Message): Boolean {
+                    return true
+                }
+            }).postDelayed(object : Runnable {
+                override fun run() {
+                    etDropdown.showDropDown()
+
+                }
+            }, 250)
+
         }
     }
 }

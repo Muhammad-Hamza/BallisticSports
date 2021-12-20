@@ -95,17 +95,7 @@ class CreateClubFragment : Fragment() {
         }
         binding.etStatus.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etStatus.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etStatus.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
 
@@ -115,17 +105,7 @@ class CreateClubFragment : Fragment() {
 
         binding.llStateDropdown.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etStatus.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etStatus.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
         binding.txtEdit.setOnClickListener {
@@ -137,32 +117,12 @@ class CreateClubFragment : Fragment() {
 
         binding.llState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etState.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etState.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
         binding.etState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                binding.etState.setText("")
-                Handler(Looper.myLooper()!!, object : Handler.Callback {
-                    override fun handleMessage(msg: Message): Boolean {
-                        return true
-                    }
-                }).postDelayed(object : Runnable {
-                    override fun run() {
-                        binding.etState.showDropDown()
-
-                    }
-                }, 250)
+                AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
         binding.btnSubmit.setOnClickListener {
@@ -284,7 +244,9 @@ class CreateClubFragment : Fragment() {
                 binding.etCity.setText(content.clubData?.city)
                 binding.etState.setText(content.clubData?.state)
                 binding.etZipcode.setText(content.clubData?.zipcode)
-                if (content.clubData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText("Inactive")
+                if (content.clubData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
+                    "Inactive"
+                )
                 binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.etClubName.isEnabled = boolean

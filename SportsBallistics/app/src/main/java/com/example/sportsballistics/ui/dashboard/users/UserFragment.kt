@@ -145,6 +145,16 @@ class UserFragment : Fragment() {
                             Navigation.findNavController(binding.root)
                                 .navigate(R.id.action_userFragment_to_createAthleteFragment, args)
                         }
+                        "Club Admin" -> {
+                            if (AppSystem.getInstance()
+                                    .getCurrentUser() != null && AppSystem.getInstance()
+                                    .getCurrentUser()!!.loggedIn != null && AppSystem.getInstance()
+                                    .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_SUPER_PORTAL)
+                            ) {
+                                Navigation.findNavController(binding.root)
+                                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                            }
+                        }
                         "Trainer" -> {
                             Navigation.findNavController(binding.root)
                                 .navigate(R.id.action_userFragment_to_createTrainerFragment, args)
@@ -163,6 +173,16 @@ class UserFragment : Fragment() {
                             Navigation.findNavController(binding.root)
                                 .navigate(R.id.action_userFragment_to_createAthleteFragment, args)
                         }
+                        "Club Admin" -> {
+                            if (AppSystem.getInstance()
+                                    .getCurrentUser() != null && AppSystem.getInstance()
+                                    .getCurrentUser()!!.loggedIn != null && AppSystem.getInstance()
+                                    .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_SUPER_PORTAL)
+                            ) {
+                                Navigation.findNavController(binding.root)
+                                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                            }
+                        }
                         "Trainer" -> {
                             Navigation.findNavController(binding.root)
                                 .navigate(R.id.action_userFragment_to_createTrainerFragment, args)
@@ -172,6 +192,18 @@ class UserFragment : Fragment() {
             }
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem) {
+//                when(user.role_name){
+//                    "Club Admin" -> {
+//                        if (AppSystem.getInstance()
+//                                .getCurrentUser() != null && AppSystem.getInstance()
+//                                .getCurrentUser()!!.loggedIn != null && AppSystem.getInstance()
+//                                .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_SUPER_PORTAL)
+//                        ) {
+//                            Navigation.findNavController(binding.root)
+//                                .navigate(R.id.action_userFragment_to_createClubFragment, args)
+//                        }
+//                    }
+//                }
                 MaterialDialog(binding.root.context).title(null, "Want to delete!")
                     .message(null, "Do you want to delete this User?").positiveButton(null, "YES") {
 
