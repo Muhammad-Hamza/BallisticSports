@@ -19,8 +19,8 @@ class SelectionActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_selection);
-        if (!SharedPrefUtil.getInstance().isUserLoggedIn)
-        {
+//        if (!SharedPrefUtil.getInstance().isUserLoggedIn)
+//        {
             binding.imgSelectTodd.setOnClickListener {
                 SharedPrefUtil.getInstance().saveSportsType(AppConstant.TODDLER)
                 launchActivityFinish<LoginActivity> { }
@@ -37,6 +37,6 @@ class SelectionActivity : AppCompatActivity()
                 SharedPrefUtil.getInstance().saveSportsType(AppConstant.VOLLEYBALL)
                 launchActivityFinish<LoginActivity> { }
             }
-        }
+//        }
     }
 }

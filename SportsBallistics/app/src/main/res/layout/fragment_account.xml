@@ -30,9 +30,9 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
-                android:layout_marginBottom="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="50dp"
                 android:scrollbars="none">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -161,8 +161,8 @@
                             android:layout_alignParentEnd="true"
                             android:layout_gravity="start"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Club@gmail.com"
                             android:maxLines="1"
+                            android:text="Club@gmail.com"
                             android:textColor="@color/textColorGray"
                             android:textSize="@dimen/_9sdp" />
 
