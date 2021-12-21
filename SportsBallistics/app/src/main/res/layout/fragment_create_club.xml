@@ -194,7 +194,6 @@
                                 android:id="@+id/txtState"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_6sdp"
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:fontFamily="@font/roboto_regular"
                                 android:text="State"

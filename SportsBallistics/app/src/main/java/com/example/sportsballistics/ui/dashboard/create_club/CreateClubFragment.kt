@@ -95,7 +95,13 @@ class CreateClubFragment : Fragment() {
         }
         binding.etStatus.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
+                AppConstant.showSpinnerDropdown(binding.etStatus)
+            }
+        }
+
+        binding.llStateDropdown.setOnClickListener {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etStatus)
             }
         }
 
@@ -103,11 +109,6 @@ class CreateClubFragment : Fragment() {
             Navigation.findNavController(binding.root).navigateUp()
         }
 
-        binding.llStateDropdown.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
-            }
-        }
         binding.txtEdit.setOnClickListener {
             doDisableEditing(true)
             binding.txtTotalTrainersText.setText("Edit Club Profile")
