@@ -16,6 +16,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.ImageViewCompat
 import com.example.sportsballistics.AppSystem
+import com.example.sportsballistics.data.local.StateModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 
 class
@@ -109,7 +113,13 @@ AppConstant {
 
                 }
             }, 250)
+        }
 
+        fun getStateList(): List<StateModel> {
+            val type: Type = object : TypeToken<List<StateModel>>() {}.type
+
+            val list: List<StateModel> = Gson().fromJson(AppConstant.STATE_CONTENT, type)
+            return list
         }
     }
 }

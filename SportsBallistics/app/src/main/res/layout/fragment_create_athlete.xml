@@ -416,18 +416,46 @@
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
-                        <EditText
-                            android:id="@+id/etState"
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_22sdp"
-                            android:layout_below="@+id/txt_main"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
-                            android:gravity="top|start"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:padding="@dimen/_5sdp"
-                            android:textSize="@dimen/_8sdp" />
+                            android:orientation="horizontal">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/etState"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_22sdp"
+                                android:layout_below="@+id/txt_main"
+                                android:layout_weight="1"
+                                android:background="@null"
+                                android:clickable="true"
+                                android:editable="false"
+                                android:focusable="false"
+                                android:gravity="top|start"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:padding="@dimen/_5sdp"
+                                android:textSize="@dimen/_8sdp" />
+
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:id="@+id/llState"
+                                android:layout_width="@dimen/_25sdp"
+                                android:layout_height="match_parent"
+                                android:layout_margin="@dimen/_1sdp"
+                                android:background="@drawable/ic_spinner_style"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                android:paddingTop="@dimen/_3sdp">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_12sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:src="@drawable/ic_drop_down_icon" />
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat

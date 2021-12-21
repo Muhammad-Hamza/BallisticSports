@@ -52,12 +52,7 @@ class CreateClubFragment : Fragment() {
     ): View {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_club, container, false);
-        val type: Type = object : TypeToken<List<StateModel>>() {}.type
-
-        val list: List<StateModel> = Gson().fromJson(AppConstant.STATE_CONTENT, type)
-        if (list != null && list.size > 0) {
-            listOfState.addAll(list)
-        }
+        listOfState.addAll(AppConstant.getStateList())
         initViewModel()
         return binding.root
     }
@@ -126,6 +121,7 @@ class CreateClubFragment : Fragment() {
                 AppConstant.showSpinnerDropdown(binding.etState)
             }
         }
+
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etClubName.text.toString())) {
                 showMessage("Club Name is required")

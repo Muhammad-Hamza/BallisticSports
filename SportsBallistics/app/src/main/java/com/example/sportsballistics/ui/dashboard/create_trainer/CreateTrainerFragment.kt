@@ -7,6 +7,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -19,6 +20,7 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.local.StateModel
 import com.example.sportsballistics.data.remote.AthleteResponse
 import com.example.sportsballistics.databinding.FragmentCreateTrainerBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
@@ -31,6 +33,8 @@ class CreateTrainerFragment : Fragment() {
 
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
     var stateArray = arrayOf("Active", "Inactive")
+    val listOfState = ArrayList<StateModel>()
+    private var selectedStateModel: StateModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class CreateTrainerFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_trainer, container, false);
+        listOfState.addAll(AppConstant.getStateList())
         initViewModel()
         return binding.root
     }
@@ -60,6 +65,7 @@ class CreateTrainerFragment : Fragment() {
             trainerId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
         initStateAdapter()
+        initStatusAdapter()
         initClickListener()
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             if (trainerId != null) {
@@ -122,16 +128,17 @@ class CreateTrainerFragment : Fragment() {
         binding.etContact.isEnabled = boolean
         binding.etAddress1.isEnabled = boolean
         binding.etCity.isEnabled = boolean
-        binding.etState.isEnabled = boolean
+//        binding.etState.isEnabled = boolean
         binding.etZipcode.isEnabled = boolean
+//        binding.etStatus.isEnabled = boolean
         binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
         binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
 //        binding.etState.isClickable = boolean
     }
 
-    private fun initStateAdapter() {
+    private fun initStatusAdapter() {
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_item, stateArray)
+            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, stateArray)
         binding.etStatus.threshold = 1 //will start working from first character
         binding.etStatus.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
     }
@@ -160,6 +167,17 @@ class CreateTrainerFragment : Fragment() {
 
         binding.tvCancel.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
+        }
+
+        binding.llState.setOnClickListener {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etState)
+            }
+        }
+        binding.etState.setOnClickListener {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etState)
+            }
         }
 
         binding.btnSubmit.setOnClickListener {
@@ -191,6 +209,30 @@ class CreateTrainerFragment : Fragment() {
                 hitAPIRequest()
             }
         }
+    }
+
+    private fun initStateAdapter() {
+//        val stateAdapter = StateAdapter(listOfState, requireContext())
+        val newList = ArrayList<String>()
+        for (i in 0..(listOfState.size - 1)) {
+            newList.add(listOfState.get(i).name)
+        }
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, newList)
+        binding.etState.threshold = 1 //will start working from first character
+        binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
+        binding.etState.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedStateModel = listOfState.get(position)
+                if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
+            }
+
+        })
     }
 
     private fun hitAPIRequest() {

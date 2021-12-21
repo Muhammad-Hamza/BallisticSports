@@ -32,9 +32,11 @@ import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
 import android.os.Environment
+import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
+import com.example.sportsballistics.data.local.StateModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -47,6 +49,9 @@ class CreateAthleteFragment : Fragment() {
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
     var stateArray = arrayOf("Active", "Inactive")
     var imageFile = File("profPic")
+    val listOfState = ArrayList<StateModel>()
+    private var selectedStateModel: StateModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -58,6 +63,7 @@ class CreateAthleteFragment : Fragment() {
     ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_athlete, container, false);
+        listOfState.addAll(AppConstant.getStateList())
         loadAssets()
         initViewModel()
         return binding.root
@@ -74,6 +80,7 @@ class CreateAthleteFragment : Fragment() {
         if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
             athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
+        initStatusAdapter()
         initStateAdapter()
         initClickListener()
 
@@ -144,8 +151,33 @@ class CreateAthleteFragment : Fragment() {
     }
 
     private fun initStateAdapter() {
+//        val stateAdapter = StateAdapter(listOfState, requireContext())
+        val newList = ArrayList<String>()
+        for (i in 0..(listOfState.size - 1)) {
+            newList.add(listOfState.get(i).name)
+        }
         val adapter: ArrayAdapter<String> =
-            ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_item, stateArray)
+            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, newList)
+        binding.etState.threshold = 1 //will start working from first character
+        binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
+        binding.etState.setOnItemClickListener(object : AdapterView.OnItemClickListener {
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectedStateModel = listOfState.get(position)
+                if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
+            }
+
+        })
+    }
+
+
+    private fun initStatusAdapter() {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, stateArray)
         binding.etStatus.threshold = 1 //will start working from first character
         binding.etStatus.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
     }
@@ -224,6 +256,19 @@ class CreateAthleteFragment : Fragment() {
         binding.tvCancel.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
+
+
+        binding.llState.setOnClickListener {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etState)
+            }
+        }
+        binding.etState.setOnClickListener {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                AppConstant.showSpinnerDropdown(binding.etState)
+            }
+        }
+
 
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
