@@ -323,11 +323,12 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
+                        Navigation.findNavController(binding.root).navigateUp()
 //                        showMessage("Athlete Added")
                     }
 
                     override fun onError(t: Throwable) {
-//                        showMessage(t?.localizedMessage)
+                        showMessage(t?.localizedMessage)
                     }
                 })
         } else {
@@ -354,6 +355,7 @@ class CreateAthleteFragment : Fragment() {
                     }
 
                     override fun onError(t: Throwable) {
+                        showMessage(t?.localizedMessage)
 //                        showMessage(t?.localizedMessage)
                     }
                 })
