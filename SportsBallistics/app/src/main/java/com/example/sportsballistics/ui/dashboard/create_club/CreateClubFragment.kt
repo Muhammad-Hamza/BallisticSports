@@ -295,6 +295,7 @@ class CreateClubFragment : Fragment() {
 
                     override fun onSuccess(content: DashboardModel) {
                         Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
+                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
@@ -329,11 +330,11 @@ class CreateClubFragment : Fragment() {
                 object :
                     CreateClubViewModel.ContentFetchListener {
                     override fun onSuccess(content: ViewClubResponse) {
-
                     }
 
                     override fun onSuccess(content: DashboardModel) {
                         Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
+                        Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
