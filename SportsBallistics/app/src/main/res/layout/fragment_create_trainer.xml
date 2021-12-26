@@ -92,7 +92,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Full Name"
+                            android:text="Full Name*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -121,7 +121,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Age"
+                            android:text="Age*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -151,7 +151,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Grade"
+                            android:text="Grade*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -187,7 +187,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Email"
+                            android:text="Email*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -223,7 +223,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Password"
+                            android:text="Password*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -259,7 +259,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Contact#"
+                            android:text="Contact#*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -288,7 +288,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Status"
+                            android:text="Status*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -344,7 +344,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="Address 1"
+                        android:text="Address 1*"
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
 
@@ -379,7 +379,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="City"
+                            android:text="City*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
@@ -468,7 +468,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/roboto_regular"
-                            android:text="Zipcode"
+                            android:text="Zipcode*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
 
