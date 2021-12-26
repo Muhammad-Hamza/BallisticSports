@@ -379,6 +379,7 @@ class AthletesFragment : Fragment() {
         var dataContent = getString(R.string.txt_atheleteNameStr).replace(
             "{{name}}", athleteDataModel.athletic_name.fullname
         )
+        binding.clubListLayout.tvName.setText(athleteDataModel.athletic_name.fullname)
         when (SharedPrefUtil.getInstance().sportsType) {
             AppConstant.BASEBALL -> {
                 dataContent = dataContent.replace("{{COLOR}}", "E86A24")

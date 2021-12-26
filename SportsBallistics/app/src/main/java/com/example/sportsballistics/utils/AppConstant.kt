@@ -19,6 +19,8 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.local.StateModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.lang.reflect.Type
 
 
@@ -113,6 +115,10 @@ AppConstant {
 
                 }
             }, 250)
+        }
+
+        fun createStrRequestBody(content: String): RequestBody {
+            return RequestBody.create(MediaType.parse("text/plain"), content)
         }
 
         fun getStateList(): List<StateModel> {

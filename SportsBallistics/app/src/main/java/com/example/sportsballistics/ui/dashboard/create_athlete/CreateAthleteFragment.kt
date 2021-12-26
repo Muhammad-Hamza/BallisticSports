@@ -34,6 +34,7 @@ import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.local.StateModel
@@ -188,16 +189,21 @@ class CreateAthleteFragment : Fragment() {
                 //Display an error
                 return
             }
-            binding.imgProfile.setImageURI(data?.data)
-            imageFile = File(data?.data!!.path)
-//            val inputStream: InputStream? = requireContext().contentResolver.openInputStream(data?.data!!)
-//            val path = Environment.getExternalStoragePublicDirectory(
-//                Environment.DIRECTORY_MOVIES);
-//            imageFile = File(path ,"/"+"imageFile")
-//            if (inputStream != null)
-//            {
-//                imageFile = copyStreamToFile(inputStream, imageFile)
-//            }
+            val inputStream: InputStream? = requireContext().contentResolver.openInputStream(data?.data!!)
+
+            val file = File(binding.root.context.filesDir, "/temp")
+            file.mkdirs()
+            if (File(file.path,"image.png").exists()){
+                File(file.path,"image.png").delete()
+            }
+            val newFile = File(file.path,"image.png")
+            newFile.createNewFile()
+            if (inputStream != null)
+            {
+                imageFile = copyStreamToFile(inputStream, newFile)
+                binding.imgProfile.setImageURI(newFile.toUri())
+                imageFile = newFile
+            }
         }
     }
 
@@ -306,6 +312,7 @@ class CreateAthleteFragment : Fragment() {
             viewModel.editAthlete(
                 requireContext(),
                 athleteId!!,
+                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
@@ -334,6 +341,7 @@ class CreateAthleteFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
+                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),

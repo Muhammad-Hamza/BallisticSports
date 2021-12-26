@@ -39,7 +39,7 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
     ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getMainContent(10, content, searchKey)
+        val call = apiService.getMainContent(1000, content, searchKey)
         call.enqueue(object : Callback<GenericResponse> {
             override fun onResponse(
                 call: Call<GenericResponse>,

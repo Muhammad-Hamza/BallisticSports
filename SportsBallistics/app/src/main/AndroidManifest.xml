@@ -15,10 +15,8 @@
         android:roundIcon="@mipmap/ic_app_rounded"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".ui.dashboard.create_athlete.CreateAthleteFragment"/>
         <activity
             android:name=".ui.dashboard.DashboardActivity"
             android:exported="false" />
