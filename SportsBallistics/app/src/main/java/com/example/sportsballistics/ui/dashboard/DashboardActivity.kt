@@ -15,6 +15,7 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.databinding.ActivityDashboardBinding
+import com.example.sportsballistics.ui.SelectionActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel.Companion.TAG
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
@@ -178,7 +179,7 @@ class DashboardActivity : AppCompatActivity()
     }
     fun logoutFromUser()
     {
-        launchActivityFinish<LoginActivity> { }
+        launchActivityFinish<SelectionActivity> { }
     }
 
     override fun onBackPressed()

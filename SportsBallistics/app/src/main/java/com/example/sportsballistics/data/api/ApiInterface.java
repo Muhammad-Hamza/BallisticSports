@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -130,24 +131,40 @@ public interface ApiInterface {
             @Field("club_name") String club_name,
             @Field("role_id") String role_id);
 
-    @Multipart
-    @POST(URLIdentifiers.ADD_USER)
-    Call<DashboardModel> addTrainer(@Query("email") String email,
-            @Query("fullname") String fullname,
-            @Query("contact_no") String contact_no,
-            @Query("age") String age,
-            @Query("state") String state,
-            @Query("zipcode") int zipcode,
-            @Query("city") String city,
-            @Query("status") String status,
-            @Query("address") String address,
-            @Query("grade") String grade,
-            @Query("password") String password,
-            @Query("package_type") String package_type,
-            @Query("club_name") String club_name,
-            @Query("role_id") String role_id,
-            @Part MultipartBody.Part filePart);
-
+//    @Multipart
+//    @POST(URLIdentifiers.ADD_USER)
+//    Call<DashboardModel> addTrainer(@Part("email") RequestBody email,
+//            @Part("fullname") RequestBody  fullname,
+//            @Part("contact_no") RequestBody  contact_no,
+//            @Part("age") RequestBody  age,
+//            @Part("state") RequestBody  state,
+//            @Part("zipcode") RequestBody  zipcode,
+//            @Part("city") RequestBody  city,
+//            @Part("status") RequestBody  status,
+//            @Part("address") RequestBody  address,
+//            @Part("grade") RequestBody  grade,
+//            @Part("password") RequestBody  password,
+//            @Part("package_type") RequestBody  package_type,
+//            @Part("club_name") RequestBody  club_name,
+//            @Part("role_id") RequestBody  role_id,
+//            @Part MultipartBody.Part filePart);
+@Multipart
+@POST(URLIdentifiers.ADD_USER)
+Call<DashboardModel> addTrainer(@Query("email") String email,
+        @Query("fullname") String fullname,
+        @Query("contact_no") String contact_no,
+        @Query("age") String age,
+        @Query("state") String state,
+        @Query("zipcode") int zipcode,
+        @Query("city") String city,
+        @Query("status") String status,
+        @Query("address") String address,
+        @Query("grade") String grade,
+        @Query("password") String password,
+        @Query("package_type") String package_type,
+        @Query("club_name") String club_name,
+        @Query("role_id") String role_id,
+        @Part MultipartBody.Part filePart);
     @POST(URLIdentifiers.EDIT_USER)
     @FormUrlEncoded
     Call<DashboardModel> editTrainer(@Path(value = "userid", encoded = true) String id, @Field("email") String email,

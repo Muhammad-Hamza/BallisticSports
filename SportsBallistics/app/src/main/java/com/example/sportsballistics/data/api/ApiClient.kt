@@ -13,6 +13,7 @@ import java.net.CookieManager
 import com.example.sportsballistics.data.PersistentCookieStore
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.HttpsTrustManager
 import java.net.CookiePolicy
 import okhttp3.HttpUrl
 
@@ -25,12 +26,16 @@ import kotlin.collections.ArrayList
 object ApiClient
 {
 
-    const val BASE_URL ="https://appservice.basketballballistics.com/"
+    private const val BASE_URL_BB = "https://appservice.basketballballistics.com/"
+    private const val BASE_URL_TODD = "https://appservice.toddlerballistics.com/"
+    private const val BASE_URL_QB = "https://appservice.qbballistics.com/"
+    private const val BASE_URL_VB = "https://appservice.volleyballballistics.com/"
 
     private lateinit var retrofit: Retrofit
     lateinit var okHttpClient: OkHttpClient
     fun client(contxt: Context): Retrofit
     {
+        HttpsTrustManager.allowAllSSL();
         val clientBuilder = OkHttpClient.Builder()
         val loggingInterceptor = HttpLoggingInterceptor()
         val cookieHandler: CookieHandler = CookieManager()
@@ -41,18 +46,34 @@ object ApiClient
 //        clientBuilder.addInterceptor(ChuckerInterceptor(AppSystem.getInstance()))
         clientBuilder.addInterceptor(loggingInterceptor)
         clientBuilder.addInterceptor(NetworkInterceptor(contxt))
-        retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()
+        retrofit = Retrofit.Builder().baseUrl(getURL()).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()
         return retrofit
     }
 
     fun client(): Retrofit
     {
+        HttpsTrustManager.allowAllSSL();
+
         val clientBuilder = OkHttpClient.Builder()
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         clientBuilder.addInterceptor(loggingInterceptor)
-        retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()
+        retrofit = Retrofit.Builder().baseUrl(getURL()).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()
         return retrofit
+    }
+
+    private fun getURL(): String
+    {
+        return when (SharedPrefUtil.getInstance().sportsType)
+        {
+            AppConstant.TODDLER -> BASE_URL_TODD
+            AppConstant.BASEBALL -> BASE_URL_BB
+            AppConstant.QB -> BASE_URL_QB
+            AppConstant.VOLLEYBALL -> BASE_URL_VB
+            else->{
+                BASE_URL_TODD
+            }
+        }
     }
 
     private class SessionCookieJar : CookieJar
@@ -77,12 +98,20 @@ object ApiClient
         }
     }
 
-    fun getBaseURL(){
+    fun getBaseURL()
+    {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-        when(sportsType){
-            AppConstant.BASEBALL->{}
-            AppConstant.VOLLEYBALL->{}
-            AppConstant.QB->{}
+        when (sportsType)
+        {
+            AppConstant.BASEBALL ->
+            {
+            }
+            AppConstant.VOLLEYBALL ->
+            {
+            }
+            AppConstant.QB ->
+            {
+            }
         }
     }
 }

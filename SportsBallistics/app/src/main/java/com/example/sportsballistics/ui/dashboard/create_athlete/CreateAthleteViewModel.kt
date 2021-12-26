@@ -79,6 +79,20 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         var filePart: MultipartBody.Part? = null
         if (file != null) filePart = MultipartBody.Part.createFormData("profile_image", file?.getName(), RequestBody.create(MediaType.parse("image/*"), file))
+//        val name: RequestBody = RequestBody.create(MediaType.parse("text/plain"), name)
+//        val email: RequestBody = RequestBody.create(MediaType.parse("text/plain"), email)
+//        val contact_no: RequestBody = RequestBody.create(MediaType.parse("text/plain"), contact_no)
+//        val age: RequestBody = RequestBody.create(MediaType.parse("text/plain"), age)
+//        val state: RequestBody = RequestBody.create(MediaType.parse("text/plain"), state)
+//        val zipcode: RequestBody = RequestBody.create(MediaType.parse("text/plain"), zipcode.toString())
+//        val city: RequestBody = RequestBody.create(MediaType.parse("text/plain"), city)
+//        val status: RequestBody = RequestBody.create(MediaType.parse("text/plain"), status)
+//        val address: RequestBody = RequestBody.create(MediaType.parse("text/plain"), address)
+//        val grade: RequestBody = RequestBody.create(MediaType.parse("text/plain"), grade)
+//        val password: RequestBody = RequestBody.create(MediaType.parse("text/plain"), password)
+//        val package_type: RequestBody = RequestBody.create(MediaType.parse("text/plain"), package_type)
+//        val club_name: RequestBody = RequestBody.create(MediaType.parse("text/plain"), club_name)
+//        val role_id: RequestBody = RequestBody.create(MediaType.parse("text/plain"), role_id)
 
         val call = apiService.addTrainer(email, name, contact_no, age, state, zipcode, city, status, address, grade, password, package_type, club_name, role_id, filePart)
         call.enqueue(object : Callback<DashboardModel>
