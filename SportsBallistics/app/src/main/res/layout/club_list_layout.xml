@@ -151,8 +151,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_40sdp" />
+                android:layout_marginEnd="@dimen/_10sdp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </RelativeLayout>

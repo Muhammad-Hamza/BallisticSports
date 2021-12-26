@@ -20,6 +20,7 @@ public class URLIdentifiers {
     public static final String VIEW_USER = "user/edit/{userid}/1/1";
     public static final String VIEW_CLUB = "club/edit/{club_id}/1/1";
     public static final String DELETE_USER = "user/delete/{userid}/1";
+    public static final String DELETE_CLUB = "club/delete/{userid}/1";
     public static final String TRAINER_CONTENT = "trainers_list";
     public static final String ATHLETE_CONTENT = "trainee_content";
     public static final String SERVICE_LIST_CONTENT = "DashboardMobile/index/{USER_ID}";

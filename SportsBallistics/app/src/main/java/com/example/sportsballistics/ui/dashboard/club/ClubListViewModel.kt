@@ -10,7 +10,9 @@ import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityE
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.api.ApiClient
+import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
+import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,6 +93,39 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
             }
 
             override fun onFailure(call: Call<DashboardResponse>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+    fun deleteTrainer(context: Context, clubId: String, mListener: AthletesViewModel.ContentFetchListener) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call = apiService.deleteClub(clubId)
+        call.enqueue(object : Callback<DashboardModel> {
+            override fun onResponse(
+                call: Call<DashboardModel>,
+                response: Response<DashboardModel>
+                                   ) {
+                Log.d(AthletesViewModel.TAG, response.raw().toString())
+                mErrorListener.dismissDialog()
+                try {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        mListener.onFetched(responseBody)
+                    } else {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<DashboardModel>, t: Throwable) {
                 mErrorListener.dismissDialog()
                 if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))

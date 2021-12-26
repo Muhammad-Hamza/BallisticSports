@@ -95,7 +95,6 @@ public interface ApiInterface {
     Call<ViewClubResponse> viewClub(@Path(value = "club_id", encoded = true) String id);
 
     @POST("club/delete/{club_id}/1")
-    @FormUrlEncoded
     Call<DashboardModel> deleteClub(@Path(value = "club_id", encoded = true) String id);
 
     @POST(URLIdentifiers.ADD_USER)
