@@ -330,7 +330,7 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+//                        Navigation.findNavController(binding.root).navigateUp()
 //                        showMessage("Athlete Added")
                     }
 
@@ -359,7 +359,12 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+//                        Navigation.findNavController(binding.root).navigateUp()
+                        val obj = anyObject as DashboardModel
+
+                        if(obj.is_error){
+                            showMessage(obj.message)
+                        }
                     }
 
                     override fun onError(t: Throwable) {

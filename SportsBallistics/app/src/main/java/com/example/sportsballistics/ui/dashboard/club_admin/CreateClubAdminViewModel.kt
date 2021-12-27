@@ -117,57 +117,6 @@ class CreateClubAdminViewModel(application: Application) : AndroidViewModel(appl
     }
 
 
-    /*
-       Will be used for athletes and trainer both
-        */
-    fun addAthelete(context: Context, file: File?, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: CreateAthleteViewModel.ContentFetchListener)
-    {
-        mErrorListener.addDialog()
-        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        var filePart: MultipartBody.Part? = null
-        if (file != null) filePart = MultipartBody.Part.createFormData("profile_image", file?.getName(), RequestBody.create(MediaType.parse("image/*"), file))
-
-        val call = apiService.addTrainer(email, name, contact_no, age, state, zipcode, city, status, address, grade, password, package_type, club_name, role_id, filePart)
-        call.enqueue(object : Callback<DashboardModel>
-        {
-            override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)
-            {
-                Log.d(TAG, response.raw().toString())
-                mErrorListener.dismissDialog()
-                try
-                {
-                    val responseBody = response.body()
-                    if (responseBody != null)
-                    {
-                        dashboardResponse = responseBody
-                        mListener.onFetched(responseBody)
-                    }
-                    else
-                    {
-                        mErrorListener.addErrorDialog()
-                    }
-                } catch (e: IOException)
-                {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onFailure(call: Call<DashboardModel>, t: Throwable)
-            {
-                mErrorListener.dismissDialog()
-                if (t is NoConnectivityException)
-                {
-                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
-                }
-                else
-                {
-                    mErrorListener.addErrorDialog()
-                }
-                mListener.onFetched(t)
-
-            }
-        })
-    }
 
     /*
     Will be used for athletes and trainer both

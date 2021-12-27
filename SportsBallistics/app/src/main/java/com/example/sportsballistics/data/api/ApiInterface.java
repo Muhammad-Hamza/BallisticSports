@@ -149,23 +149,8 @@ public interface ApiInterface {
 //            @Part("club_name") RequestBody  club_name,
 //            @Part("role_id") RequestBody  role_id,
 //            @Part MultipartBody.Part filePart);
-    @Multipart
     @POST(URLIdentifiers.ADD_USER)
-    Call<DashboardModel> addTrainer(@Query("email") String email,
-                                    @Query("fullname") String fullname,
-                                    @Query("contact_no") String contact_no,
-                                    @Query("age") String age,
-                                    @Query("state") String state,
-                                    @Query("zipcode") int zipcode,
-                                    @Query("city") String city,
-                                    @Query("status") String status,
-                                    @Query("address") String address,
-                                    @Query("grade") String grade,
-                                    @Query("password") String password,
-                                    @Query("package_type") String package_type,
-                                    @Query("club_name") String club_name,
-                                    @Query("role_id") String role_id,
-                                    @Part MultipartBody.Part filePart);
+    Call<DashboardModel> addTrainer(@Body RequestBody file);
 
     @POST(URLIdentifiers.EDIT_USER)
     @Multipart
