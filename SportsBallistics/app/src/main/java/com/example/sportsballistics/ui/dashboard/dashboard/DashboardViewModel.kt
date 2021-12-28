@@ -4,7 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
@@ -12,8 +11,8 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.remote.DashboardModel
-import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
+import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,7 +40,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getContent(10, content, searchKey)
+        val call = apiService.getContent(1000, content, searchKey)
         call.enqueue(object : Callback<ClubResponse> {
             override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
                 Log.d(TAG, response.raw().toString())

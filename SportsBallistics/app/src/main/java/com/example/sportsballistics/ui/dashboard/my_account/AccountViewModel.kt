@@ -10,9 +10,7 @@ import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AccountResponse
-import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
-import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

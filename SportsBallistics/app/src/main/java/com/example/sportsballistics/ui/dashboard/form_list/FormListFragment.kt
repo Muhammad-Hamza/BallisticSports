@@ -1,6 +1,5 @@
 package com.example.sportsballistics.ui.dashboard.form_list
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.fragment.app.Fragment
@@ -14,12 +13,11 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
-import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
+import com.example.sportsballistics.data.remote.service.ServicesItem
 import com.example.sportsballistics.databinding.FragmentFormListBinding
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListAdapter
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListViewModel
@@ -71,15 +69,15 @@ class FormListFragment : Fragment() {
     }
 
     private fun loadUIContent(anyObject: ServiceResponseModel) {
-        if (anyObject.data!!.athletic_name != null && !TextUtils.isEmpty(anyObject.data.athletic_name.fullname)) {
-            binding.tvInfo.setText(anyObject.data!!.athletic_name.fullname)
+        if (anyObject.data!!.athleticName?.fullname != null && !TextUtils.isEmpty(anyObject.data.athleticName?.fullname)) {
+            binding.tvInfo.setText(anyObject.data.athleticName?.fullname)
 
             adapter = FormListAdapter(
                 binding.root.context,
                 anyObject.data.services,
                 object : FormListAdapter.OnItemClickListener {
                     override fun onEditClick(adapterType: Int, anyData: Any) {
-                        if (anyData is Service) {
+                        if (anyData is ServicesItem) {
 //                            showMessage(anyData.name)
                             val bundle = Bundle()
                             bundle.putString(AppConstant.INTENT_EXTRA_1, athleteId)

@@ -10,9 +10,6 @@ import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityE
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.form_service.FormServiceModel
-import com.example.sportsballistics.data.remote.service.ServiceResponseModel
-import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
-import com.example.sportsballistics.ui.dashboard.form_list.component.FormListViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -79,6 +76,7 @@ class AthleteFormViewModel(application: Application) : AndroidViewModel(applicat
         slug: String) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        paramMap.put("submitData","1")
         val call = apiService.submitSkillForm(slug, athleteID,paramMap)
         call.enqueue(object : Callback<DashboardModel> {
             override fun onResponse(

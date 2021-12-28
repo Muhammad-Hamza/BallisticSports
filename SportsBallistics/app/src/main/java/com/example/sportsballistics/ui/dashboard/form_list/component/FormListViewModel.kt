@@ -8,11 +8,7 @@ import com.example.sportsballistics.data.api.ApiClient
 import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
-import com.example.sportsballistics.data.remote.AthleteResponse
-import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
-import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

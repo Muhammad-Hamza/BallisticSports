@@ -91,9 +91,8 @@ class AthleteFormFragment : Fragment() {
                     },
                     athleteId!!,
                     adapter.paramMap,
-                    serviceModel!!.slug
+                    serviceModel!!.slug_edit
                 )
-
             }
         }
         binding.tvCancel.setOnClickListener {
