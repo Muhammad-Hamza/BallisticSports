@@ -7,7 +7,6 @@ data class AthleteDataModel(
     val clubname: String,
     val user_id: String,
     val services: List<Service>,
-    val statNav: StatNav,
     val result: List<String>,
     val nameArr: List<String>,
     val title: String,
@@ -32,7 +31,3 @@ data class AthleticName(
     val club_id: String
 )
 
-data class StatNav(
-    val prev: String,
-    val next: String
-)

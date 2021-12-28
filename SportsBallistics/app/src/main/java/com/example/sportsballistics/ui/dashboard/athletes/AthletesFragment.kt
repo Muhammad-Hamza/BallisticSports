@@ -1,12 +1,10 @@
 package com.example.sportsballistics.ui.dashboard.athletes
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,12 +28,9 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
-import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
-import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter

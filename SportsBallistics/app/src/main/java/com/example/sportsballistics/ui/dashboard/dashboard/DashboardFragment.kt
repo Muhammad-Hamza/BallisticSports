@@ -1,6 +1,5 @@
 package com.example.sportsballistics.ui.dashboard.dashboard
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,9 +15,9 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
+import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
 import com.example.sportsballistics.data.remote.dashboard.LoggedIn
-import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentDashboardBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
@@ -123,8 +122,7 @@ class DashboardFragment : Fragment() {
                         binding.txtLogin.setText(R.string.txt_welcome_athletes_admin)
                         binding.txtSADashboard.setText(
                             getString(R.string.txt_welcome_dashboard_athletes_admin).replace(
-                                "{name}",
-                                athleteDataModel.data!!.athletic_name.fullname
+                                "{name}", athleteDataModel.data!!.athleticName?.fullname!!
                             )
                         )
                         binding.rlClub.visibility = View.GONE
@@ -133,7 +131,7 @@ class DashboardFragment : Fragment() {
                         binding.flNewAtheles.visibility = View.GONE
                         binding.llProfile.visibility = View.VISIBLE
                         binding.tvName.setText(
-                            athleteDataModel.data!!.athletic_name.fullname
+                            athleteDataModel.data!!.athleticName?.fullname
                         )
                         binding.tvClub.setText(
                             AppFunctions.getSpannableText(
@@ -153,14 +151,14 @@ class DashboardFragment : Fragment() {
                             AppFunctions.getSpannableText(
                                 getString(R.string.txt_athletes_age),
                                 "{{age}}",
-                                "${athleteDataModel.data.athletic_name.age}"
+                                "${athleteDataModel.data.athleticName?.age}"
                             )
                         )
                         binding.tvGrade.setText(
                             AppFunctions.getSpannableText(
                                 getString(R.string.txt_athletes_grade),
                                 "{{grade}}",
-                                "${athleteDataModel.data.athletic_name.grade}"
+                                "${athleteDataModel.data.athleticName?.grade}"
                             )
                         )
                         if (AppSystem.getInstance()

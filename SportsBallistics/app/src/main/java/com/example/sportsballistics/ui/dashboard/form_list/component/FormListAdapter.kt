@@ -6,16 +6,13 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.R
-import com.example.sportsballistics.data.remote.athletes.Service
-import com.example.sportsballistics.data.remote.club.UsersItem
-import com.example.sportsballistics.databinding.ClubListItemBinding
+import com.example.sportsballistics.data.remote.service.ServicesItem
 import com.example.sportsballistics.databinding.ListitemFormInfoBinding
-import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
 import com.example.sportsballistics.utils.AppConstant
 
 class FormListAdapter(
     val context: Context,
-    val services: List<Service>,
+    val services: List<ServicesItem?>?,
     val listener: OnItemClickListener
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -32,25 +29,27 @@ class FormListAdapter(
 
     inner class FormListViewHolder(val binding: ListitemFormInfoBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bindData(position: Int, service: Service) {
-            binding.tvContent.setText(service.name)
+        fun bindData(position: Int, service: ServicesItem?) {
+            binding.tvContent.setText(service?.name)
             AppConstant.changeColor(binding.tvContent)
             AppConstant.changeColor(binding.tvEdit)
             binding.tvEdit.setOnClickListener {
-                listener.onEditClick(position, service)
+                if (service != null)
+                {
+                    listener.onEditClick(position, service)
+                }
             }
-
         }
-
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder as FormListViewHolder) {
-            services.get(position).let { this.bindData(position, it) }
+            services?.get(position).let { this.bindData(position, it) }
         }
     }
 
     override fun getItemCount(): Int {
-        return services.size
+        return services?.size
+                ?: 0
     }
 }

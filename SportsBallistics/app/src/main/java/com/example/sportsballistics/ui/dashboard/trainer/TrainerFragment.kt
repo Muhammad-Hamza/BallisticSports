@@ -199,7 +199,7 @@ class TrainerFragment : Fragment() {
             searchContent,
             object : DashboardViewModel.ContentFetchListener {
                 override fun onFetched(content: ClubResponse) {
-                    if (content != null && content.content != null && content.content.users != null && content.content.users.size > 0)
+                    if (content.content?.users != null && content.content.users.isNotEmpty())
                         initRecyclerView(content.content.users)
                     else
                         initRecyclerView(ArrayList<UsersItem>())

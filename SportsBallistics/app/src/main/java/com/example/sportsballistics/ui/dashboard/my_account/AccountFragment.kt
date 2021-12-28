@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -19,19 +18,9 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AccountResponse
-import com.example.sportsballistics.data.remote.club.ClubResponse
-import com.example.sportsballistics.data.remote.dashboard.DashboardResponse
-import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.databinding.FragmentAccountBinding
-import com.example.sportsballistics.databinding.FragmentDashboardBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
-import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment
-import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
-import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
-import com.example.sportsballistics.utils.add
-import com.example.sportsballistics.utils.launchActivity
 import com.google.gson.Gson
 
 class AccountFragment : Fragment() {
