@@ -121,13 +121,16 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
         binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
+        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active")
+        else binding.etStatus.setText(
             "Inactive"
         )
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
+        Glide.with(binding.root).load(athleteResponse.userData?.profileImage)
+            .into(binding.imgProfile)
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             doDisableEditing(false)
         } else {
@@ -148,6 +151,8 @@ class CreateAthleteFragment : Fragment() {
         binding.etZipcode.isEnabled = boolean
         binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
         binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
+
+
 //        binding.etState.isClickable = boolean
     }
 
@@ -359,11 +364,13 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-//                        Navigation.findNavController(binding.root).navigateUp()
+                        Navigation.findNavController(binding.root).navigateUp()
+                        if(anyObject is DashboardModel){
                         val obj = anyObject as DashboardModel
 
                         if(obj.is_error){
                             showMessage(obj.message)
+                        }
                         }
                     }
 
