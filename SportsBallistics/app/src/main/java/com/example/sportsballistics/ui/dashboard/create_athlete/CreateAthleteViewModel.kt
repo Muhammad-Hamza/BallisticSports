@@ -82,14 +82,19 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        var filePart: MultipartBody.Part? = null
-        if (file != null) filePart = MultipartBody.Part.createFormData("profile_image", file?.getName(), RequestBody.create(MediaType.parse("image/*"), file))
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         builder.addFormDataPart("email", email).addFormDataPart("fullname", name).addFormDataPart("contact_no", contact_no).addFormDataPart("age", age).addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString()).addFormDataPart("city", city).addFormDataPart("status", status).addFormDataPart("address", address).addFormDataPart("grade", grade).addFormDataPart("password", password).addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
-        val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
-        val bos = ByteArrayOutputStream()
-        if (bmp != null) bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos)
-        builder.addFormDataPart("image_name", file?.getName(), RequestBody.create(MultipartBody.FORM, bos.toByteArray()));
+
+        if (file != null)
+        {
+            val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
+            val bos = ByteArrayOutputStream()
+            if (bmp != null)
+            {
+                bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos)
+                builder.addFormDataPart("image_name", file.name, RequestBody.create(MultipartBody.FORM, bos.toByteArray()));
+            }
+        }
         val requestBody: RequestBody = builder.build()
         val call = apiService.addTrainer(requestBody)
         call.enqueue(object : Callback<DashboardModel>
@@ -128,7 +133,6 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
                     mErrorListener.addErrorDialog()
                 }
                 mListener.onFetched(t)
-
             }
         })
     }
@@ -189,9 +193,24 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        var filePart: MultipartBody.Part? = null
-        if (file != null) filePart = MultipartBody.Part.createFormData("profile_image", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
-        val call = apiService.editTrainer(userId, createStrRequestBody(email), createStrRequestBody(name), createStrRequestBody(contact_no), createStrRequestBody(age), createStrRequestBody(state), createStrRequestBody(zipcode.toString()), createStrRequestBody(city), createStrRequestBody(status), createStrRequestBody(address), createStrRequestBody(grade), createStrRequestBody(password), createStrRequestBody(package_type), createStrRequestBody(club_name), createStrRequestBody(role_id), filePart)
+        val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        builder.addFormDataPart("email", email).addFormDataPart("fullname", name).addFormDataPart("contact_no", contact_no).addFormDataPart("age", age).addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString()).addFormDataPart("city", city).addFormDataPart("status", status).addFormDataPart("address", address).addFormDataPart("grade", grade).addFormDataPart("password", password).addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
+
+        if (file != null)
+        {
+            val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
+            val bos = ByteArrayOutputStream()
+            if (bmp != null)
+            {
+//                bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos)
+                // MultipartBody.Part is used to send also the actual file name
+                // MultipartBody.Part is used to send also the actual file name
+                val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                builder.addFormDataPart("profile_image", file.name, requestFile);
+            }
+        }
+        val requestBody: RequestBody = builder.build()
+        val call = apiService.editTrainer(userId,requestBody)
         call.enqueue(object : Callback<DashboardModel>
         {
             override fun onResponse(call: Call<DashboardModel>, response: Response<DashboardModel>)

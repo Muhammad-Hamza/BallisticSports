@@ -153,24 +153,7 @@ public interface ApiInterface {
     Call<DashboardModel> addTrainer(@Body RequestBody file);
 
     @POST(URLIdentifiers.EDIT_USER)
-    @Multipart
-    Call<DashboardModel> editTrainer(
-            @Path(value = "userid", encoded = true) String id,
-            @Part("email") RequestBody email,
-            @Part("fullname") RequestBody fullname,
-            @Part("contact_no") RequestBody contact_no,
-            @Part("age") RequestBody age,
-            @Part("state") RequestBody state,
-            @Part("zipcode") RequestBody zipcode,
-            @Part("city") RequestBody city,
-            @Part("status") RequestBody status,
-            @Part("address") RequestBody address,
-            @Part("grade") RequestBody grade,
-            @Part("password") RequestBody password,
-            @Part("package_type") RequestBody package_type,
-            @Part("club_name") RequestBody club_name,
-            @Part("role_id") RequestBody role_id,
-            @Part MultipartBody.Part filePart);
+    Call<DashboardModel> editTrainer(@Path(value = "userid", encoded = true) String id,@Body RequestBody file);
 
     @POST(URLIdentifiers.EDIT_USER)
     @FormUrlEncoded
