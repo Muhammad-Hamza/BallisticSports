@@ -23,5 +23,5 @@
     <item
         android:id="@+id/accountFragment"
         android:icon="@drawable/tab_account_selectorbb"
-        android:title="My Account" />
+        android:title="Account" />
 </menu>

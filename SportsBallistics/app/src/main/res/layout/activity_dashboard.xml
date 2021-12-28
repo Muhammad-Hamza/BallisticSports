@@ -35,10 +35,11 @@
                 <com.google.android.material.bottomnavigation.BottomNavigationView
                     android:id="@+id/bottomNavigationView"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="wrap_content"
+                    android:padding="0dp"
                     android:textSize="@dimen/_8sdp"
-                    app:labelVisibilityMode="labeled"
                     app:itemTextColor="@color/selector"
+                    app:labelVisibilityMode="labeled"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
