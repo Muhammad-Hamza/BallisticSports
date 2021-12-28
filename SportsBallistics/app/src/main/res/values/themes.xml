@@ -55,4 +55,14 @@
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
     </style>
 
+    <style name="MyBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemTextAppearanceActive">@style/MyBottomNavigationView.TextAppearance</item>
+        <item name="itemTextAppearanceInactive">@style/MyBottomNavigationView.TextAppearance</item>
+    </style>
+
+    <style name="MyBottomNavigationView.TextAppearance" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">11sp</item>
+        <item name="fontFamily">@font/roboto_regular</item>
+    </style>
+
 </resources>
