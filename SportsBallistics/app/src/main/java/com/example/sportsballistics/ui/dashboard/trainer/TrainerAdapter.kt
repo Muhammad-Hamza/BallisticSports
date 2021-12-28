@@ -50,7 +50,7 @@ class TrainerAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bindData(user: UsersItem?, position: Int) {
             binding.txtClubName.text = user?.fullname
-            binding.txtSerialNo.text = position.toString()
+            binding.txtSerialNo.text = (position+1).toString()
 
             binding.imgViewClub.setOnClickListener {
                 mListener.onViewClick(adapterType, user!!)
