@@ -26,8 +26,9 @@
                 android:layout_centerInParent="true"
                 android:fontFamily="@font/roboto_bold"
                 android:text="100 %"
+                android:maxLength="5"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_15sdp" />
+                android:textSize="@dimen/_13sdp" />
         </RelativeLayout>
 
         <TextView
