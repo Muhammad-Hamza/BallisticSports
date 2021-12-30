@@ -21,6 +21,7 @@ import okhttp3.Cookie
 
 import okhttp3.CookieJar
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 object ApiClient
@@ -37,6 +38,8 @@ object ApiClient
     {
         HttpsTrustManager.allowAllSSL();
         val clientBuilder = OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
         val loggingInterceptor = HttpLoggingInterceptor()
         val cookieHandler: CookieHandler = CookieManager()
         val cookieManager = CookieManager(PersistentCookieStore(contxt), CookiePolicy.ACCEPT_ALL)

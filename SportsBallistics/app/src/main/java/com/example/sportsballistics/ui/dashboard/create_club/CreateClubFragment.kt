@@ -333,7 +333,7 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) {
-                        Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Club Updated Successfully", Toast.LENGTH_SHORT).show()
                         Navigation.findNavController(binding.root).navigateUp()
                     }
 

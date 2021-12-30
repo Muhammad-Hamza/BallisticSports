@@ -18,6 +18,7 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AccountResponse
+import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.FragmentAccountBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.utils.AppConstant
@@ -95,9 +96,28 @@ class AccountFragment : Fragment() {
         binding.txtNameValue.setText(user.loggedIn?.fullname)
         binding.txtEmailValue.setText(user.loggedIn?.email)
 //        binding.txtNumberValue.setText(user.loggedIn?.)
-        binding.txtRoleValue.setText(user.loggedIn?.roleId)
+        binding.txtRoleValue.setText(getRole(user))
     }
 
+    fun getRole(user:UserResponse):String{
+        when(user.loggedIn?.roleId){
+            "1"->{
+                return "Trainer"
+            }
+            "2"->{
+                return "Athlete"
+            }
+            "3"->{
+                return "Super Admin"
+            }
+            "4"->{
+                return "Club Admin"
+            }
+            else->{
+                return "Unknown"
+            }
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
