@@ -446,7 +446,6 @@
                                             android:layout_marginBottom="@dimen/_4sdp"
                                             android:fontFamily="@font/roboto_bold"
                                             android:gravity="center"
-                                            android:text="AVG: 8 | SUM: 48"
                                             android:textColor="@color/actionBarColor"
                                             android:textSize="@dimen/_13sdp" />
                                     </androidx.appcompat.widget.LinearLayoutCompat>

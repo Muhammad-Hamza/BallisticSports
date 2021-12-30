@@ -211,6 +211,7 @@ class DashboardFragment : Fragment() {
                 }
             }
         } else {
+            if(context != null)
             Toast.makeText(
                 requireContext(),
                 "User not found\n please login with your credentials",

@@ -259,7 +259,7 @@ class CreateClubAdminViewModel(application: Application) : AndroidViewModel(appl
     fun getClubListFromServer(context: Context, content: String, mListener: ContentFetchListener)
     {
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
-        val call = apiService.getContent(1000, content, "")
+        val call = apiService.getContent(100, content, "")
         call.enqueue(object : Callback<ClubResponse>
         {
             override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>)

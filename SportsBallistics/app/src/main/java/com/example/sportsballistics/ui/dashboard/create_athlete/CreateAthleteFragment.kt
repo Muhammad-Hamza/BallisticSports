@@ -97,7 +97,7 @@ class CreateAthleteFragment : Fragment() {
                     }
 
                     override fun onError(t: Throwable) {
-                        TODO("Not yet implemented")
+                        t.message?.let { showMessage(it) }
                     }
                 })
             }
@@ -317,7 +317,7 @@ class CreateAthleteFragment : Fragment() {
             viewModel.editAthlete(
                 requireContext(),
                 athleteId!!,
-                imageFile,
+                null,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
@@ -346,7 +346,7 @@ class CreateAthleteFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
-                imageFile,
+                null,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
