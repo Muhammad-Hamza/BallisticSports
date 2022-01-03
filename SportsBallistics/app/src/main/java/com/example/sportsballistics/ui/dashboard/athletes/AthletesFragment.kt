@@ -83,7 +83,7 @@ class AthletesFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                if (!TextUtils.isEmpty(s)) {
                     loadDataFromServer(s.toString())
                 } else {
                     if (TextUtils.isEmpty(s))

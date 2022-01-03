@@ -83,7 +83,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
-        builder.addFormDataPart("email", email).addFormDataPart("fullname", name).addFormDataPart("contact_no", contact_no).addFormDataPart("age", age).addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString()).addFormDataPart("city", city).addFormDataPart("status", status).addFormDataPart("address", address).addFormDataPart("grade", grade).addFormDataPart("password", password).addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
+        builder.addFormDataPart("email", email).addFormDataPart("fullname", name).addFormDataPart("contact_no", contact_no).addFormDataPart("age", age).addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString()).addFormDataPart("city", city).addFormDataPart("status", status.lowercase()).addFormDataPart("address", address).addFormDataPart("grade", grade).addFormDataPart("password", password).addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
 
         if (file != null)
         {
