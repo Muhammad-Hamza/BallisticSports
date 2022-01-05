@@ -54,7 +54,6 @@
                 android:inputType="textEmailAddress"
                 android:nextFocusDown="@id/etPassword"
                 android:paddingStart="5dp"
-                android:text="admin@admin.com"
                 android:textAlignment="viewStart"
                 android:textSize="@dimen/_10sdp" />
 
@@ -68,7 +67,6 @@
                 android:drawablePadding="@dimen/_5sdp"
                 android:inputType="textPassword"
                 android:paddingStart="5dp"
-                android:text="123456"
                 android:textSize="@dimen/_10sdp" />
 
             <TextView
