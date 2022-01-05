@@ -21,170 +21,149 @@ import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.launchActivityFinish
 
-class DashboardActivity : AppCompatActivity()
-{
+class DashboardActivity : AppCompatActivity() {
     lateinit var binding: ActivityDashboardBinding
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppSystem.getInstance().setStatusColor(this)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         binding.bottomNavigationView.setItemIconTintList(null);
         loadMenu()
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.flFragment) as NavHostFragment?
-        NavigationUI.setupWithNavController(binding.bottomNavigationView, navHostFragment!!.navController)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.flFragment) as NavHostFragment?
+        NavigationUI.setupWithNavController(
+            binding.bottomNavigationView,
+            navHostFragment!!.navController
+        )
 
     }
 
-    fun loadMenu(){
-        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance().getCurrentUser()!!.loggedIn != null)
-        {
+    fun loadMenu() {
+        if (AppSystem.getInstance().getCurrentUser() != null && AppSystem.getInstance()
+                .getCurrentUser()!!.loggedIn != null
+        ) {
             val sportsType = SharedPrefUtil.getInstance().sportsType
 
-            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId)
-            {
-                AppConstant.ROLE_SUPER_PORTAL ->
-                {
+            when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
+                AppConstant.ROLE_SUPER_PORTAL -> {
                     binding.bottomNavigationView.menu.clear()
 
-                    when (sportsType)
-                    {
-                        AppConstant.BASEBALL ->
-                        {
+                    when (sportsType) {
+                        AppConstant.BASEBALL -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menubb)
                         }
-                        AppConstant.VOLLEYBALL ->
-                        {
+                        AppConstant.VOLLEYBALL -> {
                             Log.d(TAG, "")
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menuvb)
                         }
-                        AppConstant.TODDLER ->
-                        {
+                        AppConstant.TODDLER -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menu)
                         }
-                        AppConstant.QB ->
-                        {
+                        AppConstant.QB -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_admin_menuqb)
 
                         }
                     }
                 }
-                AppConstant.ROLE_ATHLETES_PORTAL ->
-                {
+                AppConstant.ROLE_ATHLETES_PORTAL -> {
                     binding.bottomNavigationView.menu.clear()
 
-                    when (sportsType)
-                    {
-                        AppConstant.BASEBALL ->
-                        {
+                    when (sportsType) {
+                        AppConstant.BASEBALL -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menubb)
                         }
-                        AppConstant.VOLLEYBALL ->
-                        {
+                        AppConstant.VOLLEYBALL -> {
                             Log.d(TAG, "")
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menuvb)
                         }
-                        AppConstant.TODDLER ->
-                        {
+                        AppConstant.TODDLER -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menu)
                         }
-                        AppConstant.QB ->
-                        {
+                        AppConstant.QB -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_athletes_menuqb)
 
                         }
                     }
 
                 }
-                AppConstant.ROLE_CLUB_PORTAL ->
-                {                    binding.bottomNavigationView.menu.clear()
+                AppConstant.ROLE_CLUB_PORTAL -> {
+                    binding.bottomNavigationView.menu.clear()
 
-                    when (sportsType)
-                    {
-                        AppConstant.BASEBALL ->
-                        {
+                    when (sportsType) {
+                        AppConstant.BASEBALL -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menubb)
                         }
-                        AppConstant.VOLLEYBALL ->
-                        {
+                        AppConstant.VOLLEYBALL -> {
                             Log.d(TAG, "")
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menuvb)
                         }
-                        AppConstant.TODDLER ->
-                        {
+                        AppConstant.TODDLER -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menu)
                         }
-                        AppConstant.QB ->
-                        {
+                        AppConstant.QB -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_club_menuqb)
 
                         }
                     }
                 }
-                AppConstant.ROLE_TRAINER_PORTAL ->
-                {
+                AppConstant.ROLE_TRAINER_PORTAL -> {
                     binding.bottomNavigationView.menu.clear()
 
-                    when (sportsType)
-                    {
-                        AppConstant.BASEBALL ->
-                        {
+                    when (sportsType) {
+                        AppConstant.BASEBALL -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menubb)
                         }
-                        AppConstant.VOLLEYBALL ->
-                        {
+                        AppConstant.VOLLEYBALL -> {
 
                             Log.d(TAG, "")
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menuvb)
                         }
-                        AppConstant.TODDLER ->
-                        {
+                        AppConstant.TODDLER -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menu)
                         }
-                        AppConstant.QB ->
-                        {
+                        AppConstant.QB -> {
                             binding.bottomNavigationView.inflateMenu(R.menu.bottom_trainer_menuqb)
 
                         }
                     }
                 }
             }
-        }
-        else
-        {
-            Toast.makeText(this, "User not found\n please login with your credentials", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(
+                this,
+                "User not found\n please login with your credentials",
+                Toast.LENGTH_SHORT
+            ).show()
             launchActivityFinish<LoginActivity> {}
 
         }
 
-        when (SharedPrefUtil.getInstance().sportsType)
-        {
-            AppConstant.BASEBALL ->
-            {
-                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorbb)
+        when (SharedPrefUtil.getInstance().sportsType) {
+            AppConstant.BASEBALL -> {
+                binding.bottomNavigationView.itemTextColor =
+                    ContextCompat.getColorStateList(applicationContext, R.color.selectorbb)
             }
-            AppConstant.VOLLEYBALL ->
-            {
+            AppConstant.VOLLEYBALL -> {
                 Log.d(TAG, "")
-                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorvb)
+                binding.bottomNavigationView.itemTextColor =
+                    ContextCompat.getColorStateList(applicationContext, R.color.selectorvb)
             }
-            AppConstant.TODDLER ->
-            {
-                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selector)
+            AppConstant.TODDLER -> {
+                binding.bottomNavigationView.itemTextColor =
+                    ContextCompat.getColorStateList(applicationContext, R.color.selector)
             }
-            AppConstant.QB ->
-            {
-                binding.bottomNavigationView.itemTextColor = ContextCompat.getColorStateList(applicationContext,R.color.selectorqb)
+            AppConstant.QB -> {
+                binding.bottomNavigationView.itemTextColor =
+                    ContextCompat.getColorStateList(applicationContext, R.color.selectorqb)
             }
         }
     }
-    fun logoutFromUser()
-    {
+
+    fun logoutFromUser() {
         launchActivityFinish<SelectionActivity> { }
     }
 
-    override fun onBackPressed()
-    {
+    override fun onBackPressed() {
         super.onBackPressed()
     }
 
