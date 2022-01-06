@@ -1,6 +1,5 @@
 package com.example.sportsballistics.ui.dashboard.create_athlete
 
-import android.R.attr
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -19,19 +17,12 @@ import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AthleteResponse
 import com.example.sportsballistics.data.remote.DashboardModel
-import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.databinding.FragmentCreateAthleteBinding
 import com.example.sportsballistics.utils.AppConstant
 import android.content.Intent
 import android.provider.MediaStore
 
-import androidx.core.app.ActivityCompat.startActivityForResult
-import android.R.attr.data
-
-import android.app.Activity
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.os.Environment
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -52,6 +43,7 @@ class CreateAthleteFragment : Fragment() {
     var imageFile = File("profPic")
     val listOfState = ArrayList<StateModel>()
     private var selectedStateModel: StateModel? = null
+    lateinit var statusAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,12 +97,15 @@ class CreateAthleteFragment : Fragment() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Create Athlete")
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password*")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             binding.txtTotalTrainersText.setText("View Athlete Profile")
             binding.txtEdit.visibility = View.VISIBLE
+            binding.tvPasswordLabel.setText("Password")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
             binding.txtTotalTrainersText.text = "Edit Athlete"
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password")
         }
     }
 
@@ -119,12 +114,17 @@ class CreateAthleteFragment : Fragment() {
         binding.etAge.setText(athleteResponse.userData?.age)
         binding.etGrade.setText(athleteResponse.userData?.grade)
         binding.etEmail.setText(athleteResponse.userData?.email)
-        binding.etPassword.setText(athleteResponse.userData?.password)
+//        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active")
-        else binding.etStatus.setText(
-            "Inactive"
-        )
+        if (athleteResponse.userData?.status.equals("Active", true)) {
+//            binding.etStatus.setSelection(0)
+            binding.etStatus.setText("Active")
+        } else {
+//            binding.etStatus.(1)
+            binding.etStatus.setText(
+                "Inactive"
+            )
+        }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
@@ -182,10 +182,10 @@ class CreateAthleteFragment : Fragment() {
 
 
     private fun initStatusAdapter() {
-        val adapter: ArrayAdapter<String> =
+        statusAdapter =
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, stateArray)
         binding.etStatus.threshold = 1 //will start working from first character
-        binding.etStatus.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
+        binding.etStatus.setAdapter(statusAdapter) //setting the adapter data into the AutoCompleteTextView
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -194,17 +194,17 @@ class CreateAthleteFragment : Fragment() {
                 //Display an error
                 return
             }
-            val inputStream: InputStream? = requireContext().contentResolver.openInputStream(data?.data!!)
+            val inputStream: InputStream? =
+                requireContext().contentResolver.openInputStream(data?.data!!)
 
             val file = File(binding.root.context.filesDir, "/temp")
             file.mkdirs()
-            if (File(file.path,"image.png").exists()){
-                File(file.path,"image.png").delete()
+            if (File(file.path, "image.png").exists()) {
+                File(file.path, "image.png").delete()
             }
-            val newFile = File(file.path,"image.png")
+            val newFile = File(file.path, "image.png")
             newFile.createNewFile()
-            if (inputStream != null)
-            {
+            if (inputStream != null) {
                 imageFile = copyStreamToFile(inputStream, newFile)
                 binding.imgProfile.setImageURI(newFile.toUri())
                 imageFile = newFile
@@ -292,8 +292,6 @@ class CreateAthleteFragment : Fragment() {
                 showMessage("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
                 showMessage("Email is not valid")
-            } else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                showMessage("Password is required")
             } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showMessage("Contact Number is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
@@ -307,13 +305,23 @@ class CreateAthleteFragment : Fragment() {
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                 showMessage("Zip Code is required")
             } else {
-                hitAPIRequest()
+                if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+                    if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
+                        showMessage("Password is required")
+                    } else {
+                        hitAPIRequest()
+                    }
+                } else {
+                    hitAPIRequest()
+                }
             }
         }
     }
 
     private fun hitAPIRequest() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null) {
+            val password: String? =
+                if (TextUtils.isEmpty(binding.etPassword.text.toString())) null else binding.etPassword.text.toString()
             viewModel.editAthlete(
                 requireContext(),
                 athleteId!!,
@@ -327,7 +335,7 @@ class CreateAthleteFragment : Fragment() {
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
-                binding.etPassword.text.toString(),
+                password,
                 "",
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
@@ -365,12 +373,12 @@ class CreateAthleteFragment : Fragment() {
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
                         Navigation.findNavController(binding.root).navigateUp()
-                        if(anyObject is DashboardModel){
-                        val obj = anyObject as DashboardModel
+                        if (anyObject is DashboardModel) {
+                            val obj = anyObject as DashboardModel
 
-                        if(obj.is_error){
-                            showMessage(obj.message)
-                        }
+                            if (obj.is_error) {
+                                showMessage(obj.message)
+                            }
                         }
                     }
 
