@@ -1,5 +1,7 @@
 package com.example.sportsballistics.ui.dashboard.create_athlete
 
+import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -24,14 +26,20 @@ import android.provider.MediaStore
 
 import android.graphics.drawable.Drawable
 import android.widget.AdapterView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.local.StateModel
+import com.example.sportsballistics.utils.CursorUtility
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import com.example.sportsballistics.utils.CursorUtility.getRealPathFromUri
+
+
+
 
 class CreateAthleteFragment : Fragment() {
     private lateinit var binding: FragmentCreateAthleteBinding
@@ -40,13 +48,15 @@ class CreateAthleteFragment : Fragment() {
     val PICK_IMAGE = 1
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
     var stateArray = arrayOf("Active", "Inactive")
-    var imageFile = File("profPic")
+    var imageFile :String? = null
     val listOfState = ArrayList<StateModel>()
     private var selectedStateModel: StateModel? = null
     lateinit var statusAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), 0);
+
     }
 
     override fun onCreateView(
@@ -116,7 +126,7 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals(
+        if (athleteResponse.userData?.status!!.equals(
                 "Active",
                 true
             ) || athleteResponse.userData?.status.equals("Y", true)
@@ -141,6 +151,7 @@ class CreateAthleteFragment : Fragment() {
             doDisableEditing(true)
         }
     }
+
 
     private fun doDisableEditing(boolean: Boolean) {
         binding.etFullName.isEnabled = boolean
@@ -198,21 +209,23 @@ class CreateAthleteFragment : Fragment() {
                 //Display an error
                 return
             }
-            val inputStream: InputStream? =
-                requireContext().contentResolver.openInputStream(data?.data!!)
+//            val inputStream: InputStream? =
+//                requireContext().contentResolver.openInputStream(data?.data!!)
+//
+//            val file = File(binding.root.context.filesDir, "/temp")
+//            file.mkdirs()
+//            if (File(file.path, "image.png").exists()) {
+//                File(file.path, "image.png").delete()
+//            }
+//            val newFile = File(file.path, "image.png")
+//            newFile.createNewFile()
+//            if (inputStream != null) {
+//                imageFile = copyStreamToFile(inputStream, newFile)
+//                imageFile = newFile
+//            }
+            binding.imgProfile.setImageURI(data.getData())
 
-            val file = File(binding.root.context.filesDir, "/temp")
-            file.mkdirs()
-            if (File(file.path, "image.png").exists()) {
-                File(file.path, "image.png").delete()
-            }
-            val newFile = File(file.path, "image.png")
-            newFile.createNewFile()
-            if (inputStream != null) {
-                imageFile = copyStreamToFile(inputStream, newFile)
-                binding.imgProfile.setImageURI(newFile.toUri())
-                imageFile = newFile
-            }
+            imageFile = getRealPathFromUri(requireContext(), data.getData())
         }
     }
 
@@ -329,7 +342,7 @@ class CreateAthleteFragment : Fragment() {
             viewModel.editAthlete(
                 requireContext(),
                 athleteId!!,
-                null,
+                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
@@ -347,7 +360,7 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+//                        Navigation.findNavController(binding.root).navigateUp()
                         showMessage("Athlete Added")
                     }
 

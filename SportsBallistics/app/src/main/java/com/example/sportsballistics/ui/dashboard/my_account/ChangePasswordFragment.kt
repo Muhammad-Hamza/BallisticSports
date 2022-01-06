@@ -99,6 +99,9 @@ class ChangePasswordFragment : Fragment()
 
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.tvCancel)
+        binding.tvCancel.setOnClickListener{
+            Navigation.findNavController(binding.root).navigateUp()
+        }
         binding.btnSubmit.background = null
         var drawable: Drawable? = null
         when (sportsType) {

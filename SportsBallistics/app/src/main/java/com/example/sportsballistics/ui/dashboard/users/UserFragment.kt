@@ -53,8 +53,29 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadAssets()
+
+        val user = SharedPrefUtil.getInstance().user
+        when(user.loggedIn?.roleId){
+            "3"->{
+                 binding.llAddClubAdmin.visibility = View.VISIBLE
+                 binding.lladdAthleteTrainer.visibility = View.GONE
+            }
+            "4"->{
+                binding.llAddClubAdmin.visibility = View.GONE
+                binding.lladdAthleteTrainer.visibility = View.VISIBLE
+            }
+            else->{
+                 "Unknown"
+            }
+        }
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
+        }
+
+        binding.llAddClubAdmin.setOnClickListener{
+            val args = Bundle()
+            args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
+            Navigation.findNavController(binding.root).navigate(R.id.action_clubFragment_to_createClubFragment, args)
         }
 
         binding.etReason.addTextChangedListener(object : TextWatcher {

@@ -193,7 +193,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     fun editAthlete(
         context: Context,
         userId: String,
-        file: File?,
+        imageURI: String?,
         name: String,
         address: String,
         state: String,
@@ -224,17 +224,13 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         if (!TextUtils.isEmpty(password)) {
             builder.addFormDataPart("password", password!!)
         }
-        if (file != null) {
+        if (imageURI != null) {
+                // MultipartBody.Part is used to send also the actual file name
+                val file: File = File(imageURI)
             val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
-            val bos = ByteArrayOutputStream()
-            if (bmp != null)
-            {
-//                bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos)
-                // MultipartBody.Part is used to send also the actual file name
-                // MultipartBody.Part is used to send also the actual file name
-                val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+
+            val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                 builder.addFormDataPart("profile_image", file.name, requestFile);
-            }
         }
         val requestBody: RequestBody = builder.build()
         val call = apiService.editTrainer(userId,requestBody)
