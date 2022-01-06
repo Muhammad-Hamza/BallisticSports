@@ -36,6 +36,14 @@ class UserAdapter(
         this.users = users
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun getItemCount(): Int {
         return if (users != null) return users!!.size else 0
     }
