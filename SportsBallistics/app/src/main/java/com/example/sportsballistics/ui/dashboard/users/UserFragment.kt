@@ -75,7 +75,7 @@ class UserFragment : Fragment() {
         binding.llAddClubAdmin.setOnClickListener{
             val args = Bundle()
             args.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
-            Navigation.findNavController(binding.root).navigate(R.id.action_clubFragment_to_createClubFragment, args)
+            Navigation.findNavController(binding.root).navigate(R.id.action_userFragment_to_createClubAdminFragment, args)
         }
 
         binding.etReason.addTextChangedListener(object : TextWatcher {
