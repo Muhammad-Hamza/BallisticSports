@@ -106,10 +106,17 @@ class CreateTrainerFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Active")) binding.etStatus.setText("Active") else binding.etStatus.setText(
-            "Inactive"
-        )
-
+        if (!TextUtils.isEmpty(athleteResponse.userData?.status)) {
+            if (athleteResponse.userData?.status.equals(
+                    "Active",
+                    true
+                ) || athleteResponse.userData?.status.equals("Y", true)
+            ) binding.etStatus.setText("Active") else binding.etStatus.setText(
+                "Inactive"
+            )
+        } else {
+            binding.etStatus.setText("")
+        }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
@@ -198,7 +205,7 @@ class CreateTrainerFragment : Fragment() {
                 showMessage("Password is required")
             } */ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showMessage("Contact Number is required")
-            } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
                 showMessage("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                 showMessage("First Address is required")

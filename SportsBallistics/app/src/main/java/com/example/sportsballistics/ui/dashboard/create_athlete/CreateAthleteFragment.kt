@@ -116,7 +116,11 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Active", true)) {
+        if (athleteResponse.userData?.status.equals(
+                "Active",
+                true
+            ) || athleteResponse.userData?.status.equals("Y", true)
+        ) {
 //            binding.etStatus.setSelection(0)
             binding.etStatus.setText("Active")
         } else {
@@ -294,7 +298,7 @@ class CreateAthleteFragment : Fragment() {
                 showMessage("Email is not valid")
             } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showMessage("Contact Number is required")
-            } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
                 showMessage("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                 showMessage("First Address is required")

@@ -133,7 +133,7 @@ class CreateClubFragment : Fragment() {
                 showMessage("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                 showMessage("Zip Code is required")
-            } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
                 showMessage("Status is required")
             } else {
                 if (!isEdit)
@@ -241,9 +241,17 @@ class CreateClubFragment : Fragment() {
                 binding.etCity.setText(content.clubData?.city)
                 binding.etState.setText(content.clubData?.state)
                 binding.etZipcode.setText(content.clubData?.zipcode)
-                if (content.clubData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
-                    "Inactive"
-                )
+                if (!TextUtils.isEmpty(content.clubData?.status)) {
+                    if (content.clubData?.status.equals(
+                            "Active",
+                            true
+                        ) || content.clubData?.status.equals("Y", true)
+                    ) binding.etStatus.setText("Active") else binding.etStatus.setText(
+                        "Inactive"
+                    )
+                } else {
+                    binding.etStatus.setText("")
+                }
                 binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.etClubName.isEnabled = boolean
@@ -333,7 +341,11 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) {
-                        Toast.makeText(requireContext(), "Club Updated Successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            requireContext(),
+                            "Club Updated Successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         Navigation.findNavController(binding.root).navigateUp()
                     }
 
