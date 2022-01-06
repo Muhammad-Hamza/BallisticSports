@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_athletesFragment_to_formListFragment"
             app:destination="@id/formListFragment" />
+        <action
+            android:id="@+id/action_athletesFragment_to_createTrainerFragment"
+            app:destination="@id/createTrainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/trainerFragment"
@@ -80,6 +83,9 @@
         <action
             android:id="@+id/action_userFragment_to_createClubFragment"
             app:destination="@id/createClubFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_createClubAdminFragment"
+            app:destination="@id/createClubAdminFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

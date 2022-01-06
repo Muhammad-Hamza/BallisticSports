@@ -154,7 +154,7 @@ class UserFragment : Fragment() {
                                     .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_SUPER_PORTAL)
                             ) {
                                 Navigation.findNavController(binding.root)
-                                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                                    .navigate(R.id.action_userFragment_to_createClubAdminFragment, args)
                             }
                         }
                         "Trainer" -> {
@@ -182,7 +182,7 @@ class UserFragment : Fragment() {
                                     .getCurrentUser()!!.loggedIn!!.roleId.equals(AppConstant.ROLE_SUPER_PORTAL)
                             ) {
                                 Navigation.findNavController(binding.root)
-                                    .navigate(R.id.action_userFragment_to_createClubFragment, args)
+                                    .navigate(R.id.action_userFragment_to_createClubAdminFragment, args)
                             }
                         }
                         "Trainer" -> {

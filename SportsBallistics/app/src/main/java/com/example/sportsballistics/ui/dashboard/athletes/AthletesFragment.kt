@@ -129,7 +129,11 @@ class AthletesFragment : Fragment() {
         }
         binding.clubListLayout.llAddTrainer.setOnClickListener()
         {
+            val bundle = Bundle()
+            bundle.putInt(AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD)
 
+            Navigation.findNavController(binding.root)
+                .navigate(R.id.action_athletesFragment_to_createTrainerFragment, bundle)
         }
         when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
             AppConstant.ROLE_CLUB_PORTAL -> {

@@ -29,6 +29,8 @@ import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.api.URLIdentifiers
 import com.example.sportsballistics.data.local.StateModel
+import com.example.sportsballistics.data.remote.DashboardModel
+import com.example.sportsballistics.data.remote.GenericResponseModel
 import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentCreateClubAdminBinding
@@ -114,12 +116,15 @@ class CreateClubAdminFragment : Fragment() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Create Club Admin")
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password*")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             binding.txtTotalTrainersText.setText("View Club Admin Profile")
             binding.txtEdit.visibility = View.VISIBLE
+            binding.tvPasswordLabel.setText("Password")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
             binding.txtTotalTrainersText.text = "Edit Club Admin"
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password")
         }
     }
 
@@ -128,9 +133,11 @@ class CreateClubAdminFragment : Fragment() {
         binding.etAge.setText(athleteResponse.userData?.age)
         binding.etGrade.setText(athleteResponse.userData?.grade)
         binding.etEmail.setText(athleteResponse.userData?.email)
-        binding.etPassword.setText(athleteResponse.userData?.password)
+//        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText("Inactive")
+        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
+            "Inactive"
+        )
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
@@ -246,9 +253,9 @@ class CreateClubAdminFragment : Fragment() {
                 showMessage("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
                 showMessage("Email is not valid")
-            } else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
+            }/* else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
                 showMessage("Password is required")
-            } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
+            }*/ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showMessage("Contact Number is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
                 showMessage("Status is required")
@@ -263,13 +270,23 @@ class CreateClubAdminFragment : Fragment() {
             } else if (TextUtils.isEmpty(binding.etClub.text.toString())) {
                 showMessage("Club Name is required")
             } else {
-                hitAPIRequest()
+                if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+                    if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
+                        showMessage("Password is required")
+                    } else {
+                        hitAPIRequest()
+                    }
+                } else {
+                    hitAPIRequest()
+                }
             }
         }
     }
 
     private fun hitAPIRequest() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && clubAdminId != null) {
+            val password: String? =
+                if (TextUtils.isEmpty(binding.etPassword.text.toString())) null else binding.etPassword.text.toString()
             viewModel.editAthlete(
                 requireContext(),
                 clubAdminId!!,
@@ -282,7 +299,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
-                binding.etPassword.text.toString(),
+                password,
                 "",
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
@@ -290,7 +307,16 @@ class CreateClubAdminFragment : Fragment() {
                 object :
                     CreateClubAdminViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+                        if (anyObject is DashboardModel) {
+                            if (!anyObject.is_error) {
+                                showMessage(anyObject.message)
+                                Navigation.findNavController(binding.root).navigateUp()
+                            } else {
+                                showMessage(anyObject.message)
+                            }
+                        } else {
+                            showMessage("Unable to edit profile profile.\nPlease try again later.")
+                        }
                     }
 
                     override fun onError(t: Throwable) {
@@ -317,11 +343,20 @@ class CreateClubAdminFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-//                        Navigation.findNavController(binding.root).navigateUp()
+                        if (anyObject is DashboardModel) {
+                            if (!anyObject.is_error) {
+                                showMessage(anyObject.message)
+                                Navigation.findNavController(binding.root).navigateUp()
+                            } else {
+                                showMessage(anyObject.message)
+                            }
+                        } else {
+                            showMessage("Unable to create club Admin profile.\nPlease try again later.")
+                        }
                     }
 
                     override fun onError(t: Throwable) {
-//                        showMessage(t?.localizedMessage)
+                        showMessage("Unable to create club Admin profile.\nPlease try again later.")
                     }
                 })
         }

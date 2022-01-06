@@ -43,7 +43,7 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
         val call = apiService.getContent(100, content, searchKey)
         call.enqueue(object : Callback<ClubResponse> {
             override fun onResponse(call: Call<ClubResponse>, response: Response<ClubResponse>) {
-                Log.d(TAG, response.raw().toString())
+//                Log.d(TAG, response.raw().toString())
                 mErrorListener.dismissDialog()
                 try {
                     val responseBody = response.body()
