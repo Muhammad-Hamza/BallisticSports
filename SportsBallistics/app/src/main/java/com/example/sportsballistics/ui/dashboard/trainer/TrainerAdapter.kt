@@ -39,7 +39,13 @@ class TrainerAdapter(
     override fun getItemCount(): Int {
         return if (users != null) return users!!.size else 0
     }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         with(holder as ClubListViewHolder) {
             users?.get(position)?.let { this.bindData(it, position) }

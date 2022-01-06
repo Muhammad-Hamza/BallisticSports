@@ -40,7 +40,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-
+import kotlinx.android.synthetic.main.fragment_create_club.*
 
 class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
@@ -83,7 +83,7 @@ class AthletesFragment : Fragment() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!TextUtils.isEmpty(s) && s!!.length >= 3) {
+                if (!TextUtils.isEmpty(s)) {
                     loadDataFromServer(s.toString())
                 } else {
                     if (TextUtils.isEmpty(s))
@@ -347,13 +347,10 @@ class AthletesFragment : Fragment() {
 
     private fun bindDataInUserProfile(athleteDataModel: AthleteDataModel) {
         this.currentAthleteDataModel = athleteDataModel
-        binding.clubListLayout.tvClub.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_club_name),
-                "{{clubName}}",
-                athleteDataModel.clubname
-            )
-        )
+        if(athleteDataModel.clubname != null)
+        {
+            binding.clubListLayout.tvClub.setText(AppFunctions.getSpannableText(getString(R.string.txt_athletes_club_name), "{{clubName}}", athleteDataModel.clubname))
+        }
 //        binding.clubListLayout.tvTrainer.setText(
 //            AppFunctions.getSpannableText(
 //                getString(R.string.txt_athletes_trainer),
