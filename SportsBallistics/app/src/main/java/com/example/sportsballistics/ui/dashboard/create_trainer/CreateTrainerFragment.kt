@@ -87,12 +87,15 @@ class CreateTrainerFragment : Fragment() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Create Trainer")
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password*")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             binding.txtTotalTrainersText.setText("View Trainer Profile")
             binding.txtEdit.visibility = View.VISIBLE
+            binding.tvPasswordLabel.setText("Password")
         } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
             binding.txtTotalTrainersText.setText("Edit Trainer")
             binding.txtEdit.visibility = View.GONE
+            binding.tvPasswordLabel.setText("Password")
         }
     }
 
@@ -101,9 +104,9 @@ class CreateTrainerFragment : Fragment() {
         binding.etAge.setText(athleteResponse.userData?.age)
         binding.etGrade.setText(athleteResponse.userData?.grade)
         binding.etEmail.setText(athleteResponse.userData?.email)
-        binding.etPassword.setText(athleteResponse.userData?.password)
+//        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status.equals("Y")) binding.etStatus.setText("Active") else binding.etStatus.setText(
+        if (athleteResponse.userData?.status.equals("Active")) binding.etStatus.setText("Active") else binding.etStatus.setText(
             "Inactive"
         )
 
@@ -191,9 +194,9 @@ class CreateTrainerFragment : Fragment() {
                 showMessage("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
                 showMessage("Email is not valid")
-            } else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
+            } /*else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
                 showMessage("Password is required")
-            } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
+            } */ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showMessage("Contact Number is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
                 showMessage("Status is required")
@@ -206,7 +209,15 @@ class CreateTrainerFragment : Fragment() {
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                 showMessage("Zip Code is required")
             } else {
-                hitAPIRequest()
+                if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+                    if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
+                        showMessage("Password is required")
+                    } else {
+                        hitAPIRequest()
+                    }
+                } else {
+                    hitAPIRequest()
+                }
             }
         }
     }
@@ -237,6 +248,8 @@ class CreateTrainerFragment : Fragment() {
 
     private fun hitAPIRequest() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && trainerId != null) {
+            val password: String? =
+                if (TextUtils.isEmpty(binding.etPassword.text.toString())) null else binding.etPassword.text.toString()
             viewModel.editAthlete(
                 requireContext(),
                 trainerId!!,
@@ -249,7 +262,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
-                binding.etPassword.text.toString(),
+                password,
                 "",
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),

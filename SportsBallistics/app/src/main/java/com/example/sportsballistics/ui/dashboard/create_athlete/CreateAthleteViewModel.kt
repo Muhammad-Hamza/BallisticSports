@@ -316,7 +316,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         contact_no: String,
         age: String,
         grade: String,
-        password: String,
+        password: String?,
         package_type: String,
         club_name: String,
         role_id: String,
