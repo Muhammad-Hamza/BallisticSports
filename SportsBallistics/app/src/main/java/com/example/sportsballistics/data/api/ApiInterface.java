@@ -147,7 +147,7 @@ public interface ApiInterface {
     @POST(URLIdentifiers.ADD_USER)
     Call<DashboardModel> addTrainer(@Body RequestBody file);
 
-    @POST(URLIdentifiers.EDIT_USER)
+    @POST("user/edit/{userid}/1/0/0")
     Call<DashboardModel> editTrainer(@Path(value = "userid", encoded = true) String id,@Body RequestBody file);
 
     @POST(URLIdentifiers.EDIT_USER)

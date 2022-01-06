@@ -25,7 +25,13 @@ class ClubListAdapter(
         fun onDeleteClick(adapterType: Int, user: UsersItem)
     }
 
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = DataBindingUtil.inflate(inflater, R.layout.club_list_item, parent, false)

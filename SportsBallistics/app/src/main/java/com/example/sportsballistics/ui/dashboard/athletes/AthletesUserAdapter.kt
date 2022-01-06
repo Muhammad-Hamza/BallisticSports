@@ -37,7 +37,13 @@ class AthletesUserAdapter(val userRole: String, val mListener: OnItemClickListen
                     oldItem.fullname.equals(newItem.fullname)
         }
     }
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
     class ViewHolder(binding: AthletesListItemBinding) :
         RecyclerView.ViewHolder(binding.getRoot()) {
         var binding: AthletesListItemBinding
