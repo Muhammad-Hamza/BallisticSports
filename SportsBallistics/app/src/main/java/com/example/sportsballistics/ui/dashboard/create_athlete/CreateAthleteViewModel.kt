@@ -79,22 +79,18 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
     /*
     Will be used for athletes and trainer both
      */
-    fun addAthelete(context: Context, file: File?, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
+    fun addAthelete(context: Context, imageURI: String?, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         builder.addFormDataPart("email", email).addFormDataPart("fullname", name).addFormDataPart("contact_no", contact_no).addFormDataPart("age", age).addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString()).addFormDataPart("city", city).addFormDataPart("status", status.lowercase()).addFormDataPart("address", address).addFormDataPart("grade", grade).addFormDataPart("password", password).addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
 
-        if (file != null)
+        if (imageURI != null)
         {
-            val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
-            val bos = ByteArrayOutputStream()
-            if (bmp != null)
-            {
-                bmp.compress(Bitmap.CompressFormat.JPEG, 30, bos)
-                builder.addFormDataPart("image_name", file.name, RequestBody.create(MultipartBody.FORM, bos.toByteArray()));
-            }
+            val file = File(imageURI)
+            val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            builder.addFormDataPart("profile_image", file.name, requestFile);
         }
         val requestBody: RequestBody = builder.build()
         val call = apiService.addTrainer(requestBody)

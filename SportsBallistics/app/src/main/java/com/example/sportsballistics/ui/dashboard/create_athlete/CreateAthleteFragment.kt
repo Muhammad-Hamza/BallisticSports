@@ -371,7 +371,7 @@ class CreateAthleteFragment : Fragment() {
         } else {
             viewModel.addAthelete(
                 requireContext(),
-                null,
+                imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.text.toString(),
@@ -389,7 +389,7 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
+//                        Navigation.findNavController(binding.root).navigateUp()
                         if (anyObject is DashboardModel) {
                             val obj = anyObject as DashboardModel
 
