@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:text="Dashboard"
+                    android:text="View Dashboard"
                     android:textColor="#B7B7B7"
                     android:textSize="@dimen/_8sdp" />
 

@@ -360,8 +360,8 @@ class CreateAthleteFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-//                        Navigation.findNavController(binding.root).navigateUp()
-                        showMessage("Athlete Added")
+                        Navigation.findNavController(binding.root).navigateUp()
+//                        showMessage("Athlete Added")
                     }
 
                     override fun onError(t: Throwable) {

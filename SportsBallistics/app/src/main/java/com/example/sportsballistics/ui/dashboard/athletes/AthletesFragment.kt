@@ -40,6 +40,7 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.fragment_create_club.*
 
 class AthletesFragment : Fragment() {
@@ -213,6 +214,8 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.recyclerView.visibility = View.GONE
         binding.clubListLayout.txtDetailHeading.setText(model.get(adapterType).name)
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
+        binding.clubListLayout.pieChart.visibility = View.VISIBLE
+        binding.clubListLayout.barChart.visibility = View.GONE
     }
 
     private fun initViewModel() {
@@ -476,7 +479,8 @@ class AthletesFragment : Fragment() {
                 R.color.txt_color_work_ethics
             )
         )
-        dataSet.setColors(listOfColors);
+//        dataSet.setColors(listOfColors);
+        dataSet.setColors(ColorTemplate.createColors(ColorTemplate.COLORFUL_COLORS));
         data.setValueTextSize(10f);
 
         val l: Legend = binding.clubListLayout.pieChart.getLegend()
@@ -513,7 +517,8 @@ class AthletesFragment : Fragment() {
         val set1: BarDataSet
 
         set1 = BarDataSet(values, "Data Set")
-        set1.setColors(listOfColors)
+//        set1.setColors(listOfColors)
+        dataSet.setColors(ColorTemplate.createColors(ColorTemplate.VORDIPLOM_COLORS));
         set1.setDrawValues(false)
         val dataSets = java.util.ArrayList<IBarDataSet>()
         dataSets.add(set1)
@@ -532,6 +537,8 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.barChart.invalidate()
 
 
+//        binding.clubListLayout.pieChart.visibility = View.VISIBLE
+//        binding.clubListLayout.barChart.visibility = View.GONE
     }
 
     private fun showMessage(content: String) {
