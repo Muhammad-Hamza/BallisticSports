@@ -51,7 +51,7 @@
                     android:layout_marginEnd="@dimen/_8sdp"
                     android:background="?android:attr/selectableItemBackground"
                     android:text="View Dashboard"
-                    android:textColor="#B7B7B7"
+                    android:textColor="@color/colorDrawableIcon_color"
                     android:textSize="@dimen/_8sdp" />
 
                 <ImageView

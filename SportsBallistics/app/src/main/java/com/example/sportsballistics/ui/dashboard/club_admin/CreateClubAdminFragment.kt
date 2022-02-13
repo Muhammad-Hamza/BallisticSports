@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -18,9 +17,6 @@ import com.example.sportsballistics.R
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.AthleteResponse
 import com.example.sportsballistics.utils.AppConstant
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -35,6 +31,7 @@ import com.example.sportsballistics.data.remote.club.ClubResponse
 import com.example.sportsballistics.data.remote.club.UsersItem
 import com.example.sportsballistics.databinding.FragmentCreateClubAdminBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -126,6 +123,7 @@ class CreateClubAdminFragment : Fragment() {
             binding.txtEdit.visibility = View.GONE
             binding.tvPasswordLabel.setText("Password")
         }
+
     }
 
     private fun bindDataInUserProfile(athleteResponse: AthleteResponse) {
@@ -252,35 +250,35 @@ class CreateClubAdminFragment : Fragment() {
 
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
-                showMessage("First name is required")
+                showToast("First name is required")
             } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
-                showMessage("Age is required")
+                showToast("Age is required")
             } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
-                showMessage("Club Admin Grade is required")
+                showToast("Club admin grade is required")
             } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
-                showMessage("Email is required")
+                showToast("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
-                showMessage("Email is not valid")
+                showToast("Email is not valid")
             }/* else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                showMessage("Password is required")
+                showToast("Password is required")
             }*/ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
-                showMessage("Contact Number is required")
+                showToast("Contact number is required")
             } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
-                showMessage("Status is required")
+                showToast("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
-                showMessage("First Address is required")
+                showToast("First address is required")
             } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
-                showMessage("City is required")
+                showToast("City is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
-                showMessage("State is required")
+                showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
-                showMessage("Zip Code is required")
+                showToast("Zip code is required")
             } else if (TextUtils.isEmpty(binding.etClub.text.toString())) {
-                showMessage("Club Name is required")
+                showToast("Club name is required")
             } else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                     if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                        showMessage("Password is required")
+                        showToast("Password is required")
                     } else {
                         hitAPIRequest()
                     }
@@ -317,18 +315,18 @@ class CreateClubAdminFragment : Fragment() {
                     override fun onFetched(anyObject: Any) {
                         if (anyObject is DashboardModel) {
                             if (!anyObject.is_error) {
-                                showMessage(anyObject.message)
+                                showToast(anyObject.message)
                                 Navigation.findNavController(binding.root).navigateUp()
                             } else {
-                                showMessage(anyObject.message)
+                                showToast(anyObject.message)
                             }
                         } else {
-                            showMessage("Unable to edit profile profile.\nPlease try again later.")
+                            showToast("Unable to edit profile.\nPlease try again later.")
                         }
                     }
 
                     override fun onError(t: Throwable) {
-//                        showMessage(t?.localizedMessage)
+//                        showToast(t?.localizedMessage)
                     }
                 })
         } else {
@@ -353,25 +351,21 @@ class CreateClubAdminFragment : Fragment() {
                     override fun onFetched(anyObject: Any) {
                         if (anyObject is DashboardModel) {
                             if (!anyObject.is_error) {
-                                showMessage(anyObject.message)
+                                showToast(anyObject.message)
                                 Navigation.findNavController(binding.root).navigateUp()
                             } else {
-                                showMessage(anyObject.message)
+                                showToast(anyObject.message)
                             }
                         } else {
-                            showMessage("Unable to create club Admin profile.\nPlease try again later.")
+                            showToast("Unable to create club admin profile.\nPlease try again later.")
                         }
                     }
 
                     override fun onError(t: Throwable) {
-                        showMessage("Unable to create club Admin profile.\nPlease try again later.")
+                        showToast("Unable to create club admin profile.\nPlease try again later.")
                     }
                 })
         }
-    }
-
-    private fun showMessage(content: String) {
-        Toast.makeText(activity, content, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {
@@ -402,13 +396,13 @@ class CreateClubAdminFragment : Fragment() {
                         if (anyObject.content != null && anyObject.content.users != null && anyObject.content.users.size > 0) {
                             loadClubContent(anyObject.content.users)
                         } else {
-                            showMessage("Clubs not found, please try again later")
+                            showToast("Clubs not found, please try again later")
                         }
                     }
                 }
 
                 override fun onError(t: Throwable) {
-                    showMessage("Club Listing not found, please try again later")
+                    showToast("Club listing not found, please try again later")
                 }
 
             })

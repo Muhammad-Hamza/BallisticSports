@@ -77,7 +77,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -86,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:fontFamily="@font/roboto_regular"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="Submit" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -95,6 +99,7 @@
                 android:layout_gravity="center"
                 android:backgroundTint="@color/white"
                 android:fontFamily="@font/roboto_regular"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:padding="@dimen/_5sdp"
                 android:text="Cancel"
                 android:textColor="@color/actionBarTextColor"

@@ -46,7 +46,7 @@ object ApiClient
 
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         clientBuilder.cookieJar(SessionCookieJar())
-//        clientBuilder.addInterceptor(ChuckerInterceptor(AppSystem.getInstance()))
+        clientBuilder.addInterceptor(ChuckerInterceptor(AppSystem.context))
         clientBuilder.addInterceptor(loggingInterceptor)
         clientBuilder.addInterceptor(NetworkInterceptor(contxt))
         retrofit = Retrofit.Builder().baseUrl(getURL()).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()

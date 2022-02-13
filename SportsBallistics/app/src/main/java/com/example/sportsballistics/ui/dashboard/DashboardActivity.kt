@@ -3,7 +3,6 @@ package com.example.sportsballistics.ui.dashboard
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -19,6 +18,9 @@ import com.example.sportsballistics.ui.SelectionActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel.Companion.TAG
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppStr
+import com.example.sportsballistics.utils.AppUtils
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.example.sportsballistics.utils.launchActivityFinish
 
 class DashboardActivity : AppCompatActivity() {
@@ -129,13 +131,8 @@ class DashboardActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Toast.makeText(
-                this,
-                "User not found\n please login with your credentials",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast(AppStr.userNotFoundContent)
             launchActivityFinish<LoginActivity> {}
-
         }
 
         when (SharedPrefUtil.getInstance().sportsType) {

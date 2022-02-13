@@ -33,8 +33,9 @@
     <color name="txt_color_red">#FF076B</color>
     <color name="colorRipple">#F8D6D6D6</color>
     <color name="color_progressbar_tint_color">#000000</color>
+    <color name="colorDrawableIcon_color">#878383</color>
 
-<!--    <color name="colorTodd">#521A71</color>-->
+    <!--    <color name="colorTodd">#521A71</color>-->
 <!--    <color name="colorBB">#E86A24</color>-->
 <!--    <color name="colorVB">#DE9700</color>-->
 <!--    <color name="colorQB">#C5203D</color>-->

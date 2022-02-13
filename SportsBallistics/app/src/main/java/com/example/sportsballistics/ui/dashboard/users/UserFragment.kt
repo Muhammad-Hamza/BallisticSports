@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -30,6 +29,7 @@ import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import com.example.sportsballistics.ui.dashboard.dashboard.ClubListAdapter
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.user_list_item_header.view.*
 
@@ -241,13 +241,13 @@ class UserFragment : Fragment()
 //                        }
 //                    }
 //                }
-                MaterialDialog(binding.root.context).title(null, "Want to delete!").message(null, "Do you want to delete this User?").positiveButton(null, "YES") {
+                MaterialDialog(binding.root.context).title(null, "Want to delete!").message(null, "Do you want to delete this user?").positiveButton(null, "YES") {
                     viewModel.deleteTrainer(requireContext(), user.id!!, object :
                             AthletesViewModel.ContentFetchListener
                     {
                         override fun onFetched(anyObject: Any)
                         {
-                            Toast.makeText(requireContext(), "User Deleted", Toast.LENGTH_SHORT).show()
+                            showToast(R.string.txt_user_deleted)
                             getContent("")
                         }
                     })

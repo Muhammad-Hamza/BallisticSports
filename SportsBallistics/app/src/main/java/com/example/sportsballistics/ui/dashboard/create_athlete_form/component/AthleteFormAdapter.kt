@@ -6,18 +6,18 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.local.AthleteFormLocalModel
 import com.example.sportsballistics.databinding.ListitemEditFormBinding
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 
 class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    public val paramMap = HashMap<String,String>()
+    public val paramMap = HashMap<String, String>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -51,7 +51,7 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    paramMap[list[position].heading.replace(" ","_")] = s.toString()
+                    paramMap[list[position].heading.replace(" ", "_")] = s.toString()
                     list.get(position).data = s.toString()
                 }
 
@@ -65,15 +65,11 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
     fun allFieldsEdit(): Boolean {
         for (i in 0..(list.size - 1)) {
             if (TextUtils.isEmpty(list.get(i).data)) {
-                showMessage("${list.get(i).heading} is required")
+                showToast("${list.get(i).heading} is required")
                 return false;
             }
         }
         return true
-    }
-
-    private fun showMessage(text: String) {
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemCount(): Int {

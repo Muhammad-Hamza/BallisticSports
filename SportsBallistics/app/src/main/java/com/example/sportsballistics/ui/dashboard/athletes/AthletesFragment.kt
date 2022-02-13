@@ -8,7 +8,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,6 +32,7 @@ import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
@@ -67,6 +67,7 @@ class AthletesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
+        binding.clubListLayout.tvNext.setText("Next")
         loadMainUI()
         binding.clubListLayout.llEditAthlete.setOnClickListener {
             val bundle = Bundle()
@@ -107,13 +108,14 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.tvNext.setOnClickListener()
         {
             if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
-//                Toast.makeText(binding.root.context, "onNext Click", Toast.LENGTH_SHORT).show()
                 if (binding.clubListLayout.pieChart.visibility == View.VISIBLE) {
                     binding.clubListLayout.pieChart.visibility = View.GONE
                     binding.clubListLayout.barChart.visibility = View.VISIBLE
+                    binding.clubListLayout.tvNext.setText("Previous")
                 } else {
                     binding.clubListLayout.pieChart.visibility = View.VISIBLE
                     binding.clubListLayout.barChart.visibility = View.GONE
+                    binding.clubListLayout.tvNext.setText("Next")
                 }
             }
         }
@@ -231,10 +233,12 @@ class AthletesFragment : Fragment() {
 
             override fun addErrorDialog() {
                 binding.progressBar.visibility = View.GONE
+                initAtheletesRecyclerView(ArrayList())
             }
 
             override fun addErrorDialog(msg: String?) {
                 binding.progressBar.visibility = View.GONE
+                initAtheletesRecyclerView(ArrayList())
             }
         })
 
@@ -256,7 +260,7 @@ class AthletesFragment : Fragment() {
                             initAtheletesRecyclerView(content.content.users)
                         } else {
                             initAtheletesRecyclerView(ArrayList<UserModel>())
-                            showMessage("No Athletes found")
+                            showToast(R.string.txt_no_athlete_found)
                         }
                     }
                 }
@@ -328,7 +332,7 @@ class AthletesFragment : Fragment() {
                                 viewModel.deleteTrainer(binding.root.context, id, object :
                                     AthletesViewModel.ContentFetchListener {
                                     override fun onFetched(anyObject: Any) {
-                                        showMessage("Athlete Deleted")
+                                        showToast(R.string.txt_athlete_deleted)
                                     }
                                 })
                             }.negativeButton(null, "NO") {
@@ -350,9 +354,14 @@ class AthletesFragment : Fragment() {
 
     private fun bindDataInUserProfile(athleteDataModel: AthleteDataModel) {
         this.currentAthleteDataModel = athleteDataModel
-        if(athleteDataModel.clubname != null)
-        {
-            binding.clubListLayout.tvClub.setText(AppFunctions.getSpannableText(getString(R.string.txt_athletes_club_name), "{{clubName}}", athleteDataModel.clubname))
+        if (athleteDataModel.clubname != null) {
+            binding.clubListLayout.tvClub.setText(
+                AppFunctions.getSpannableText(
+                    getString(R.string.txt_athletes_club_name),
+                    "{{clubName}}",
+                    athleteDataModel.clubname
+                )
+            )
         }
 //        binding.clubListLayout.tvTrainer.setText(
 //            AppFunctions.getSpannableText(
@@ -361,20 +370,30 @@ class AthletesFragment : Fragment() {
 //                athleteDataModel.
 //            )
 //        )
-        binding.clubListLayout.tvAge.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_age),
-                "{{age}}",
-                athleteDataModel.athletic_name.age
+        if (!TextUtils.isEmpty(athleteDataModel.athletic_name.age)) {
+            binding.clubListLayout.tvAge.setText(
+                AppFunctions.getSpannableText(
+                    getString(R.string.txt_athletes_age),
+                    "{{age}}",
+                    athleteDataModel.athletic_name.age
+                )
             )
-        )
-        binding.clubListLayout.tvGrade.setText(
-            AppFunctions.getSpannableText(
-                getString(R.string.txt_athletes_grade),
-                "{{grade}}",
-                athleteDataModel.athletic_name.grade
+            binding.clubListLayout.tvAge.visibility = View.VISIBLE
+        } else {
+            binding.clubListLayout.tvAge.visibility = View.GONE
+        }
+        if (!TextUtils.isEmpty(athleteDataModel.athletic_name.grade)) {
+            binding.clubListLayout.tvGrade.setText(
+                AppFunctions.getSpannableText(
+                    getString(R.string.txt_athletes_grade),
+                    "{{grade}}",
+                    athleteDataModel.athletic_name.grade
+                )
             )
-        )
+            binding.clubListLayout.tvGrade.visibility = View.VISIBLE
+        } else {
+            binding.clubListLayout.tvGrade.visibility = View.GONE
+        }
         var dataContent = getString(R.string.txt_atheleteNameStr).replace(
             "{{name}}", athleteDataModel.athletic_name.fullname
         )
@@ -539,10 +558,6 @@ class AthletesFragment : Fragment() {
 
 //        binding.clubListLayout.pieChart.visibility = View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
-    }
-
-    private fun showMessage(content: String) {
-        Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
     }
 
     fun loadAssets() {

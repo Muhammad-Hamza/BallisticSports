@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -22,6 +21,7 @@ import com.example.sportsballistics.databinding.FragmentFormListBinding
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListAdapter
 import com.example.sportsballistics.ui.dashboard.form_list.component.FormListViewModel
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 
 class FormListFragment : Fragment() {
@@ -111,13 +111,13 @@ class FormListFragment : Fragment() {
 
             override fun addErrorDialog() {
                 binding.progressBar.visibility = View.GONE
-                showMessage("No data found")
+                showToast(R.string.txt_no_data_found)
                 getBackNavigate()
             }
 
             override fun addErrorDialog(msg: String?) {
                 binding.progressBar.visibility = View.GONE
-                showMessage(msg!!)
+                showToast(msg!!)
                 getBackNavigate()
             }
         })
@@ -126,11 +126,6 @@ class FormListFragment : Fragment() {
     private fun getBackNavigate() {
         Navigation.findNavController(binding.root).navigateUp();
     }
-
-    private fun showMessage(content: String) {
-        Toast.makeText(binding.root.context, content, Toast.LENGTH_SHORT).show()
-    }
-
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType

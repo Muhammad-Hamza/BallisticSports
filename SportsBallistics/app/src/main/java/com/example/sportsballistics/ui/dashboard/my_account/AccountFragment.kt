@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +21,7 @@ import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.FragmentAccountBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 
 class AccountFragment : Fragment() {
@@ -139,7 +139,7 @@ class AccountFragment : Fragment() {
 
             override fun addErrorDialog(msg: String?) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(binding.root.context, msg, Toast.LENGTH_SHORT).show()
+                showToast(msg!!)
             }
         })
     }

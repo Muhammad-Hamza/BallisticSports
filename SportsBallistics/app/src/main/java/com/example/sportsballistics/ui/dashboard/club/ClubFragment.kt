@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -27,6 +26,7 @@ import com.example.sportsballistics.databinding.FragmentClubBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesViewModel
 import com.example.sportsballistics.utils.*
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 
 class ClubFragment : Fragment()
 {
@@ -106,13 +106,13 @@ class ClubFragment : Fragment()
 
             override fun onDeleteClick(adapterType: Int, user: UsersItem)
             {
-                MaterialDialog(binding.root.context).title(null, "Want to delete!").message(null, "Do you want to delete this Club?").positiveButton(null, "YES") {
+                MaterialDialog(binding.root.context).title(null, "Want to delete!").message(null, "Do you want to delete this club?").positiveButton(null, "YES") {
                     viewModel.deleteTrainer(requireContext(), user.id!!, object :
                             AthletesViewModel.ContentFetchListener
                     {
                         override fun onFetched(anyObject: Any)
                         {
-                            Toast.makeText(requireContext(), "Club Deleted", Toast.LENGTH_SHORT).show()
+                            showToast(R.string.txt_club_deleted)
                             getDataFromServer()
                         }
                     })
@@ -128,7 +128,7 @@ class ClubFragment : Fragment()
     private fun initViewModel()
     {
         viewModel = ViewModelProviders.of(this).get(ClubListViewModel::class.java)
-        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener
+        viewModel.attachErrorListener(object : Listeners.NewDialogInteractionListener
         {
             override fun dismissDialog()
             {
@@ -148,6 +148,10 @@ class ClubFragment : Fragment()
             override fun addErrorDialog(msg: String?)
             {
                 binding.progressBar.visibility = View.GONE
+            }
+
+            override fun makeListEmpty() {
+                initRecyclerView(ArrayList())
             }
         })
         getDataFromServer()

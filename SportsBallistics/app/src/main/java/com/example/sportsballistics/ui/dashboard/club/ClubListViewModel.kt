@@ -19,11 +19,11 @@ import retrofit2.Response
 import java.io.IOException
 
 class ClubListViewModel(application: Application) : AndroidViewModel(application) {
-    private lateinit var mErrorListener: Listeners.DialogInteractionListener
+    private lateinit var mErrorListener: Listeners.NewDialogInteractionListener
 
     lateinit var categoryResponse: ClubResponse
     lateinit var dashboardResponse: DashboardResponse
-    fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener) {
+    fun attachErrorListener(mErrorListener: Listeners.NewDialogInteractionListener) {
         this.mErrorListener = mErrorListener
     }
 
@@ -46,11 +46,12 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
                 mErrorListener.dismissDialog()
                 try {
                     val responseBody = response.body()
-                    if (responseBody != null) {
+                    if (responseBody != null && responseBody.content != null && responseBody.content.users != null && responseBody.content.users.size > 0) {
                         categoryResponse = responseBody
                         mListener.onFetched(responseBody)
                     } else {
                         mErrorListener.addErrorDialog()
+                        mErrorListener.makeListEmpty()
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -102,7 +103,12 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
             }
         })
     }
-    fun deleteTrainer(context: Context, clubId: String, mListener: AthletesViewModel.ContentFetchListener) {
+
+    fun deleteTrainer(
+        context: Context,
+        clubId: String,
+        mListener: AthletesViewModel.ContentFetchListener
+    ) {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val call = apiService.deleteClub(clubId)
@@ -110,7 +116,7 @@ class ClubListViewModel(application: Application) : AndroidViewModel(application
             override fun onResponse(
                 call: Call<DashboardModel>,
                 response: Response<DashboardModel>
-                                   ) {
+            ) {
                 Log.d(AthletesViewModel.TAG, response.raw().toString())
                 mErrorListener.dismissDialog()
                 try {

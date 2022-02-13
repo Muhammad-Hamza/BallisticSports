@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -32,13 +31,12 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.local.StateModel
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.example.sportsballistics.utils.CursorUtility
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import com.example.sportsballistics.utils.CursorUtility.getRealPathFromUri
-
-
 
 
 class CreateAthleteFragment : Fragment() {
@@ -48,14 +46,18 @@ class CreateAthleteFragment : Fragment() {
     val PICK_IMAGE = 1
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
     var stateArray = arrayOf("Active", "Inactive")
-    var imageFile :String? = null
+    var imageFile: String? = null
     val listOfState = ArrayList<StateModel>()
     private var selectedStateModel: StateModel? = null
     lateinit var statusAdapter: ArrayAdapter<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), 0);
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE),
+            0
+        );
 
     }
 
@@ -99,7 +101,7 @@ class CreateAthleteFragment : Fragment() {
                     }
 
                     override fun onError(t: Throwable) {
-                        t.message?.let { showMessage(it) }
+                        t.message?.let { showToast(it) }
                     }
                 })
             }
@@ -300,31 +302,31 @@ class CreateAthleteFragment : Fragment() {
 
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
-                showMessage("First name is required")
+                showToast("First name is required")
             } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
-                showMessage("Age is required")
+                showToast("Age is required")
             } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
-                showMessage("Athlete Grade is required")
+                showToast("Athlete grade is required")
             } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
-                showMessage("Email is required")
+                showToast("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
-                showMessage("Email is not valid")
+                showToast("Email is not valid")
             } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
-                showMessage("Contact Number is required")
+                showToast("Contact number is required")
             } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
-                showMessage("Status is required")
+                showToast("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
-                showMessage("First Address is required")
+                showToast("First address is required")
             } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
-                showMessage("City is required")
+                showToast("City is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
-                showMessage("State is required")
+                showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
-                showMessage("Zip Code is required")
+                showToast("Zip code is required")
             } else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                     if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                        showMessage("Password is required")
+                        showToast("Password is required")
                     } else {
                         hitAPIRequest()
                     }
@@ -361,11 +363,11 @@ class CreateAthleteFragment : Fragment() {
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
                         Navigation.findNavController(binding.root).navigateUp()
-//                        showMessage("Athlete Added")
+//                        showToast("Athlete Added")
                     }
 
                     override fun onError(t: Throwable) {
-                        showMessage(t?.localizedMessage)
+                        showToast(t?.localizedMessage)
                     }
                 })
         } else {
@@ -394,21 +396,20 @@ class CreateAthleteFragment : Fragment() {
                             val obj = anyObject as DashboardModel
 
                             if (obj.is_error) {
-                                showMessage(obj.message)
+                                showToast(obj.message)
+                            } else {
+                                Navigation.findNavController(binding.root).navigateUp()
+                                showToast(obj.message)
                             }
                         }
                     }
 
                     override fun onError(t: Throwable) {
-                        showMessage(t?.localizedMessage)
+                        showToast(t?.localizedMessage)
 //                        showMessage(t?.localizedMessage)
                     }
                 })
         }
-    }
-
-    private fun showMessage(content: String) {
-        Toast.makeText(activity, content, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {

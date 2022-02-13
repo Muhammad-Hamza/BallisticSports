@@ -1,12 +1,12 @@
 package com.example.sportsballistics.ui.dashboard.dashboard
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
@@ -23,6 +23,7 @@ import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment
 import com.example.sportsballistics.ui.login.LoginActivity
 import com.example.sportsballistics.utils.*
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 
 
@@ -58,9 +59,9 @@ class DashboardFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_dashboardFragment_to_athletesFragment)
         }
-        binding.llAthleteView.setOnClickListener {
-            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
-        }
+//        binding.llAthleteView.setOnClickListener {
+//            (activity as DashboardActivity).add(AthletesFragment(), R.id.rlParent)
+//        }
         loadAssets()
 
         return binding.root
@@ -133,34 +134,60 @@ class DashboardFragment : Fragment() {
                         binding.tvName.setText(
                             athleteDataModel.data!!.athleticName?.fullname
                         )
-                        binding.tvClub.setText(
-                            AppFunctions.getSpannableText(
-                                getString(R.string.txt_athletes_club_name),
-                                "{{clubName}}",
-                                "${athleteDataModel.data.clubname}"
+                        if (athleteDataModel.data != null && !TextUtils.isEmpty(athleteDataModel.data.clubname)) {
+                            binding.tvClub.setText(
+                                AppFunctions.getSpannableText(
+                                    getString(R.string.txt_athletes_club_name),
+                                    "{{clubName}}",
+                                    "${athleteDataModel.data.clubname}"
+                                )
                             )
-                        )
-                        binding.tvTrainer.setText(
-                            AppFunctions.getSpannableText(
-                                getString(R.string.txt_athletes_trainer),
-                                "{{trainer}}",
-                                "Mike Thomas"
+                            binding.tvClub.visibility = View.VISIBLE
+                        } else {
+                            binding.tvClub.visibility = View.GONE
+                        }
+//                        if (athleteDataModel.data != null && !TextUtils.isEmpty(athleteDataModel.data.)) {
+//                            binding.tvTrainer.setText(
+//                                AppFunctions.getSpannableText(
+//                                    getString(R.string.txt_athletes_trainer),
+//                                    "{{trainer}}",
+//                                    ""
+//                                )
+//                            )
+//                            binding.tvTrainer.visibility = View.VISIBLE
+//                        } else {
+                        binding.tvTrainer.visibility = View.GONE
+//                        }
+                        if (athleteDataModel.data != null && athleteDataModel.data.athleticName != null && !TextUtils.isEmpty(
+                                athleteDataModel.data.athleticName.age
                             )
-                        )
-                        binding.tvAge.setText(
-                            AppFunctions.getSpannableText(
-                                getString(R.string.txt_athletes_age),
-                                "{{age}}",
-                                "${athleteDataModel.data.athleticName?.age}"
+                        ) {
+                            binding.tvAge.setText(
+                                AppFunctions.getSpannableText(
+                                    getString(R.string.txt_athletes_age),
+                                    "{{age}}",
+                                    "${athleteDataModel.data.athleticName?.age}"
+                                )
                             )
-                        )
-                        binding.tvGrade.setText(
-                            AppFunctions.getSpannableText(
-                                getString(R.string.txt_athletes_grade),
-                                "{{grade}}",
-                                "${athleteDataModel.data.athleticName?.grade}"
+                            binding.tvAge.visibility = View.VISIBLE
+                        } else {
+                            binding.tvAge.visibility = View.GONE
+                        }
+                        if (athleteDataModel.data != null && athleteDataModel.data.athleticName != null && !TextUtils.isEmpty(
+                                athleteDataModel.data.athleticName.grade
                             )
-                        )
+                        ) {
+                            binding.tvGrade.setText(
+                                AppFunctions.getSpannableText(
+                                    getString(R.string.txt_athletes_grade),
+                                    "{{grade}}",
+                                    "${athleteDataModel.data.athleticName?.grade}"
+                                )
+                            )
+                            binding.tvGrade.visibility = View.VISIBLE
+                        } else {
+                            binding.tvGrade.visibility = View.GONE
+                        }
                         if (AppSystem.getInstance()
                                 .getCurrentUser()!!.loggedIn!!.profileImage != null
                         ) {
@@ -200,23 +227,12 @@ class DashboardFragment : Fragment() {
                     }
                 }
                 else -> {
-                    Toast.makeText(
-                        requireContext(),
-                        "Invalid Login\n please login with your credentials",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    requireActivity().launchActivityFinish<LoginActivity> {
-                    }
-
+                    showToast(R.string.txt_invalid_login_content)
                 }
             }
         } else {
-            if(context != null)
-            Toast.makeText(
-                requireContext(),
-                "User not found\n please login with your credentials",
-                Toast.LENGTH_SHORT
-            ).show()
+            if (context != null)
+                showToast(R.string.txt_user_not_found_content)
             requireActivity().launchActivityFinish<LoginActivity> {
             }
         }
@@ -227,19 +243,23 @@ class DashboardFragment : Fragment() {
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
             override fun dismissDialog() {
                 binding.progressBar.visibility = View.GONE
+                binding.llDashboard.visibility = View.VISIBLE
             }
 
             override fun addDialog() {
                 binding.progressBar.visibility = View.VISIBLE
+                binding.llDashboard.visibility = View.GONE
             }
 
             override fun addErrorDialog() {
                 binding.progressBar.visibility = View.GONE
+                binding.llDashboard.visibility = View.VISIBLE
             }
 
             override fun addErrorDialog(msg: String?) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(binding.root.context, msg, Toast.LENGTH_SHORT).show()
+                binding.llDashboard.visibility = View.VISIBLE
+                showToast(msg!!)
             }
         })
 
@@ -254,6 +274,7 @@ class DashboardFragment : Fragment() {
                             initViews(null, anyObject)
                         }
                         binding.progressBar.visibility = View.GONE
+                        binding.llDashboard.visibility = View.VISIBLE
                     }
 
                 }, AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.id!!
@@ -268,13 +289,9 @@ class DashboardFragment : Fragment() {
                         if (content != null && content.loggedIn != null) {
                             initViews(content.loggedIn, null)
                             binding.progressBar.visibility = View.GONE
+                            binding.llDashboard.visibility = View.VISIBLE
                         } else {
-                            Toast.makeText(
-                                binding.root.context,
-                                "User not found",
-                                Toast.LENGTH_SHORT
-                            )
-                                .show()
+                            showToast(R.string.txt_user_not_found_normal_content)
                             Navigation.findNavController(binding.root).navigateUp()
                         }
                     }

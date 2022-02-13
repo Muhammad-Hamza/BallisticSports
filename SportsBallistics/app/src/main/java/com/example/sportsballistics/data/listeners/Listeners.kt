@@ -8,4 +8,11 @@ class Listeners {
         fun addErrorDialog()
         fun addErrorDialog(msg: String?)
     }
+    interface NewDialogInteractionListener {
+        fun dismissDialog()
+        fun addDialog()
+        fun addErrorDialog()
+        fun addErrorDialog(msg: String?)
+        fun makeListEmpty()
+    }
 }

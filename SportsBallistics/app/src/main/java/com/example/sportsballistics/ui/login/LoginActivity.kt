@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +18,8 @@ import com.example.sportsballistics.data.remote.login.UserResponse
 import com.example.sportsballistics.databinding.LoginBinding
 import com.example.sportsballistics.ui.dashboard.DashboardActivity
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.example.sportsballistics.utils.launchActivity
 import com.example.sportsballistics.utils.launchActivityFinish
 
@@ -56,11 +57,7 @@ class LoginActivity : AppCompatActivity() {
                         binding.btnLogin.revertAnimation()
                         if (userResponse != null) {
                             if (userResponse.isError!!) {
-                                Toast.makeText(
-                                    applicationContext!!,
-                                    userResponse.message,
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                showToast(userResponse.message!!)
                             } else {
                                 AppSystem.getInstance().setCurrentUser(userResponse)
                                 binding.btnLogin.revertAnimation();
@@ -73,11 +70,7 @@ class LoginActivity : AppCompatActivity() {
                                 },200)
                             }
                         } else {
-                            Toast.makeText(
-                                applicationContext!!,
-                                userResponse.message,
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            showToast(userResponse.message!!)
                         }
                     }
                 })

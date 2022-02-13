@@ -58,16 +58,21 @@
                     android:textColor="@color/actionBarColor"
                     android:textSize="@dimen/_20sdp" />
 
-                <TextView
-                    android:id="@+id/txtBody"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ScrollView
+                    android:layout_width="match_parent"
                     android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:fontFamily="@font/roboto_regular"
-                    android:text="body"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtBody"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_25sdp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:text="body"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13sdp" />
+                </ScrollView>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

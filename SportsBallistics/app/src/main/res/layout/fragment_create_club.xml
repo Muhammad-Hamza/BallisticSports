@@ -93,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Club Name*"
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
@@ -124,7 +124,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Address*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -163,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="City"
                                 android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_9sdp" />
@@ -195,7 +195,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="State"
                                 android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_9sdp" />
@@ -252,7 +252,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="@dimen/_5sdp"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Zipcode*"
                                 android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_9sdp" />
@@ -290,7 +290,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/roboto_regular"
+                                android:fontFamily="@font/roboto_medium"
                                 android:text="Status"
                                 android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_9sdp" />
@@ -348,20 +348,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_10sdp"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Submit" />
 
-                    <TextView
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/tvCancel"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="?android:attr/selectableItemBackground"
+                        android:foreground="?android:attr/selectableItemBackground"
                         android:fontFamily="@font/roboto_regular"
                         android:padding="@dimen/_5sdp"
                         android:text="Cancel"
+                        android:backgroundTint="@color/white"
                         android:textColor="@color/textColorSecondary"
                         android:textSize="@dimen/_11sdp" />
 

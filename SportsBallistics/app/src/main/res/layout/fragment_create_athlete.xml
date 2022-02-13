@@ -92,7 +92,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Full Name*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -121,7 +121,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Age*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -151,7 +151,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Grade*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -187,7 +187,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Email*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -224,7 +224,7 @@
                             android:id="@+id/tvPasswordLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Password*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -260,7 +260,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Contact#*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -289,7 +289,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Status*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -345,7 +345,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto_regular"
+                        android:fontFamily="@font/roboto_medium"
                         android:text="Address*"
                         android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_9sdp" />
@@ -381,7 +381,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="City*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -412,7 +412,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="State*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -471,7 +471,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/roboto_regular"
+                            android:fontFamily="@font/roboto_medium"
                             android:text="Zipcode*"
                             android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_9sdp" />
@@ -496,7 +496,7 @@
                     android:id="@+id/tvProfilePic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/roboto_medium"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingBottom="@dimen/_5sdp"
                     android:text="Profile Photo"
@@ -517,15 +517,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/roboto_regular"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:text="Submit" />
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/tvCancel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:backgroundTint="@color/white"
                     android:fontFamily="@font/roboto_regular"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:padding="@dimen/_5sdp"
                     android:text="Cancel"
                     android:textColor="@color/textColorSecondary"

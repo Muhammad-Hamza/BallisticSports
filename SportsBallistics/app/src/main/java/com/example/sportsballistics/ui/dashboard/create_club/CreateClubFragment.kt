@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,6 +28,7 @@ import com.example.sportsballistics.data.remote.ViewClubResponse
 import com.example.sportsballistics.databinding.FragmentCreateClubBinding
 import com.example.sportsballistics.ui.dashboard.create_club.component.StateAdapter
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -124,17 +124,17 @@ class CreateClubFragment : Fragment() {
 
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etClubName.text.toString())) {
-                showMessage("Club Name is required")
+                showToast("Club name is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
-                showMessage("First Address is required")
+                showToast("First address is required")
             } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
-                showMessage("City is required")
+                showToast("City is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
-                showMessage("State is required")
+                showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
-                showMessage("Zip Code is required")
+                showToast("Zip code is required")
             } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
-                showMessage("Status is required")
+                showToast("Status is required")
             } else {
                 if (!isEdit)
                     addClub(
@@ -167,7 +167,6 @@ class CreateClubFragment : Fragment() {
     }
 
     private fun hitAPIRequest() {
-        showMessage("Done Adding Club")
         //TODO NEED TO ADD API REQUEST HIT.
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && clubId != null) {
             //Create Edit Request
@@ -205,10 +204,6 @@ class CreateClubFragment : Fragment() {
             }
 
         })
-    }
-
-    private fun showMessage(text: String) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {
@@ -302,12 +297,12 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) {
-                        Toast.makeText(requireContext(), "Club added", Toast.LENGTH_SHORT).show()
+                        showToast("Club added")
                         Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
-                        Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                        showToast(t.message!!)
                     }
                 })
         }
@@ -341,16 +336,12 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Club Updated Successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        showToast("Club updated successfully")
                         Navigation.findNavController(binding.root).navigateUp()
                     }
 
                     override fun onError(t: Throwable) {
-                        Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                        showToast(t.message!!)
                     }
                 })
         }
@@ -368,20 +359,19 @@ class CreateClubFragment : Fragment() {
     ) {
         when {
             name.isNotEmpty() -> {
-                Toast.makeText(requireContext(), "Please insert name", Toast.LENGTH_SHORT).show()
+                showToast("Please insert name")
             }
             address.isNotEmpty() -> {
-                Toast.makeText(requireContext(), "Please insert address", Toast.LENGTH_SHORT).show()
+                showToast("Please insert address")
             }
             email.isNotEmpty() -> {
-                Toast.makeText(requireContext(), "Please insert email", Toast.LENGTH_SHORT).show()
+                showToast("Please insert email")
             }
             city.isNotEmpty() -> {
-                Toast.makeText(requireContext(), "Please insert city", Toast.LENGTH_SHORT).show()
+                showToast("Please insert city")
             }
             password.isNotEmpty() -> {
-                Toast.makeText(requireContext(), "Please insert password", Toast.LENGTH_SHORT)
-                    .show()
+                showToast("Please insert password")
             }
         }
     }

@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -25,6 +24,7 @@ import com.example.sportsballistics.data.remote.AthleteResponse
 import com.example.sportsballistics.databinding.FragmentCreateTrainerBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.utils.AppConstant
+import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 
 class CreateTrainerFragment : Fragment() {
     private lateinit var binding: FragmentCreateTrainerBinding
@@ -192,33 +192,33 @@ class CreateTrainerFragment : Fragment() {
 
         binding.btnSubmit.setOnClickListener {
             if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
-                showMessage("First name is required")
+                showToast("First name is required")
             } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
-                showMessage("Age is required")
+                showToast("Age is required")
             } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
-                showMessage("Trainer Grade is required")
+                showToast("Trainer grade is required")
             } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
-                showMessage("Email is required")
+                showToast("Email is required")
             } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
-                showMessage("Email is not valid")
+                showToast("Email is not valid")
             } /*else if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                showMessage("Password is required")
+                showToast("Password is required")
             } */ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
-                showMessage("Contact Number is required")
+                showToast("Contact number is required")
             } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
-                showMessage("Status is required")
+                showToast("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
-                showMessage("First Address is required")
+                showToast("First address is required")
             } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
-                showMessage("City is required")
+                showToast("City is required")
             } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
-                showMessage("State is required")
+                showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
-                showMessage("Zip Code is required")
+                showToast("Zip code is required")
             } else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                     if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                        showMessage("Password is required")
+                        showToast("Password is required")
                     } else {
                         hitAPIRequest()
                     }
@@ -316,10 +316,6 @@ class CreateTrainerFragment : Fragment() {
                     }
                 })
         }
-    }
-
-    private fun showMessage(content: String) {
-        Toast.makeText(requireContext(), content, Toast.LENGTH_SHORT).show()
     }
 
     private fun initViewModel() {
