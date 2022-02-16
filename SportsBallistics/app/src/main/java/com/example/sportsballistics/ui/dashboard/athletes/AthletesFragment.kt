@@ -27,9 +27,11 @@ import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.data.remote.athletes.AthleteDataModel
 import com.example.sportsballistics.data.remote.athletes.Service
+import com.example.sportsballistics.data.remote.form_service.FormServiceModel
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
+import com.example.sportsballistics.ui.dashboard.create_athlete_form.component.AthleteFormViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.AppUtils.Companion.showToast
@@ -47,7 +49,7 @@ class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
     private lateinit var viewModel: AthletesViewModel
     private lateinit var adapter: AthletesAdapter
-    private var currentModel: List<Service>? = null
+    private var currentModel: FormServiceModel? = null
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
     private var currentAthleteDataModel: AthleteDataModel? = null
@@ -163,19 +165,23 @@ class AthletesFragment : Fragment() {
 
     }
 
-    private fun initCoachListData(services: List<Service>) {
+    private fun initCoachListData(services: AthleteDataModel) {
         binding.clubListLayout.rvCoachList.layoutManager =
             LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
         coachListAdapter = CoachDataAdapter(services)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
-        var sum = 0
-        var avg = 0
-        for (i in 0..(services.size - 1)) {
-            sum = sum.toInt() + services.get(i).sum.toInt()
-            avg = avg.toInt() + services.get(i).average.toInt()
-        }
-        binding.clubListLayout.tvSummary.setText("AVG: ${avg} | SUM: ${sum}")
+//        var sum = 0
+//        var avg = 0
+//        for (i in 0..(services.size - 1)) {
+//            sum = sum.toInt() + services.get(i).sum.toInt()
+//            avg = avg.toInt() + services.get(i).average.toInt()
+//        }
+        binding.clubListLayout.tvSummary.setText(
+            "AVG: ${
+                services.average.toInt().toString()
+            } | SUM: ${services.sum.toInt().toString()}"
+        )
 
     }
 
@@ -185,7 +191,7 @@ class AthletesFragment : Fragment() {
     }
 
     //TODO whats this?
-    private fun initRecyclerView(services: List<Service>) {
+    private fun initRecyclerView(services: List<Service>, userId: String) {
         binding.clubListLayout.recyclerView.layoutManager =
             GridLayoutManager(binding.root.context, 2, RecyclerView.VERTICAL, false)
         binding.clubListLayout.recyclerView.setHasFixedSize(true)
@@ -196,8 +202,21 @@ class AthletesFragment : Fragment() {
                 }
 
                 override fun onViewClick(adapterType: Int, anyData: Any) {
-                    if (anyData is List<*>) {
-                        loadCoachData(anyData as List<Service>, adapterType)
+//                    if (anyData is List<*>) {
+                    if (anyData is Service) {
+                        viewModel.loadDetailAthleteList(
+                            requireContext(),
+                            anyData,
+                            userId,
+                            object : AthletesViewModel.ContentFetchListener {
+                                override fun onFetched(anyObject: Any) {
+                                    if (anyObject is FormServiceModel) {
+                                        loadCoachData(anyObject, adapterType)
+                                    }
+                                    binding.progressBar.visibility = View.GONE
+                                }
+                            })
+//                        loadCoachData(anyData as List<Service>, adapterType)
                     }
                 }
 
@@ -211,10 +230,12 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.recyclerView.adapter = adapter
     }
 
-    private fun loadCoachData(model: List<Service>, adapterType: Int) {
+    private fun loadCoachData(model: FormServiceModel, adapterType: Int) {
         this.currentModel = model
+        loadCoachabilityChart(model.data!!)
+        initCoachListData(model.data)
         binding.clubListLayout.recyclerView.visibility = View.GONE
-        binding.clubListLayout.txtDetailHeading.setText(model.get(adapterType).name)
+        binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
         binding.clubListLayout.pieChart.visibility = View.VISIBLE
         binding.clubListLayout.barChart.visibility = View.GONE
@@ -417,9 +438,7 @@ class AthletesFragment : Fragment() {
             .into(binding.clubListLayout.ivImageView)
         binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(dataContent))
 
-        loadCoachabilityChart(athleteDataModel.services)
-        initCoachListData(athleteDataModel.services)
-        initRecyclerView(athleteDataModel.services)
+        initRecyclerView(athleteDataModel.services, athleteDataModel.user_id)
         binding.clubListLayout.llList.visibility = View.GONE
         binding.clubListLayout.llMainLayout.visibility = View.VISIBLE
         when (AppSystem.getInstance().getCurrentUser()!!.loggedIn!!.roleId) {
@@ -441,18 +460,24 @@ class AthletesFragment : Fragment() {
         }
     }
 
-    private fun loadCoachabilityChart(services: List<Service>) {
+    private fun loadCoachabilityChart(services: AthleteDataModel) {
         binding.clubListLayout.pieChart.setUsePercentValues(true);
 
         val values = ArrayList<BarEntry>()
         val yvalues: ArrayList<PieEntry> = ArrayList<PieEntry>();
-        for (i in 0..(services.size - 1)) {
-            yvalues.add(PieEntry(services.get(i).average.toFloat(), services.get(i).name, (i + 1)))
+        for (i in 0..(services.nameArr.size - 1)) {
+            yvalues.add(
+                PieEntry(
+                    services.valueArr.get(i).toFloat(),
+                    services.nameArr.get(i),
+                    (i + 1)
+                )
+            )
             values.add(
                 BarEntry(
                     (i + 1).toFloat(),
-                    services.get(i).average.toFloat(),
-                    services.get(i).name
+                    services.valueArr.get(i).toFloat(),
+                    services.nameArr.get(i)
                 )
             )
         }

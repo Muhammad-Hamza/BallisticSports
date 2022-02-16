@@ -9,6 +9,10 @@ data class AthleteDataModel(
     val services: List<Service>,
     val result: List<String>,
     val nameArr: List<String>,
+    val valueArr: List<String>,
+    val percentage: Double,
+    val average: Double,
+    val sum: Double,
     val title: String,
 )
 

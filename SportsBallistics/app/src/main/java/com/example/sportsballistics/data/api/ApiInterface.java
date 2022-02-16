@@ -193,6 +193,7 @@ public interface ApiInterface {
 
     @POST(URLIdentifiers.GET_SETTING)
     Call<AccountResponse> getSetting(@Path("SLUG") String slug);
+
 }
 
 

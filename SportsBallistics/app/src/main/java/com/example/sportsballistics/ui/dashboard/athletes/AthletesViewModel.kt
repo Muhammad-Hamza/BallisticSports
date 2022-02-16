@@ -10,9 +10,12 @@ import com.example.sportsballistics.data.api.ApiInterface
 import com.example.sportsballistics.data.api.network_interceptor.NoConnectivityException
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.remote.DashboardModel
+import com.example.sportsballistics.data.remote.athletes.Service
+import com.example.sportsballistics.data.remote.form_service.FormServiceModel
 import com.example.sportsballistics.data.remote.service.ServiceResponseModel
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
+import com.example.sportsballistics.ui.dashboard.create_athlete_form.component.AthleteFormViewModel
 import com.example.sportsballistics.ui.dashboard.dashboard.DashboardViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,7 +30,7 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
     }
 
     companion object {
-         val TAG = DashboardViewModel::class.java.simpleName
+        val TAG = DashboardViewModel::class.java.simpleName
     }
 
     fun getContent(
@@ -151,6 +154,43 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
             }
 
             override fun onFailure(call: Call<ServiceResponseModel>, t: Throwable) {
+                mErrorListener.dismissDialog()
+                if (t is NoConnectivityException) {
+                    mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
+                } else {
+                    mErrorListener.addErrorDialog()
+                }
+            }
+        })
+    }
+
+    fun loadDetailAthleteList(
+        context: Context,
+        model: Service, userId: String,
+        mListener: ContentFetchListener
+    ) {
+        mErrorListener.addDialog()
+        val apiService = ApiClient.client(context).create(ApiInterface::class.java)
+        val call =
+            apiService.getFormInfo(model.slug, userId)
+        call.enqueue(object : Callback<FormServiceModel> {
+            override fun onResponse(
+                call: Call<FormServiceModel>,
+                response: Response<FormServiceModel>
+            ) {
+                try {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        mListener.onFetched(responseBody)
+                    } else {
+                        mErrorListener.addErrorDialog()
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onFailure(call: Call<FormServiceModel>, t: Throwable) {
                 mErrorListener.dismissDialog()
                 if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))

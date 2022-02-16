@@ -65,7 +65,7 @@ class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListene
         holder.binding.tvHeading.setText(list.get(position).name)
         holder.binding.tvPercentage.setText("" + (list.get(position).percent.toInt()) + " %")
         holder.binding.tvView.setOnClickListener {
-            mListener.onViewClick(position, list)
+            mListener.onViewClick(position, list.get(position))
         }
         AppConstant.changeColor(holder.binding.tvHeading)
         AppConstant.changeColor(holder.binding.tvView)
