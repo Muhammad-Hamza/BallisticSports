@@ -128,15 +128,15 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (athleteResponse.userData?.status!!.equals(
+        if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
                 "Active",
                 true
             ) || athleteResponse.userData?.status.equals("Y", true)
         ) {
-//            binding.etStatus.setSelection(0)
+            binding.etStatus.setSelection(0)
             binding.etStatus.setText("Active")
         } else {
-//            binding.etStatus.(1)
+            binding.etStatus.setSelection(1)
             binding.etStatus.setText(
                 "Inactive"
             )
@@ -350,7 +350,7 @@ class CreateAthleteFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -379,7 +379,7 @@ class CreateAthleteFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),

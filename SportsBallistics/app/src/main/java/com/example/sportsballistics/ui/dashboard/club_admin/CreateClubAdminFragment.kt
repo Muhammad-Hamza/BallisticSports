@@ -138,11 +138,16 @@ class CreateClubAdminFragment : Fragment() {
                     "Active",
                     true
                 ) || athleteResponse.userData?.status.equals("Y", true)
-            ) binding.etStatus.setText("Active") else binding.etStatus.setText(
-                "Inactive"
-            )
+            ) {
+                binding.etStatus.setText("Active")
+                binding.etStatus.setSelection(0)
+            } else {
+                binding.etStatus.setSelection(1)
+                binding.etStatus.setText("Inactive")
+            }
         } else {
-            binding.etStatus.setText("")
+            binding.etStatus.setSelection(1)
+            binding.etStatus.setText("Inactive")
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
@@ -301,7 +306,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -337,7 +342,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),

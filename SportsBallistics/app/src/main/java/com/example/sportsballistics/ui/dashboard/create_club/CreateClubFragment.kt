@@ -147,7 +147,7 @@ class CreateClubFragment : Fragment() {
                         "",
                         binding.etCity.text.toString(),
                         "",
-                        binding.etStatus.text.toString()
+                        binding.etStatus.text.toString().lowercase()
                     )
                 else
                     editClub(
@@ -160,7 +160,7 @@ class CreateClubFragment : Fragment() {
                         "",
                         binding.etCity.text.toString(),
                         "",
-                        binding.etStatus.text.toString()
+                        binding.etStatus.text.toString().lowercase()
                     )
             }
         }
@@ -241,11 +241,16 @@ class CreateClubFragment : Fragment() {
                             "Active",
                             true
                         ) || content.clubData?.status.equals("Y", true)
-                    ) binding.etStatus.setText("Active") else binding.etStatus.setText(
-                        "Inactive"
-                    )
+                    ) {
+                        binding.etStatus.setText("Active")
+                        binding.etState.setSelection(0)
+                    } else {
+                        binding.etStatus.setText("Inactive")
+                        binding.etState.setSelection(1)
+                    }
                 } else {
-                    binding.etStatus.setText("")
+                    binding.etStatus.setText("Inactive")
+                    binding.etState.setSelection(1)
                 }
                 binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
                 binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE

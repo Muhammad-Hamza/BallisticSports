@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.anychart.AnyChart
+import com.anychart.AnyChartView
 import com.anychart.chart.common.dataentry.DataEntry
 import com.anychart.chart.common.dataentry.ValueDataEntry
 import com.anychart.charts.Pie
@@ -51,7 +52,8 @@ class AthletesFragment : Fragment() {
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
     private var currentAthleteDataModel: AthleteDataModel? = null
-    lateinit var pie: Pie;
+    var pie: Pie? = null;
+    var pieChart: AnyChartView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -69,25 +71,33 @@ class AthletesFragment : Fragment() {
     }
 
     private fun initChart() {
+//        if (pieChart != null) {
+//            pieChart!!.setChart(null)
+//            pieChart = null
+//        }
+        if (pie != null) {
+            pie!!.dispose();
+            pie = null
+        }
         pie = AnyChart.pie()
-        pie.labels().position("inside")
+        pie!!.labels().position("inside")
 
-        pie.legend().title().enabled(false)
-        pie.legend().paginator(false)
-        pie.legend()
+        pie!!.legend().title().enabled(false)
+        pie!!.legend().paginator(false)
+        pie!!.legend()
             .fontSize(9)
             .position("bottom")
             .iconSize(9)
             .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE)
             .align(Align.CENTER)
-        pie.container("container")
-        pie.background().fill("#FFFFFF", 1)
-        pie.animation(true)
+        pie!!.container("container")
+        pie!!.background().fill("#FFFFFF", 1)
+        pie!!.animation(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initChart()
+        pieChart = binding.root.findViewById(R.id.pieChart);
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
 //        binding.clubListLayout.tvNext.setText("Next")
@@ -135,7 +145,7 @@ class AthletesFragment : Fragment() {
             binding.clubListLayout.tvNext.visibility = View.VISIBLE
             coachListAdapter!!.parentPosition = adapterPosition - 1
             loadServiceData(
-                adapter.list.get(adapterPosition).slug,
+                adapter.list.get(coachListAdapter!!.parentPosition).slug,
                 currentAthleteDataModel!!.user_id,
                 coachListAdapter!!.parentPosition
             )
@@ -158,7 +168,7 @@ class AthletesFragment : Fragment() {
             binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
             coachListAdapter!!.parentPosition = adapterPosition + 1
             loadServiceData(
-                adapter.list.get(adapterPosition).slug,
+                adapter.list.get(coachListAdapter!!.parentPosition).slug,
                 currentAthleteDataModel!!.user_id,
                 coachListAdapter!!.parentPosition
             )
@@ -261,6 +271,7 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachData(model: FormServiceModel, adapterType: Int) {
+        initChart()
         if (adapterType == 0) {
             binding.clubListLayout.tvPrevious.visibility = View.INVISIBLE
         } else {
@@ -277,7 +288,7 @@ class AthletesFragment : Fragment() {
         binding.clubListLayout.recyclerView.visibility = View.GONE
         binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
-        binding.clubListLayout.pieChart.visibility = View.VISIBLE
+        pieChart!!.visibility = View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
     }
 
@@ -524,8 +535,7 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-//        binding.clubListLayout.pieChart.clear()
-        binding.clubListLayout.pieChart.setChart(null)
+        pieChart!!.setChart(null)
         val data: MutableList<DataEntry> = ArrayList()
         for (i in 0..(services.nameArr.size - 1)) {
             data.add(
@@ -535,9 +545,9 @@ class AthletesFragment : Fragment() {
                 )
             )
         }
-        pie.data(data)
-        binding.clubListLayout.pieChart.setChart(pie)
-        binding.clubListLayout.pieChart.invalidate()
+        pie!!.data(data)
+        pieChart!!.setChart(pie)
+        pieChart!!.invalidate()
     }
 
     fun loadAssets() {

@@ -111,11 +111,16 @@ class CreateTrainerFragment : Fragment() {
                     "Active",
                     true
                 ) || athleteResponse.userData?.status.equals("Y", true)
-            ) binding.etStatus.setText("Active") else binding.etStatus.setText(
-                "Inactive"
-            )
+            ) {
+                binding.etStatus.setText("Active")
+                binding.etState.setSelection(0)
+            } else {
+                binding.etStatus.setText("Inactive")
+                binding.etState.setSelection(1)
+            }
         } else {
-            binding.etStatus.setText("")
+            binding.etStatus.setText("Inactive")
+            binding.etState.setSelection(1)
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
@@ -265,7 +270,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -294,7 +299,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString(),
+                binding.etStatus.text.toString().lowercase(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
