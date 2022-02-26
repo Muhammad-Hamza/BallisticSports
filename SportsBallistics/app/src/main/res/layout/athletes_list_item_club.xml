@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View Dashboard"
-                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
                     android:textColor="@color/actionBarTextColor"
                     android:textSize="@dimen/_8sdp" />
 

@@ -64,7 +64,7 @@ class AthletesAdapter(var list: List<Service>, val mListener: OnItemClickListene
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.tvHeading.setText(list.get(position).name)
         holder.binding.tvPercentage.setText("" + (list.get(position).percent.toInt()) + " %")
-        holder.binding.tvView.setOnClickListener {
+        holder.binding.llContent.setOnClickListener {
             mListener.onViewClick(position, list.get(position))
         }
         AppConstant.changeColor(holder.binding.tvHeading)

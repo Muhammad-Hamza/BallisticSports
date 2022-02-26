@@ -1,14 +1,15 @@
 package com.example.sportsballistics.ui.dashboard.athletes
 
-import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -17,6 +18,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.anychart.AnyChart
+import com.anychart.chart.common.dataentry.DataEntry
+import com.anychart.chart.common.dataentry.ValueDataEntry
+import com.anychart.charts.Pie
+import com.anychart.enums.Align
+import com.anychart.enums.LegendLayout
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
@@ -31,19 +38,10 @@ import com.example.sportsballistics.data.remote.form_service.FormServiceModel
 import com.example.sportsballistics.data.remote.generic.GenericResponse
 import com.example.sportsballistics.data.remote.generic.UserModel
 import com.example.sportsballistics.databinding.FragmentAthletesBinding
-import com.example.sportsballistics.ui.dashboard.create_athlete_form.component.AthleteFormViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.AppUtils.Companion.showToast
-import com.example.sportsballistics.utils.chart.ChartPerentageFormatter
-import com.github.mikephil.charting.components.Description
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.XAxis.XAxisPosition
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
-import com.github.mikephil.charting.utils.ColorTemplate
-import kotlinx.android.synthetic.main.fragment_create_club.*
+
 
 class AthletesFragment : Fragment() {
     lateinit var binding: FragmentAthletesBinding
@@ -53,6 +51,11 @@ class AthletesFragment : Fragment() {
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
     private var currentAthleteDataModel: AthleteDataModel? = null
+    lateinit var pie: Pie;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,11 +68,29 @@ class AthletesFragment : Fragment() {
         return binding.root
     }
 
+    private fun initChart() {
+        pie = AnyChart.pie()
+        pie.labels().position("inside")
+
+        pie.legend().title().enabled(false)
+        pie.legend().paginator(false)
+        pie.legend()
+            .fontSize(9)
+            .position("bottom")
+            .iconSize(9)
+            .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE)
+            .align(Align.CENTER)
+        pie.container("container")
+        pie.background().fill("#FFFFFF", 1)
+        pie.animation(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initChart()
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
-        binding.clubListLayout.tvNext.setText("Next")
+//        binding.clubListLayout.tvNext.setText("Next")
         loadMainUI()
         binding.clubListLayout.llEditAthlete.setOnClickListener {
             val bundle = Bundle()
@@ -100,26 +121,48 @@ class AthletesFragment : Fragment() {
 
         })
 
-        binding.clubListLayout.tvDashboard.setOnClickListener()
+        binding.clubListLayout.tvPrevious.setOnClickListener()
         {
-            if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
-                currentModel = null
-                loadMainUI()
+            var adapterPosition = 0
+            if (coachListAdapter != null) {
+                adapterPosition = coachListAdapter!!.parentPosition
             }
+            if ((adapterPosition - 1) == 0) {
+                binding.clubListLayout.tvPrevious.visibility = View.INVISIBLE
+            } else {
+                binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
+            }
+            binding.clubListLayout.tvNext.visibility = View.VISIBLE
+            coachListAdapter!!.parentPosition = adapterPosition - 1
+            loadServiceData(
+                adapter.list.get(adapterPosition).slug,
+                currentAthleteDataModel!!.user_id,
+                coachListAdapter!!.parentPosition
+            )
+//            if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
+//                currentModel = null
+//                loadMainUI()
+//            }
         }
         binding.clubListLayout.tvNext.setOnClickListener()
         {
-            if (currentModel != null && binding.clubListLayout.recyclerView.visibility == View.GONE) {
-                if (binding.clubListLayout.pieChart.visibility == View.VISIBLE) {
-                    binding.clubListLayout.pieChart.visibility = View.GONE
-                    binding.clubListLayout.barChart.visibility = View.VISIBLE
-                    binding.clubListLayout.tvNext.setText("Previous")
-                } else {
-                    binding.clubListLayout.pieChart.visibility = View.VISIBLE
-                    binding.clubListLayout.barChart.visibility = View.GONE
-                    binding.clubListLayout.tvNext.setText("Next")
-                }
+            var adapterPosition = 0
+            if (coachListAdapter != null) {
+                adapterPosition = coachListAdapter!!.parentPosition
             }
+            if ((adapterPosition + 1) == (adapter.list.size - 1)) {
+                binding.clubListLayout.tvNext.visibility = View.INVISIBLE
+            } else {
+                binding.clubListLayout.tvNext.visibility = View.VISIBLE
+            }
+            binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
+            coachListAdapter!!.parentPosition = adapterPosition + 1
+            loadServiceData(
+                adapter.list.get(adapterPosition).slug,
+                currentAthleteDataModel!!.user_id,
+                coachListAdapter!!.parentPosition
+            )
+
         }
         binding.clubListLayout.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
@@ -165,11 +208,11 @@ class AthletesFragment : Fragment() {
 
     }
 
-    private fun initCoachListData(services: AthleteDataModel) {
+    private fun initCoachListData(services: AthleteDataModel, adapterPosition: Int) {
         binding.clubListLayout.rvCoachList.layoutManager =
             LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
         binding.clubListLayout.rvCoachList.setHasFixedSize(true)
-        coachListAdapter = CoachDataAdapter(services)
+        coachListAdapter = CoachDataAdapter(services, adapterPosition)
         binding.clubListLayout.rvCoachList.adapter = coachListAdapter
 //        var sum = 0
 //        var avg = 0
@@ -202,21 +245,8 @@ class AthletesFragment : Fragment() {
                 }
 
                 override fun onViewClick(adapterType: Int, anyData: Any) {
-//                    if (anyData is List<*>) {
                     if (anyData is Service) {
-                        viewModel.loadDetailAthleteList(
-                            requireContext(),
-                            anyData,
-                            userId,
-                            object : AthletesViewModel.ContentFetchListener {
-                                override fun onFetched(anyObject: Any) {
-                                    if (anyObject is FormServiceModel) {
-                                        loadCoachData(anyObject, adapterType)
-                                    }
-                                    binding.progressBar.visibility = View.GONE
-                                }
-                            })
-//                        loadCoachData(anyData as List<Service>, adapterType)
+                        loadServiceData(anyData.slug, userId, adapterType)
                     }
                 }
 
@@ -231,19 +261,40 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachData(model: FormServiceModel, adapterType: Int) {
+        if (adapterType == 0) {
+            binding.clubListLayout.tvPrevious.visibility = View.INVISIBLE
+        } else {
+            binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
+        }
+        if (adapterType == (adapter.list.size - 1)) {
+            binding.clubListLayout.tvNext.visibility = View.INVISIBLE
+        } else {
+            binding.clubListLayout.tvNext.visibility = View.VISIBLE
+        }
         this.currentModel = model
         loadCoachabilityChart(model.data!!)
-        initCoachListData(model.data)
+        initCoachListData(model.data, adapterType)
         binding.clubListLayout.recyclerView.visibility = View.GONE
         binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
         binding.clubListLayout.rlCoach.visibility = View.VISIBLE
         binding.clubListLayout.pieChart.visibility = View.VISIBLE
-        binding.clubListLayout.barChart.visibility = View.GONE
+//        binding.clubListLayout.barChart.visibility = View.GONE
     }
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(AthletesViewModel::class.java)
-        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
+        viewModel.attachErrorListener(object : Listeners.DialogAthleteInteractionListener {
+            var loadingDialog: AlertDialog? = null
+
+            init {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+                builder.setCancelable(false) // if you want user to wait for some process to finish,
+
+                builder.setView(R.layout.layout_loading_dialog)
+                builder.setCancelable(false)
+                loadingDialog = builder.create()
+            }
+
             override fun dismissDialog() {
                 binding.progressBar.visibility = View.GONE
             }
@@ -255,6 +306,18 @@ class AthletesFragment : Fragment() {
             override fun addErrorDialog() {
                 binding.progressBar.visibility = View.GONE
                 initAtheletesRecyclerView(ArrayList())
+            }
+
+            override fun addLoadingDialog() {
+                if (loadingDialog != null) {
+                    loadingDialog!!.show()
+                }
+            }
+
+            override fun dismissLoadingDialog() {
+                if (loadingDialog != null) {
+                    loadingDialog!!.dismiss()
+                }
             }
 
             override fun addErrorDialog(msg: String?) {
@@ -461,128 +524,20 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-        binding.clubListLayout.pieChart.setUsePercentValues(true);
-
-        val values = ArrayList<BarEntry>()
-        val yvalues: ArrayList<PieEntry> = ArrayList<PieEntry>();
+//        binding.clubListLayout.pieChart.clear()
+        binding.clubListLayout.pieChart.setChart(null)
+        val data: MutableList<DataEntry> = ArrayList()
         for (i in 0..(services.nameArr.size - 1)) {
-            yvalues.add(
-                PieEntry(
-                    services.valueArr.get(i).toFloat(),
+            data.add(
+                ValueDataEntry(
                     services.nameArr.get(i),
-                    (i + 1)
-                )
-            )
-            values.add(
-                BarEntry(
-                    (i + 1).toFloat(),
-                    services.valueArr.get(i).toFloat(),
-                    services.nameArr.get(i)
+                    services.valueArr.get(i).toFloat()
                 )
             )
         }
-        val dataSet = PieDataSet(yvalues, "");
-        dataSet.setDrawValues(true)
-//        val colorList = ArrayList<Int>()
-//        colorList.add(Color.WHITE)
-//        dataSet.setValueTextColors(colorList)
-        val data = PieData(dataSet)
-        data.setValueTextSize(10f)
-        data.setValueFormatter(ChartPerentageFormatter());
-        binding.clubListLayout.pieChart.setData(data);
-        val description = Description();
-        description.setText("");
-        binding.clubListLayout.pieChart.setDrawEntryLabels(false)//drawEntryLabelsEnabled = true
-
-//        binding.clubListLayout.pieChart.setdraw(false)
-//        binding.clubListLayout.pieChart.setcolor
-        binding.clubListLayout.pieChart.setDescription(description);
-        binding.clubListLayout.pieChart.setDrawHoleEnabled(true);
-        binding.clubListLayout.pieChart.setTransparentCircleRadius(58f);
-        binding.clubListLayout.pieChart.setHoleRadius(58f);
-//        binding.clubListLayout.pieChart.setEntryLabelColor(
-//            ContextCompat.getColor(
-//                binding.root.context,
-//                R.color.white
-//            )
-//        )
-        binding.clubListLayout.pieChart.setEntryLabelColor(Color.WHITE)
-        val listOfColors = ArrayList<Int>()
-        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_listening))
-        listOfColors.add(
-            ContextCompat.getColor(
-                binding.root.context,
-                R.color.txt_color_following_direction
-            )
-        )
-        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_attitude))
-        listOfColors.add(ContextCompat.getColor(binding.root.context, R.color.txt_color_focus))
-        listOfColors.add(
-            ContextCompat.getColor(
-                binding.root.context,
-                R.color.txt_color_work_ethics
-            )
-        )
-//        dataSet.setColors(listOfColors);
-        dataSet.setColors(ColorTemplate.createColors(ColorTemplate.COLORFUL_COLORS));
-        data.setValueTextSize(10f);
-
-        val l: Legend = binding.clubListLayout.pieChart.getLegend()
-        l.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        l.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-        l.orientation = Legend.LegendOrientation.HORIZONTAL
-        l.isWordWrapEnabled = true
-        l.setDrawInside(false)
-        l.textSize = 9f
-        l.yOffset = 5f
-
-        //This is for a barChart
-        binding.clubListLayout.barChart.getDescription().setEnabled(true)
-        binding.clubListLayout.barChart.setPinchZoom(false)
-//
-        binding.clubListLayout.barChart.setDrawBarShadow(false)
-        binding.clubListLayout.barChart.setDrawGridBackground(false)
-
-        binding.clubListLayout.barChart.setDrawValueAboveBar(true)
-        val xAxis: XAxis = binding.clubListLayout.barChart.getXAxis()
-        xAxis.position = XAxisPosition.BOTTOM
-        xAxis.setDrawGridLines(false)
-        xAxis.setGranularityEnabled(true);
-        xAxis.setGranularity(1f);
-        xAxis.setDrawLabels(true);
-        binding.clubListLayout.barChart.getAxisLeft().setDrawGridLines(false)
-
-        // add a nice and smooth animation
-        binding.clubListLayout.barChart.animateY(1500)
-
-        binding.clubListLayout.barChart.getLegend().setEnabled(true)
-        binding.clubListLayout.barChart.legend.direction = Legend.LegendDirection.LEFT_TO_RIGHT
-
-        val set1: BarDataSet
-
-        set1 = BarDataSet(values, "Data Set")
-//        set1.setColors(listOfColors)
-        dataSet.setColors(ColorTemplate.createColors(ColorTemplate.VORDIPLOM_COLORS));
-        set1.setDrawValues(false)
-        val dataSets = java.util.ArrayList<IBarDataSet>()
-        dataSets.add(set1)
-        val newBarData = BarData(dataSets)
-
-        binding.clubListLayout.barChart.description.isEnabled = true // hide the description
-        binding.clubListLayout.barChart.legend.isEnabled = true // hide the legend
-
-        binding.clubListLayout.barChart.xAxis.setDrawLabels(true) // hide bottom label
-        binding.clubListLayout.barChart.axisLeft.setDrawLabels(true) // hide left label
-        binding.clubListLayout.barChart.axisRight.setDrawLabels(false) // hide right label
-
-        binding.clubListLayout.barChart.setData(newBarData)
-        binding.clubListLayout.barChart.setFitBars(true)
-
-        binding.clubListLayout.barChart.invalidate()
-
-
-//        binding.clubListLayout.pieChart.visibility = View.VISIBLE
-//        binding.clubListLayout.barChart.visibility = View.GONE
+        pie.data(data)
+        binding.clubListLayout.pieChart.setChart(pie)
+        binding.clubListLayout.pieChart.invalidate()
     }
 
     fun loadAssets() {
@@ -664,5 +619,22 @@ class AthletesFragment : Fragment() {
 //            }
 //        }
 //    }
+
+    private fun loadServiceData(slug: String, userId: String, adapterType: Int) {
+        viewModel.loadDetailAthleteList(
+            requireContext(),
+            slug,
+            userId,
+            object : AthletesViewModel.ContentFetchListener {
+                override fun onFetched(anyObject: Any) {
+                    if (anyObject is FormServiceModel) {
+                        loadCoachData(anyObject, adapterType)
+                    }
+//                    binding.progressBar.visibility = View.GONE
+                }
+            })
+//                        loadCoachData(anyData as List<Service>, adapterType)
+    }
+
 
 }

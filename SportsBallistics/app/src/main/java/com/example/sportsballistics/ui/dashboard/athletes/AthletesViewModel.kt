@@ -23,9 +23,9 @@ import retrofit2.Response
 import java.io.IOException
 
 class AthletesViewModel(application: Application) : AndroidViewModel(application) {
-    private lateinit var mErrorListener: Listeners.DialogInteractionListener
+    private lateinit var mErrorListener: Listeners.DialogAthleteInteractionListener
     lateinit var categoryResponse: GenericResponse
-    fun attachErrorListener(mErrorListener: Listeners.DialogInteractionListener) {
+    fun attachErrorListener(mErrorListener: Listeners.DialogAthleteInteractionListener) {
         this.mErrorListener = mErrorListener
     }
 
@@ -166,13 +166,13 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
 
     fun loadDetailAthleteList(
         context: Context,
-        model: Service, userId: String,
+        slug: String, userId: String,
         mListener: ContentFetchListener
     ) {
-        mErrorListener.addDialog()
+        mErrorListener.addLoadingDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
         val call =
-            apiService.getFormInfo(model.slug, userId)
+            apiService.getFormInfo(slug, userId)
         call.enqueue(object : Callback<FormServiceModel> {
             override fun onResponse(
                 call: Call<FormServiceModel>,
@@ -182,16 +182,15 @@ class AthletesViewModel(application: Application) : AndroidViewModel(application
                     val responseBody = response.body()
                     if (responseBody != null) {
                         mListener.onFetched(responseBody)
-                    } else {
-                        mErrorListener.addErrorDialog()
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
+                mErrorListener.dismissLoadingDialog()
             }
 
             override fun onFailure(call: Call<FormServiceModel>, t: Throwable) {
-                mErrorListener.dismissDialog()
+                mErrorListener.dismissLoadingDialog()
                 if (t is NoConnectivityException) {
                     mErrorListener.addErrorDialog(context.getString(R.string.txt_network_error))
                 } else {

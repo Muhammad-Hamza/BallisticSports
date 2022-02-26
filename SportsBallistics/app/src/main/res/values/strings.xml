@@ -22,7 +22,7 @@
     <string name="txt_athletes_trainer"><![CDATA[ <b>Trainer: </b> {{trainer}}]]></string>
     <string name="txt_athletes_age"><![CDATA[ <b>Age: </b> {{age}}]]></string>
     <string name="txt_athletes_grade"><![CDATA[ <b>Grade: </b> {{grade}}]]></string>
-    <string name="txt_atheleteNameStr"><![CDATA[<font color=\'#000000\'>{{name}}</font> <font color=\'#{{COLOR}}\'>Status Overview</font> ]]></string>
+    <string name="txt_atheleteNameStr"><![CDATA[<font color=\'#000000\'>{{name}}</font> <font color=\'#{{COLOR}}\'> : Status Overview</font> ]]></string>
     <string name="txt_welcome_super_admin">Welcome Super Admin</string>
     <string name="txt_welcome_dashboard_super_admin">Dashboard Super Admin</string>
     <string name="txt_welcome_club_admin">Welcome Club Admin</string>

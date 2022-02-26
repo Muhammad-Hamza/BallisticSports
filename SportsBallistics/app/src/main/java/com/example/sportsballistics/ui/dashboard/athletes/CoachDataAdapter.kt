@@ -13,8 +13,13 @@ import com.example.sportsballistics.data.remote.athletes.Service
 import com.example.sportsballistics.databinding.ListitemAthletesInfoBinding
 import com.example.sportsballistics.databinding.ListitemLookupBinding
 
-class CoachDataAdapter(val model: AthleteDataModel) :
+class CoachDataAdapter(val model: AthleteDataModel, adapterPosition: Int) :
     ListAdapter<String, CoachDataAdapter.ViewHolder>(DiffCallback()) {
+    var parentPosition: Int
+
+    init {
+        parentPosition = adapterPosition
+    }
 
     private class DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(

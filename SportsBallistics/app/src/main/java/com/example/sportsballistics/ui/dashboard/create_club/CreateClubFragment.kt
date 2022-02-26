@@ -289,7 +289,7 @@ class CreateClubFragment : Fragment() {
                 state,
                 zipcode,
                 city,
-                status,
+                status.lowercase(),
                 object :
                     CreateClubViewModel.ContentFetchListener {
                     override fun onSuccess(content: ViewClubResponse) {
@@ -297,6 +297,7 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) {
+//                        showToast("Add club successfully")
                         showToast("Club added")
                         Navigation.findNavController(binding.root).navigateUp()
                     }
@@ -329,7 +330,7 @@ class CreateClubFragment : Fragment() {
                 state,
                 zipcode,
                 city,
-                status,
+                status.lowercase(),
                 object :
                     CreateClubViewModel.ContentFetchListener {
                     override fun onSuccess(content: ViewClubResponse) {

@@ -354,13 +354,14 @@
                                         android:orientation="horizontal">
 
                                         <TextView
-                                            android:id="@+id/tvDashboard"
+                                            android:id="@+id/tvPrevious"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:background="@drawable/btn_white_bg"
                                             android:fontFamily="@font/roboto_regular"
-                                            android:text="View Dashboard"
-                                            android:textSize="@dimen/_10sdp" />
+                                            android:text="Prev Stat"
+                                            android:textSize="@dimen/_10sdp"
+                                            android:visibility="gone" />
 
                                         <TextView
                                             android:id="@+id/txtDetailHeading"
@@ -371,7 +372,7 @@
                                             android:layout_weight="1"
                                             android:fontFamily="@font/roboto_bold"
                                             android:gravity="center"
-                                            android:text="Next"
+                                            android:text="Next Stat"
                                             android:textColor="@color/actionBarColor"
                                             android:textSize="@dimen/_14sdp" />
 
@@ -392,26 +393,26 @@
                                         android:layout_below="@+id/llActionMain"
                                         android:orientation="vertical">
 
-                                        <com.github.mikephil.charting.charts.PieChart
+                                        <com.anychart.AnyChartView
                                             android:id="@+id/pieChart"
                                             android:layout_width="match_parent"
-                                            android:layout_height="@dimen/_160sdp"
+                                            android:layout_height="@dimen/_200sdp"
                                             android:layout_below="@id/llActionMain"
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginLeft="@dimen/_15sdp"
                                             android:layout_marginTop="@dimen/_2sdp"
                                             android:layout_marginRight="@dimen/_15sdp" />
 
-                                        <com.github.mikephil.charting.charts.BarChart
-                                            android:id="@+id/barChart"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="@dimen/_160sdp"
-                                            android:layout_below="@id/llActionMain"
-                                            android:layout_centerHorizontal="true"
-                                            android:layout_marginLeft="@dimen/_15sdp"
-                                            android:layout_marginTop="@dimen/_2sdp"
-                                            android:layout_marginRight="@dimen/_15sdp"
-                                            android:visibility="gone" />
+                                        <!--                                        <com.github.mikephil.charting.charts.BarChart-->
+                                        <!--                                            android:id="@+id/barChart"-->
+                                        <!--                                            android:layout_width="match_parent"-->
+                                        <!--                                            android:layout_height="@dimen/_160sdp"-->
+                                        <!--                                            android:layout_below="@id/llActionMain"-->
+                                        <!--                                            android:layout_centerHorizontal="true"-->
+                                        <!--                                            android:layout_marginLeft="@dimen/_15sdp"-->
+                                        <!--                                            android:layout_marginTop="@dimen/_2sdp"-->
+                                        <!--                                            android:layout_marginRight="@dimen/_15sdp"-->
+                                        <!--                                            android:visibility="gone" />-->
                                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                                     <com.example.sportsballistics.utils.NonScrollRecyclerView
