@@ -271,25 +271,31 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachData(model: FormServiceModel, adapterType: Int) {
-        initChart()
-        if (adapterType == 0) {
-            binding.clubListLayout.tvPrevious.visibility = View.INVISIBLE
-        } else {
-            binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
-        }
-        if (adapterType == (adapter.list.size - 1)) {
-            binding.clubListLayout.tvNext.visibility = View.INVISIBLE
-        } else {
-            binding.clubListLayout.tvNext.visibility = View.VISIBLE
-        }
-        this.currentModel = model
-        loadCoachabilityChart(model.data!!)
-        initCoachListData(model.data, adapterType)
-        binding.clubListLayout.recyclerView.visibility = View.GONE
-        binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
-        binding.clubListLayout.rlCoach.visibility = View.VISIBLE
-        pieChart!!.visibility = View.VISIBLE
+        if (model.data != null && model.data.nameArr != null && model.data.nameArr.size > 0 && model.data.valueArr != null && model.data.valueArr.size > 0 && model.data
+                .nameArr.size == model.data.valueArr.size
+        ) {
+            initChart()
+            if (adapterType == 0) {
+                binding.clubListLayout.tvPrevious.visibility = View.INVISIBLE
+            } else {
+                binding.clubListLayout.tvPrevious.visibility = View.VISIBLE
+            }
+            if (adapterType == (adapter.list.size - 1)) {
+                binding.clubListLayout.tvNext.visibility = View.INVISIBLE
+            } else {
+                binding.clubListLayout.tvNext.visibility = View.VISIBLE
+            }
+            this.currentModel = model
+            loadCoachabilityChart(model.data!!)
+            initCoachListData(model.data, adapterType)
+            binding.clubListLayout.recyclerView.visibility = View.GONE
+            binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
+            binding.clubListLayout.rlCoach.visibility = View.VISIBLE
+            pieChart!!.visibility = View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
+        } else {
+            showToast("Details not found")
+        }
     }
 
     private fun initViewModel() {
