@@ -1,8 +1,14 @@
 package com.example.sportsballistics.ui.dashboard.athletes
 
+//import com.anychart.AnyChart
+//import com.anychart.AnyChartView
+//import com.anychart.chart.common.dataentry.DataEntry
+//import com.anychart.chart.common.dataentry.ValueDataEntry
+//import com.anychart.charts.Pie
+//import com.anychart.enums.Align
+//import com.anychart.enums.LegendLayout
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -18,13 +24,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
-import com.anychart.AnyChart
-import com.anychart.AnyChartView
-import com.anychart.chart.common.dataentry.DataEntry
-import com.anychart.chart.common.dataentry.ValueDataEntry
-import com.anychart.charts.Pie
-import com.anychart.enums.Align
-import com.anychart.enums.LegendLayout
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.R
@@ -42,6 +41,14 @@ import com.example.sportsballistics.databinding.FragmentAthletesBinding
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppFunctions
 import com.example.sportsballistics.utils.AppUtils.Companion.showToast
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.utils.MPPointF
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AthletesFragment : Fragment() {
@@ -52,8 +59,9 @@ class AthletesFragment : Fragment() {
     private var coachListAdapter: CoachDataAdapter? = null
     private var athletesAdapter: AthletesUserAdapter? = null
     private var currentAthleteDataModel: AthleteDataModel? = null
-    var pie: Pie? = null;
-    var pieChart: AnyChartView? = null
+
+    //    var pie: Pie? = null;
+//    var pieChart: AnyChartView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,33 +79,40 @@ class AthletesFragment : Fragment() {
     }
 
     private fun initChart() {
-//        if (pieChart != null) {
-//            pieChart!!.setChart(null)
-//            pieChart = null
-//        }
-        if (pie != null) {
-            pie!!.dispose();
-            pie = null
-        }
-        pie = AnyChart.pie()
-        pie!!.labels().position("inside")
 
-        pie!!.legend().title().enabled(false)
-        pie!!.legend().paginator(false)
-        pie!!.legend()
-            .fontSize(9)
-            .position("bottom")
-            .iconSize(9)
-            .itemsLayout(LegendLayout.HORIZONTAL_EXPANDABLE)
-            .align(Align.CENTER)
-        pie!!.container("container")
-        pie!!.background().fill("#FFFFFF", 1)
-        pie!!.animation(true)
+        binding.clubListLayout.barChart.setUsePercentValues(true);
+        binding.clubListLayout.barChart.getDescription().setEnabled(false);
+        binding.clubListLayout.barChart.setExtraOffsets(5f, 10f, 5f, 5f);
+
+        binding.clubListLayout.barChart.setDragDecelerationFrictionCoef(0.95f);
+
+
+        binding.clubListLayout.barChart.setDrawHoleEnabled(true);
+        binding.clubListLayout.barChart.setHoleColor(Color.WHITE);
+
+        binding.clubListLayout.barChart.setTransparentCircleColor(Color.WHITE);
+        binding.clubListLayout.barChart.setTransparentCircleAlpha(110);
+
+        binding.clubListLayout.barChart.setHoleRadius(71f);
+        binding.clubListLayout.barChart.setTransparentCircleRadius(51f);
+
+        binding.clubListLayout.barChart.setDrawCenterText(true);
+
+        // enable rotation of the binding.clubListLayout.barChart by touch
+        binding.clubListLayout.barChart.setRotationEnabled(true);
+        binding.clubListLayout.barChart.setHighlightPerTapEnabled(true);
+        binding.clubListLayout.barChart.setHoleRadius(50f);
+        binding.clubListLayout.barChart.setTransparentCircleRadius(20f);
+
+        binding.clubListLayout.barChart.setRotationAngle(0f);
+        // enable rotation of the binding.clubListLayout.barChart by touch
+        binding.clubListLayout.barChart.setRotationEnabled(false);
+        binding.clubListLayout.barChart.legend.isEnabled = true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pieChart = binding.root.findViewById(R.id.pieChart);
+//        pieChart = binding.root.findViewById(R.id.pieChart);
         binding.clubListLayout.llList.visibility = View.VISIBLE
         binding.clubListLayout.llMainLayout.visibility = View.GONE
 //        binding.clubListLayout.tvNext.setText("Next")
@@ -291,7 +306,7 @@ class AthletesFragment : Fragment() {
             binding.clubListLayout.recyclerView.visibility = View.GONE
             binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
             binding.clubListLayout.rlCoach.visibility = View.VISIBLE
-            pieChart!!.visibility = View.VISIBLE
+            binding.clubListLayout.barChart.visibility = View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
         } else {
             showToast("Details not found")
@@ -541,19 +556,89 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-        pieChart!!.setChart(null)
-        val data: MutableList<DataEntry> = ArrayList()
+        val entries: ArrayList<PieEntry> = ArrayList()
+
+        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+        // the chart.
         for (i in 0..(services.nameArr.size - 1)) {
-            data.add(
-                ValueDataEntry(
-                    services.nameArr.get(i),
-                    services.valueArr.get(i).toFloat()
+            entries.add(
+                PieEntry(
+                    services.valueArr.get(i).toFloat(),
+                    services.nameArr.get(i)
                 )
             )
         }
-        pie!!.data(data)
-        pieChart!!.setChart(pie)
-        pieChart!!.invalidate()
+
+        val dataSet = PieDataSet(entries, services.title)
+        dataSet.sliceSpace = 3f
+        dataSet.iconsOffset = MPPointF(0F, 40F)
+        dataSet.selectionShift = 5f
+        dataSet.setHighlightEnabled(true);
+        dataSet.setValueLinePart1Length(0.43f);
+        dataSet.setValueLinePart2Length(.1f);
+        dataSet.setValueTextColor(Color.BLACK);
+        dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        dataSet.setDrawIcons(false)
+
+        // add a lot of colors
+        val colors: ArrayList<Int> = ArrayList()
+        for (i in 0..(entries.size - 1)) {
+            colors.add(createRandomColor())
+        }
+        val l = binding.clubListLayout.barChart.legend
+        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+        l.isWordWrapEnabled =true
+//        l.isDrawInsideEnabled = true
+//        for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
+//        for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
+//        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
+//        for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
+//        for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
+//        colors.add(ColorTemplate.getHoloBlue())
+
+        dataSet.colors = colors
+        //dataSet.setSelectionShift(0f);
+        val data = PieData(dataSet)
+        data.setValueFormatter(PercentFormatter())
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.WHITE)
+        data.setDrawValues(false)
+        binding.clubListLayout.barChart.data = data
+
+        // undo all highlights
+        binding.clubListLayout.barChart.centerText = services.title
+        binding.clubListLayout.barChart.setDrawEntryLabels(false)
+        binding.clubListLayout.barChart.legend.isEnabled = true
+        binding.clubListLayout.barChart.highlightValues(null);
+
+        binding.clubListLayout.barChart.invalidate()
+
+//        pieChart!!.setChart(null)
+//        val data: MutableList<DataEntry> = ArrayList()
+//        for (i in 0..(services.nameArr.size - 1)) {
+//            data.add(
+//                ValueDataEntry(
+//                    services.nameArr.get(i),
+//                    services.valueArr.get(i).toFloat()
+//                )
+//            )
+//        }
+//        pie!!.data(data)
+//        pieChart!!.setChart(pie)
+//        pieChart!!.invalidate()
+    }
+
+    private fun createRandomColor(): Int {
+        val random = java.util.Random()
+        var randomSize = java.util.Random().nextInt(5)
+        if (randomSize <= 1) {
+            randomSize = 2
+        }
+        var color: Int = -1
+        for (i in 0..(randomSize)) {
+            color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256))
+        }
+        return color
     }
 
     fun loadAssets() {

@@ -393,26 +393,27 @@
                                         android:layout_below="@+id/llActionMain"
                                         android:orientation="vertical">
 
-                                        <com.anychart.AnyChartView
-                                            android:id="@+id/pieChart"
+<!--                                        <com.anychart.AnyChartView-->
+<!--                                            android:id="@+id/pieChart"-->
+<!--                                            android:layout_width="match_parent"-->
+<!--                                            android:layout_height="@dimen/_200sdp"-->
+<!--                                            android:layout_below="@id/llActionMain"-->
+<!--                                            android:layout_centerHorizontal="true"-->
+<!--                                            android:layout_marginLeft="@dimen/_15sdp"-->
+<!--                                            android:layout_marginTop="@dimen/_2sdp"-->
+<!--                                            android:layout_marginRight="@dimen/_15sdp" />-->
+
+                                        <com.github.mikephil.charting.charts.PieChart
+                                            android:id="@+id/barChart"
                                             android:layout_width="match_parent"
-                                            android:layout_height="@dimen/_200sdp"
+                                            android:layout_height="wrap_content"
+                                            android:minHeight="@dimen/_200sdp"
                                             android:layout_below="@id/llActionMain"
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginLeft="@dimen/_15sdp"
                                             android:layout_marginTop="@dimen/_2sdp"
-                                            android:layout_marginRight="@dimen/_15sdp" />
-
-                                        <!--                                        <com.github.mikephil.charting.charts.BarChart-->
-                                        <!--                                            android:id="@+id/barChart"-->
-                                        <!--                                            android:layout_width="match_parent"-->
-                                        <!--                                            android:layout_height="@dimen/_160sdp"-->
-                                        <!--                                            android:layout_below="@id/llActionMain"-->
-                                        <!--                                            android:layout_centerHorizontal="true"-->
-                                        <!--                                            android:layout_marginLeft="@dimen/_15sdp"-->
-                                        <!--                                            android:layout_marginTop="@dimen/_2sdp"-->
-                                        <!--                                            android:layout_marginRight="@dimen/_15sdp"-->
-                                        <!--                                            android:visibility="gone" />-->
+                                            android:layout_marginRight="@dimen/_15sdp"
+                                            android:visibility="gone" />
                                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                                     <com.example.sportsballistics.utils.NonScrollRecyclerView
