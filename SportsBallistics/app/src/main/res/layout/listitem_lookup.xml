@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:fontFamily="@font/roboto_regular"
-            android:text="Listening Skills"
+            android:text="No Value Found"
             android:textColor="@color/textColorGray"
             android:textSize="@dimen/_9sdp" />
 

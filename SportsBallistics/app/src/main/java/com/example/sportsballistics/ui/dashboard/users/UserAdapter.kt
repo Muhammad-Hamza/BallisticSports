@@ -77,6 +77,5 @@ class UserAdapter(
             AppConstant.changeColor(binding.txtClubName)
             AppConstant.changeColor(binding.txtRoleType)
         }
-
     }
 }
