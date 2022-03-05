@@ -34,6 +34,7 @@ import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteVie
 import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.android.synthetic.main.fragment_create_club_admin.*
 import java.lang.reflect.Type
 
 class CreateClubAdminFragment : Fragment() {
@@ -106,6 +107,8 @@ class CreateClubAdminFragment : Fragment() {
                     }
                 })
             }
+        } else {
+            loadClubList()
         }
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
@@ -153,11 +156,15 @@ class CreateClubAdminFragment : Fragment() {
         binding.etCity.setText(athleteResponse.userData?.city)
         binding.etState.setText(athleteResponse.userData?.state)
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
+        if (!TextUtils.isEmpty(athleteResponse.userData?.clubId)) {
+            binding.etClubId.setText(athleteResponse.userData?.clubId)
+        }
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             doDisableEditing(false)
         } else {
             doDisableEditing(true)
         }
+        loadClubList()
     }
 
     private fun doDisableEditing(boolean: Boolean) {
@@ -312,7 +319,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 password,
                 "",
-                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                selectClubModel!!.id!!,
                 AppSystem.getInstance().getCurrentUser()!!.loggedIn?.roleId.toString(),
                 binding.etEmail.text.toString(),
                 object :
@@ -348,7 +355,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etGrade.text.toString(),
                 binding.etPassword.text.toString(),
                 "",
-                AppSystem.getInstance().getCurrentUser()!!.loggedIn?.clubId.toString(),
+                selectClubModel!!.id!!,
                 AppConstant.ROLE_ATHLETES_PORTAL,
                 binding.etEmail.text.toString(),
                 object :
@@ -392,11 +399,16 @@ class CreateClubAdminFragment : Fragment() {
                 binding.progressBar.visibility = View.GONE
             }
         })
+    }
+
+    private fun loadClubList() {
+        binding.progressBar.visibility = View.VISIBLE
         viewModel.getClubListFromServer(
             binding.root.context,
             URLIdentifiers.CLUB_CONTENT,
             object : CreateClubAdminViewModel.ContentFetchListener {
                 override fun onFetched(anyObject: Any) {
+                    binding.progressBar.visibility = View.GONE
                     if (anyObject != null && anyObject is ClubResponse) {
                         if (anyObject.content != null && anyObject.content.users != null && anyObject.content.users.size > 0) {
                             loadClubContent(anyObject.content.users)
@@ -407,6 +419,7 @@ class CreateClubAdminFragment : Fragment() {
                 }
 
                 override fun onError(t: Throwable) {
+                    binding.progressBar.visibility = View.GONE
                     showToast("Club listing not found, please try again later")
                 }
 
@@ -433,13 +446,25 @@ class CreateClubAdminFragment : Fragment() {
                 id: Long
             ) {
                 selectClubModel = listOfClub.get(position)
-                if (selectClubModel != null)
+                if (selectClubModel != null) {
                     binding.etClub.setText(selectClubModel!!.name)
+                    binding.etClubId.setText(selectClubModel!!.id)
+                }
             }
 
         })
+        if (!TextUtils.isEmpty(binding.etClubId.text.toString())) {
+            for (i in 0..(listOfClub.size - 1)) {
+                if (listOfClub.get(i)!!.id!!.equals(binding.etClubId.text.toString())) {
+                    binding.etClub.setSelection(i)
+                    selectClubModel = listOfClub.get(i)
+                    binding.etClub.setText(selectClubModel!!.name)
+                    binding.etClubId.setText(selectClubModel!!.id)
+                    break
+                }
+            }
+        }
     }
-
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
@@ -454,7 +479,8 @@ class CreateClubAdminFragment : Fragment() {
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo)
                     .into(binding.imgLogo)
-                drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
+                drawable =
+                    ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
             AppConstant.VOLLEYBALL -> {
                 Glide.with(binding.root).load(R.drawable.vb_login_bg)
