@@ -535,19 +535,24 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-        pieChart!!.setChart(null)
-        val data: MutableList<DataEntry> = ArrayList()
-        for (i in 0..(services.nameArr.size - 1)) {
-            data.add(
-                ValueDataEntry(
-                    services.nameArr.get(i),
-                    services.valueArr.get(i).toFloat()
-                )
-            )
+        if(services.nameArr != null && services.valueArr != null)
+        {
+            pieChart!!.setChart(null)
+            val data: MutableList<DataEntry> = ArrayList()
+
+            for (i in 0..(services.nameArr.size - 1))
+            {
+                data.add(
+                        ValueDataEntry(
+                                services.nameArr.get(i),
+                                services.valueArr.get(i).toFloat()
+                                      )
+                        )
+            }
+            pie!!.data(data)
+            pieChart!!.setChart(pie)
+            pieChart!!.invalidate()
         }
-        pie!!.data(data)
-        pieChart!!.setChart(pie)
-        pieChart!!.invalidate()
     }
 
     fun loadAssets() {
