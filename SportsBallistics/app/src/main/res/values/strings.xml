@@ -32,13 +32,13 @@
     <string name="txt_welcome_athletes_admin">Dashboard Athletes</string>
     <string name="txt_welcome_dashboard_athletes_admin">Welcome {name}</string>
 
-    <string name="txt_no_athlete_found">No athletes found</string>
-    <string name="txt_athlete_deleted">Athlete deleted</string>
-    <string name="txt_club_deleted">Club deleted</string>
-    <string name="txt_user_deleted">User deleted</string>
-    <string name="txt_no_data_found">No data found</string>
+    <string name="txt_no_athlete_found">No Athletes Found</string>
+    <string name="txt_athlete_deleted">Athlete Deleted</string>
+    <string name="txt_club_deleted">Club Deleted</string>
+    <string name="txt_user_deleted">User Deleted</string>
+    <string name="txt_no_data_found">No Data found</string>
     <string name="txt_invalid_login_content">Invalid login\n please login with your credentials</string>
     <string name="txt_user_not_found_content">User not found\n please login with your credentials</string>
     <string name="txt_user_not_found_normal_content">User not found</string>
-    <string name="txt_trainer_deleted">Trainer deleted</string>
+    <string name="txt_trainer_deleted">Trainer Deleted</string>
 </resources>

@@ -301,38 +301,72 @@ class CreateAthleteFragment : Fragment() {
 
 
         binding.btnSubmit.setOnClickListener {
-            if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
-                showToast("First name is required")
-            } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
-                showToast("Age is required")
-            } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
-                showToast("Athlete grade is required")
-            } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
-                showToast("Email is required")
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches()) {
-                showToast("Email is not valid")
-            } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
-                showToast("Contact number is required")
-            } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
-                showToast("Status is required")
-            } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
-                showToast("First address is required")
-            } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
-                showToast("City is required")
-            } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
-                showToast("State is required")
-            } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
-                showToast("Zip code is required")
-            } else {
-                if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
-                    if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
-                        showToast("Password is required")
-                    } else {
+            try
+            {
+                if (TextUtils.isEmpty(binding.etFullName.text.toString()))
+                {
+                    showToast("First name is required")
+                }
+                else if (TextUtils.isEmpty(binding.etAge.text.toString()))
+                {
+                    showToast("Age is required")
+                }
+                else if (TextUtils.isEmpty(binding.etGrade.text.toString()))
+                {
+                    showToast("Athlete grade is required")
+                }
+                else if (TextUtils.isEmpty(binding.etEmail.text.toString()))
+                {
+                    showToast("Email is required")
+                }
+                else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
+                {
+                    showToast("Email is not valid")
+                }
+                else if (TextUtils.isEmpty(binding.etContact.text.toString()))
+                {
+                    showToast("Contact number is required")
+                }
+                else if (TextUtils.isEmpty(binding.etStatus.text.toString()))
+                {
+                    showToast("Status is required")
+                }
+                else if (TextUtils.isEmpty(binding.etAddress1.text.toString()))
+                {
+                    showToast("First address is required")
+                }
+                else if (TextUtils.isEmpty(binding.etCity.text.toString()))
+                {
+                    showToast("City is required")
+                }
+                else if (TextUtils.isEmpty(binding.etState.text.toString()))
+                {
+                    showToast("State is required")
+                }
+                else if (TextUtils.isEmpty(binding.etZipcode.text.toString()))
+                {
+                    showToast("Zip code is required")
+                }
+                else
+                {
+                    if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD)
+                    {
+                        if (TextUtils.isEmpty(binding.etPassword.text.toString()))
+                        {
+                            showToast("Password is required")
+                        }
+                        else
+                        {
+                            hitAPIRequest()
+                        }
+                    }
+                    else
+                    {
                         hitAPIRequest()
                     }
-                } else {
-                    hitAPIRequest()
                 }
+            } catch(ex:Exception){
+                ex.printStackTrace()
             }
         }
     }

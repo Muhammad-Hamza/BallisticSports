@@ -108,10 +108,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="text"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -137,11 +139,13 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="number"
                             android:maxLength="3"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -167,10 +171,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="text"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -203,10 +209,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
 
                         <TextView
@@ -240,10 +248,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -276,10 +286,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="number"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -361,10 +373,12 @@
                         android:layout_below="@+id/txt_main"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:background="@drawable/edit_text_bg"
+                        android:fontFamily="@font/roboto_medium"
                         android:gravity="top|start"
                         android:inputType="text"
                         android:maxLines="1"
                         android:padding="@dimen/_5sdp"
+                        android:textColor="@color/txtGrey"
                         android:textSize="@dimen/_8sdp" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -397,10 +411,12 @@
                             android:layout_below="@+id/txt_main"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
+                            android:fontFamily="@font/roboto_medium"
                             android:gravity="top|start"
                             android:inputType="text"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
+                            android:textColor="@color/txtGrey"
                             android:textSize="@dimen/_8sdp" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -488,6 +504,8 @@
                             android:layout_marginTop="@dimen/_4sdp"
                             android:background="@drawable/edit_text_bg"
                             android:gravity="top|start"
+                            android:fontFamily="@font/roboto_medium"
+                            android:textColor="@color/txtGrey"
                             android:inputType="number"
                             android:maxLines="1"
                             android:padding="@dimen/_5sdp"
