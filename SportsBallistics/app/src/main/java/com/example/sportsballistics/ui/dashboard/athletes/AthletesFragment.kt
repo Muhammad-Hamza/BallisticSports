@@ -579,7 +579,7 @@ class AthletesFragment : Fragment() {
             dataSet.setValueLinePart1Length(0.43f);
             dataSet.setValueLinePart2Length(.1f);
             dataSet.setValueTextColor(Color.BLACK);
-            dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+            dataSet.setXValuePosition(PieDataSet.ValuePosition.INSIDE_SLICE);
             dataSet.setDrawIcons(false)
 
             // add a lot of colors
@@ -603,7 +603,7 @@ class AthletesFragment : Fragment() {
             data.setValueFormatter(PercentFormatter())
             data.setValueTextSize(11f)
             data.setValueTextColor(Color.WHITE)
-            data.setDrawValues(false)
+            data.setDrawValues(true)
             binding.clubListLayout.barChart.data = data
 
             // undo all highlights
