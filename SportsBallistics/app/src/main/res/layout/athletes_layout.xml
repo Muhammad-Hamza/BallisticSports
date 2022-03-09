@@ -386,11 +386,11 @@
                                             android:textSize="@dimen/_10sdp" />
                                     </androidx.appcompat.widget.LinearLayoutCompat>
 
-                                    <androidx.appcompat.widget.LinearLayoutCompat
+                                    <RelativeLayout
                                         android:id="@+id/llChartLayout"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:layout_below="@+id/llActionMain"
+                                        android:layout_below="@id/llActionMain"
                                         android:orientation="vertical">
 
 <!--                                        <com.anychart.AnyChartView-->
@@ -403,18 +403,27 @@
 <!--                                            android:layout_marginTop="@dimen/_2sdp"-->
 <!--                                            android:layout_marginRight="@dimen/_15sdp" />-->
 
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:id="@+id/txtNoChart"
+                                            android:layout_centerInParent="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:textSize="@dimen/_11sdp"
+                                            android:textColor="@color/black"
+                                            android:text="No Chart Available"/>
                                         <com.github.mikephil.charting.charts.PieChart
                                             android:id="@+id/barChart"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:minHeight="@dimen/_200sdp"
-                                            android:layout_below="@id/llActionMain"
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginLeft="@dimen/_15sdp"
                                             android:layout_marginTop="@dimen/_2sdp"
                                             android:layout_marginRight="@dimen/_15sdp"
                                             android:visibility="gone" />
-                                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                    </RelativeLayout>
 
                                     <com.example.sportsballistics.utils.NonScrollRecyclerView
                                         android:id="@+id/rvCoachList"

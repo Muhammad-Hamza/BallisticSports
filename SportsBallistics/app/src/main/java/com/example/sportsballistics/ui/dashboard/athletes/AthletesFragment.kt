@@ -286,8 +286,7 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachData(model: FormServiceModel, adapterType: Int) {
-        if (model.data != null && model.data.nameArr != null && model.data.nameArr.size > 0 && model.data.valueArr != null && model.data.valueArr.size > 0 && model.data
-                .nameArr.size == model.data.valueArr.size
+        if (model.data != null && model.data.nameArr != null && model.data.nameArr.size > 0
         ) {
             initChart()
             if (adapterType == 0) {
@@ -306,7 +305,8 @@ class AthletesFragment : Fragment() {
             binding.clubListLayout.recyclerView.visibility = View.GONE
             binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
             binding.clubListLayout.rlCoach.visibility = View.VISIBLE
-            binding.clubListLayout.barChart.visibility = View.VISIBLE
+            binding.clubListLayout.barChart.visibility = if (model.data.valueArr != null) View.VISIBLE else View.INVISIBLE
+            binding.clubListLayout.txtNoChart.visibility = if (model.data.valueArr != null) View.GONE else View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
         } else {
             showToast("Details not found")
@@ -556,76 +556,82 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-        val entries: ArrayList<PieEntry> = ArrayList()
+        if(services.valueArr != null)
+        {
+            val entries: ArrayList<PieEntry> = ArrayList()
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
-        for (i in 0..(services.nameArr.size - 1)) {
-            entries.add(
-                PieEntry(
-                    services.valueArr.get(i).toFloat(),
-                    services.nameArr.get(i)
+            // NOTE: The order of the entries when being added to the entries array determines their position around the center of
+            // the chart.
+            for (i in 0..(services.nameArr.size - 1))
+            {
+                entries.add(
+                    PieEntry(
+                        services.valueArr.get(i).toFloat(), services.nameArr.get(i)
+                    )
                 )
-            )
+            }
+
+            val dataSet = PieDataSet(entries, services.title)
+            dataSet.sliceSpace = 3f
+            dataSet.iconsOffset = MPPointF(0F, 40F)
+            dataSet.selectionShift = 5f
+            dataSet.setHighlightEnabled(true);
+            dataSet.setValueLinePart1Length(0.43f);
+            dataSet.setValueLinePart2Length(.1f);
+            dataSet.setValueTextColor(Color.BLACK);
+            dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+            dataSet.setDrawIcons(false)
+
+            // add a lot of colors
+            val colors: ArrayList<Int> = ArrayList()
+            for (i in 0..(entries.size - 1))
+            {
+                colors.add(createRandomColor())
+            }
+            val l = binding.clubListLayout.barChart.legend
+            l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
+            l.isWordWrapEnabled = true //        l.isDrawInsideEnabled = true
+            //        for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
+            //        for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
+            //        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
+            //        for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
+            //        for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
+            //        colors.add(ColorTemplate.getHoloBlue())
+
+            dataSet.colors = colors //dataSet.setSelectionShift(0f);
+            val data = PieData(dataSet)
+            data.setValueFormatter(PercentFormatter())
+            data.setValueTextSize(11f)
+            data.setValueTextColor(Color.WHITE)
+            data.setDrawValues(false)
+            binding.clubListLayout.barChart.data = data
+
+            // undo all highlights
+            binding.clubListLayout.barChart.centerText = services.title
+            binding.clubListLayout.barChart.setDrawEntryLabels(false)
+            binding.clubListLayout.barChart.legend.isEnabled = true
+            binding.clubListLayout.barChart.highlightValues(null);
+
+            binding.clubListLayout.barChart.invalidate()
+
+            //        pieChart!!.setChart(null)
+            //        val data: MutableList<DataEntry> = ArrayList()
+            //        for (i in 0..(services.nameArr.size - 1)) {
+            //            data.add(
+            //                ValueDataEntry(
+            //                    services.nameArr.get(i),
+            //                    services.valueArr.get(i).toFloat()
+            //                )
+            //            )
+            //        }
+            //        pie!!.data(data)
+            //        pieChart!!.setChart(pie)
+            //        pieChart!!.invalidate()
+        } else {
+            binding.clubListLayout.barChart.visibility = View.INVISIBLE
+            binding.clubListLayout.txtNoChart.visibility =  View.VISIBLE
+
         }
-
-        val dataSet = PieDataSet(entries, services.title)
-        dataSet.sliceSpace = 3f
-        dataSet.iconsOffset = MPPointF(0F, 40F)
-        dataSet.selectionShift = 5f
-        dataSet.setHighlightEnabled(true);
-        dataSet.setValueLinePart1Length(0.43f);
-        dataSet.setValueLinePart2Length(.1f);
-        dataSet.setValueTextColor(Color.BLACK);
-        dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
-        dataSet.setDrawIcons(false)
-
-        // add a lot of colors
-        val colors: ArrayList<Int> = ArrayList()
-        for (i in 0..(entries.size - 1)) {
-            colors.add(createRandomColor())
-        }
-        val l = binding.clubListLayout.barChart.legend
-        l.setForm(Legend.LegendForm.CIRCLE); // set what type of form/shape should be used
-        l.isWordWrapEnabled =true
-//        l.isDrawInsideEnabled = true
-//        for (c in ColorTemplate.VORDIPLOM_COLORS) colors.add(c)
-//        for (c in ColorTemplate.JOYFUL_COLORS) colors.add(c)
-//        for (c in ColorTemplate.COLORFUL_COLORS) colors.add(c)
-//        for (c in ColorTemplate.LIBERTY_COLORS) colors.add(c)
-//        for (c in ColorTemplate.PASTEL_COLORS) colors.add(c)
-//        colors.add(ColorTemplate.getHoloBlue())
-
-        dataSet.colors = colors
-        //dataSet.setSelectionShift(0f);
-        val data = PieData(dataSet)
-        data.setValueFormatter(PercentFormatter())
-        data.setValueTextSize(11f)
-        data.setValueTextColor(Color.WHITE)
-        data.setDrawValues(false)
-        binding.clubListLayout.barChart.data = data
-
-        // undo all highlights
-        binding.clubListLayout.barChart.centerText = services.title
-        binding.clubListLayout.barChart.setDrawEntryLabels(false)
-        binding.clubListLayout.barChart.legend.isEnabled = true
-        binding.clubListLayout.barChart.highlightValues(null);
-
-        binding.clubListLayout.barChart.invalidate()
-
-//        pieChart!!.setChart(null)
-//        val data: MutableList<DataEntry> = ArrayList()
-//        for (i in 0..(services.nameArr.size - 1)) {
-//            data.add(
-//                ValueDataEntry(
-//                    services.nameArr.get(i),
-//                    services.valueArr.get(i).toFloat()
-//                )
-//            )
-//        }
-//        pie!!.data(data)
-//        pieChart!!.setChart(pie)
-//        pieChart!!.invalidate()
     }
 
     private fun createRandomColor(): Int {

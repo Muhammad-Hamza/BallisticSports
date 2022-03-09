@@ -440,7 +440,6 @@ class CreateAthleteFragment : Fragment() {
 
                     override fun onError(t: Throwable) {
                         showToast(t?.localizedMessage)
-//                        showMessage(t?.localizedMessage)
                     }
                 })
         }
