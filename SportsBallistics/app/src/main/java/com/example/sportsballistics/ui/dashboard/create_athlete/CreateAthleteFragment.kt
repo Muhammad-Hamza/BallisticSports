@@ -45,7 +45,7 @@ class CreateAthleteFragment : Fragment() {
     var athleteId: String? = null
     val PICK_IMAGE = 1
     var screenType: Int = AppConstant.INTENT_SCREEN_TYPE_ADD
-    var stateArray = arrayOf("Active", "Inactive")
+    var statusArray = arrayOf("Active", "Inactive")
     var imageFile: String? = null
     val listOfState = ArrayList<StateModel>()
     private var selectedStateModel: StateModel? = null
@@ -128,27 +128,18 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if(!TextUtils.isEmpty(athleteResponse.userData?.status))
-        {
+        if (!TextUtils.isEmpty(athleteResponse.userData?.status)) {
             if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
                     "Active", true
                 ) || athleteResponse.userData?.status.equals("Y", true)
-            )
-            {
-                if(binding.etStatus.length() > 0)
-                {
-                    binding.etStatus.setSelection(0)
-                    binding.etStatus.setText("Active")
-                }
-            } else
-            {
-                if(binding.etStatus.length() > 0)
-                {
-                    binding.etStatus.setSelection(1)
-                    binding.etStatus.setText(
-                        "Inactive"
-                    )
-                }
+            ) {
+//                statusAdapter
+                binding.etStatus.setText("Active")
+            } else {
+                binding.etStatus.setText(
+                    "Inactive"
+                )
+                binding.etStatus.setSelection(1)
             }
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
@@ -210,8 +201,8 @@ class CreateAthleteFragment : Fragment() {
 
     private fun initStatusAdapter() {
         statusAdapter =
-            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, stateArray)
-        binding.etStatus.threshold = 1 //will start working from first character
+            ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, statusArray)
+//        binding.etStatus.threshold = 1 //will start working from first character
         binding.etStatus.setAdapter(statusAdapter) //setting the adapter data into the AutoCompleteTextView
     }
 
@@ -263,8 +254,7 @@ class CreateAthleteFragment : Fragment() {
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.imgProfile.setOnClickListener {
-            if(screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT)
-            {
+            if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
                 val getIntent = Intent(Intent.ACTION_GET_CONTENT)
                 getIntent.type = "image/*"
 
@@ -314,71 +304,43 @@ class CreateAthleteFragment : Fragment() {
 
 
         binding.btnSubmit.setOnClickListener {
-            try
-            {
-                if (TextUtils.isEmpty(binding.etFullName.text.toString()))
-                {
+            try {
+                if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
                     showToast("First name is required")
-                }
-                else if (TextUtils.isEmpty(binding.etAge.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
                     showToast("Age is required")
-                }
-                else if (TextUtils.isEmpty(binding.etGrade.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
                     showToast("Athlete grade is required")
-                }
-                else if (TextUtils.isEmpty(binding.etEmail.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
                     showToast("Email is required")
-                }
-                else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
-                {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString())
+                        .matches()
+                ) {
                     showToast("Email is not valid")
-                }
-                else if (TextUtils.isEmpty(binding.etContact.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                     showToast("Contact number is required")
-                }
-                else if (TextUtils.isEmpty(binding.etStatus.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
                     showToast("Status is required")
-                }
-                else if (TextUtils.isEmpty(binding.etAddress1.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                     showToast("First address is required")
-                }
-                else if (TextUtils.isEmpty(binding.etCity.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
                     showToast("City is required")
-                }
-                else if (TextUtils.isEmpty(binding.etState.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
                     showToast("State is required")
-                }
-                else if (TextUtils.isEmpty(binding.etZipcode.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                     showToast("Zip code is required")
-                }
-                else
-                {
-                    if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD)
-                    {
-                        if (TextUtils.isEmpty(binding.etPassword.text.toString()))
-                        {
+                } else {
+                    if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+                        if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
                             showToast("Password is required")
-                        }
-                        else
-                        {
+                        } else {
                             hitAPIRequest()
                         }
-                    }
-                    else
-                    {
+                    } else {
                         hitAPIRequest()
                     }
                 }
-            } catch(ex:Exception){
+            } catch (ex: Exception) {
                 ex.printStackTrace()
             }
         }
@@ -458,9 +420,10 @@ class CreateAthleteFragment : Fragment() {
         }
     }
 
-    private fun getStatus():String{
-        return if(binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
+    private fun getStatus(): String {
+        return if (binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
     }
+
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(CreateAthleteViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
