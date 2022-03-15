@@ -228,7 +228,7 @@
                                         android:ellipsize="end"
                                         android:fontFamily="@font/roboto_regular"
                                         android:maxLines="1"
-                                        android:text="Club Name: Club Name 1"
+                                        android:text="Club Name: Not Found"
                                         android:textColor="@color/actionBarColor"
                                         android:textSize="@dimen/_8sdp" />
 

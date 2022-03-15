@@ -313,7 +313,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString().lowercase(),
+                getStatus(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -349,7 +349,7 @@ class CreateClubAdminFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString().lowercase(),
+                getStatus(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -380,6 +380,9 @@ class CreateClubAdminFragment : Fragment() {
         }
     }
 
+    private fun getStatus():String{
+        return if(binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
+    }
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(CreateClubAdminViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {

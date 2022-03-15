@@ -258,6 +258,9 @@ class CreateTrainerFragment : Fragment() {
         })
     }
 
+    private fun getStatus():String{
+        return if(binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
+    }
     private fun hitAPIRequest() {
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && trainerId != null) {
             val password: String? =
@@ -270,7 +273,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString().lowercase(),
+                getStatus(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),
@@ -299,7 +302,7 @@ class CreateTrainerFragment : Fragment() {
                 binding.etState.text.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
-                binding.etStatus.text.toString().lowercase(),
+                getStatus(),
                 binding.etContact.text.toString(),
                 binding.etAge.text.toString(),
                 binding.etGrade.text.toString(),

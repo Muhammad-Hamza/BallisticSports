@@ -100,7 +100,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         builder.addFormDataPart("email", email).addFormDataPart("fullname", name)
             .addFormDataPart("contact_no", contact_no).addFormDataPart("age", age)
             .addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString())
-            .addFormDataPart("city", city).addFormDataPart("status", status.lowercase())
+            .addFormDataPart("city", city).addFormDataPart("status", status)
             .addFormDataPart("address", address).addFormDataPart("grade", grade)
             .addFormDataPart("password", password).addFormDataPart("package_type", package_type)
             .addFormDataPart("club_name", club_name).addFormDataPart("role_id", role_id)
