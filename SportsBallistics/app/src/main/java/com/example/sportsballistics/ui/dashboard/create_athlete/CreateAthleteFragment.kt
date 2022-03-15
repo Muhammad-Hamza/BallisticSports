@@ -128,7 +128,7 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if(athleteResponse.userData?.status != null)
+        if(!TextUtils.isEmpty(athleteResponse.userData?.status))
         {
             if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
                     "Active", true
