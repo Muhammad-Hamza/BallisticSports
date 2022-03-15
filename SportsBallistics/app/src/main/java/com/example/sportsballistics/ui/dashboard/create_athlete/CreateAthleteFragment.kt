@@ -254,7 +254,7 @@ class CreateAthleteFragment : Fragment() {
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.imgProfile.setOnClickListener {
-            if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
                 val getIntent = Intent(Intent.ACTION_GET_CONTENT)
                 getIntent.type = "image/*"
 
