@@ -225,6 +225,8 @@
                                     android:focusable="false"
                                     android:gravity="top|start"
                                     android:inputType="number"
+                                    android:fontFamily="@font/roboto_medium"
+                                    android:textColor="@color/txtGrey"
                                     android:maxLines="1"
                                     android:padding="@dimen/_5sdp"
                                     android:textSize="@dimen/_8sdp" />

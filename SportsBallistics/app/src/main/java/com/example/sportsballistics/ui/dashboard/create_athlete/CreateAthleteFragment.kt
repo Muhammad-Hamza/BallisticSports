@@ -128,18 +128,28 @@ class CreateAthleteFragment : Fragment() {
         binding.etEmail.setText(athleteResponse.userData?.email)
 //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
-                "Active",
-                true
-            ) || athleteResponse.userData?.status.equals("Y", true)
-        ) {
-            binding.etStatus.setSelection(0)
-            binding.etStatus.setText("Active")
-        } else {
-            binding.etStatus.setSelection(1)
-            binding.etStatus.setText(
-                "Inactive"
+        if(athleteResponse.userData?.status != null)
+        {
+            if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
+                    "Active", true
+                ) || athleteResponse.userData?.status.equals("Y", true)
             )
+            {
+                if(binding.etStatus.length() > 0)
+                {
+                    binding.etStatus.setSelection(0)
+                    binding.etStatus.setText("Active")
+                }
+            } else
+            {
+                if(binding.etStatus.length() > 0)
+                {
+                    binding.etStatus.setSelection(1)
+                    binding.etStatus.setText(
+                        "Inactive"
+                    )
+                }
+            }
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
@@ -253,17 +263,20 @@ class CreateAthleteFragment : Fragment() {
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.imgProfile.setOnClickListener {
-            val getIntent = Intent(Intent.ACTION_GET_CONTENT)
-            getIntent.type = "image/*"
+            if(screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT)
+            {
+                val getIntent = Intent(Intent.ACTION_GET_CONTENT)
+                getIntent.type = "image/*"
 
-            val pickIntent =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            pickIntent.type = "image/*"
+                val pickIntent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                pickIntent.type = "image/*"
 
-            val chooserIntent = Intent.createChooser(getIntent, "Select Image")
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+                val chooserIntent = Intent.createChooser(getIntent, "Select Image")
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
 
-            startActivityForResult(chooserIntent, PICK_IMAGE)
+                startActivityForResult(chooserIntent, PICK_IMAGE)
+            }
         }
         binding.txtEdit.setOnClickListener {
             doDisableEditing(true)

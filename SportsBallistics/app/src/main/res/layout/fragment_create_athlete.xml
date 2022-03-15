@@ -452,12 +452,12 @@
                                 android:clickable="true"
                                 android:editable="false"
                                 android:focusable="false"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="top|start"
                                 android:inputType="number"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="@color/txtGrey"
                                 android:maxLines="1"
                                 android:padding="@dimen/_5sdp"
+                                android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_8sdp" />
 
                             <androidx.appcompat.widget.LinearLayoutCompat
@@ -531,7 +531,6 @@
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
                     android:scaleType="centerCrop"
-                    android:src="@mipmap/ic_temp_avatar"
                     app:riv_corner_radius="@dimen/_5sdp" />
 
                 <androidx.appcompat.widget.AppCompatButton
