@@ -439,7 +439,7 @@ class CreateClubAdminFragment : Fragment() {
 
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, sampleList)
-        binding.etClub.threshold = 1 //will start working from first character
+//        binding.etClub.threshold = 1 //will start working from first character
         binding.etClub.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
         binding.etClub.setOnItemClickListener(object : AdapterView.OnItemClickListener {
             override fun onItemClick(
@@ -459,9 +459,9 @@ class CreateClubAdminFragment : Fragment() {
         if (!TextUtils.isEmpty(binding.etClubId.text.toString())) {
             for (i in 0..(listOfClub.size - 1)) {
                 if (listOfClub.get(i)!!.id!!.equals(binding.etClubId.text.toString())) {
-                    binding.etClub.setSelection(i)
                     selectClubModel = listOfClub.get(i)
                     binding.etClub.setText(selectClubModel!!.name)
+                    binding.etClub.setSelection(i)
                     binding.etClubId.setText(selectClubModel!!.id)
                     break
                 }
@@ -471,7 +471,6 @@ class CreateClubAdminFragment : Fragment() {
 
     fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
-
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.tvCancel)
         binding.btnSubmit.background = null
