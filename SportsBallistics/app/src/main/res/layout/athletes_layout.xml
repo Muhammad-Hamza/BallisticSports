@@ -15,7 +15,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_toddler_login_bg" />
 
-
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/backClubList"
             android:layout_width="wrap_content"
@@ -393,34 +392,34 @@
                                         android:layout_below="@id/llActionMain"
                                         android:orientation="vertical">
 
-<!--                                        <com.anychart.AnyChartView-->
-<!--                                            android:id="@+id/pieChart"-->
-<!--                                            android:layout_width="match_parent"-->
-<!--                                            android:layout_height="@dimen/_200sdp"-->
-<!--                                            android:layout_below="@id/llActionMain"-->
-<!--                                            android:layout_centerHorizontal="true"-->
-<!--                                            android:layout_marginLeft="@dimen/_15sdp"-->
-<!--                                            android:layout_marginTop="@dimen/_2sdp"-->
-<!--                                            android:layout_marginRight="@dimen/_15sdp" />-->
+                                        <!--                                        <com.anychart.AnyChartView-->
+                                        <!--                                            android:id="@+id/pieChart"-->
+                                        <!--                                            android:layout_width="match_parent"-->
+                                        <!--                                            android:layout_height="@dimen/_200sdp"-->
+                                        <!--                                            android:layout_below="@id/llActionMain"-->
+                                        <!--                                            android:layout_centerHorizontal="true"-->
+                                        <!--                                            android:layout_marginLeft="@dimen/_15sdp"-->
+                                        <!--                                            android:layout_marginTop="@dimen/_2sdp"-->
+                                        <!--                                            android:layout_marginRight="@dimen/_15sdp" />-->
 
                                         <TextView
+                                            android:id="@+id/txtNoChart"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:id="@+id/txtNoChart"
                                             android:layout_centerInParent="true"
-                                            android:layout_centerHorizontal="true"
-                                            android:textSize="@dimen/_11sdp"
+                                            android:text="No Chart Available"
                                             android:textColor="@color/black"
-                                            android:text="No Chart Available"/>
+                                            android:textSize="@dimen/_11sdp" />
+
                                         <com.github.mikephil.charting.charts.PieChart
                                             android:id="@+id/barChart"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:minHeight="@dimen/_200sdp"
                                             android:layout_centerHorizontal="true"
                                             android:layout_marginLeft="@dimen/_15sdp"
                                             android:layout_marginTop="@dimen/_2sdp"
                                             android:layout_marginRight="@dimen/_15sdp"
+                                            android:minHeight="@dimen/_200sdp"
                                             android:visibility="gone" />
 
                                     </RelativeLayout>
