@@ -190,7 +190,20 @@ class AthletesFragment : Fragment() {
 
         }
         binding.clubListLayout.backClubList.setOnClickListener {
-            Navigation.findNavController(binding.root).navigateUp()
+            if (binding.clubListLayout.llMainLayout.visibility == View.VISIBLE) {
+                if (binding.clubListLayout.rlCoach.visibility == View.VISIBLE) {
+//                    showToast("Chart is visible")
+                    binding.clubListLayout.recyclerView.visibility = View.VISIBLE
+                    binding.clubListLayout.rlCoach.visibility = View.GONE
+                } else {
+//                    showToast("Athlete data list is visible")
+                    binding.clubListLayout.llList.visibility = View.VISIBLE
+                    binding.clubListLayout.llMainLayout.visibility = View.GONE
+                }
+            } else {
+//                showToast("Main Layout is visible")
+                Navigation.findNavController(binding.root).navigateUp()
+            }
         }
         binding.clubListLayout.llAddAthlete.setOnClickListener()
         {
@@ -305,8 +318,10 @@ class AthletesFragment : Fragment() {
             binding.clubListLayout.recyclerView.visibility = View.GONE
             binding.clubListLayout.txtDetailHeading.setText(model.data!!.title)
             binding.clubListLayout.rlCoach.visibility = View.VISIBLE
-            binding.clubListLayout.barChart.visibility = if (model.data.valueArr != null) View.VISIBLE else View.INVISIBLE
-            binding.clubListLayout.txtNoChart.visibility = if (model.data.valueArr != null) View.GONE else View.VISIBLE
+            binding.clubListLayout.barChart.visibility =
+                if (model.data.valueArr != null) View.VISIBLE else View.INVISIBLE
+            binding.clubListLayout.txtNoChart.visibility =
+                if (model.data.valueArr != null) View.GONE else View.VISIBLE
 //        binding.clubListLayout.barChart.visibility = View.GONE
         } else {
             showToast("Details not found")
@@ -556,14 +571,12 @@ class AthletesFragment : Fragment() {
     }
 
     private fun loadCoachabilityChart(services: AthleteDataModel) {
-        if(services.valueArr != null)
-        {
+        if (services.valueArr != null) {
             val entries: ArrayList<PieEntry> = ArrayList()
 
             // NOTE: The order of the entries when being added to the entries array determines their position around the center of
             // the chart.
-            for (i in 0..(services.nameArr.size - 1))
-            {
+            for (i in 0..(services.nameArr.size - 1)) {
                 entries.add(
                     PieEntry(
                         services.valueArr.get(i).toFloat(), services.nameArr.get(i)
@@ -584,8 +597,7 @@ class AthletesFragment : Fragment() {
 
             // add a lot of colors
             val colors: ArrayList<Int> = ArrayList()
-            for (i in 0..(entries.size - 1))
-            {
+            for (i in 0..(entries.size - 1)) {
                 colors.add(createRandomColor())
             }
             val l = binding.clubListLayout.barChart.legend
@@ -629,7 +641,7 @@ class AthletesFragment : Fragment() {
             //        pieChart!!.invalidate()
         } else {
             binding.clubListLayout.barChart.visibility = View.INVISIBLE
-            binding.clubListLayout.txtNoChart.visibility =  View.VISIBLE
+            binding.clubListLayout.txtNoChart.visibility = View.VISIBLE
 
         }
     }
