@@ -48,7 +48,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.MPPointF
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AthletesFragment : Fragment() {
@@ -576,7 +575,9 @@ class AthletesFragment : Fragment() {
 
             // NOTE: The order of the entries when being added to the entries array determines their position around the center of
             // the chart.
+
             for (i in 0..(services.nameArr.size - 1)) {
+
                 entries.add(
                     PieEntry(
                         services.valueArr.get(i).toFloat(), services.nameArr.get(i)
@@ -612,7 +613,7 @@ class AthletesFragment : Fragment() {
 
             dataSet.colors = colors //dataSet.setSelectionShift(0f);
             val data = PieData(dataSet)
-            data.setValueFormatter(PercentFormatter())
+            data.setValueFormatter(PercentFormatter(binding.clubListLayout.barChart))
             data.setValueTextSize(11f)
             data.setValueTextColor(Color.WHITE)
             data.setDrawValues(true)

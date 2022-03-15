@@ -108,7 +108,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         if (imageURI != null) {
             val file = File(imageURI)
             val requestFile: RequestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                RequestBody.create(MediaType.parse("image/jpeg"), file)
             builder.addFormDataPart("profile_image", file.name, requestFile);
         }
         val requestBody: RequestBody = builder.build()
@@ -260,7 +260,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
             val bmp = BitmapFactory.decodeFile(file?.getAbsolutePath())
 
             val requestFile: RequestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                RequestBody.create(MediaType.parse("image/jpeg"), file)
             builder.addFormDataPart("profile_image", file.name, requestFile);
         }
         val requestBody: RequestBody = builder.build()
