@@ -106,10 +106,22 @@ class AthleteFormFragment : Fragment() {
             binding.tvFormHeading.setText(serviceModel!!.name)
             listOfQuestion = ArrayList()
 
-            for (i in 0..(anyObject.data.nameArr.size - 1)) {
-                listOfQuestion.add(AthleteFormLocalModel(i, anyObject.data.nameArr[i], null, null))
-            }
+            if(anyObject != null && anyObject.data != null && anyObject.data.nameArr != null && anyObject.data.valueArr != null)
+            {
+                for (i in 0..(anyObject.data.nameArr.size - 1))
+                {
+                    listOfQuestion.add(
+                        AthleteFormLocalModel(
+                            i,
+                            anyObject.data.nameArr[i],
+                            null,
+                            null,
+                            anyObject.data.valueArr[i]
+                        )
+                    )
+                }
 
+            }
             adapter = AthleteFormAdapter(binding.root.context, listOfQuestion)
             binding.recyclerView.layoutManager =
                 LinearLayoutManager(binding.root.context, RecyclerView.VERTICAL, false)
