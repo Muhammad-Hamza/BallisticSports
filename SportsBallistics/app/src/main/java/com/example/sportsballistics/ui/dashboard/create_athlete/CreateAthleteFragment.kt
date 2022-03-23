@@ -421,7 +421,7 @@ class CreateAthleteFragment : Fragment() {
     }
 
     private fun getStatus(): String {
-        return if (binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
+        return if(binding.etStatus.text.toString().lowercase() == "active") "active" else "inactive"
     }
 
     private fun initViewModel() {

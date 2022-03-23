@@ -242,7 +242,7 @@ class CreateClubAdminFragment : Fragment() {
             }
         }
         binding.etClub.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+            if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                 AppConstant.showSpinnerDropdown(binding.etClub)
             }
         }
@@ -381,7 +381,7 @@ class CreateClubAdminFragment : Fragment() {
     }
 
     private fun getStatus():String{
-        return if(binding.etStatus.text.toString().lowercase() == "active") "Y" else "N"
+        return if(binding.etStatus.text.toString().lowercase() == "active") "active" else "inactive"
     }
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(CreateClubAdminViewModel::class.java)
