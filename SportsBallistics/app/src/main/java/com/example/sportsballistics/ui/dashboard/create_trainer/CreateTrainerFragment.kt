@@ -113,14 +113,13 @@ class CreateTrainerFragment : Fragment() {
                 ) || athleteResponse.userData?.status.equals("Y", true)
             ) {
                 binding.etStatus.setText("Active")
-                binding.etState.setSelection(0)
             } else {
                 binding.etStatus.setText("Inactive")
-                binding.etState.setSelection(1)
+                binding.etStatus.setSelection(1)
             }
         } else {
             binding.etStatus.setText("Inactive")
-            binding.etState.setSelection(1)
+            binding.etStatus.setSelection(1)
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)

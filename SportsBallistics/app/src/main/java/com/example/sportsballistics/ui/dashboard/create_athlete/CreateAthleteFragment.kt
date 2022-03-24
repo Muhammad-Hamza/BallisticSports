@@ -130,7 +130,7 @@ class CreateAthleteFragment : Fragment() {
         binding.etContact.setText(athleteResponse.userData?.contactNo)
         if (!TextUtils.isEmpty(athleteResponse.userData?.status)) {
             if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
-                    "Active", true
+                    "active", true
                 ) || athleteResponse.userData?.status.equals("Y", true)
             ) {
 //                statusAdapter

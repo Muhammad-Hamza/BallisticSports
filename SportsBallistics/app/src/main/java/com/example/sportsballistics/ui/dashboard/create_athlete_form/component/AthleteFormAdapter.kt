@@ -42,7 +42,7 @@ class AthleteFormAdapter(val context: Context, val list: List<AthleteFormLocalMo
         {
             binding.tvTitle.setText(atheletFormModel.heading)
             AppConstant.changeColor(binding.tvTitle)
-            if (!TextUtils.isEmpty(atheletFormModel.value))
+            if (atheletFormModel.value != null && !TextUtils.isEmpty(atheletFormModel.value))
             {
                 binding.etEditInfo.setText(atheletFormModel.value)
             }
