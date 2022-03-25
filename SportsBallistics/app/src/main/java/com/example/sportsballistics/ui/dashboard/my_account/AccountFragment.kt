@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.example.sportsballistics.AppSystem
+import com.example.sportsballistics.BuildConfig
 import com.example.sportsballistics.R
 import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
@@ -165,6 +166,7 @@ class AccountFragment : Fragment() {
     }
 
     fun loadAssets() {
+        binding.txtVersion.setText("App Version:"+ BuildConfig.VERSION_NAME)
         val sportsType = SharedPrefUtil.getInstance().sportsType
         AppConstant.changeColor(binding.txtTotalTrainersText)
         AppConstant.changeColor(binding.txtLogout)

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.widget.*
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -22,6 +23,7 @@ import com.google.gson.reflect.TypeToken
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.lang.reflect.Type
+import kotlin.math.log
 
 
 class
@@ -115,6 +117,9 @@ AppConstant {
 
                 }
             }, 250)
+
+            etDropdown.setOnItemClickListener { parent, view, position, id -> Log.d("status",position.toString()) }
+
         }
 
         fun createStrRequestBody(content: String): RequestBody {
