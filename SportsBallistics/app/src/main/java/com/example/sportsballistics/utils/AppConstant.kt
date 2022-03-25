@@ -105,15 +105,16 @@ AppConstant {
             );
         }
 
-        fun showSpinnerDropdown(etDropdown: AutoCompleteTextView) {
-            etDropdown.setText("")
+        fun showSpinnerDropdown(etDropdown: CustomAutoCompleteTextView) {
+//            etDropdown.setText("")
+//            etDropdown.threshold = 100
             Handler(Looper.myLooper()!!, object : Handler.Callback {
                 override fun handleMessage(msg: Message): Boolean {
                     return true
                 }
             }).postDelayed(object : Runnable {
                 override fun run() {
-                    etDropdown.showDropDown()
+//                    etDropdown.showDropDown()
 
                 }
             }, 250)

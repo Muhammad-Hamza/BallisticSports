@@ -142,19 +142,20 @@ class CreateClubAdminFragment : Fragment() {
                     true
                 ) || athleteResponse.userData?.status.equals("Y", true)
             ) {
-                binding.etStatus.setText("Active")
                 binding.etStatus.setSelection(0)
             } else {
                 binding.etStatus.setSelection(1)
-                binding.etStatus.setText("Inactive")
             }
         } else {
             binding.etStatus.setSelection(1)
-            binding.etStatus.setText("Inactive")
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
-        binding.etState.setText(athleteResponse.userData?.state)
+        for (i in 0..(listOfState.size - 1)) {
+            if (listOfState.get(i).name.equals(athleteResponse.userData?.state)) {
+                binding.etState.setSelection(i)
+            }
+        }
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
         if (!TextUtils.isEmpty(athleteResponse.userData?.clubId)) {
             binding.etClubId.setText(athleteResponse.userData?.clubId)
@@ -178,6 +179,8 @@ class CreateClubAdminFragment : Fragment() {
         binding.etCity.isEnabled = boolean
         binding.etState.isEnabled = boolean
         binding.etZipcode.isEnabled = boolean
+        binding.etStatus.isEnabled = boolean
+        binding.etClub.isEnabled = boolean
         binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
         binding.tvCancel.visibility = if (boolean) View.VISIBLE else View.GONE
 //        binding.etState.isClickable = boolean
@@ -186,7 +189,6 @@ class CreateClubAdminFragment : Fragment() {
     private fun initStatusAdapter() {
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, stateArray)
-        binding.etStatus.threshold = 1 //will start working from first character
         binding.etStatus.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
     }
 
@@ -198,19 +200,20 @@ class CreateClubAdminFragment : Fragment() {
         }
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, newList)
-        binding.etState.threshold = 1 //will start working from first character
         binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-        binding.etState.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
+        binding.etState.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
                 position: Int,
                 id: Long
             ) {
                 selectedStateModel = listOfState.get(position)
-                if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
             }
 
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
         }
     }
 
@@ -221,39 +224,24 @@ class CreateClubAdminFragment : Fragment() {
             binding.txtEdit.visibility = View.GONE
             screenType = AppConstant.INTENT_SCREEN_TYPE_EDIT
         }
-        binding.etStatus.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etStatus)
-            }
-        }
 
         binding.tvCancel.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
 
-        binding.llStateDropdown.setOnClickListener {
+        binding.llStatusDropdown.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etStatus)
+                binding.etStatus.performClick()
             }
         }
         binding.llClub.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etClub)
-            }
-        }
-        binding.etClub.setOnClickListener {
-            if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
-                AppConstant.showSpinnerDropdown(binding.etClub)
+                binding.etClub.performClick()
             }
         }
         binding.llState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
-            }
-        }
-        binding.etState.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
+                binding.etState.performClick()
             }
         }
         binding.tvCancel.setOnClickListener {
@@ -275,17 +263,17 @@ class CreateClubAdminFragment : Fragment() {
                 showToast("Password is required")
             }*/ else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                 showToast("Contact number is required")
-            } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etStatus.selectedItem.toString())) {
                 showToast("Status is required")
             } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                 showToast("First address is required")
             } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
                 showToast("City is required")
-            } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etState.selectedItem.toString())) {
                 showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                 showToast("Zip code is required")
-            } else if (TextUtils.isEmpty(binding.etClub.text.toString())) {
+            } else if (TextUtils.isEmpty(binding.etClub.selectedItem.toString())) {
                 showToast("Club name is required")
             } else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
@@ -310,7 +298,7 @@ class CreateClubAdminFragment : Fragment() {
                 clubAdminId!!,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
-                binding.etState.text.toString(),
+                binding.etState.selectedItem.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
                 getStatus(),
@@ -346,7 +334,7 @@ class CreateClubAdminFragment : Fragment() {
                 requireContext(),
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
-                binding.etState.text.toString(),
+                binding.etState.selectedItem.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
                 getStatus(),
@@ -380,9 +368,12 @@ class CreateClubAdminFragment : Fragment() {
         }
     }
 
-    private fun getStatus():String{
-        return if(binding.etStatus.text.toString().lowercase() == "active") "active" else "inactive"
+    private fun getStatus(): String {
+        return if (binding.etStatus.selectedItem.toString()
+                .equals("active", true)
+        ) "active" else "inactive"
     }
+
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(CreateClubAdminViewModel::class.java)
         viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
@@ -441,26 +432,29 @@ class CreateClubAdminFragment : Fragment() {
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, sampleList)
 //        binding.etClub.threshold = 1 //will start working from first character
         binding.etClub.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-        binding.etClub.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
+        binding.etClub.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
                 position: Int,
                 id: Long
             ) {
                 selectClubModel = listOfClub.get(position)
                 if (selectClubModel != null) {
-                    binding.etClub.setText(selectClubModel!!.name)
+//                    binding.etClub.setText(selectClubModel!!.name)
                     binding.etClubId.setText(selectClubModel!!.id)
                 }
             }
 
-        })
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
         if (!TextUtils.isEmpty(binding.etClubId.text.toString())) {
             for (i in 0..(listOfClub.size - 1)) {
                 if (listOfClub.get(i)!!.id!!.equals(binding.etClubId.text.toString())) {
                     selectClubModel = listOfClub.get(i)
-                    binding.etClub.setText(selectClubModel!!.name)
+//                    binding.etClub.setText(selectClubModel!!.name)
                     binding.etClub.setSelection(i)
                     binding.etClubId.setText(selectClubModel!!.id)
                     break

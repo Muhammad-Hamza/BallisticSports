@@ -317,7 +317,7 @@
                             android:background="@drawable/edit_text_bg"
                             android:orientation="horizontal">
 
-                            <AutoCompleteTextView
+                            <Spinner
                                 android:id="@+id/etStatus"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_22sdp"
@@ -326,17 +326,10 @@
                                 android:background="@null"
                                 android:clickable="true"
                                 android:editable="false"
-                                android:focusable="false"
-                                android:fontFamily="@font/roboto_medium"
-                                android:gravity="top|start"
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@color/txtGrey"
-                                android:textSize="@dimen/_8sdp" />
+                                android:focusable="false" />
 
                             <androidx.appcompat.widget.LinearLayoutCompat
-                                android:id="@+id/llStateDropdown"
+                                android:id="@+id/llStatusDropdown"
                                 android:layout_width="@dimen/_25sdp"
                                 android:layout_height="match_parent"
                                 android:layout_margin="@dimen/_1sdp"
@@ -446,7 +439,7 @@
                             android:background="@drawable/edit_text_bg"
                             android:orientation="horizontal">
 
-                            <AutoCompleteTextView
+                            <Spinner
                                 android:id="@+id/etState"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_22sdp"
@@ -455,14 +448,7 @@
                                 android:background="@null"
                                 android:clickable="true"
                                 android:editable="false"
-                                android:focusable="false"
-                                android:fontFamily="@font/roboto_medium"
-                                android:gravity="top|start"
-                                android:inputType="number"
-                                android:maxLines="1"
-                                android:padding="@dimen/_5sdp"
-                                android:textColor="@color/txtGrey"
-                                android:textSize="@dimen/_8sdp" />
+                                android:focusable="false" />
 
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:id="@+id/llState"
@@ -539,7 +525,7 @@
                         android:background="@drawable/edit_text_bg"
                         android:orientation="horizontal">
 
-                        <AutoCompleteTextView
+                        <Spinner
                             android:id="@+id/etClub"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_22sdp"
@@ -548,14 +534,7 @@
                             android:background="@null"
                             android:clickable="true"
                             android:editable="false"
-                            android:focusable="false"
-                            android:fontFamily="@font/roboto_medium"
-                            android:gravity="top|start"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:padding="@dimen/_5sdp"
-                            android:textColor="@color/txtGrey"
-                            android:textSize="@dimen/_8sdp" />
+                            android:focusable="false" />
 
                         <TextView
                             android:id="@+id/etClubId"

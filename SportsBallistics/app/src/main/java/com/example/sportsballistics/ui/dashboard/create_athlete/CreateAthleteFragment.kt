@@ -134,20 +134,32 @@ class CreateAthleteFragment : Fragment() {
                 ) || athleteResponse.userData?.status.equals("Y", true)
             ) {
 //                statusAdapter
-                binding.etStatus.setText("Active")
+//                binding.etStatus.("Active")
+                binding.etStatus.setSelection(0)
             } else {
-                binding.etStatus.setText(
-                    "Inactive"
-                )
+//                binding.etStatus.setText(
+//                    "Inactive"
+//                )
                 binding.etStatus.setSelection(1)
             }
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city)
-        binding.etState.setText(athleteResponse.userData?.state)
+//        binding.etState.setText(athleteResponse.userData?.state)
+        for (i in 0..(listOfState.size - 1)) {
+            if (listOfState.get(i).name.equals(athleteResponse.userData?.state)) {
+                binding.etState.setSelection(i)
+            }
+        }
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
-        Glide.with(binding.root).load(athleteResponse.userData?.profileImage)
-            .into(binding.imgProfile)
+        if (!TextUtils.isEmpty(athleteResponse.userData?.profileImage)) {
+            Glide.with(binding.root).load(athleteResponse.userData?.profileImage)
+                .placeholder(R.mipmap.ic_temp_avatar)
+                .into(binding.imgProfile)
+        } else {
+            Glide.with(binding.root).load(R.mipmap.ic_temp_avatar)
+                .into(binding.imgProfile)
+        }
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             doDisableEditing(false)
         } else {
@@ -165,6 +177,7 @@ class CreateAthleteFragment : Fragment() {
         binding.etContact.isEnabled = boolean
         binding.etAddress1.isEnabled = boolean
         binding.etCity.isEnabled = boolean
+        binding.etStatus.isEnabled = boolean
         binding.etState.isEnabled = boolean
         binding.etZipcode.isEnabled = boolean
         binding.btnSubmit.visibility = if (boolean) View.VISIBLE else View.GONE
@@ -182,20 +195,22 @@ class CreateAthleteFragment : Fragment() {
         }
         val adapter: ArrayAdapter<String> =
             ArrayAdapter<String>(requireContext(), R.layout.listitem_spinner, newList)
-        binding.etState.threshold = 1 //will start working from first character
+//        binding.etState.threshold = 1 //will start working from first character
         binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-        binding.etState.setOnItemClickListener(object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
+        binding.etState.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
                 position: Int,
                 id: Long
             ) {
                 selectedStateModel = listOfState.get(position)
-                if (selectedStateModel != null) binding.etState.setText(selectedStateModel!!.name)
             }
 
-        })
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
+        }
     }
 
 
@@ -274,15 +289,32 @@ class CreateAthleteFragment : Fragment() {
             binding.txtEdit.visibility = View.GONE
             screenType = AppConstant.INTENT_SCREEN_TYPE_EDIT
         }
-        binding.etStatus.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etStatus)
+//        binding.etStatus.setOnClickListener {
+//            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+//                AppConstant.showSpinnerDropdown(binding.etStatus)
+//            }
+//        }
+
+        binding.etStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+
+//                selectedText = muscleGroups[position]
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
             }
         }
-
-        binding.llStateDropdown.setOnClickListener {
+        binding.llStatusDropdown.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etStatus)
+                binding.etStatus.performClick()
+//                binding.etStatus
+//                AppConstant.showSpinnerDropdown(binding.etStatus)
             }
         }
 
@@ -291,14 +323,14 @@ class CreateAthleteFragment : Fragment() {
         }
 
 
+//        binding.etState.setOnClickListener {
+//            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+//                AppConstant.showSpinnerDropdown(binding.etState)
+//            }
+//        }
         binding.llState.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
-            }
-        }
-        binding.etState.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
-                AppConstant.showSpinnerDropdown(binding.etState)
+                binding.etState.performClick()
             }
         }
 
@@ -319,13 +351,13 @@ class CreateAthleteFragment : Fragment() {
                     showToast("Email is not valid")
                 } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                     showToast("Contact number is required")
-                } else if (TextUtils.isEmpty(binding.etStatus.text.toString())) {
+                } else if (TextUtils.isEmpty(binding.etStatus.selectedItem.toString())) {
                     showToast("Status is required")
                 } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                     showToast("First address is required")
                 } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
                     showToast("City is required")
-                } else if (TextUtils.isEmpty(binding.etState.text.toString())) {
+                } else if (TextUtils.isEmpty(binding.etState.selectedItem.toString())) {
                     showToast("State is required")
                 } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                     showToast("Zip code is required")
@@ -356,7 +388,7 @@ class CreateAthleteFragment : Fragment() {
                 imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
-                binding.etState.text.toString(),
+                binding.etState.selectedItem.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
                 getStatus(),
@@ -385,7 +417,7 @@ class CreateAthleteFragment : Fragment() {
                 imageFile,
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
-                binding.etState.text.toString(),
+                binding.etState.selectedItem.toString(),
                 binding.etZipcode.text.toString().toInt(),
                 binding.etCity.text.toString(),
                 getStatus(),
@@ -421,7 +453,10 @@ class CreateAthleteFragment : Fragment() {
     }
 
     private fun getStatus(): String {
-        return if(binding.etStatus.text.toString().lowercase() == "active") "active" else "inactive"
+        return if (binding.etStatus.selectedItem.toString()
+                .equals("active", true)
+        ) "active" else "inactive"
+//        return ""
     }
 
     private fun initViewModel() {
