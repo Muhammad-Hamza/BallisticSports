@@ -312,7 +312,7 @@
                             android:background="@drawable/edit_text_bg"
                             android:orientation="horizontal">
 
-                            <AutoCompleteTextView
+                            <com.example.sportsballistics.utils.CustomAutoCompleteTextView
                                 android:id="@+id/etStatus"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_22sdp"
@@ -440,8 +440,7 @@
                             android:background="@drawable/edit_text_bg"
                             android:orientation="horizontal">
 
-                            <AutoCompleteTextView
-                                android:id="@+id/etState"
+                            <com.example.sportsballistics.utils.CustomAutoCompleteTextView                                android:id="@+id/etState"
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/_22sdp"
                                 android:layout_below="@+id/txt_main"
@@ -449,13 +448,13 @@
                                 android:background="@null"
                                 android:clickable="true"
                                 android:editable="false"
-                                android:fontFamily="@font/roboto_medium"
-                                android:textColor="@color/txtGrey"
                                 android:focusable="false"
+                                android:fontFamily="@font/roboto_medium"
                                 android:gravity="top|start"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:padding="@dimen/_5sdp"
+                                android:textColor="@color/txtGrey"
                                 android:textSize="@dimen/_8sdp" />
 
                             <androidx.appcompat.widget.LinearLayoutCompat

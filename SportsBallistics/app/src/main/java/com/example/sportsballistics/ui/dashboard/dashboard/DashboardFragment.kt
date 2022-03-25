@@ -191,11 +191,17 @@ class DashboardFragment : Fragment() {
                         if (AppSystem.getInstance()
                                 .getCurrentUser()!!.loggedIn!!.profileImage != null
                         ) {
-                            loadImage(
+//                            loadImage(
+//                                AppSystem.getInstance()
+//                                    .getCurrentUser()!!.loggedIn!!.profileImage!!,
+//                                binding.ivUserImage
+//                            )
+                            Glide.with(this).load(
                                 AppSystem.getInstance()
-                                    .getCurrentUser()!!.loggedIn!!.profileImage!!,
-                                binding.ivUserImage
-                            )
+                                    .getCurrentUser()!!.loggedIn!!.profileImage!!
+                            ).placeholder(R.mipmap.ic_temp_avatar).into(binding.ivUserImage)
+                        } else {
+                            Glide.with(this).load(R.mipmap.ic_temp_avatar).into(binding.ivUserImage)
                         }
                     }
                 }
