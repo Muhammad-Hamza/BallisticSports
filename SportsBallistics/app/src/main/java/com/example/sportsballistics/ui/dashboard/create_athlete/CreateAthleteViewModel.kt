@@ -81,7 +81,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         name: String,
         address: String,
         state: String,
-        zipcode: Int,
+        zipcode: String,
         city: String,
         status: String,
         contact_no: String,
@@ -153,7 +153,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         name: String,
         address: String,
         state: String,
-        zipcode: Int,
+        zipcode: String,
         city: String,
         status: String,
         contact_no: String,
@@ -227,7 +227,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         name: String,
         address: String,
         state: String,
-        zipcode: Int,
+        zipcode: String,
         city: String,
         status: String,
         contact_no: String,
@@ -245,7 +245,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
         builder.addFormDataPart("email", email).addFormDataPart("fullname", name)
             .addFormDataPart("contact_no", contact_no).addFormDataPart("age", age)
-            .addFormDataPart("state", state).addFormDataPart("zipcode", zipcode.toString())
+            .addFormDataPart("state", state).addFormDataPart("zipcode", zipcode)
             .addFormDataPart("city", city).addFormDataPart("status", status)
             .addFormDataPart("address", address).addFormDataPart("grade", grade)
             .addFormDataPart("package_type", package_type).addFormDataPart("club_name", club_name)
@@ -304,7 +304,7 @@ class CreateAthleteViewModel(application: Application) : AndroidViewModel(applic
         name: String,
         address: String,
         state: String,
-        zipcode: Int,
+        zipcode: String,
         city: String,
         status: String,
         contact_no: String,

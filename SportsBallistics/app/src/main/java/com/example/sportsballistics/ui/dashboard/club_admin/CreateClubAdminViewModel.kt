@@ -70,7 +70,7 @@ class CreateClubAdminViewModel(application: Application) : AndroidViewModel(appl
     /*
       Will be used for athletes and trainer both
        */
-    fun addAthelete(context: Context, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: CreateAthleteViewModel.ContentFetchListener)
+    fun addAthelete(context: Context, name: String, address: String, state: String, zipcode: String, city: String, status: String, contact_no: String, age: String, grade: String, password: String, package_type: String, club_name: String, role_id: String, email: String, mListener: CreateAthleteViewModel.ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
@@ -121,7 +121,7 @@ class CreateClubAdminViewModel(application: Application) : AndroidViewModel(appl
     /*
     Will be used for athletes and trainer both
      */
-    fun editAthlete(context: Context, userId: String, name: String, address: String, state: String, zipcode: Int, city: String, status: String, contact_no: String, age: String, grade: String, password: String?, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
+    fun editAthlete(context: Context, userId: String, name: String, address: String, state: String, zipcode: String, city: String, status: String, contact_no: String, age: String, grade: String, password: String?, package_type: String, club_name: String, role_id: String, email: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)

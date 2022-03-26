@@ -73,7 +73,7 @@ public interface ApiInterface {
             @Field("state") String state,
             @Field("city") String city,
             @Field("status") String status,
-            @Field("zipcode") int zipcode);
+            @Field("zipcode") String zipcode);
 
     @POST(URLIdentifiers.EDIT_CLUB)
     @FormUrlEncoded
@@ -83,7 +83,7 @@ public interface ApiInterface {
                                   @Field("state") String state,
                                   @Field("city") String city,
                                   @Field("status") String status,
-                                  @Field("zipcode") int zipcode);
+                                  @Field("zipcode") String zipcode);
 
     @POST(URLIdentifiers.VIEW_CLUB)
     Call<ViewClubResponse> viewClub(@Path(value = "club_id", encoded = true) String id);
@@ -115,7 +115,7 @@ public interface ApiInterface {
                                     @Field("contact_no") String contact_no,
                                     @Field("age") String age,
                                     @Field("state") String state,
-                                    @Field("zipcode") int zipcode,
+                                    @Field("zipcode") String zipcode,
                                     @Field("city") String city,
                                     @Field("status") String status,
                                     @Field("address") String address,
@@ -157,7 +157,7 @@ public interface ApiInterface {
             @Field("contact_no") String contact_no,
             @Field("age") String age,
             @Field("state") String state,
-            @Field("zipcode") int zipcode,
+            @Field("zipcode") String zipcode,
             @Field("city") String city,
             @Field("status") String status,
             @Field("address") String address,

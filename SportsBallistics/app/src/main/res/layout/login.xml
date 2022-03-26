@@ -52,7 +52,7 @@
                 android:drawableEnd="@drawable/ic_username_icon"
                 android:drawablePadding="@dimen/_5sdp"
                 android:inputType="textEmailAddress"
-                android:hint="Email Address"
+                android:hint="Email"
                 android:nextFocusDown="@id/etPassword"
                 android:paddingStart="5dp"
                 android:textAlignment="viewStart"
@@ -116,7 +116,5 @@
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

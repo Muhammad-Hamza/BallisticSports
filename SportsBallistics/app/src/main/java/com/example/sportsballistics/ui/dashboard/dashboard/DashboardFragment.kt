@@ -199,9 +199,9 @@ class DashboardFragment : Fragment() {
                             Glide.with(this).load(
                                 AppSystem.getInstance()
                                     .getCurrentUser()!!.loggedIn!!.profileImage!!
-                            ).placeholder(R.mipmap.ic_temp_avatar).into(binding.ivUserImage)
+                            ).placeholder(R.drawable.ic_user_ph).into(binding.ivUserImage)
                         } else {
-                            Glide.with(this).load(R.mipmap.ic_temp_avatar).into(binding.ivUserImage)
+                            Glide.with(this).load(R.drawable.ic_user_ph).into(binding.ivUserImage)
                         }
                     }
                 }

@@ -42,7 +42,7 @@ class CreateClubViewModel(application: Application) : AndroidViewModel(applicati
         fun onError(t: Throwable)
     }
 
-    fun addClub(isEdit: Boolean, context: Context, name: String, address: String, state: String, zipcode: Int, city: String, status: String, mListener: ContentFetchListener)
+    fun addClub(isEdit: Boolean, context: Context, name: String, address: String, state: String, zipcode: String, city: String, status: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)
@@ -87,7 +87,7 @@ class CreateClubViewModel(application: Application) : AndroidViewModel(applicati
         })
     }
 
-    fun editClub(context: Context, clubId: String, name: String, address: String, state: String, zipcode: Int, city: String, status: String, mListener: ContentFetchListener)
+    fun editClub(context: Context, clubId: String, name: String, address: String, state: String, zipcode: String, city: String, status: String, mListener: ContentFetchListener)
     {
         mErrorListener.addDialog()
         val apiService = ApiClient.client(context).create(ApiInterface::class.java)

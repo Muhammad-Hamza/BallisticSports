@@ -544,10 +544,10 @@ class AthletesFragment : Fragment() {
         }
 
         if (!TextUtils.isEmpty(athleteDataModel.profile_image)) {
-            Glide.with(binding.root.context).load(athleteDataModel.profile_image).placeholder(R.mipmap.ic_temp_avatar)
+            Glide.with(binding.root.context).load(athleteDataModel.profile_image).placeholder(R.drawable.ic_user_ph)
                 .into(binding.clubListLayout.ivImageView)
         } else {
-            Glide.with(binding.root.context).load(R.mipmap.ic_temp_avatar)
+            Glide.with(binding.root.context).load(R.drawable.ic_user_ph)
                 .into(binding.clubListLayout.ivImageView)
         }
         binding.clubListLayout.tvAdditionalInfo.setText(AppFunctions.getSpannableText(dataContent))

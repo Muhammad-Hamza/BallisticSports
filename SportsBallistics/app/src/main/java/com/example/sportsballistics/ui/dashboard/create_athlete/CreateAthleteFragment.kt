@@ -85,6 +85,7 @@ class CreateAthleteFragment : Fragment() {
         if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
             athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
+
         initStatusAdapter()
         initStateAdapter()
         initClickListener()
@@ -154,10 +155,10 @@ class CreateAthleteFragment : Fragment() {
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
         if (!TextUtils.isEmpty(athleteResponse.userData?.profileImage)) {
             Glide.with(binding.root).load(athleteResponse.userData?.profileImage)
-                .placeholder(R.mipmap.ic_temp_avatar)
+                .placeholder(R.drawable.ic_user_ph)
                 .into(binding.imgProfile)
         } else {
-            Glide.with(binding.root).load(R.mipmap.ic_temp_avatar)
+            Glide.with(binding.root).load(R.drawable.ic_user_ph)
                 .into(binding.imgProfile)
         }
         if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
@@ -389,7 +390,7 @@ class CreateAthleteFragment : Fragment() {
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.selectedItem.toString(),
-                binding.etZipcode.text.toString().toInt(),
+                binding.etZipcode.text.toString(),
                 binding.etCity.text.toString(),
                 getStatus(),
                 binding.etContact.text.toString(),
@@ -418,7 +419,7 @@ class CreateAthleteFragment : Fragment() {
                 binding.etFullName.text.toString(),
                 binding.etAddress1.text.toString(),
                 binding.etState.selectedItem.toString(),
-                binding.etZipcode.text.toString().toInt(),
+                binding.etZipcode.text.toString(),
                 binding.etCity.text.toString(),
                 getStatus(),
                 binding.etContact.text.toString(),
