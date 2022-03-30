@@ -36,6 +36,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_create_club_admin.*
 import java.lang.reflect.Type
+import java.util.regex.Pattern
 
 class CreateClubAdminFragment : Fragment() {
     private lateinit var binding: FragmentCreateClubAdminBinding
@@ -275,7 +276,10 @@ class CreateClubAdminFragment : Fragment() {
                 showToast("Zip code is required")
             } else if (TextUtils.isEmpty(binding.etClub.selectedItem.toString())) {
                 showToast("Club name is required")
-            } else {
+            } else if (!Pattern.matches("[0-9]+", binding.etZipcode.text.toString()))
+            {
+                showToast("Zip code should only contain numbers")
+            }else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                     if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
                         showToast("Password is required")

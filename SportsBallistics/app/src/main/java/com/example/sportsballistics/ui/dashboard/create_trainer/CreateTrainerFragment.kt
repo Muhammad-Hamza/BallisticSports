@@ -26,6 +26,7 @@ import com.example.sportsballistics.databinding.FragmentCreateTrainerBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.utils.AppConstant
 import com.example.sportsballistics.utils.AppUtils.Companion.showToast
+import java.util.regex.Pattern
 
 class CreateTrainerFragment : Fragment() {
     private lateinit var binding: FragmentCreateTrainerBinding
@@ -211,6 +212,9 @@ class CreateTrainerFragment : Fragment() {
                 showToast("State is required")
             } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                 showToast("Zip code is required")
+            } else if (!Pattern.matches("[0-9]+", binding.etZipcode.text.toString()))
+            {
+                showToast("Zip code should only contain numbers")
             } else {
                 if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
                     if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
@@ -311,8 +315,6 @@ class CreateTrainerFragment : Fragment() {
                 object :
                     CreateAthleteViewModel.ContentFetchListener {
                     override fun onFetched(anyObject: Any) {
-                        Navigation.findNavController(binding.root).navigateUp()
-
                         if (anyObject is DashboardModel) {
                             val obj = anyObject as DashboardModel
 

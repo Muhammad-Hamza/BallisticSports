@@ -32,6 +32,7 @@ import com.example.sportsballistics.utils.AppUtils.Companion.showToast
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
+import java.util.regex.Pattern
 
 class CreateClubFragment : Fragment() {
 
@@ -129,6 +130,9 @@ class CreateClubFragment : Fragment() {
                 showToast("Zip code is required")
             } else if (TextUtils.isEmpty(binding.etStatus.selectedItem.toString())) {
                 showToast("Status is required")
+            } else if (!Pattern.matches("[0-9]+", binding.etZipcode.text.toString()))
+            {
+                showToast("Zip code should only contain numbers")
             } else {
                 if (!isEdit) addClub(
                     isEdit,
