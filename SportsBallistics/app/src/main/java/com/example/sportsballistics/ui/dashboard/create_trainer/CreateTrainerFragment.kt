@@ -21,6 +21,7 @@ import com.example.sportsballistics.data.SharedPrefUtil
 import com.example.sportsballistics.data.listeners.Listeners
 import com.example.sportsballistics.data.local.StateModel
 import com.example.sportsballistics.data.remote.AthleteResponse
+import com.example.sportsballistics.data.remote.DashboardModel
 import com.example.sportsballistics.databinding.FragmentCreateTrainerBinding
 import com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteViewModel
 import com.example.sportsballistics.utils.AppConstant
@@ -236,7 +237,7 @@ class CreateTrainerFragment : Fragment() {
         binding.etState.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
@@ -312,11 +313,20 @@ class CreateTrainerFragment : Fragment() {
                     override fun onFetched(anyObject: Any) {
                         Navigation.findNavController(binding.root).navigateUp()
 
-//                        showMessage("Athlete Added")
+                        if (anyObject is DashboardModel) {
+                            val obj = anyObject as DashboardModel
+
+                            if (obj.is_error) {
+                                showToast(obj.message)
+                            } else {
+                                Navigation.findNavController(binding.root).navigateUp()
+                                showToast(obj.message)
+                            }
+                        }
                     }
 
                     override fun onError(t: Throwable) {
-//                        showMessage(t?.localizedMessage)
+                        showToast(t?.localizedMessage)
                     }
                 })
         }

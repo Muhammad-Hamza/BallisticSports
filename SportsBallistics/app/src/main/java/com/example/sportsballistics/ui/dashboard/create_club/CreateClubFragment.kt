@@ -301,8 +301,16 @@ class CreateClubFragment : Fragment() {
                     }
 
                     override fun onSuccess(content: DashboardModel) { //                        showToast("Add club successfully")
-                        showToast("Club Added")
-                        Navigation.findNavController(binding.root).navigateUp()
+                        if (content is DashboardModel) {
+                            if (!content.is_error) {
+                                showToast(content.message)
+                                Navigation.findNavController(binding.root).navigateUp()
+                            } else {
+                                showToast(content.message)
+                            }
+                        } else {
+                            showToast("Unable to create club profile.\nPlease try again later.")
+                        }
                     }
 
                     override fun onError(t: Throwable) {
