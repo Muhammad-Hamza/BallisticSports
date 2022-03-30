@@ -296,21 +296,7 @@ class CreateAthleteFragment : Fragment() {
 //            }
 //        }
 
-        binding.etStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
 
-//                selectedText = muscleGroups[position]
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-
-            }
-        }
         binding.llStatusDropdown.setOnClickListener {
             if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
                 binding.etStatus.performClick()
