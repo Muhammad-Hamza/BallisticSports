@@ -1,7 +1,6 @@
 package com.example.sportsballistics.data.api
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.example.sportsballistics.AppSystem
 import com.example.sportsballistics.data.api.network_interceptor.NetworkInterceptor
 import okhttp3.OkHttpClient
@@ -46,7 +45,6 @@ object ApiClient
 
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         clientBuilder.cookieJar(SessionCookieJar())
-        clientBuilder.addInterceptor(ChuckerInterceptor(AppSystem.context))
         clientBuilder.addInterceptor(loggingInterceptor)
         clientBuilder.addInterceptor(NetworkInterceptor(contxt))
         retrofit = Retrofit.Builder().baseUrl(getURL()).client(clientBuilder.build()).addConverterFactory(GsonConverterFactory.create()).build()

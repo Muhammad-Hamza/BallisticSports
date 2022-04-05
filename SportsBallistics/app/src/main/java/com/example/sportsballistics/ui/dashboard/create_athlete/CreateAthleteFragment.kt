@@ -38,11 +38,9 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import com.example.sportsballistics.utils.CursorUtility.getRealPathFromUri
 import java.util.regex.Pattern
-import java.util.regex.Pattern.matches
 
 
-class CreateAthleteFragment : Fragment()
-{
+class CreateAthleteFragment : Fragment() {
     private lateinit var binding: FragmentCreateAthleteBinding
     lateinit var viewModel: CreateAthleteViewModel
     var athleteId: String? = null
@@ -54,8 +52,7 @@ class CreateAthleteFragment : Fragment()
     private var selectedStateModel: StateModel? = null
     lateinit var statusAdapter: ArrayAdapter<String>
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCompat.requestPermissions(
             requireActivity(), arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), 0
@@ -65,8 +62,7 @@ class CreateAthleteFragment : Fragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View?
-    {
+    ): View? {
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_create_athlete, container, false);
         listOfState.addAll(AppConstant.getStateList())
@@ -75,17 +71,14 @@ class CreateAthleteFragment : Fragment()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
-    {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (arguments != null && requireArguments().containsKey(AppConstant.INTENT_SCREEN_TYPE))
-        {
+        if (arguments != null && requireArguments().containsKey(AppConstant.INTENT_SCREEN_TYPE)) {
             screenType = requireArguments().getInt(
                 AppConstant.INTENT_SCREEN_TYPE, AppConstant.INTENT_SCREEN_TYPE_ADD
             )
         }
-        if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1))
-        {
+        if (requireArguments().containsKey(AppConstant.INTENT_EXTRA_1)) {
             athleteId = requireArguments().getString(AppConstant.INTENT_EXTRA_1)!!
         }
 
@@ -93,67 +86,54 @@ class CreateAthleteFragment : Fragment()
         initStateAdapter()
         initClickListener()
 
-        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW)
-        {
-            if (athleteId != null)
-            {
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT || screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+            if (athleteId != null) {
                 viewModel.viewAthlete(
                     requireContext(),
                     athleteId!!,
-                    object : CreateAthleteViewModel.ContentFetchListener
-                    {
-                        override fun onFetched(anyObject: Any)
-                        {
-                            if (anyObject is AthleteResponse)
-                            {
+                    object : CreateAthleteViewModel.ContentFetchListener {
+                        override fun onFetched(anyObject: Any) {
+                            if (anyObject is AthleteResponse) {
                                 val response = anyObject as AthleteResponse
                                 bindDataInUserProfile(response)
                             }
                         }
 
-                        override fun onError(t: Throwable)
-                        {
+                        override fun onError(t: Throwable) {
                             t.message?.let { showToast(it) }
                         }
                     })
             }
         }
-        if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD)
-        {
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
             binding.txtTotalTrainersText.setText("Create Athlete")
             binding.txtEdit.visibility = View.GONE
             binding.tvPasswordLabel.setText("Password*")
-        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW)
-        {
+        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             binding.txtTotalTrainersText.setText("View Athlete Profile")
             binding.txtEdit.visibility = View.VISIBLE
             binding.tvPasswordLabel.setText("Password")
-        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT)
-        {
+        } else if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT) {
             binding.txtTotalTrainersText.text = "Edit Athlete"
             binding.txtEdit.visibility = View.GONE
             binding.tvPasswordLabel.setText("Password")
         }
     }
 
-    private fun bindDataInUserProfile(athleteResponse: AthleteResponse)
-    {
+    private fun bindDataInUserProfile(athleteResponse: AthleteResponse) {
         binding.etFullName.setText(athleteResponse.userData?.fullname)
         binding.etAge.setText(athleteResponse.userData?.age)
         binding.etGrade.setText(athleteResponse.userData?.grade)
         binding.etEmail.setText(athleteResponse.userData?.email) //        binding.etPassword.setText(athleteResponse.userData?.password)
         binding.etContact.setText(athleteResponse.userData?.contactNo)
-        if (!TextUtils.isEmpty(athleteResponse.userData?.status))
-        {
+        if (!TextUtils.isEmpty(athleteResponse.userData?.status)) {
             if (!TextUtils.isEmpty(athleteResponse.userData?.status) && athleteResponse.userData!!.status.equals(
                     "active", true
                 ) || athleteResponse.userData?.status.equals("Y", true)
-            )
-            { //                statusAdapter
+            ) { //                statusAdapter
                 //                binding.etStatus.("Active")
                 binding.etStatus.setSelection(0)
-            } else
-            { //                binding.etStatus.setText(
+            } else { //                binding.etStatus.setText(
                 //                    "Inactive"
                 //                )
                 binding.etStatus.setSelection(1)
@@ -161,34 +141,27 @@ class CreateAthleteFragment : Fragment()
         }
         binding.etAddress1.setText(athleteResponse.userData?.address)
         binding.etCity.setText(athleteResponse.userData?.city) //        binding.etState.setText(athleteResponse.userData?.state)
-        for (i in 0..(listOfState.size - 1))
-        {
-            if (listOfState.get(i).name.equals(athleteResponse.userData?.state))
-            {
+        for (i in 0..(listOfState.size - 1)) {
+            if (listOfState.get(i).name.equals(athleteResponse.userData?.state)) {
                 binding.etState.setSelection(i)
             }
         }
         binding.etZipcode.setText(athleteResponse.userData?.zipcode)
-        if (!TextUtils.isEmpty(athleteResponse.userData?.profileImage))
-        {
+        if (!TextUtils.isEmpty(athleteResponse.userData?.profileImage)) {
             Glide.with(binding.root).load(athleteResponse.userData?.profileImage)
                 .placeholder(R.drawable.ic_user_ph).into(binding.imgProfile)
-        } else
-        {
+        } else {
             Glide.with(binding.root).load(R.drawable.ic_user_ph).into(binding.imgProfile)
         }
-        if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW)
-        {
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_VIEW) {
             doDisableEditing(false)
-        } else
-        {
+        } else {
             doDisableEditing(true)
         }
     }
 
 
-    private fun doDisableEditing(boolean: Boolean)
-    {
+    private fun doDisableEditing(boolean: Boolean) {
         binding.etFullName.isEnabled = boolean
         binding.etAge.isEnabled = boolean
         binding.etGrade.isEnabled = boolean
@@ -207,11 +180,9 @@ class CreateAthleteFragment : Fragment()
         //        binding.etState.isClickable = boolean
     }
 
-    private fun initStateAdapter()
-    { //        val stateAdapter = StateAdapter(listOfState, requireContext())
+    private fun initStateAdapter() { //        val stateAdapter = StateAdapter(listOfState, requireContext())
         val newList = ArrayList<String>()
-        for (i in 0..(listOfState.size - 1))
-        {
+        for (i in 0..(listOfState.size - 1)) {
             newList.add(listOfState.get(i).name)
         }
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
@@ -220,25 +191,21 @@ class CreateAthleteFragment : Fragment()
             newList
         ) //        binding.etState.threshold = 1 //will start working from first character
         binding.etState.setAdapter(adapter) //setting the adapter data into the AutoCompleteTextView
-        binding.etState.onItemSelectedListener = object : AdapterView.OnItemSelectedListener
-        {
+        binding.etState.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>, view: View?, position: Int, id: Long
-            )
-            {
+            ) {
                 selectedStateModel = listOfState.get(position)
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>)
-            {
+            override fun onNothingSelected(parent: AdapterView<*>) {
 
             }
         }
     }
 
 
-    private fun initStatusAdapter()
-    {
+    private fun initStatusAdapter() {
         statusAdapter = ArrayAdapter<String>(
             requireContext(),
             R.layout.listitem_spinner,
@@ -247,12 +214,9 @@ class CreateAthleteFragment : Fragment()
         binding.etStatus.setAdapter(statusAdapter) //setting the adapter data into the AutoCompleteTextView
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
-    {
-        if (requestCode == PICK_IMAGE)
-        {
-            if (data?.data == null)
-            { //Display an error
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == PICK_IMAGE) {
+            if (data?.data == null) { //Display an error
                 return
             } //            val inputStream: InputStream? =
             //                requireContext().contentResolver.openInputStream(data?.data!!)
@@ -274,14 +238,12 @@ class CreateAthleteFragment : Fragment()
         }
     }
 
-    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File
-    {
+    fun copyStreamToFile(inputStream: InputStream, outputFile: File): File {
         inputStream.use { input ->
             val outputStream = FileOutputStream(outputFile)
             outputStream.use { output ->
                 val buffer = ByteArray(4 * 1024) // buffer size
-                while (true)
-                {
+                while (true) {
                     val byteCount = input.read(buffer)
                     if (byteCount < 0) break
                     output.write(buffer, 0, byteCount)
@@ -293,14 +255,12 @@ class CreateAthleteFragment : Fragment()
         return outputFile
     }
 
-    private fun initClickListener()
-    {
+    private fun initClickListener() {
         binding.backClubList.setOnClickListener {
             Navigation.findNavController(binding.root).navigateUp()
         }
         binding.imgProfile.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW)
-            {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
                 val getIntent = Intent(Intent.ACTION_GET_CONTENT)
                 getIntent.type = "image/*"
 
@@ -327,10 +287,10 @@ class CreateAthleteFragment : Fragment()
 
 
         binding.llStatusDropdown.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW)
-            {
-                binding.etStatus.performClick() //                binding.etStatus
-                //                AppConstant.showSpinnerDropdown(binding.etStatus)
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
+                binding.etStatus.performClick()
+//                binding.etStatus
+//                AppConstant.showSpinnerDropdown(binding.etStatus)
             }
         }
 
@@ -345,198 +305,158 @@ class CreateAthleteFragment : Fragment()
         //            }
         //        }
         binding.llState.setOnClickListener {
-            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW)
-            {
+            if (screenType != AppConstant.INTENT_SCREEN_TYPE_VIEW) {
                 binding.etState.performClick()
             }
         }
 
 
         binding.btnSubmit.setOnClickListener {
-            try
-            {
-                if (TextUtils.isEmpty(binding.etFullName.text.toString()))
-                {
+            try {
+                if (TextUtils.isEmpty(binding.etFullName.text.toString())) {
                     showToast("First name is required")
-                } else if (TextUtils.isEmpty(binding.etAge.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etAge.text.toString())) {
                     showToast("Age is required")
-                } else if (TextUtils.isEmpty(binding.etGrade.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etGrade.text.toString())) {
                     showToast("Athlete grade is required")
-                } else if (TextUtils.isEmpty(binding.etEmail.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etEmail.text.toString())) {
                     showToast("Email is required")
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString())
                         .matches()
-                )
-                {
+                ) {
                     showToast("Email is not valid")
-                } else if (TextUtils.isEmpty(binding.etContact.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etContact.text.toString())) {
                     showToast("Contact number is required")
-                } else if (TextUtils.isEmpty(binding.etStatus.selectedItem.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etStatus.selectedItem.toString())) {
                     showToast("Status is required")
-                } else if (TextUtils.isEmpty(binding.etAddress1.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etAddress1.text.toString())) {
                     showToast("First address is required")
-                } else if (TextUtils.isEmpty(binding.etCity.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etCity.text.toString())) {
                     showToast("City is required")
-                } else if (TextUtils.isEmpty(binding.etState.selectedItem.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etState.selectedItem.toString())) {
                     showToast("State is required")
-                } else if (TextUtils.isEmpty(binding.etZipcode.text.toString()))
-                {
+                } else if (TextUtils.isEmpty(binding.etZipcode.text.toString())) {
                     showToast("Zip code is required")
-                } else if (!Pattern.matches("[0-9]+", binding.etZipcode.text.toString()))
-                {
+                } else if (!Pattern.matches("[0-9]+", binding.etZipcode.text.toString())) {
                     showToast("Zip code should only contain numbers")
-                } else
-                {
-                    if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD)
-                    {
-                        if (TextUtils.isEmpty(binding.etPassword.text.toString()))
-                        {
+                } else {
+                    if (screenType == AppConstant.INTENT_SCREEN_TYPE_ADD) {
+                        if (TextUtils.isEmpty(binding.etPassword.text.toString())) {
                             showToast("Password is required")
-                        } else
-                        {
+                        } else {
                             hitAPIRequest()
                         }
-                    } else
-                    {
+                    } else {
                         hitAPIRequest()
                     }
                 }
-            } catch (ex: Exception)
-            {
+            } catch (ex: Exception) {
                 ex.printStackTrace()
             }
         }
     }
 
-    private fun hitAPIRequest()
-    {
-        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null)
-        {
+    private fun hitAPIRequest() {
+        if (screenType == AppConstant.INTENT_SCREEN_TYPE_EDIT && athleteId != null) {
             val password: String? =
                 if (TextUtils.isEmpty(binding.etPassword.text.toString())) null else binding.etPassword.text.toString()
             viewModel.editAthlete(requireContext(),
-                                  athleteId!!,
-                                  imageFile,
-                                  binding.etFullName.text.toString(),
-                                  binding.etAddress1.text.toString(),
-                                  binding.etState.selectedItem.toString(),
-                                  binding.etZipcode.text.toString(),
-                                  binding.etCity.text.toString(),
-                                  getStatus(),
-                                  binding.etContact.text.toString(),
-                                  binding.etAge.text.toString(),
-                                  binding.etGrade.text.toString(),
-                                  password,
-                                  "",
-                                  AppSystem.getInstance()
-                                      .getCurrentUser()!!.loggedIn?.clubId.toString(),
-                                  AppSystem.getInstance()
-                                      .getCurrentUser()!!.loggedIn?.roleId.toString(),
-                                  binding.etEmail.text.toString(),
-                                  object : CreateAthleteViewModel.ContentFetchListener
-                                  {
-                                      override fun onFetched(anyObject: Any)
-                                      {
-                                          Navigation.findNavController(binding.root)
-                                              .navigateUp() //                        showToast("Athlete Added")
-                                      }
+                athleteId!!,
+                imageFile,
+                binding.etFullName.text.toString(),
+                binding.etAddress1.text.toString(),
+                binding.etState.selectedItem.toString(),
+                binding.etZipcode.text.toString(),
+                binding.etCity.text.toString(),
+                getStatus(),
+                binding.etContact.text.toString(),
+                binding.etAge.text.toString(),
+                binding.etGrade.text.toString(),
+                password,
+                "",
+                AppSystem.getInstance()
+                    .getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppSystem.getInstance()
+                    .getCurrentUser()!!.loggedIn?.roleId.toString(),
+                binding.etEmail.text.toString(),
+                object : CreateAthleteViewModel.ContentFetchListener {
+                    override fun onFetched(anyObject: Any) {
+                        Navigation.findNavController(binding.root)
+                            .navigateUp() //                        showToast("Athlete Added")
+                    }
 
-                                      override fun onError(t: Throwable)
-                                      {
-                                          showToast(t?.localizedMessage)
-                                      }
-                                  })
-        } else
-        {
+                    override fun onError(t: Throwable) {
+                        showToast(t?.localizedMessage)
+                    }
+                })
+        } else {
             viewModel.addAthelete(requireContext(),
-                                  imageFile,
-                                  binding.etFullName.text.toString(),
-                                  binding.etAddress1.text.toString(),
-                                  binding.etState.selectedItem.toString(),
-                                  binding.etZipcode.text.toString(),
-                                  binding.etCity.text.toString(),
-                                  getStatus(),
-                                  binding.etContact.text.toString(),
-                                  binding.etAge.text.toString(),
-                                  binding.etGrade.text.toString(),
-                                  binding.etPassword.text.toString(),
-                                  "",
-                                  AppSystem.getInstance()
-                                      .getCurrentUser()!!.loggedIn?.clubId.toString(),
-                                  AppConstant.ROLE_ATHLETES_PORTAL,
-                                  binding.etEmail.text.toString(),
-                                  object : CreateAthleteViewModel.ContentFetchListener
-                                  {
-                                      override fun onFetched(anyObject: Any)
-                                      {
-                                          if (anyObject is DashboardModel)
-                                          {
-                                              val obj = anyObject as DashboardModel
+                imageFile,
+                binding.etFullName.text.toString(),
+                binding.etAddress1.text.toString(),
+                binding.etState.selectedItem.toString(),
+                binding.etZipcode.text.toString(),
+                binding.etCity.text.toString(),
+                getStatus(),
+                binding.etContact.text.toString(),
+                binding.etAge.text.toString(),
+                binding.etGrade.text.toString(),
+                binding.etPassword.text.toString(),
+                "",
+                AppSystem.getInstance()
+                    .getCurrentUser()!!.loggedIn?.clubId.toString(),
+                AppConstant.ROLE_ATHLETES_PORTAL,
+                binding.etEmail.text.toString(),
+                object : CreateAthleteViewModel.ContentFetchListener {
+                    override fun onFetched(anyObject: Any) {
+                        if (anyObject is DashboardModel) {
+                            val obj = anyObject as DashboardModel
 
-                                              if (obj.is_error)
-                                              {
-                                                  showToast(obj.message)
-                                              } else
-                                              {
-                                                  Navigation.findNavController(binding.root)
-                                                      .navigateUp()
-                                                  showToast(obj.message)
-                                              }
-                                          }
-                                      }
+                            if (obj.is_error) {
+                                showToast(obj.message)
+                            } else {
+                                Navigation.findNavController(binding.root)
+                                    .navigateUp()
+                                showToast(obj.message)
+                            }
+                        }
+                    }
 
-                                      override fun onError(t: Throwable)
-                                      {
-                                          showToast(t?.localizedMessage)
-                                      }
-                                  })
+                    override fun onError(t: Throwable) {
+                        showToast(t?.localizedMessage)
+                    }
+                })
         }
     }
 
-    private fun getStatus(): String
-    {
+    private fun getStatus(): String {
         return if (binding.etStatus.selectedItem.toString()
                 .equals("active", true)
         ) "active" else "inactive" //        return ""
     }
 
-    private fun initViewModel()
-    {
+    private fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(CreateAthleteViewModel::class.java)
-        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener
-                                      {
-                                          override fun dismissDialog()
-                                          {
-                                              binding.progressBar.visibility = View.GONE
-                                          }
+        viewModel.attachErrorListener(object : Listeners.DialogInteractionListener {
+            override fun dismissDialog() {
+                binding.progressBar.visibility = View.GONE
+            }
 
-                                          override fun addDialog()
-                                          {
-                                              binding.progressBar.visibility = View.VISIBLE
-                                          }
+            override fun addDialog() {
+                binding.progressBar.visibility = View.VISIBLE
+            }
 
-                                          override fun addErrorDialog()
-                                          {
-                                              binding.progressBar.visibility = View.GONE
-                                          }
+            override fun addErrorDialog() {
+                binding.progressBar.visibility = View.GONE
+            }
 
-                                          override fun addErrorDialog(msg: String?)
-                                          {
-                                              binding.progressBar.visibility = View.GONE
-                                          }
-                                      })
+            override fun addErrorDialog(msg: String?) {
+                binding.progressBar.visibility = View.GONE
+            }
+        })
     }
 
-    fun loadAssets()
-    {
+    fun loadAssets() {
         val sportsType = SharedPrefUtil.getInstance().sportsType
 
         AppConstant.changeColor(binding.txtTotalTrainersText)
@@ -545,37 +465,31 @@ class CreateAthleteFragment : Fragment()
         binding.btnSubmit.background = null
         var drawable: Drawable? = null
 
-        when (sportsType)
-        {
-            AppConstant.BASEBALL ->
-            {
+        when (sportsType) {
+            AppConstant.BASEBALL -> {
                 Glide.with(binding.root).load(R.drawable.bb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.bb_inner_logo).into(binding.imgLogo)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
-            AppConstant.VOLLEYBALL ->
-            {
+            AppConstant.VOLLEYBALL -> {
                 Glide.with(binding.root).load(R.drawable.vb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.vb_inner_logo).into(binding.imgLogo)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_baseball)
             }
-            AppConstant.TODDLER ->
-            {
+            AppConstant.TODDLER -> {
                 Glide.with(binding.root).load(R.drawable.ic_toddler_login_bg)
                     .into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.ic_toddler_inner_logo)
                     .into(binding.imgLogo)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_bg)
             }
-            AppConstant.QB ->
-            {
+            AppConstant.QB -> {
                 Glide.with(binding.root).load(R.drawable.qb_login_bg).into(binding.ivBackground)
                 Glide.with(binding.root).load(R.drawable.qb_inner_logo).into(binding.imgLogo)
                 drawable = ContextCompat.getDrawable(binding.root.context, R.drawable.btn_qb)
             }
         }
-        if (drawable != null)
-        {
+        if (drawable != null) {
             binding.btnSubmit.background = drawable
             binding.btnSubmit.setTextColor(
                 ContextCompat.getColor(
