@@ -10,10 +10,10 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.sportsballistics"
+        applicationId "com.sportsballistics.sportsballistics"
         minSdk 21
         targetSdk 30
-        versionCode 5
+        versionCode 6
         versionName "1.0.4"
         vectorDrawables {
             useSupportLibrary = true

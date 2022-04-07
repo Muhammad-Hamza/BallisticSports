@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.dashboard.DashboardFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.dashboard.DashboardFragment"
         android:label="DashboardFragment">
         <action
             android:id="@+id/action_dashboardFragment_to_clubFragment"
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/clubFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club.ClubFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.club.ClubFragment"
         android:label="ClubFragment">
         <action
             android:id="@+id/action_clubFragment_to_createClubFragment"
@@ -32,11 +32,11 @@
     </fragment>
     <fragment
         android:id="@+id/createClubFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.create_club.CreateClubFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.create_club.CreateClubFragment"
         android:label="CreateClubFragment" />
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.my_account.AccountFragment"
         android:label="AccountFragment" >
         <action
             android:id="@+id/action_accountFragment_to_accountDetailFragment"
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/athletesFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.athletes.AthletesFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.athletes.AthletesFragment"
         android:label="AthletesFragment">
         <action
             android:id="@+id/action_athletesFragment_to_createAthleteFragment"
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/trainerFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.trainer.TrainerFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.trainer.TrainerFragment"
         android:label="TrainerFragment">
         <action
             android:id="@+id/action_trainerFragment_to_createTrainerFragment"
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.users.UserFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.users.UserFragment"
         android:label="UserFragment" >
         <action
             android:id="@+id/action_userFragment_to_createTrainerFragment"
@@ -89,19 +89,19 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.home.homeFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.home.homeFragment"
         android:label="homeFragment" />
     <fragment
         android:id="@+id/createAthleteFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.create_athlete.CreateAthleteFragment"
         android:label="CreateAthleteFragment" />
     <fragment
         android:id="@+id/createTrainerFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.create_trainer.CreateTrainerFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.create_trainer.CreateTrainerFragment"
         android:label="CreateTrainerFragment" />
     <fragment
         android:id="@+id/formListFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.form_list.FormListFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.form_list.FormListFragment"
         android:label="FormListFragment">
         <action
             android:id="@+id/action_formListFragment_to_athleteFormFragment"
@@ -109,20 +109,20 @@
     </fragment>
     <fragment
         android:id="@+id/athleteFormFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.create_athlete_form.AthleteFormFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.create_athlete_form.AthleteFormFragment"
         android:label="AthleteFormFragment" />
     <fragment
         android:id="@+id/createClubAdminFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.club_admin.CreateClubAdminFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.club_admin.CreateClubAdminFragment"
         android:label="CreateClubAdminFragment" />
     <fragment
         android:id="@+id/accountDetailFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.my_account.AccountDetailFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.my_account.AccountDetailFragment"
         android:label="fragment_account_detail"
         tools:layout="@layout/fragment_account_detail" />
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.sportsballistics.ui.dashboard.my_account.ChangePasswordFragment"
+        android:name="com.sportsballistics.sportsballistics.ui.dashboard.my_account.ChangePasswordFragment"
         android:label="ChangePasswordFragment" />
 
 </navigation>
