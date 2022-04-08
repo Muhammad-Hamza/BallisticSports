@@ -53,7 +53,7 @@ class CreateAthleteFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE), 0
+            requireActivity(), arrayOf( READ_EXTERNAL_STORAGE), 0
         );
 
     }
